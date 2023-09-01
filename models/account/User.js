@@ -21,6 +21,12 @@ const User = new Schema({
         required: true,
     },
 
+    avatar: {
+        type: String,
+        required: false,
+        default: 'https://yandex.ru/images/search?from=tabbar&img_url=https%3A%2F%2Ffilkiniada-4sc.ucoz.org%2F80781_3.jpg&lr=20036&p=2&pos=14&rpt=simage&text=нет%20аватара'
+    },
+
 
     name: {
         type: String,

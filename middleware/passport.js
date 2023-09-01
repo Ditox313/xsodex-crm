@@ -43,7 +43,7 @@ module.exports = function(passport){
             }
             catch(e)
             {
-                console.log('Ошибка');
+                console.log('Ошибка Токена');
             }
             
         })

@@ -6,7 +6,7 @@ const errorHandler = require('../../Utils/errorHendler.js');
 
 
 
-// Контроллер для Login
+// Контроллер для Авторизации
 module.exports.login = async function(req, res) {
 
     const candidate = await User.findOne({
@@ -36,6 +36,7 @@ module.exports.login = async function(req, res) {
                 _id: user._id
             }
 
+
             res.status(200).json({
                 token: `Bearer ${token}`,
                 currentUser: userResponse
@@ -56,7 +57,7 @@ module.exports.login = async function(req, res) {
 
 
 
-// Контроллер для register 
+// Контроллер для Регистрации 
 module.exports.register = async function(req, res) {
 
     // Делаем проверку на наличие пользователя в БД

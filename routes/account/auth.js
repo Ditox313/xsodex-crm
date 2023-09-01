@@ -5,10 +5,10 @@ const passport = require('passport');
 
 
 
-// Роут на login
+// Роут на авторизацию
 router.post('/login', controller.login);
 
-// Роут на register
+// Роут на регистрацию
 router.post('/register', controller.register);
 
 

@@ -3,9 +3,9 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
-const passport = require('passport');
 const authRoutes = require('./routes/account/auth.js');
 const dbConnect = require('./Utils/dbConnect.js');
+const passport = require('passport');
 require('./middleware/passport')(passport);
 const path = require('path');
 
@@ -23,5 +23,4 @@ app.use(passport.initialize());
 
 
 
-// Экспортируем наружу
 module.exports = app;
