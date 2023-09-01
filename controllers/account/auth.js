@@ -1,8 +1,8 @@
 const bcrypt = require('bcryptjs');
-const User = require('../models/User.js');
+const User = require('../../models/account/User.js');
 const jwt = require('jsonwebtoken');
-const keys = require('../config/keys');
-const errorHandler = require('../Utils/errorHendler');
+const keys = require('../../config/keys.js');
+const errorHandler = require('../../Utils/errorHendler.js');
 
 
 

@@ -5,7 +5,7 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const mongoose = require('mongoose');
 
 // Подключаем модель User
-const User = require('../models/User');
+const User = require('../models/account/User.js');
 
 // Извлекаем токен их Header
 const ExtractJwt = require('passport-jwt').ExtractJwt;
