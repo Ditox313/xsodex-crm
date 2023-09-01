@@ -89,6 +89,7 @@ module.exports.register = async function(req, res) {
             res.status(201).json(user);
         } catch (error) {
             errorHandler(res, error);
+            
         }
     }
 
