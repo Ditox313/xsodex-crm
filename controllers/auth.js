@@ -15,11 +15,9 @@ module.exports.login = async function(req, res) {
 
 
     if (candidate) {
-        // Проверяем на соответствие пароля
         const passwordResult = bcrypt.compareSync(req.body.password, candidate.password);
 
         if (passwordResult) {
-            // Генерация токена(Генереруем объект с данными о пользователе и его кодируем)
             const token = jwt.sign({
                     email: candidate.email,
                     userId: candidate._id
@@ -38,9 +36,6 @@ module.exports.login = async function(req, res) {
                 _id: user._id
             }
 
-
-
-            // Отправляем ответ
             res.status(200).json({
                 token: `Bearer ${token}`,
                 currentUser: userResponse
