@@ -77,11 +77,14 @@ module.exports.register = async function(req, res) {
         // Шифрование пароля пользователя
         const salt = bcrypt.genSaltSync(10);
         const password = req.body.password;
-ы
 
         const user = new User({
             email: req.body.email,
-            password: bcrypt.hashSync(password, salt)
+            phone: req.body.phone,
+            password: bcrypt.hashSync(password, salt),
+            name: req.body.name,
+            secondName: req.body.secondName,
+            lastName: req.body.lastName,
         });
 
         try {
@@ -89,7 +92,6 @@ module.exports.register = async function(req, res) {
             res.status(201).json(user);
         } catch (error) {
             errorHandler(res, error);
-            
         }
     }
 
