@@ -4,47 +4,58 @@ const Schema = mongoose.Schema;
 
 // Создаем схему для таблицы users
 
-const userSchema = new Schema({
-    // Создаем поле с email юзера
+const User = new Schema({
     email: {
         type: String,
         required: true,
         unique: true
     },
 
-    // Создаем поле паролем юзера
+    phone: {
+        type: Number,
+        required: true,
+    },
+
     password: {
         type: String,
-        required: false,
+        required: true,
     },
 
 
     name: {
         type: String,
-        required: false,
+        required: true,
     },
 
     secondName: {
         type: String,
-        required: false,
+        required: true,
     },
 
-    thirdName: {
+    lastName: {
         type: String,
-        required: false,
+        required: true,
     },
 
-    doverenost: {
-        type: String,
+    doverenostNumber: {
+        type: Number,
         required: false,
+        default: null
     },
 
     doverenostDate: {
-        type: String,
+        type: Date,
         required: false,
+        default: ''
     },
+
+    dateCreate: {
+        type: Date,
+        required: true,
+        default: Date.now
+    }
 });
 
 
-// Создаем таблицу users
-module.exports = mongoose.model('users', userSchema);
+
+module.exports = mongoose.model('Users', User);

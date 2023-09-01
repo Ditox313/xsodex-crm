@@ -26,13 +26,13 @@ app.use(passport.initialize());
 
 
 // Подключаемся к MongoDB
-// mongoose.connect(keys.mongoUri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-// .then(function() {
-//     console.log('Мы подключились к БД приложения!!!');
-// })
-// .catch(function(error) {
-//     console.log(error);
-// });
+mongoose.connect(keys.mongoUri, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+.then(function() {
+    console.log('Мы подключились к БД приложения!!!');
+})
+.catch(function(error) {
+    console.log(error);
+});
 
 
 
