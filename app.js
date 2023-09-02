@@ -18,8 +18,8 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use('/api/account/auth', authRoutes);
 app.use(passport.initialize());
-// app.use('/uploads/cars', express.static('uploads/cars'));
-// app.use('/uploads/docs', express.static('uploads/docs'));
+app.use('/files/users', express.static('files/users'));
+
 
 
 
