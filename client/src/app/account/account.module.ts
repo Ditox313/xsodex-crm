@@ -7,6 +7,11 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { LayoutsModule } from '../shared/modules/layouts/layouts.module';
 import { AuthLayoutComponent } from '../shared/modules/layouts/components/auth-layout/auth-layout.component';
 import { Route } from '../shared/types/interfaces';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 const routes: Route[] = [
   {
@@ -36,9 +41,14 @@ const routes: Route[] = [
     CommonModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes),
     LayoutsModule,
-    RouterModule 
-  ]
+    RouterModule ,
+    BrowserAnimationsModule,
+    ToastModule,
+    ButtonModule,
+  ],
+  providers: [MessageService],
 })
 export class AccountModule { }
