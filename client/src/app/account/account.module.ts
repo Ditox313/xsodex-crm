@@ -11,6 +11,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RegesterPageComponent } from './components/regester-page/regester-page.component';
 
 
 const routes: Route[] = [
@@ -20,12 +21,16 @@ const routes: Route[] = [
     children: [
       {
         path: '', 
-        redirectTo: '/login',
+        redirectTo: '/login-page',
         pathMatch: 'full',
       },
       {
-        path: 'login',
+        path: 'login-page',
         component: LoginPageComponent,
+      },
+      {
+        path: 'register-page',
+        component: RegesterPageComponent,
       },
  
     ],
@@ -35,7 +40,8 @@ const routes: Route[] = [
 
 @NgModule({
   declarations: [
-    LoginPageComponent
+    LoginPageComponent,
+    RegesterPageComponent
   ],
   imports: [
     CommonModule,
