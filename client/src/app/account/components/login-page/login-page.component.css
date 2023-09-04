@@ -66,12 +66,10 @@
     opacity: 0.8;
 }
 
-/* .invalid
+.invalid
 {
     border-bottom:2px solid #FF2400 !important;
-    display: block;
-    width: 100%;
-} */
+}
 
 
 @media screen and (max-width: 992px) {

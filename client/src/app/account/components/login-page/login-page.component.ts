@@ -30,6 +30,7 @@ export class LoginPageComponent implements OnInit {
     this.initionalForm()
   }
 
+  // Инициализация формы
   initionalForm() {
     this.form = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
@@ -40,7 +41,6 @@ export class LoginPageComponent implements OnInit {
     });
   }
 
-  
   // Функция для вывода toasts для формы логина
   onValidValue(e: Event) {
     if (this.timer_for_toast) {
@@ -65,7 +65,7 @@ export class LoginPageComponent implements OnInit {
     }, 1500);
   }
 
-
+  // Отправка формы
   onSubmit()
   {
 
