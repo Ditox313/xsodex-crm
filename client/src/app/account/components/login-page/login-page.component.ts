@@ -20,7 +20,7 @@ export class LoginPageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.show()
+
   }
 
   show() {

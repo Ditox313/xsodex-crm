@@ -43,3 +43,17 @@
     display: flex;
     justify-content: center;
 }
+
+
+@media screen and (max-width: 576px) {
+
+    .auth_layout_top__content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .auth_layout_top__content svg
+    {
+        margin-bottom: 10px;
+    }
+}
