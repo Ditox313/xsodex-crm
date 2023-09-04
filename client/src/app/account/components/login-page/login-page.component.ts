@@ -49,17 +49,17 @@ export class LoginPageComponent implements OnInit {
 
     this.timer_for_toast = setTimeout(() => {
       if (this.form.controls['email'].errors?.['required']) {
-        this.messageService.add({ severity: 'error', summary: 'Email не должен быть пустым', detail: 'Попробуйте заново' });
+        this.messageService.add({ severity: 'error', summary: 'Email не должен быть пустым', detail: 'Введите E-mail' });
       }
       else if (this.form.controls['email'].errors?.['email'])
       {
-        this.messageService.add({ severity: 'error', summary: 'Введите корректный Email', detail: 'Попробуйте заново' });
+        this.messageService.add({ severity: 'error', summary: 'Введите корректный Email', detail: 'E-mail должен содержать - @' });
       }
       else if (this.form.controls['password'].errors?.['required']) {
-        this.messageService.add({ severity: 'error', summary: 'Пароль не должен быть пустым', detail: 'Попробуйте заново' });
+        this.messageService.add({ severity: 'error', summary: 'Пароль не должен быть пустым', detail: 'Введите пароль длинной от 6 символов' });
       }
       else if (this.form.controls['password'].errors?.['minlength']) {
-        this.messageService.add({ severity: 'error', summary: 'Минимальная длина пароля 6 символов', detail: 'Попробуйте заново' });
+        this.messageService.add({ severity: 'error', summary: 'Минимальная длина пароля 6 символов', detail: 'проверьте колличество символов' });
       }
       
     }, 1500);

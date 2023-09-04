@@ -1,6 +1,8 @@
-// Интерфейс для юзера
+import { Type } from "@angular/core"
+
+// Интерфейс для Route
 export interface Route {
     path: string
-    children: any,
-    component: any
+    children: Array<Object>,
+    component: Type<any>
 }
