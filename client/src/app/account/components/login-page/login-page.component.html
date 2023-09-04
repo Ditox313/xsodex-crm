@@ -1,5 +1,5 @@
 
-<!-- <p-toast></p-toast> -->
+<p-toast></p-toast>
 <div class="auth_page">
     <div class="container">
         <div class="auth_page_content">
@@ -8,9 +8,16 @@
             <div class="auth_page_form">
                 <div class="auth_page_form_content">
                     <h1>АВТОРИЗАЦИЯ</h1>
-                    <form>
-                        <input type="text" placeholder="Введите E-mail">
-                        <input type="text" placeholder="Введите пароль">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <input placeholder="Введите E-mail"  id="email" type="email" formControlName="email" 
+                        [ngClass]="{'invalid': form.controls['email'].invalid && form.controls['email'].touched}"
+                        (input)="onValidValue($event)">
+                        
+                        
+                        <input placeholder="Введите пароль" id="password" type="password" formControlName="password" 
+                        [ngClass]="{'invalid': form.controls['password'].invalid && form.controls['password'].touched}"
+                        (input)="onValidValue($event)">
+                        
                         <button type="submit">Войти</button>
                     </form>
                 </div>
@@ -18,6 +25,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 
 

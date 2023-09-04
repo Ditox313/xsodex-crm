@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegesterPageComponent } from './components/regester-page/regester-page.component';
 
 
+
 const routes: Route[] = [
   {
     path: '',
@@ -41,7 +42,7 @@ const routes: Route[] = [
 @NgModule({
   declarations: [
     LoginPageComponent,
-    RegesterPageComponent
+    RegesterPageComponent,
   ],
   imports: [
     CommonModule,

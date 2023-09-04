@@ -45,6 +45,13 @@
 }
 
 
+.active
+{
+    background-color: #fff;
+    color: #194A9E !important;
+}
+
+
 @media screen and (max-width: 576px) {
 
     .auth_layout_top__content {
