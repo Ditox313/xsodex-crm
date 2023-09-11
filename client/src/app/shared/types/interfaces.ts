@@ -4,5 +4,6 @@ import { Type } from "@angular/core"
 export interface Route {
     path: string
     children: Array<Object>,
-    component: Type<any>
+    component: Type<any>,
+    canActivate?: any
 }

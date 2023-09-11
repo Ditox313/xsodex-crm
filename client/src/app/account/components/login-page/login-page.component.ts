@@ -66,7 +66,7 @@ export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
         if (params['registered']) {
           this.messageService.add({ severity: 'success', summary: 'Теперь вы можете зайти в систему используя свои данные', detail: 'Поздравляем!' });
         } else if (params['accessDenied']) {
-          this.messageService.add({ severity: 'error', summary: 'Сначала авторизируйтесь в системе', detail: 'Попробуйте еще раз' });
+          this.messageService.add({ severity: 'error', summary: 'Сначала авторизируйтесь в системе', detail: 'Введите свои данные' });
         } else if (params['sessionFailed']) {
           this.messageService.add({ severity: 'error', summary: 'Пожалуйста войдите в систему заново', detail: 'Попробуйте еще раз' });
         }
@@ -113,6 +113,7 @@ export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.formLoginSub$ = this.authService.login(user).subscribe({
       next: (res) => {
         this.messageService.add({ severity: 'success', summary: `Вы успешно авторизировались ${res.currentUser.name}`, detail: 'Поздравляем!' });
+        this.router.navigate(['/settings-account-page'])
         this.form.enable();
       },
       error: (error) => {

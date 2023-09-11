@@ -31,6 +31,6 @@ import { SettingsAccountComponent } from './components/settings-account/settings
     BrowserAnimationsModule,
     ToastModule,
   ],
-  providers: [MessageService, AuthService],
+  providers: [MessageService, AuthService,],
 })
 export class AccountModule { }
