@@ -4,7 +4,7 @@ import { LoginPageComponent } from "../components/login-page/login-page.componen
 import { RegesterPageComponent } from "../components/regester-page/regester-page.component";
 import { AppLayoutComponent } from "src/app/shared/modules/layouts/components/app-layout/app-layout.component";
 import { SettingsAccountComponent } from "../components/settings-account/settings-account.component";
-import { AuthGuard } from "../guards/auth.guard";
+import { AuthGuard } from "../../shared/guards/auth.guard";
 
 export function getRoutes(): Route[] {
     return [
