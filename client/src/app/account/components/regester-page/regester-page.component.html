@@ -9,28 +9,66 @@
                     <h1>РЕГИСТРАЦИЯ</h1>
                     <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <input placeholder="Введите E-mail"  id="email" type="email" formControlName="email" 
-                        [ngClass]="{'invalid': form.controls['email'].invalid && form.controls['email'].touched}"
-                        (input)="onValidValue($event)">
+                        [ngClass]="{'invalid': form.controls['email'].invalid && form.controls['email'].touched}">
+                            <div class="errorValidate" *ngIf="form.controls['email'].invalid && form.controls['email'].touched">
+                                <p *ngIf="form.controls['email'].errors && form.controls['email'].errors['required']">
+                                    Email не должен быть пустым
+                                </p>
+                                
+                                <p *ngIf="form.controls['email'].errors && form.controls['email'].errors['email']">
+                                    Введите корректный Email
+                                </p>
+                            </div>
+                        
 
                         <input placeholder="Введите телефон" id="phone" type="tel" formControlName="phone"
-                            [ngClass]="{'invalid': form.controls['phone'].invalid && form.controls['phone'].touched}"
-                            (input)="onValidValue($event)">
+                            [ngClass]="{'invalid': form.controls['phone'].invalid && form.controls['phone'].touched}">
+
+                            <div class="errorValidate" *ngIf="form.controls['phone'].invalid && form.controls['phone'].touched">
+                                <p *ngIf="form.controls['phone'].errors && form.controls['phone'].errors['required']">
+                                    Телефон не должен быть пустым
+                                </p>
+                            </div>
 
                         <input placeholder="Введите пароль" id="password" type="password" formControlName="password"
-                            [ngClass]="{'invalid': form.controls['password'].invalid && form.controls['password'].touched}"
-                            (input)="onValidValue($event)">
+                            [ngClass]="{'invalid': form.controls['password'].invalid && form.controls['password'].touched}">
+
+                            <div class="errorValidate"  *ngIf="form.controls['password'].invalid && form.controls['password'].touched">
+                                <p *ngIf="form.controls['password'].errors && form.controls['password'].errors['required']">
+                                    Пароль не должен быть пустым
+                                </p>
+                            
+                                <p *ngIf="form.controls['password'].errors && form.controls['password'].errors['minlength']">
+                                    Минимальная длина пароля 6 символов
+                                </p>
+                            </div>
 
                         <input placeholder="Введите имя" id="name" type="text" formControlName="name"
-                            [ngClass]="{'invalid': form.controls['name'].invalid && form.controls['name'].touched}"
-                            (input)="onValidValue($event)">
+                            [ngClass]="{'invalid': form.controls['name'].invalid && form.controls['name'].touched}">
+
+                            <div class="errorValidate" *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
+                                <p *ngIf="form.controls['name'].errors && form.controls['name'].errors['required']">
+                                    Имя не должно быть пустым
+                                </p>
+                            </div>
 
                         <input placeholder="Введите фамилия" id="secondName" type="text" formControlName="secondName"
-                            [ngClass]="{'invalid': form.controls['secondName'].invalid && form.controls['secondName'].touched}"
-                            (input)="onValidValue($event)">
+                            [ngClass]="{'invalid': form.controls['secondName'].invalid && form.controls['secondName'].touched}">
+
+                            <div class="errorValidate" *ngIf="form.controls['secondName'].invalid && form.controls['secondName'].touched">
+                                <p *ngIf="form.controls['secondName'].errors && form.controls['secondName'].errors['required']">
+                                    Фамилия не должна быть пустой
+                                </p>
+                            </div>
 
                         <input placeholder="Введите отчество" id="lastName" type="text" formControlName="lastName"
-                            [ngClass]="{'invalid': form.controls['lastName'].invalid && form.controls['lastName'].touched}"
-                            (input)="onValidValue($event)">
+                            [ngClass]="{'invalid': form.controls['lastName'].invalid && form.controls['lastName'].touched}">
+
+                            <div class="errorValidate" *ngIf="form.controls['lastName'].invalid && form.controls['lastName'].touched">
+                                <p *ngIf="form.controls['lastName'].errors && form.controls['lastName'].errors['required']">
+                                    Отчество не должно быть пустым
+                                </p>
+                            </div>
 
                         <button type="submit" [disabled]="form.invalid">Создать аккаунт</button>
                     </form>

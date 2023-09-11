@@ -19,7 +19,8 @@ import { UserRequestLogin } from '../../types/auth.interfaces';
 export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   form!: FormGroup;
-  formLoginSub$!: Subscription; 
+  formLoginSub$!: Subscription
+  paramsSub$!: Subscription
   timer_for_toast: any; //Таймер для вывода toasts для формы логина
   params!: any
 
@@ -44,6 +45,9 @@ export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.formLoginSub$) {
       this.formLoginSub$.unsubscribe();
     }
+    if (this.paramsSub$) {
+      this.paramsSub$.unsubscribe();
+    }
   }
 
  
@@ -61,7 +65,7 @@ export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Получаем параметры
   getParams() {
-    this.route.queryParams.subscribe({
+    this.paramsSub$ = this.route.queryParams.subscribe({
       next: (params: Params) => {
         if (params['registered']) {
           this.messageService.add({ severity: 'success', summary: 'Теперь вы можете зайти в систему используя свои данные', detail: 'Поздравляем!' });
@@ -76,29 +80,6 @@ export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.changeDetectorRef.detectChanges(); // Запускаем обнаружение изменений.Делается что бы работал messageService
   }
 
-  // Функция для вывода toasts для формы логина
-  onValidValue(e: Event) {
-    if (this.timer_for_toast) {
-      clearTimeout(this.timer_for_toast);
-    }
-
-    this.timer_for_toast = setTimeout(() => {
-      if (this.form.controls['email'].errors?.['required']) {
-        this.messageService.add({ severity: 'warn', summary: 'Email не должен быть пустым', detail: 'Введите E-mail' });
-      }
-      else if (this.form.controls['email'].errors?.['email'])
-      {
-        this.messageService.add({ severity: 'warn', summary: 'Введите корректный Email', detail: 'E-mail должен содержать - @' });
-      }
-      else if (this.form.controls['password'].errors?.['required']) {
-        this.messageService.add({ severity: 'warn', summary: 'Пароль не должен быть пустым', detail: 'Введите пароль длинной от 6 символов' });
-      }
-      else if (this.form.controls['password'].errors?.['minlength']) {
-        this.messageService.add({ severity: 'warn', summary: 'Минимальная длина пароля 6 символов', detail: 'проверьте колличество символов' });
-      }
-      
-    }, 1500);
-  }
 
   // Отправка формы
   onSubmit()

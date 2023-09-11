@@ -28,7 +28,7 @@
     color: #194A9E;
     outline: none;
     border: none;
-    margin-bottom: 15px;
+    margin-top: 15px;
     font-size: 17px;
 }
 
@@ -64,6 +64,16 @@
 
 button:disabled {
     opacity: 0.3;
+}
+
+.errorValidate
+{
+    display: block;
+    color: #fff;
+    padding-left: 25px;
+    margin-bottom: 10px;
+    background-color: #FF2400;
+    text-align: left;
 }
 
 
