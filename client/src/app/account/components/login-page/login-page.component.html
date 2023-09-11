@@ -18,7 +18,7 @@
                         [ngClass]="{'invalid': form.controls['password'].invalid && form.controls['password'].touched}"
                         (input)="onValidValue($event)">
                         
-                        <button type="submit">Войти</button>
+                        <button type="submit" [disabled]="form.invalid">Войти</button>
                     </form>
                 </div>
             </div>

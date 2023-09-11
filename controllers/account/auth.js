@@ -31,15 +31,9 @@ module.exports.login = async function(req, res) {
             })
 
 
-            const userResponse = {
-                email: user.email,
-                _id: user._id
-            }
-
-
             res.status(200).json({
                 token: `Bearer ${token}`,
-                currentUser: userResponse
+                currentUser: user
             });
         } else {
             res.status(401).json({
