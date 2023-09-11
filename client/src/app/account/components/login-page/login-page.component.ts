@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Injectable, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -16,11 +16,12 @@ import { UserRequestLogin } from '../../types/auth.interfaces';
 })
 
 
-export class LoginPageComponent implements OnInit, OnDestroy {
+export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   form!: FormGroup;
   formLoginSub$!: Subscription; 
   timer_for_toast: any; //Таймер для вывода toasts для формы логина
+  params!: any
 
 
 
@@ -28,10 +29,14 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   private messageService: MessageService, 
   private router: Router,
   private route: ActivatedRoute,
-  private authService: AuthService) {}
+  private authService: AuthService,
+  private changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.initionalForm()
+  }
+
+  ngAfterViewInit(): void {
     this.getParams()
   }
 
@@ -40,6 +45,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
       this.formLoginSub$.unsubscribe();
     }
   }
+
+ 
 
   // Инициализация формы
   initionalForm() {
@@ -54,15 +61,19 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
   // Получаем параметры
   getParams() {
-    this.route.queryParams.subscribe( (params: Params) => {
-      if (params['registered']) {
-        this.messageService.add({ severity: 'success', summary: 'Теперь вы можете зайти в систему используя свои данные', detail: 'Поздравляем!' });
-      } else if (params['accessDenied']) {
-        this.messageService.add({ severity: 'error', summary: 'Сначала авторизируйтесь в системе', detail: 'Попробуйте еще раз' });
-      } else if (params['sessionFailed']) {
-        this.messageService.add({ severity: 'error', summary: 'Пожалуйста войдите в систему заново', detail: 'Попробуйте еще раз' });
+    this.route.queryParams.subscribe({
+      next: (params: Params) => {
+        if (params['registered']) {
+          this.messageService.add({ severity: 'success', summary: 'Теперь вы можете зайти в систему используя свои данные', detail: 'Поздравляем!' });
+        } else if (params['accessDenied']) {
+          this.messageService.add({ severity: 'error', summary: 'Сначала авторизируйтесь в системе', detail: 'Попробуйте еще раз' });
+        } else if (params['sessionFailed']) {
+          this.messageService.add({ severity: 'error', summary: 'Пожалуйста войдите в систему заново', detail: 'Попробуйте еще раз' });
+        }
       }
     });
+
+    this.changeDetectorRef.detectChanges(); // Запускаем обнаружение изменений.Делается что бы работал messageService
   }
 
   // Функция для вывода toasts для формы логина
@@ -73,17 +84,17 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
     this.timer_for_toast = setTimeout(() => {
       if (this.form.controls['email'].errors?.['required']) {
-        this.messageService.add({ severity: 'error', summary: 'Email не должен быть пустым', detail: 'Введите E-mail' });
+        this.messageService.add({ severity: 'warn', summary: 'Email не должен быть пустым', detail: 'Введите E-mail' });
       }
       else if (this.form.controls['email'].errors?.['email'])
       {
-        this.messageService.add({ severity: 'error', summary: 'Введите корректный Email', detail: 'E-mail должен содержать - @' });
+        this.messageService.add({ severity: 'warn', summary: 'Введите корректный Email', detail: 'E-mail должен содержать - @' });
       }
       else if (this.form.controls['password'].errors?.['required']) {
-        this.messageService.add({ severity: 'error', summary: 'Пароль не должен быть пустым', detail: 'Введите пароль длинной от 6 символов' });
+        this.messageService.add({ severity: 'warn', summary: 'Пароль не должен быть пустым', detail: 'Введите пароль длинной от 6 символов' });
       }
       else if (this.form.controls['password'].errors?.['minlength']) {
-        this.messageService.add({ severity: 'error', summary: 'Минимальная длина пароля 6 символов', detail: 'проверьте колличество символов' });
+        this.messageService.add({ severity: 'warn', summary: 'Минимальная длина пароля 6 символов', detail: 'проверьте колличество символов' });
       }
       
     }, 1500);
@@ -105,8 +116,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.form.enable();
       },
       error: (error) => {
-        console.warn(error);
-        this.messageService.add({ severity: 'error', summary: `Ошибка`, detail: 'Попробуйте еще раз' });
+        console.log(error);
+        this.messageService.add({ severity: 'error', summary: `${error.error.message}`, detail: 'Попробуйте еще раз' });
         this.form.enable();
       }
     });

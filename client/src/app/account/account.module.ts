@@ -11,12 +11,14 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './services/auth.service';
+import { SettingsAccountComponent } from './components/settings-account/settings-account.component';
 
 
 @NgModule({
   declarations: [
     LoginPageComponent,
     RegesterPageComponent,
+    SettingsAccountComponent,
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Observable, tap } from 'rxjs';
-import { UserRequestLogin, UserResponceLogin } from '../types/auth.interfaces';
+import { UserRequestLogin, UserRequestRegister, UserResponceLogin, UserResponceRegister } from '../types/auth.interfaces';
 
 
 // Даем возможность инжектировать сервисы в класс
@@ -12,6 +12,13 @@ export class AuthService {
   private token:string = ''; //В эту переменную получим токет, который придет как ответ из функции login
 
   constructor(private http: HttpClient) {}
+
+  // Регистрация пользователя
+  register(user: UserRequestRegister): Observable<UserRequestRegister> {
+    return this.http.post<UserResponceRegister>('/api/account/auth/register', user);
+  }
+
+
 
   // Авторизация пользователя
   login(user: UserRequestLogin): Observable<{ token: string; currentUser: UserRequestLogin }> {
@@ -24,10 +31,6 @@ export class AuthService {
       );
   }
 
-  // Делаем запрос на сервер, получаем  ответ типа User
-  // register(user: User): Observable<User> {
-  //   return this.http.post<User>('/api/auth/register', user);
-  // }
 
   // Изменят приватную переменную token
   setToken(token: string) {

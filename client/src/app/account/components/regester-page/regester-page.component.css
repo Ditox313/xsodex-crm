@@ -58,6 +58,14 @@
     opacity: 0.8;
 }
 
+.invalid {
+    border-bottom: 2px solid #FF2400 !important;
+}
+
+button:disabled {
+    opacity: 0.3;
+}
+
 
 @media screen and (max-width: 992px) {
     .auth_page_form_content h1 {

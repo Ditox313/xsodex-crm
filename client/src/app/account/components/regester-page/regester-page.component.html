@@ -1,4 +1,4 @@
-<!-- <p-toast></p-toast> -->
+<p-toast></p-toast>
 <div class="auth_page">
     <div class="container">
         <div class="auth_page_content">
@@ -7,14 +7,32 @@
             <div class="auth_page_form">
                 <div class="auth_page_form_content">
                     <h1>РЕГИСТРАЦИЯ</h1>
-                    <form>
-                        <input type="text" placeholder="Введите E-mail">
-                        <input type="text" placeholder="Введите телефон">
-                        <input type="text" placeholder="Введите пароль">
-                        <input type="text" placeholder="Введите имя">
-                        <input type="text" placeholder="Введите фамилия">
-                        <input type="text" placeholder="Введите отчество">
-                        <button type="submit">Создать аккаунт</button>
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <input placeholder="Введите E-mail"  id="email" type="email" formControlName="email" 
+                        [ngClass]="{'invalid': form.controls['email'].invalid && form.controls['email'].touched}"
+                        (input)="onValidValue($event)">
+
+                        <input placeholder="Введите телефон" id="phone" type="tel" formControlName="phone"
+                            [ngClass]="{'invalid': form.controls['phone'].invalid && form.controls['phone'].touched}"
+                            (input)="onValidValue($event)">
+
+                        <input placeholder="Введите пароль" id="password" type="password" formControlName="password"
+                            [ngClass]="{'invalid': form.controls['password'].invalid && form.controls['password'].touched}"
+                            (input)="onValidValue($event)">
+
+                        <input placeholder="Введите имя" id="name" type="text" formControlName="name"
+                            [ngClass]="{'invalid': form.controls['name'].invalid && form.controls['name'].touched}"
+                            (input)="onValidValue($event)">
+
+                        <input placeholder="Введите фамилия" id="secondName" type="text" formControlName="secondName"
+                            [ngClass]="{'invalid': form.controls['secondName'].invalid && form.controls['secondName'].touched}"
+                            (input)="onValidValue($event)">
+
+                        <input placeholder="Введите отчество" id="lastName" type="text" formControlName="lastName"
+                            [ngClass]="{'invalid': form.controls['lastName'].invalid && form.controls['lastName'].touched}"
+                            (input)="onValidValue($event)">
+
+                        <button type="submit" [disabled]="form.invalid">Создать аккаунт</button>
                     </form>
                 </div>
             </div>

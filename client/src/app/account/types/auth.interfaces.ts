@@ -30,3 +30,29 @@ export interface UserResponceLogin {
         dateCreate: Date,
     }
 }
+
+
+// Интерфейс для User при запросе регистрации
+export interface UserRequestRegister {
+    email: string,
+    password: string,
+    phone: Number,
+    avatar?: string,
+    name: string,
+    secondName: string,
+    lastName: string,
+}
+
+// Интерфейс для User при ответе регистрации
+export interface UserResponceRegister {
+    email: string,
+    phone: Number,
+    password: string,
+    avatar?: string,
+    name: string,
+    secondName: string,
+    lastName: string,
+    doverenostNumber?: Number,
+    doverenostDate?: Date,
+    dateCreate: Date,
+}
