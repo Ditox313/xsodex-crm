@@ -94,7 +94,7 @@ export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.formLoginSub$ = this.authService.login(user).subscribe({
       next: (res) => {
         this.messageService.add({ severity: 'success', summary: `Вы успешно авторизировались ${res.currentUser.name}`, detail: 'Поздравляем!' });
-        this.router.navigate(['/settings-account-page'])
+        this.router.navigate(['/account-settings-page'])
         this.form.enable();
       },
       error: (error) => {

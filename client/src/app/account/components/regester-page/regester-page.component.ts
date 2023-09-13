@@ -5,6 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { UserRequestRegister } from '../../types/auth.interfaces';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { registerAction } from '../../store/actions/register.action';
 
 @Component({
   selector: 'app-regester-page',
@@ -18,7 +20,8 @@ export class RegesterPageComponent implements OnInit, OnDestroy {
   constructor(
     private messageService: MessageService, 
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) { }
 
 
@@ -62,6 +65,8 @@ export class RegesterPageComponent implements OnInit, OnDestroy {
       secondName: this.form.value.secondName,
       lastName: this.form.value.lastName,
     };
+
+    // this.store.dispatch(registerAction({ user }))
 
     this.formRegisterSub$ = this.authService.register(user).subscribe({
       next: (user) => {

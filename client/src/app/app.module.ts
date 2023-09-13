@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptor } from './shared/other/token.interceptor';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TokenInterceptor } from './shared/other/token.interceptor';
     HttpClientModule,
     RouterModule ,
     BrowserAnimationsModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [
     {
