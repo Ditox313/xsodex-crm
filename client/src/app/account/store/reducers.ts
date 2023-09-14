@@ -3,71 +3,70 @@ import {createReducer, on, Action} from '@ngrx/store'
 
 import {
   registerAction,
-  registerSuccessAction,
-  registerFailureAction,
-} from 'src/app/auth/store/actions/register.action';
+  // registerSuccessAction,
+  // registerFailureAction,
+} from 'src/app/account/store/actions/register.action';
 
-import {
-  loginAction,
-  loginSuccessAction,
-  loginFailureAction,
-} from 'src/app/auth/store/actions/login.action';
-import { AuthStateInterface } from 'src/app/shared/types/interfaces'
+import { AccountStateInterface } from '../types/account.interfaces';
 
 
 // Инициализируем состояние
-const initialState: AuthStateInterface = {
+const initialState: AccountStateInterface = {
   currentUser: null,
   isLoggedIn: false,
   token: '',
+  isSubmitting: false
 };
 
 
 
-const authReducer = createReducer(
+
+// Создаем редьюсер
+const accountReducer = createReducer(
   initialState,
   on(
     registerAction,
-    (state): AuthStateInterface => ({
+    (state): AccountStateInterface => ({
       ...state,
+      isSubmitting: true
     })
   ),
 
-  on(
-    registerSuccessAction,
-    (state, action): AuthStateInterface => ({
-      ...state,
-      currentUser: action.currentUser,
-    })
-  ),
-  on(
-    registerFailureAction,
-    (state, action): AuthStateInterface => ({
-      ...state,
-    })
-  ),
-  on(
-    loginAction,
-    (state): AuthStateInterface => ({
-      ...state,
-    })
-  ),
+  // on(
+  //   registerSuccessAction,
+  //   (state, action): AccountStateInterface => ({
+  //     ...state,
+  //     currentUser: action.currentUser,
+  //   })
+  // ),
+  // on(
+  //   registerFailureAction,
+  //   (state, action): AccountStateInterface => ({
+  //     ...state,
+  //   })
+  // ),
+  // on(
+  //   loginAction,
+  //   (state): AuthStateInterface => ({
+  //     ...state,
+  //   })
+  // ),
 
-  on(
-    loginSuccessAction,
-    (state, action): AuthStateInterface => ({
-      ...state,
-      isLoggedIn: true,
-      token: action.token,
-      currentUser: action.currentUser,
-    })
-  ),
-  on(
-    loginFailureAction,
-    (state, action): AuthStateInterface => ({
-      ...state,
-    })
-  )
+  // on(
+  //   loginSuccessAction,
+  //   (state, action): AuthStateInterface => ({
+  //     ...state,
+  //     isLoggedIn: true,
+  //     token: action.token,
+  //     currentUser: action.currentUser,
+  //   })
+  // ),
+  // on(
+  //   loginFailureAction,
+  //   (state, action): AuthStateInterface => ({
+  //     ...state,
+  //   })
+  // )
 );
 
 
@@ -76,7 +75,7 @@ const authReducer = createReducer(
 
 
 
-// Вызываем Reducer
-export function reducers(state: AuthStateInterface, action: Action) {
-  return authReducer(state, action)
+// Экспортируем Reducer
+export function reducers(state: AccountStateInterface, action: Action) {
+  return accountReducer(state, action)
 }

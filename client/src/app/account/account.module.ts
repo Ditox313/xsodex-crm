@@ -12,6 +12,9 @@ import { MessageService } from 'primeng/api';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from './services/auth.service';
 import { AccountSettingPageComponent } from './components/account-setting-page/account-setting-page.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/reducers';
+import { LoaderModule } from '../shared/modules/loader/loader.module';
 
 
 @NgModule({
@@ -30,7 +33,9 @@ import { AccountSettingPageComponent } from './components/account-setting-page/a
     RouterModule ,
     BrowserAnimationsModule,
     ToastModule,
+    LoaderModule,
+    StoreModule.forFeature('account', reducers),
   ],
-  providers: [MessageService, AuthService,],
+  providers: [MessageService, AuthService]
 })
 export class AccountModule { }

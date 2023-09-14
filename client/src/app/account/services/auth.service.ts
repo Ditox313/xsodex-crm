@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Observable, tap } from 'rxjs';
-import { UserRequestLogin, UserRequestRegister, UserResponceLogin, UserResponceRegister } from '../types/auth.interfaces';
+import { UserRequestLogin, UserRequestRegister, UserResponceLogin, UserResponceRegister } from '../types/account.interfaces';
 
 
 // Даем возможность инжектировать сервисы в класс

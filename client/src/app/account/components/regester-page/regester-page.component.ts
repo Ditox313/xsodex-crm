@@ -1,12 +1,14 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { UserRequestRegister } from '../../types/auth.interfaces';
-import { Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { UserRequestRegister } from '../../types/account.interfaces';
+import { Observable, Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 import { registerAction } from '../../store/actions/register.action';
+import { isSubmittingSelector } from '../../store/selectors';
+
 
 @Component({
   selector: 'app-regester-page',
@@ -15,7 +17,9 @@ import { registerAction } from '../../store/actions/register.action';
 })
 export class RegesterPageComponent implements OnInit, OnDestroy {
   form!: FormGroup;
-  formRegisterSub$!: Subscription; 
+  formRegisterSub$!: Subscription
+  isSubmittingSelector$!: Observable<boolean | null>
+  isSubmittingSelectorValue!: boolean | null
 
   constructor(
     private messageService: MessageService, 
@@ -26,12 +30,17 @@ export class RegesterPageComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.initForm();
+    this.initForm()
+    this.initValues()
   }
+  
 
   ngOnDestroy() {
     if (this.formRegisterSub$) {
-      this.formRegisterSub$.unsubscribe();
+      this.formRegisterSub$.unsubscribe()
+    }
+    if (this.isSubmittingSelector$) {
+      this.formRegisterSub$.unsubscribe()
     }
   }
 
@@ -52,6 +61,16 @@ export class RegesterPageComponent implements OnInit, OnDestroy {
   }
 
 
+  initValues()
+  {
+    // Получаем селектор isSubmitting
+    this.isSubmittingSelector$ = this.store.pipe(select(isSubmittingSelector))
+    this.isSubmittingSelector$.subscribe(isSubmitting => {
+      this.isSubmittingSelectorValue = isSubmitting
+    }) 
+  }
+
+
   
 
   onSubmit() {
@@ -66,7 +85,7 @@ export class RegesterPageComponent implements OnInit, OnDestroy {
       lastName: this.form.value.lastName,
     };
 
-    // this.store.dispatch(registerAction({ user }))
+    this.store.dispatch(registerAction({ user }))
 
     this.formRegisterSub$ = this.authService.register(user).subscribe({
       next: (user) => {

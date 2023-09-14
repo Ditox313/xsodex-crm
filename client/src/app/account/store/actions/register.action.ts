@@ -1,7 +1,7 @@
 import {createAction, props} from '@ngrx/store'
 
 import {ActionTypes} from 'src/app/account/store/actionTypes'
-import { UserRequestRegister } from '../../types/auth.interfaces';
+import { UserRequestRegister } from '../../types/account.interfaces';
 
 
 // Экшн для регистрации

@@ -5,7 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
-import { UserRequestLogin } from '../../types/auth.interfaces';
+import { UserRequestLogin } from '../../types/account.interfaces';
 
 
 
