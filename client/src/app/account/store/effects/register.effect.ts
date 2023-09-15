@@ -28,6 +28,11 @@ export class RegisterEffect {
       switchMap(({ user }) => {
         return this.authService.register(user).pipe(
           map((currentUser: UserResponceRegister) => {
+            this.router.navigate(['/login-page'], {
+              queryParams: {
+                registered: true,
+              },
+            });
             return registerSuccessAction(); 
           }),
 
@@ -64,18 +69,20 @@ export class RegisterEffect {
   //   )
   // );
 
-  redirectAfterSubmit$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(registerSuccessAction),
-        tap(() => {
-          this.router.navigate(['/login-page'], {
-            queryParams: {
-              registered: true,
-            },
-          });
-        })
-      ),
-    { dispatch: false }
-  );
+
+  // Просто делаем действие и не возвращаем экшн. Благодаря dispatch: false
+  // redirectAfterSubmit$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(registerSuccessAction),
+  //       tap(() => {
+  //         this.router.navigate(['/login-page'], {
+  //           queryParams: {
+  //             registered: true,
+  //           },
+  //         });
+  //       })
+  //     ),
+  //   { dispatch: false }
+  // );
 }

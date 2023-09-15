@@ -1,8 +1,5 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
 import { UserRequestRegister } from '../../types/account.interfaces';
 import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
@@ -50,7 +47,6 @@ export class RegesterPageComponent implements OnInit{
 
   initValues()
   {
-    // Получаем селектор isSubmitting
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
   }
 
