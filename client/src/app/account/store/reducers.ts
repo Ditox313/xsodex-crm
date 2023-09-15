@@ -5,6 +5,7 @@ import {
   // registerSuccessAction,
   // registerFailureAction,
 } from 'src/app/account/store/actions/register.action';
+import { loginAction, loginFailureAction, loginSuccessAction } from './actions/login.action';
 
 
 
@@ -49,28 +50,34 @@ const accountReducer = createReducer(
       isLoading: false,
     })
   ),
-  // on(
-  //   loginAction,
-  //   (state): AuthStateInterface => ({
-  //     ...state,
-  //   })
-  // ),
+  on(
+    loginAction,
+    (state): AccountStateInterface => ({
+      ...state,
+      isLoading: true,
+      validationErrors: null
+    })
+  ),
 
-  // on(
-  //   loginSuccessAction,
-  //   (state, action): AuthStateInterface => ({
-  //     ...state,
-  //     isLoggedIn: true,
-  //     token: action.token,
-  //     currentUser: action.currentUser,
-  //   })
-  // ),
-  // on(
-  //   loginFailureAction,
-  //   (state, action): AuthStateInterface => ({
-  //     ...state,
-  //   })
-  // )
+  on(
+    loginSuccessAction,
+    (state, action): AccountStateInterface => ({
+      ...state,
+      isLoggedIn: true,
+      token: action.data.token,
+      currentUser: action.data.currentUser,
+      isLoading: false,
+      validationErrors: null
+    })
+  ),
+  on(
+    loginFailureAction,
+    (state, action): AccountStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  )
 );
 
 

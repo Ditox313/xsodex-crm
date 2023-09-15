@@ -2,21 +2,16 @@ import {Injectable} from '@angular/core'
 import {createEffect, Actions, ofType} from '@ngrx/effects'
 import {map, catchError, switchMap, tap} from 'rxjs/operators'
 import {HttpErrorResponse} from '@angular/common/http'
-
-
-
-
+import { MessageService } from 'primeng/api'
 import {
   loginAction,
   loginSuccessAction,
   loginFailureAction,
-} from 'src/app/auth/store/actions/login.action';
-
+} from 'src/app/account/store/actions/login.action';
 import {AuthService} from '../../services/auth.service'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-import {User } from 'src/app/shared/types/interfaces'
-import { MaterialService } from 'src/app/shared/services/material.service'
+
 
 
 
@@ -25,21 +20,20 @@ export class LoginEffect {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService, 
   ) {}
 
   login$ = createEffect(() =>
     this.actions$.pipe(
-      //Получаем все actions
-      ofType(loginAction), //Получаем нужный нам action
+      ofType(loginAction), 
       switchMap(({ user }) => {
-        //Редактируем поток и возвращаем новый
         return this.authService.login(user).pipe(
           map((data) => {
-            return loginSuccessAction(data); //Вызываем action registerSuccessAction и передаем props
+            return loginSuccessAction({data: data}); 
           }),
           catchError((errorResponse: HttpErrorResponse) => {
-            MaterialService.toast(errorResponse.error.message);
+            this.messageService.add({ severity: 'error', summary: `${errorResponse.error.message}`, detail: 'Попробуйте еще раз' });
             return of(
               loginFailureAction({ errors: errorResponse.error.errors })
             );
@@ -54,7 +48,7 @@ export class LoginEffect {
       this.actions$.pipe(
         ofType(loginSuccessAction),
         tap(() => {
-          this.router.navigate(['/cars-page']);
+          this.router.navigate(['/account-settings-page']);
         })
       ),
     { dispatch: false }

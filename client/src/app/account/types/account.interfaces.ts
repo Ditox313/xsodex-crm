@@ -69,3 +69,4 @@ export interface AccountStateInterface {
     isLoading: boolean | null
     validationErrors: string[] | null
 }
+

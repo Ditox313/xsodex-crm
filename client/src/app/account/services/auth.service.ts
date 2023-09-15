@@ -9,10 +9,11 @@ import { UserRequestLogin, UserRequestRegister, UserResponceLogin, UserResponceR
   providedIn: 'root', //Автоматичеки регистриует сервис в главном модуле
 })
 export class AuthService {
-  private token:string = ''; //В эту переменную получим токет, который придет как ответ из функции login
+  private token:string = ''; 
 
   constructor(private http: HttpClient) {}
 
+  
   // Регистрация пользователя
   register(user: UserRequestRegister): Observable<UserRequestRegister> {
     return this.http.post<UserResponceRegister>('/api/account/auth/register', user);
@@ -21,7 +22,7 @@ export class AuthService {
 
 
   // Авторизация пользователя
-  login(user: UserRequestLogin): Observable<{ token: string; currentUser: UserRequestLogin }> {
+  login(user: UserRequestLogin): Observable<UserResponceLogin> {
     return this.http.post<UserResponceLogin>('/api/account/auth/login', user)
       .pipe(
         tap(({ token }) => {

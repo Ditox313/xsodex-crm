@@ -1,11 +1,13 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { UserRequestLogin } from '../../types/account.interfaces';
+import { Store, select } from '@ngrx/store';
+import { loginAction } from '../../store/actions/login.action';
+import { isLoadingSelector } from '../../store/selectors';
 
 
 
@@ -23,6 +25,7 @@ export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
   paramsSub$!: Subscription
   timer_for_toast: any; //Таймер для вывода toasts для формы логина
   params!: any
+  isLoadingSelector$!: Observable<boolean | null>
 
 
 
@@ -31,10 +34,17 @@ export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
   private router: Router,
   private route: ActivatedRoute,
   private authService: AuthService,
-  private changeDetectorRef: ChangeDetectorRef) {}
+  private changeDetectorRef: ChangeDetectorRef,
+  private store: Store
+  ) {}
 
   ngOnInit(): void {
     this.initionalForm()
+    this.initValues()
+  }
+
+  initValues() {
+    this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
   }
 
   ngAfterViewInit(): void {
@@ -84,25 +94,30 @@ export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
   // Отправка формы
   onSubmit()
   {
-    this.form.disable();
+    // this.form.disable();
 
     const user: UserRequestLogin = {
       email: this.form.value.email,
       password: this.form.value.password,
     };
 
-    this.formLoginSub$ = this.authService.login(user).subscribe({
-      next: (res) => {
-        this.messageService.add({ severity: 'success', summary: `Вы успешно авторизировались ${res.currentUser.name}`, detail: 'Поздравляем!' });
-        this.router.navigate(['/account-settings-page'])
-        this.form.enable();
-      },
-      error: (error) => {
-        console.log(error);
-        this.messageService.add({ severity: 'error', summary: `${error.error.message}`, detail: 'Попробуйте еще раз' });
-        this.form.enable();
-      }
-    });
+
+    this.store.dispatch(loginAction({ user }))
+
+    this.form.enable();
+
+    // this.formLoginSub$ = this.authService.login(user).subscribe({
+    //   next: (res) => {
+    //     this.messageService.add({ severity: 'success', summary: `Вы успешно авторизировались ${res.currentUser.name}`, detail: 'Поздравляем!' });
+    //     this.router.navigate(['/account-settings-page'])
+    //     this.form.enable();
+    //   },
+    //   error: (error) => {
+    //     console.log(error);
+    //     this.messageService.add({ severity: 'error', summary: `${error.error.message}`, detail: 'Попробуйте еще раз' });
+    //     this.form.enable();
+    //   }
+    // });
   }
 
 

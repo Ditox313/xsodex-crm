@@ -47,42 +47,4 @@ export class RegisterEffect {
     )
   );
 
-
-
-  // register$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(registerAction),
-  //     switchMap(({ user }) => {
-  //       return this.authService.register(user).pipe(
-  //         map((currentUser: UserResponceRegister) => {
-  //           return registerSuccessAction({ currentUser: currentUser });
-  //         }),
-
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `${errorResponse.error.message}`, detail: 'Попробуйте еще раз' });
-  //           return of(
-  //             registerFailureAction({ errors: errorResponse.error.message })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
-
-
-  // Просто делаем действие и не возвращаем экшн. Благодаря dispatch: false
-  // redirectAfterSubmit$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(registerSuccessAction),
-  //       tap(() => {
-  //         this.router.navigate(['/login-page'], {
-  //           queryParams: {
-  //             registered: true,
-  //           },
-  //         });
-  //       })
-  //     ),
-  //   { dispatch: false }
-  // );
 }
