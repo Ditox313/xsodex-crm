@@ -7,7 +7,7 @@ import { UserRequestRegister } from '../../types/account.interfaces';
 import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { registerAction } from '../../store/actions/register.action';
-import { isSubmittingSelector } from '../../store/selectors';
+import { isLoadingSelector } from '../../store/selectors';
 
 
 @Component({
@@ -15,16 +15,12 @@ import { isSubmittingSelector } from '../../store/selectors';
   templateUrl: './regester-page.component.html',
   styleUrls: ['./regester-page.component.css']
 })
-export class RegesterPageComponent implements OnInit, OnDestroy {
+export class RegesterPageComponent implements OnInit{
   form!: FormGroup;
   formRegisterSub$!: Subscription
-  isSubmittingSelector$!: Observable<boolean | null>
-  isSubmittingSelectorValue!: boolean | null
+  isLoadingSelector$!: Observable<boolean | null>
 
   constructor(
-    private messageService: MessageService, 
-    private authService: AuthService,
-    private router: Router,
     private store: Store
   ) { }
 
@@ -34,15 +30,6 @@ export class RegesterPageComponent implements OnInit, OnDestroy {
     this.initValues()
   }
   
-
-  ngOnDestroy() {
-    if (this.formRegisterSub$) {
-      this.formRegisterSub$.unsubscribe()
-    }
-    if (this.isSubmittingSelector$) {
-      this.formRegisterSub$.unsubscribe()
-    }
-  }
 
 
 
@@ -64,10 +51,7 @@ export class RegesterPageComponent implements OnInit, OnDestroy {
   initValues()
   {
     // Получаем селектор isSubmitting
-    this.isSubmittingSelector$ = this.store.pipe(select(isSubmittingSelector))
-    this.isSubmittingSelector$.subscribe(isSubmitting => {
-      this.isSubmittingSelectorValue = isSubmitting
-    }) 
+    this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
   }
 
 
@@ -87,20 +71,6 @@ export class RegesterPageComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(registerAction({ user }))
 
-    this.formRegisterSub$ = this.authService.register(user).subscribe({
-      next: (user) => {
-        this.router.navigate(['/login-page'], {
-          queryParams: {
-            registered: true
-          }
-        })
-        this.form.enable();
-      },
-      error: (error) => {
-        console.warn(error);
-        this.messageService.add({ severity: 'error', summary: `${error.error.message}`, detail: 'Попробуйте еще раз' });
-        this.form.enable();
-      }
-    });
+    this.form.enable();
   }
 }

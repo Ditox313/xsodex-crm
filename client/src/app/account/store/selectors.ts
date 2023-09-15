@@ -6,9 +6,9 @@ export const accountFeatureSelector = createFeatureSelector<AccountStateInterfac
 
 
 // Селектор на получение isSubmitting
-export const isSubmittingSelector = createSelector(
+export const isLoadingSelector = createSelector(
     accountFeatureSelector,
-    (state: AccountStateInterface) => state.isSubmitting
+    (state: AccountStateInterface) => state.isLoading
 )
 
 

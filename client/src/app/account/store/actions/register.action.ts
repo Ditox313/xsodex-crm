@@ -1,7 +1,7 @@
 import {createAction, props} from '@ngrx/store'
 
 import {ActionTypes} from 'src/app/account/store/actionTypes'
-import { UserRequestRegister } from '../../types/account.interfaces';
+import { UserRequestRegister, UserResponceRegister } from '../../types/account.interfaces';
 
 
 // Экшн для регистрации
@@ -12,15 +12,14 @@ export const registerAction = createAction(
 
 
 // Экшн для регистрации - успех
-// export const registerSuccessAction = createAction(
-//   ActionTypes.REGISTER_SUCCESS,
-//   props<{ currentUser: User }>()
-// );
+export const registerSuccessAction = createAction(
+  ActionTypes.REGISTER_SUCCESS,
+);
 
 
 
 // Экшн для регистрации - ошибка
-// export const registerFailureAction = createAction(
-//   ActionTypes.REGISTER_FAILURE,
-//   props<{errors: any}>()
-// )
+export const registerFailureAction = createAction(
+  ActionTypes.REGISTER_FAILURE,
+  props<{ errors: any }>()
+)

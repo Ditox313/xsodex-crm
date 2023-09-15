@@ -1,5 +1,5 @@
 <p-toast></p-toast>
-<loader *ngIf="isSubmittingSelectorValue"></loader>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
 
 
 

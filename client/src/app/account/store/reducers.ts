@@ -1,13 +1,12 @@
 import {createReducer, on, Action} from '@ngrx/store'
-
-
+import { AccountStateInterface } from '../types/account.interfaces';
 import {
-  registerAction,
+  registerAction, registerFailureAction, registerSuccessAction,
   // registerSuccessAction,
   // registerFailureAction,
 } from 'src/app/account/store/actions/register.action';
 
-import { AccountStateInterface } from '../types/account.interfaces';
+
 
 
 // Инициализируем состояние
@@ -15,7 +14,8 @@ const initialState: AccountStateInterface = {
   currentUser: null,
   isLoggedIn: false,
   token: '',
-  isSubmitting: false
+  isLoading: false,
+  validationErrors: null
 };
 
 
@@ -28,23 +28,27 @@ const accountReducer = createReducer(
     registerAction,
     (state): AccountStateInterface => ({
       ...state,
-      isSubmitting: true
+      isLoading: true,
+      validationErrors: null
     })
   ),
 
-  // on(
-  //   registerSuccessAction,
-  //   (state, action): AccountStateInterface => ({
-  //     ...state,
-  //     currentUser: action.currentUser,
-  //   })
-  // ),
-  // on(
-  //   registerFailureAction,
-  //   (state, action): AccountStateInterface => ({
-  //     ...state,
-  //   })
-  // ),
+  on(
+    registerSuccessAction,
+    (state, action): AccountStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null
+    })
+  ),
+  on(
+    registerFailureAction,
+    (state, action): AccountStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
   // on(
   //   loginAction,
   //   (state): AuthStateInterface => ({
@@ -68,10 +72,6 @@ const accountReducer = createReducer(
   //   })
   // )
 );
-
-
-
-
 
 
 

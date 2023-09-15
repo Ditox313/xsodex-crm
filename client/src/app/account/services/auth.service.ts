@@ -64,10 +64,5 @@ export class AuthService {
   // }
 
 
-  // Делаем запрос на сервер, получаем юзера по id
-  // get_user_by_id(id): Observable<User> {
-  //   return this.http.get<User>(`/api/auth/userById/${id}`)
-  // }
-
 
 }

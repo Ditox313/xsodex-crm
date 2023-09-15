@@ -1,5 +1,7 @@
 
 
+
+
 // Интерфейс для User при запросе авторизации
 export interface UserRequestLogin {
     email: string
@@ -27,7 +29,7 @@ export interface UserResponceLogin {
         lastName: string
         doverenostNumber?: Number
         doverenostDate?: Date
-        dateCreate: Date
+        dateCreate?: Date
     }
 }
 
@@ -54,7 +56,7 @@ export interface UserResponceRegister {
     lastName: string
     doverenostNumber?: Number
     doverenostDate?: Date
-    dateCreate: Date
+    dateCreate?: Date
 }
 
 
@@ -64,5 +66,6 @@ export interface AccountStateInterface {
     currentUser?: UserResponceRegister | null
     isLoggedIn: boolean | null
     token: string | null
-    isSubmitting: boolean | null
+    isLoading: boolean | null
+    validationErrors: string[] | null
 }
