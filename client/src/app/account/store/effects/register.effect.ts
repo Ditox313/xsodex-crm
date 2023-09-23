@@ -24,7 +24,7 @@ export class RegisterEffect {
 
   register$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(registerAction),
+      ofType(registerAction), 
       switchMap(({ user }) => {
         return this.authService.register(user).pipe(
           map((currentUser: UserResponceRegister) => {

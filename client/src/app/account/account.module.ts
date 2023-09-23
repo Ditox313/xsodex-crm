@@ -18,6 +18,7 @@ import { LoaderModule } from '../shared/modules/loader/loader.module';
 import { RegisterEffect } from './store/effects/register.effect';
 import { EffectsModule } from '@ngrx/effects';
 import { LoginEffect } from './store/effects/login.effect';
+import { LogoutEffect } from './store/effects/logout.effect';
 
 
 @NgModule({
@@ -38,7 +39,7 @@ import { LoginEffect } from './store/effects/login.effect';
     ToastModule,
     LoaderModule,
     StoreModule.forFeature('account', reducers),
-    EffectsModule.forFeature([RegisterEffect,LoginEffect]),
+    EffectsModule.forFeature([RegisterEffect,LoginEffect,LogoutEffect]),
   ],
   providers: [MessageService, AuthService]
 })

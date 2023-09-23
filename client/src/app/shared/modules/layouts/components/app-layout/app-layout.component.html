@@ -1,1 +1,7 @@
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
+
 <router-outlet></router-outlet>
+
+
+<button (click)="logout()">111</button>

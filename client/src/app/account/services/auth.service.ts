@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
-import { Observable, tap } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { UserRequestLogin, UserRequestRegister, UserResponceLogin, UserResponceRegister } from '../types/account.interfaces';
 
 
@@ -49,9 +49,10 @@ export class AuthService {
   }
 
   // Выход из системы
-  logout() {
+  logout(): Observable<Boolean> {
     this.setToken('');
     localStorage.clear();
+    return of(true)
   }
 
   // Делаем запрос на сервер, получаем  ответ типа User

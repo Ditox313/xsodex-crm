@@ -23,7 +23,6 @@ export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
   form!: FormGroup;
   formLoginSub$!: Subscription
   paramsSub$!: Subscription
-  timer_for_toast: any; //Таймер для вывода toasts для формы логина
   params!: any
   isLoadingSelector$!: Observable<boolean | null>
 
@@ -31,9 +30,7 @@ export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
   private messageService: MessageService, 
-  private router: Router,
   private route: ActivatedRoute,
-  private authService: AuthService,
   private changeDetectorRef: ChangeDetectorRef,
   private store: Store
   ) {}

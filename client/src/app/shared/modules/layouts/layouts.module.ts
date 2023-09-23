@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { AuthLayoutComponent } from './components/auth-layout/auth-layout.component';
 import { RouterModule } from '@angular/router';
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/account/services/auth.service';
+import { LoaderModule } from '../loader/loader.module';
 
 
 
@@ -13,8 +17,11 @@ import { AppLayoutComponent } from './components/app-layout/app-layout.component
   ],
   imports: [
     CommonModule,
-    RouterModule 
+    RouterModule,
+    ToastModule,
+    LoaderModule,
   ],
+  providers: [MessageService, AuthService],
   exports: [
     AuthLayoutComponent,
     AppLayoutComponent

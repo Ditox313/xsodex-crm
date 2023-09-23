@@ -2,10 +2,9 @@ import {createReducer, on, Action} from '@ngrx/store'
 import { AccountStateInterface } from '../types/account.interfaces';
 import {
   registerAction, registerFailureAction, registerSuccessAction,
-  // registerSuccessAction,
-  // registerFailureAction,
 } from 'src/app/account/store/actions/register.action';
 import { loginAction, loginFailureAction, loginSuccessAction } from './actions/login.action';
+import { logoutAction, logoutFailureAction, logoutSuccessAction } from './actions/logout.action';
 
 
 
@@ -77,7 +76,32 @@ const accountReducer = createReducer(
       validationErrors: action.errors,
       isLoading: false,
     })
-  )
+  ),
+  on(
+    logoutAction,
+    (state): AccountStateInterface => ({
+      ...state,
+      isLoading: true,
+    })
+  ),
+  on(
+    logoutSuccessAction,
+    (state): AccountStateInterface => ({
+      ...state,
+      isLoggedIn: false,
+      token: '',
+      currentUser: null,
+      isLoading: false,
+    })
+  ),
+  on(
+    logoutFailureAction,
+    (state, action): AccountStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: action.errors,
+    })
+  ),
 );
 
 
