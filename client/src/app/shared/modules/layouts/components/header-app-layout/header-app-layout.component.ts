@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { currentUserSelector } from 'src/app/account/store/selectors';
@@ -11,10 +11,14 @@ import { logoutAction } from 'src/app/account/store/actions/logout.action';
   styleUrls: ['./header-app-layout.component.css']
 })
 export class HeaderAppLayoutComponent implements OnInit {
+  @Input() title: string = '';
   currentUserSelector$!: Observable<UserResponceRegister | null | undefined>
   currentUser!: UserResponceRegister | null | undefined
   isVisibleAccountInfo: boolean = false
 
+
+
+  
   constructor(private store: Store) { }
   
   ngOnInit(): void {

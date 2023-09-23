@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./account-setting-page.component.css']
 })
 export class AccountSettingPageComponent {
-
+  title: string = 'Настройки аккаунта'
 }
