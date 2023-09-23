@@ -63,7 +63,7 @@ export interface UserResponceRegister {
 
 // Интерфейс для state account
 export interface AccountStateInterface {
-    currentUser?: UserResponceRegister | null
+    currentUser?: UserResponceRegister | null | undefined
     isLoggedIn: boolean | null
     token: string | null
     isLoading: boolean | null

@@ -1,7 +1,14 @@
-<header>
+<header *ngIf="currentUser">
     <div class="page_title">Настройки аккаунта</div>
 
     <div class="account">
-        
+        <div class="avatar_trigger" (click)="setVisibleAccountInfo()">
+            <img src="{{currentUser.avatar}}" alt="user">
+        </div>
+
+        <div  class="account_info" [ngClass]="{'account_info_dn': !isVisibleAccountInfo}" #accountInfo>
+            <div>{{currentUser.secondName}} {{currentUser.name}}</div>
+            <div (click)="logout()">ВЫЙТИ</div>
+        </div>
     </div>
 </header>

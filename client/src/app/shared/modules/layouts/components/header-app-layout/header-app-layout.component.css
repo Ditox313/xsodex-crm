@@ -5,12 +5,61 @@ header
     padding: 20px;
     display: flex;
     align-items: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+
+
 
 .page_title
 {
     text-transform: uppercase;
-    font-size: 25px;
+    font-size: 21px;
     color: #333;
     font-family: 'Montserrat', sans-serif;
+}
+
+.avatar_trigger img
+{
+    width: 50px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.account_info
+{
+    min-width: 280px;
+    height: auto;
+    background-color: #EEF2F5;
+    position: absolute;
+    top: 80px;
+    transform: translateX(-72%);
+    transition: all 0.3s;
+    padding: 15px;
+    text-align: right;
+}
+
+.account_info_dn
+{
+    transform: translateX(110%);
+    transition: all 0.3s;
+}
+
+.account_info div:first-child
+{
+    text-transform: uppercase;
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+    margin-bottom: 10px;
+}
+
+.account_info div:last-child
+{
+    border-bottom: 1px solid #194A9E;
+    display: inline-block;
+    cursor: pointer;
 }

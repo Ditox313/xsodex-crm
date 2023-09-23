@@ -5,17 +5,23 @@ export const accountFeatureSelector = createFeatureSelector<AccountStateInterfac
 
 
 
-// Селектор на получение isSubmitting
+
 export const isLoadingSelector = createSelector(
     accountFeatureSelector,
     (state: AccountStateInterface) => state.isLoading
 )
 
-// Селектор на получение isSubmitting
+
 export const tokenSelector = createSelector(
     accountFeatureSelector,
     (state: AccountStateInterface) => state.token
 )
+
+export const currentUserSelector = createSelector(
+    accountFeatureSelector,
+    (state: AccountStateInterface) => state.currentUser
+)
+
 
 
 

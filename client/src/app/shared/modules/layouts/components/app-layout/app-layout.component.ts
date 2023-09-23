@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { logoutAction } from 'src/app/account/store/actions/logout.action';
 import { updateStateAction } from 'src/app/account/store/actions/updateState.action';
 import { isLoadingSelector, tokenSelector } from 'src/app/account/store/selectors';
 
@@ -10,7 +9,7 @@ import { isLoadingSelector, tokenSelector } from 'src/app/account/store/selector
   templateUrl: './app-layout.component.html',
   styleUrls: ['./app-layout.component.css']
 })
-export class AppLayoutComponent implements OnInit, OnDestroy {
+export class AppLayoutComponent implements OnInit {
   isLoadingSelector$!: Observable<boolean | null>
   isTokenStateSub$!: Observable<string | null>
 
@@ -28,14 +27,8 @@ export class AppLayoutComponent implements OnInit, OnDestroy {
     this.initValues()
   }
 
-  ngOnDestroy(): void {
-    if (this.isTokenStateSub$)
-    {
-      this.isTokenStateSub$.subscribe()
-    }
-  }
 
-  saveState()
+  updateState()
   {
     this.store.subscribe(state => {
       localStorage.setItem('appState', JSON.stringify(state))
@@ -52,7 +45,7 @@ export class AppLayoutComponent implements OnInit, OnDestroy {
       next : (token) => {
        if(token !== '')
        {
-         this.saveState()
+         this.updateState()
        }
        else
        {
@@ -62,7 +55,5 @@ export class AppLayoutComponent implements OnInit, OnDestroy {
     })
   }
 
-  logout(): void {
-    this.store.dispatch(logoutAction())
-  }
+  
 }

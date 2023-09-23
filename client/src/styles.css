@@ -6,7 +6,7 @@
 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: 'Montserrat', sans-serif;}
+body { margin: 0; font-family: 'Montserrat', sans-serif; overflow-x: hidden;}
 .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -36,11 +36,13 @@ a
 {
     text-decoration: none;
 }
-img
+img, svg
 {
     max-width: 100%;
     height: auto;
 }
+
+
 
 h1,h2,h3,h4,h5,h6,input,textarea
 {
