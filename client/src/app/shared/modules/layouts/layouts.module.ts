@@ -7,13 +7,15 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/account/services/auth.service';
 import { LoaderModule } from '../loader/loader.module';
+import { HeaderAppLayoutComponent } from './components/header-app-layout/header-app-layout.component';
 
 
 
 @NgModule({
   declarations: [
     AuthLayoutComponent,
-    AppLayoutComponent
+    AppLayoutComponent,
+    HeaderAppLayoutComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { LoaderModule } from '../loader/loader.module';
   providers: [MessageService, AuthService],
   exports: [
     AuthLayoutComponent,
-    AppLayoutComponent
+    AppLayoutComponent,
+    HeaderAppLayoutComponent
   ]
 })
 export class LayoutsModule { }

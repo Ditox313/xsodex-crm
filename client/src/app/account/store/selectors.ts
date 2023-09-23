@@ -11,7 +11,11 @@ export const isLoadingSelector = createSelector(
     (state: AccountStateInterface) => state.isLoading
 )
 
-
+// Селектор на получение isSubmitting
+export const tokenSelector = createSelector(
+    accountFeatureSelector,
+    (state: AccountStateInterface) => state.token
+)
 
 
 

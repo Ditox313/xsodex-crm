@@ -5,6 +5,7 @@ import {
 } from 'src/app/account/store/actions/register.action';
 import { loginAction, loginFailureAction, loginSuccessAction } from './actions/login.action';
 import { logoutAction, logoutFailureAction, logoutSuccessAction } from './actions/logout.action';
+import { updateStateFailureAction, updateStateSuccessAction } from './actions/updateState.action';
 
 
 
@@ -99,6 +100,24 @@ const accountReducer = createReducer(
     (state, action): AccountStateInterface => ({
       ...state,
       isLoading: false,
+      validationErrors: action.errors,
+    })
+  ),
+  on(
+    updateStateSuccessAction,
+    (state, action): AccountStateInterface => ({
+      ...state,
+      isLoggedIn: action.data.account.isLoggedIn,
+      token: action.data.account.token,
+      currentUser: action.data.account.currentUser,
+      isLoading: action.data.account.isLoading,
+      validationErrors: action.data.account.validationErrors
+    }),
+  ),
+  on(
+    updateStateFailureAction,
+    (state, action): AccountStateInterface => ({
+      ...state,
       validationErrors: action.errors,
     })
   ),

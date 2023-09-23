@@ -1,0 +1,16 @@
+header
+{
+    height: 80px;
+    background-color: #EEF2F5;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.page_title
+{
+    text-transform: uppercase;
+    font-size: 25px;
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+}

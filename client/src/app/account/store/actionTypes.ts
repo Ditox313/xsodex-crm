@@ -8,4 +8,7 @@ export enum ActionTypes {
   LOGOUT = '[Account] Logout',
   LOGOUT_SUCCESS = '[Account] Logout success',
   LOGOUT_FAILURE = '[Account] Logout failure',
+  UPDATE_STATE = '[Account] Update state',
+  UPDATE_STATE_SUCCESS = '[Account] Update state success',
+  UPDATE_STATE_FAILURE = '[Account] Update state failure',
 }
