@@ -20,7 +20,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { LoginEffect } from './store/effects/login.effect';
 import { LogoutEffect } from './store/effects/logout.effect';
 import { UpdateStateEffect } from './store/effects/updateState.effect';
-
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,8 @@ import { UpdateStateEffect } from './store/effects/updateState.effect';
     BrowserAnimationsModule,
     ToastModule,
     LoaderModule,
+    ButtonModule,
+    InputTextModule,
     StoreModule.forFeature('account', reducers),
     EffectsModule.forFeature([RegisterEffect,LoginEffect,LogoutEffect,UpdateStateEffect]),
   ],

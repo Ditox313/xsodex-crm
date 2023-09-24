@@ -73,3 +73,13 @@ li
 {
     list-style-type: none;
 }
+
+small
+{
+    display: inline-block;
+}
+
+fieldset
+{
+    display: inline-block;
+}

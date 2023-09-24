@@ -9,6 +9,7 @@ header
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 30px;
 }
 
 
@@ -39,6 +40,7 @@ header
     transition: all 0.3s;
     padding: 15px;
     text-align: right;
+    z-index: 999;
 }
 
 .account_info_dn

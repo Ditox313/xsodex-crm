@@ -1,0 +1,47 @@
+.account_page
+{
+    padding: 0 20px;
+}
+
+.avatar
+{
+    margin-right: 30px;
+}
+
+.avatar img
+{
+    width: 150px;
+    border-radius: 5px;
+}
+
+.account_page_inputs fieldset
+{
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.account_page form
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.account_page form input
+{
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+
+.errorValidate {
+    display: inline-block;
+    color: #fff;
+    padding-left: 0px;
+    color: #FF2400;
+    text-align: left;
+    font-size: 12px;
+    margin-right: 10px;
+    position: absolute;
+    top: -4px;
+}

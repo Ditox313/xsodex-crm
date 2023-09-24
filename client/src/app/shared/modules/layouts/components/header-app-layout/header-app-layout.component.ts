@@ -32,8 +32,6 @@ export class HeaderAppLayoutComponent implements OnInit {
     this.currentUserSelector$.subscribe({
       next: (user)=>{
         this.currentUser = user
-        console.log(this.currentUser?.avatar);
-        
       }
     })
   }

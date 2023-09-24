@@ -26,6 +26,7 @@ export class LogoutEffect {
             switchMap(() => {
                 return this.authService.logout().pipe(
                     map((data) => {
+                        localStorage.clear();
                         this.router.navigate(['/login-page']);
                         return logoutSuccessAction();
                     }),
