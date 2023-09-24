@@ -6,6 +6,7 @@ const errorHandler = require('../../Utils/errorHendler.js');
 
 
 
+
 // Контроллер для Авторизации
 module.exports.login = async function(req, res) {
 
@@ -76,6 +77,9 @@ module.exports.register = async function(req, res) {
             secondName: req.body.secondName,
             lastName: req.body.lastName,
         });
+
+
+       
 
         try {
             await user.save();
