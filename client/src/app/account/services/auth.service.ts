@@ -55,16 +55,38 @@ export class AuthService {
     return of(true)
   }
 
-  // Делаем запрос на сервер, получаем  ответ типа User
-  // get_user(): Observable<User > {
-  //   return this.http.get<User>('/api/auth/user')
-  // }
+  // Обновить User
+  updateUser(user: UserResponceRegister, avatar?: File ): Observable<UserResponceRegister> {
+    const fd = new FormData();
+    fd.append('email', user.email);
+    fd.append('phone', user.phone);
+    fd.append('name', user.name);
+    fd.append('secondName', user.secondName);
+    fd.append('lastName', user.lastName);
+    
 
-  // Редактируем позицию
-  // update(user: User): Observable<User> {
-  //   return this.http.patch<any>('/api/auth/update/', user);
-  // }
+    if (user.password) {
+      fd.append('password', user.password);
+    }
+    else
+    {
+      fd.append('password', '');
+    }
 
+    if (avatar) {
+      fd.append('avatar', avatar, avatar.name);
+    }
+
+    if (user.doverenostNumber) {
+      fd.append('doverenostNumber', user.doverenostNumber);
+    }
+
+    if (user.doverenostDate) {
+      fd.append('doverenostDate', user.doverenostDate);
+    }
+
+    return this.http.patch<UserResponceRegister>('/api/account/auth/updateUser/', fd);
+  }
 
 
 }

@@ -87,3 +87,43 @@ module.exports.register = async function(req, res) {
 
 };
 
+
+
+
+
+
+// Контроллер для update
+module.exports.updateUser = async function (req, res) {
+    try {
+
+        const salt = bcrypt.genSaltSync(10);
+        const updated = req.body;
+        const actualUser = await User.findOne({ _id: req.user._id, });
+
+
+        if (req.body.password === null || req.body.password === '') {
+            updated.password = actualUser.password;
+        }
+        else {
+            updated.password = bcrypt.hashSync(req.body.password, salt);
+        }
+
+
+        if (req.file) {
+            updated.avatar = req.file.path;
+        }
+
+
+
+        const updateUser = await User.findOneAndUpdate({ _id: req.user._id, }, //Ищем по id
+            { $set: updated }, 
+            { new: true } 
+        );
+
+
+        res.status(200).json(updateUser);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+

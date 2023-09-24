@@ -11,4 +11,7 @@ export enum ActionTypes {
   UPDATE_STATE = '[Account] Update state',
   UPDATE_STATE_SUCCESS = '[Account] Update state success',
   UPDATE_STATE_FAILURE = '[Account] Update state failure',
+  UPDATE_USER = '[Account] Update  user',
+  UPDATE_USER_SUCCESS = '[Account] Update user success',
+  UPDATE_USER_FAILURE = '[Account] Update user failure',
 }

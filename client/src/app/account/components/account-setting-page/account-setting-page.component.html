@@ -1,9 +1,15 @@
 <app-header-app-layout [title]="title"></app-header-app-layout>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
 
 <div class="account_page" *ngIf="currentUser">
     <form [formGroup]="form" (ngSubmit)="onSubmitProfile()">
         <div class="avatar">
-            <img src="{{currentUser.avatar}}" alt="Изображение">
+            <img [src]="[avatar]" alt="Изображение">
+
+            <div class="upload_btns">
+                <input type="file" class="dn" #upload (change)="onFileUploadAvatar($event)">
+                <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm" (click)="triggerClickForUploadAvatar()"></p-button>
+            </div>
         </div>
 
         <div class="account_page_inputs">
@@ -24,7 +30,7 @@
             </fieldset>
 
             <fieldset>
-                <input pInputText formControlName="phone" pKeyFilter="int" placeholder="Введите Телефон" [ngClass]="{'ng-invalid ng-dirty': form.controls['phone'].invalid && form.controls['phone'].touched}" />
+                <input pInputText formControlName="phone"  placeholder="Введите Телефон" [ngClass]="{'ng-invalid ng-dirty': form.controls['phone'].invalid && form.controls['phone'].touched}" />
 
                 <div class="errorValidate" *ngIf="form.controls['phone'].invalid && form.controls['phone'].touched">
                     <p *ngIf="form.controls['phone'].errors && form.controls['phone'].errors['required']">
@@ -89,7 +95,7 @@
                 </div>
             </fieldset>
 
-            <p-button label="Сохранить" class="submit" icon="pi pi-check" [disabled]="form.invalid"></p-button>
+            <p-button label="Сохранить" type="submit" class="submit" icon="pi pi-check" [disabled]="form.invalid"></p-button>
 
         </div>
     </form>

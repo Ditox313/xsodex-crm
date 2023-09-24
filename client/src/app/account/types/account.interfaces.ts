@@ -6,14 +6,13 @@
 export interface UserRequestLogin {
     email: string
     password: string
-    phone?: Number
+    phone?: string
     avatar?: string
     name?: string
     secondName?: string
     lastName?: string,
-    doverenostNumber?: Number
-    doverenostDate?: Date
-    dateCreate?: Date
+    doverenostNumber?: string
+    doverenostDate?: string
 }
 
 // Интерфейс для User при ответе авторизации
@@ -21,15 +20,14 @@ export interface UserResponceLogin {
     token: string
     currentUser: {
         email: string
-        phone: Number
+        phone: string
         password: string
         avatar?: string
         name: string
         secondName: string
         lastName: string
-        doverenostNumber?: Number
-        doverenostDate?: Date
-        dateCreate?: Date
+        doverenostNumber?: string
+        doverenostDate?: string
     }
 }
 
@@ -38,7 +36,7 @@ export interface UserResponceLogin {
 export interface UserRequestRegister {
     email: string
     password: string
-    phone: Number
+    phone: string
     avatar?: string
     name: string
     secondName: string
@@ -48,15 +46,14 @@ export interface UserRequestRegister {
 // Интерфейс для User при ответе регистрации
 export interface UserResponceRegister {
     email: string
-    phone: Number
+    phone: string
     password: string
     avatar?: string
     name: string
     secondName: string
     lastName: string
-    doverenostNumber?: Number
-    doverenostDate?: Date
-    dateCreate?: Date
+    doverenostNumber?: string | undefined
+    doverenostDate?: string | undefined
 }
 
 

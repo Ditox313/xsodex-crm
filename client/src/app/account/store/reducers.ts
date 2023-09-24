@@ -6,6 +6,7 @@ import {
 import { loginAction, loginFailureAction, loginSuccessAction } from './actions/login.action';
 import { logoutAction, logoutFailureAction, logoutSuccessAction } from './actions/logout.action';
 import { updateStateFailureAction, updateStateSuccessAction } from './actions/updateState.action';
+import { updateUserAction, updateUserFailureAction, updateUserSuccessAction } from './actions/updateUser.action';
 
 
 
@@ -119,6 +120,32 @@ const accountReducer = createReducer(
     (state, action): AccountStateInterface => ({
       ...state,
       validationErrors: action.errors,
+    })
+  ),
+  on(
+    updateUserAction,
+    (state): AccountStateInterface => ({
+      ...state,
+      isLoading: true,
+      validationErrors: null
+    })
+  ),
+  on(
+    updateUserSuccessAction,
+    (state, action): AccountStateInterface => ({
+      ...state,
+      isLoggedIn: true,
+      currentUser: action.data,
+      isLoading: false,
+      validationErrors: null
+    })
+  ),
+  on(
+    updateUserFailureAction,
+    (state, action): AccountStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
     })
   ),
 );

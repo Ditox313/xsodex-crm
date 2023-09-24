@@ -12,7 +12,7 @@ const User = new Schema({
     },
 
     phone: {
-        type: Number,
+        type: String,
         required: true,
     },
 
@@ -44,13 +44,13 @@ const User = new Schema({
     },
 
     doverenostNumber: {
-        type: Number,
+        type: String,
         required: false,
         default: null
     },
 
     doverenostDate: {
-        type: Date,
+        type: String,
         required: false,
         default: ''
     },

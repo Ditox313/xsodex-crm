@@ -22,6 +22,7 @@ import { LogoutEffect } from './store/effects/logout.effect';
 import { UpdateStateEffect } from './store/effects/updateState.effect';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { UpdateUserEffect } from './store/effects/updateUser.effect';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { ButtonModule } from 'primeng/button';
     ButtonModule,
     InputTextModule,
     StoreModule.forFeature('account', reducers),
-    EffectsModule.forFeature([RegisterEffect,LoginEffect,LogoutEffect,UpdateStateEffect]),
+    EffectsModule.forFeature([RegisterEffect,LoginEffect,LogoutEffect,UpdateStateEffect, UpdateUserEffect]),
   ],
   providers: [MessageService, AuthService]
 })
