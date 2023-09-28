@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-smena.component.css']
 })
 export class AddSmenaComponent {
-
+  title: string = 'Смены'
 }

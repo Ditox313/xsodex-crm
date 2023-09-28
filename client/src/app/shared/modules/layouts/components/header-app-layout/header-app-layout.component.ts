@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
 import { logoutAction } from 'src/app/account/store/actions/logout.action';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-header-app-layout',
@@ -19,7 +20,7 @@ export class HeaderAppLayoutComponent implements OnInit {
 
 
   
-  constructor(private store: Store) { }
+  constructor(private store: Store, private location: Location) { }
   
   ngOnInit(): void {
     this.initValues()
@@ -44,5 +45,9 @@ export class HeaderAppLayoutComponent implements OnInit {
 
   logout(): void {
     this.store.dispatch(logoutAction())
+  }
+
+  isGoBack() {
+    this.location.back();
   }
 }

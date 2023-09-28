@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/account/services/auth.service';
 import { LoaderModule } from '../loader/loader.module';
 import { HeaderAppLayoutComponent } from './components/header-app-layout/header-app-layout.component';
+import { ButtonModule } from 'primeng/button';
 
 
 
@@ -22,6 +23,7 @@ import { HeaderAppLayoutComponent } from './components/header-app-layout/header-
     RouterModule,
     ToastModule,
     LoaderModule,
+    ButtonModule,
   ],
   providers: [MessageService, AuthService],
   exports: [

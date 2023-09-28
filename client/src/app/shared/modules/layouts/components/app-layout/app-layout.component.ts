@@ -15,13 +15,13 @@ export class AppLayoutComponent implements OnInit {
 
   links: any = [
     {
-      url: '/account-settings-page',
-      name: 'Настройки',
-      icon: 'pi-cog'
-    },
-    {
       url: '/add-smena',
       name: 'Смены',
+      icon: 'pi-file-import'
+    },
+    {
+      url: '/account-settings-page',
+      name: 'Настройки',
       icon: 'pi-cog'
     },
   ];

@@ -2,6 +2,10 @@
     <div class="page_title">{{title}}</div>
 
     <div class="account">
+        <div class="back" (click)="isGoBack()">
+            <p-button icon="pi pi-chevron-left" styleClass="p-button-sm"></p-button>
+        </div>
+
         <div class="avatar_trigger" (click)="setVisibleAccountInfo()">
             <img src="{{currentUser.avatar}}" alt="user">
         </div>
