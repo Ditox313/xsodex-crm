@@ -1,0 +1,37 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AddSmenaComponent } from './components/add-smena/add-smena.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { LayoutsModule } from '../shared/modules/layouts/layouts.module';
+import { getRoutes } from './routes/smena.route';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoaderModule } from '../shared/modules/loader/loader.module';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+
+
+@NgModule({
+  declarations: [
+    AddSmenaComponent
+  ],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(getRoutes()),
+    LayoutsModule,
+    RouterModule,
+    BrowserAnimationsModule,
+    ToastModule,
+    LoaderModule,
+    ButtonModule,
+    InputTextModule,
+  ],
+  providers: [MessageService]
+})
+export class SmenaModule { }

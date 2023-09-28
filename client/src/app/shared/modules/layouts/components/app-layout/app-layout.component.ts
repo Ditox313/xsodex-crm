@@ -19,6 +19,11 @@ export class AppLayoutComponent implements OnInit {
       name: 'Настройки',
       icon: 'pi-cog'
     },
+    {
+      url: '/add-smena',
+      name: 'Смены',
+      icon: 'pi-cog'
+    },
   ];
 
   constructor( private store: Store) { }

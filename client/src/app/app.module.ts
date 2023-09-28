@@ -11,6 +11,7 @@ import { TokenInterceptor } from './shared/other/token.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import { SmenaModule } from './smena/smena.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { EffectsModule } from '@ngrx/effects';
     BrowserModule,
     AppRoutingModule,
     AccountModule,
+    SmenaModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule ,
