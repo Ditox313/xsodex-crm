@@ -15,7 +15,7 @@ export class AppLayoutComponent implements OnInit {
 
   links: any = [
     {
-      url: '/add-smena',
+      url: '/list-smena',
       name: 'Смены',
       icon: 'pi-file-import'
     },

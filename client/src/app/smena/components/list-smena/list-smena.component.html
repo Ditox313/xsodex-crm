@@ -1,0 +1,34 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<!-- <loader *ngIf="isLoadingSelector$ | async"></loader> -->
+
+
+<div class="list">
+    <p-table [value]="products" styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="add_new" [routerLink]="['/add-smena']">
+                <p-button icon="pi pi-plus"></p-button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Номер</th>
+                <th>Дата открытия</th>
+                <th>Ответственный</th>
+                <th>Статус</th>
+                <th>Дата закрытия</th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>1</td>
+                <td>31.08.2023 14:43:03</td>
+                <td>Синицын Виталий Викторович</td>
+                <td>Открыта</td>
+                <td>28.09.2023 10:40:59</td>
+                <td style="cursor: pointer; text-align: center;"><i class="pi pi-trash"></i></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

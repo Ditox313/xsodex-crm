@@ -3,6 +3,7 @@ import { Route } from "src/app/shared/types/interfaces";
 import { AppLayoutComponent } from "src/app/shared/modules/layouts/components/app-layout/app-layout.component";
 import { AuthGuard } from "../../shared/guards/auth.guard";
 import { AddSmenaComponent } from "../components/add-smena/add-smena.component";
+import { ListSmenaComponent } from "../components/list-smena/list-smena.component";
 
 export function getRoutes(): Route[] {
     return [
@@ -14,6 +15,10 @@ export function getRoutes(): Route[] {
                 {
                     path: 'add-smena',
                     component: AddSmenaComponent,
+                },
+                {
+                    path: 'list-smena',
+                    component: ListSmenaComponent,
                 },
             ],
         },
