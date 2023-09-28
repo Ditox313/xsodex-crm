@@ -14,6 +14,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ListSmenaComponent } from './components/list-smena/list-smena.component';
 import { TableModule } from 'primeng/table';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,6 @@ import { TableModule } from 'primeng/table';
     InputTextModule,
     TableModule
   ],
-  providers: [MessageService]
+  providers: [MessageService, DatePipe]
 })
 export class SmenaModule { }

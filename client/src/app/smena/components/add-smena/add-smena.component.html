@@ -1,3 +1,23 @@
 <app-header-app-layout [title]="title"></app-header-app-layout>
 <p-toast></p-toast>
-<!-- <loader *ngIf="isLoadingSelector$ | async"></loader> -->
+<loader *ngIf="isLoadingSelector$ | async"></loader>
+
+<div class="add-smena">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="date">{{this.open_date}}</div>
+        <div class="input">
+            <fieldset>
+                <input pInputText formControlName="responsible" placeholder="Введите ответственного"
+                    [ngClass]="{'ng-invalid ng-dirty': form.controls['responsible'].invalid && form.controls['responsible'].touched}" />
+            
+            
+                <div class="errorValidate" *ngIf="form.controls['responsible'].invalid && form.controls['responsible'].touched">
+                    <p *ngIf="form.controls['responsible'].errors && form.controls['responsible'].errors['required']">
+                        Ответственный не должен быть пустым
+                    </p>
+                </div>
+            </fieldset>
+        </div>
+        <p-button label="Открыть смену" type="submit"></p-button>
+    </form>
+</div>

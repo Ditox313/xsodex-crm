@@ -37,7 +37,7 @@ header
     background-color: #EEF2F5;
     position: absolute;
     top: 80px;
-    transform: translateX(-72%);
+    transform: translateX(-52%);
     transition: all 0.3s;
     padding: 15px;
     text-align: right;

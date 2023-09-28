@@ -15,18 +15,19 @@ import { updateUserAction } from '../../store/actions/updateUser.action';
 export class AccountSettingPageComponent {
   title: string = 'Настройки аккаунта'
   form!: FormGroup; 
+  isLoadingSelector$!: Observable<boolean | null>
   currentUserSelector$!: Observable<UserResponceRegister | null | undefined>
   currentUser!: UserResponceRegister | null | undefined
   uploadFile!: File
   avatar: string | ArrayBuffer | undefined | null = '' ;
   @ViewChild('upload') upload!: ElementRef;
-  isLoadingSelector$!: Observable<boolean | null>
 
 
 
 
 
-  constructor(private store: Store, private auth:AuthService) { }
+
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
     this.initionalForm();
@@ -119,11 +120,5 @@ export class AccountSettingPageComponent {
     };
 
     this.store.dispatch(updateUserAction({ user, avatar: this.uploadFile }))
-    
-    // this.auth.updateUser(user, this.uploadFile).subscribe((user) => {
-    //   this.pathValueUser(user)
-    // });
-
-
   }
 }

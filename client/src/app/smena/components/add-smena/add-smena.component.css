@@ -1,0 +1,35 @@
+.add-smena {
+    padding: 0 20px;
+}
+
+input
+{
+    width: 100% !important;
+}
+
+fieldset
+{
+    width: 30%;
+}
+
+
+.errorValidate {
+    display: inline-block;
+    color: #fff;
+    padding-left: 0px;
+    color: #FF2400;
+    text-align: left;
+    font-size: 12px;
+}
+
+
+
+.date
+{
+    margin-bottom: 10px;
+}
+
+.input
+{
+    margin-bottom: 10px;
+}

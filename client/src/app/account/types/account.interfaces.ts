@@ -28,6 +28,7 @@ export interface UserResponceLogin {
         lastName: string
         doverenostNumber?: string
         doverenostDate?: string
+        _id?: string
     }
 }
 
@@ -54,6 +55,7 @@ export interface UserResponceRegister {
     lastName: string
     doverenostNumber?: string | undefined
     doverenostDate?: string | undefined
+    _id?: string
 }
 
 
