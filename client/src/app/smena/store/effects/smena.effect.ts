@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { isOpenedSmenaAction, isOpenedSmenaSuccessAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction } from '../actions/smena.action'
+import { updateStateSmenaAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from '../actions/updateState.action'
 import { SmenaService } from '../../services/smena.service'
 
 
@@ -61,5 +62,24 @@ export class SmenaEffect {
         );
       })
     )
+  );
+
+
+
+  // Обновление состояния
+  updateStateSmena$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(updateStateSmenaAction),
+        map(() => {
+          const savedState: any = localStorage.getItem('appState');
+          return updateStateSmenaSuccessAction({ data: JSON.parse(savedState) })
+        }),
+        catchError((errorResponse: HttpErrorResponse) => {
+          return of(
+            updateStateSmenaFailureAction({ errors: 'Ошибка обновления состояния' })
+          );
+        })
+      ),
   );
 }

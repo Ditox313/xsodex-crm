@@ -44,6 +44,18 @@
                                 </p>
                             </div>
 
+
+                        <input placeholder="Введите фамилия" id="secondName" type="text" formControlName="secondName"
+                                [ngClass]="{'invalid': form.controls['secondName'].invalid && form.controls['secondName'].touched}">
+                            
+                            <div class="errorValidate" *ngIf="form.controls['secondName'].invalid && form.controls['secondName'].touched">
+                                <p *ngIf="form.controls['secondName'].errors && form.controls['secondName'].errors['required']">
+                                    Фамилия не должна быть пустой
+                                </p>
+                            </div>
+
+
+
                         <input placeholder="Введите имя" id="name" type="text" formControlName="name"
                             [ngClass]="{'invalid': form.controls['name'].invalid && form.controls['name'].touched}">
 
@@ -53,14 +65,7 @@
                                 </p>
                             </div>
 
-                        <input placeholder="Введите фамилия" id="secondName" type="text" formControlName="secondName"
-                            [ngClass]="{'invalid': form.controls['secondName'].invalid && form.controls['secondName'].touched}">
-
-                            <div class="errorValidate" *ngIf="form.controls['secondName'].invalid && form.controls['secondName'].touched">
-                                <p *ngIf="form.controls['secondName'].errors && form.controls['secondName'].errors['required']">
-                                    Фамилия не должна быть пустой
-                                </p>
-                            </div>
+                        
 
                         <input placeholder="Введите отчество" id="lastName" type="text" formControlName="lastName"
                             [ngClass]="{'invalid': form.controls['lastName'].invalid && form.controls['lastName'].touched}">

@@ -19,7 +19,6 @@ import { reducers } from './store/reducers';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { SmenaEffect } from './store/effects/smena.effect';
-import { UpdateStateSmenaEffect } from './store/effects/updateState.effect';
 
 @NgModule({
   declarations: [
@@ -41,7 +40,7 @@ import { UpdateStateSmenaEffect } from './store/effects/updateState.effect';
     InputTextModule,
     TableModule,
     StoreModule.forFeature('smena', reducers),
-    EffectsModule.forFeature([SmenaEffect,UpdateStateSmenaEffect]),
+    EffectsModule.forFeature([SmenaEffect]),
   ],
   providers: [MessageService, DatePipe, SmenaService]
 })

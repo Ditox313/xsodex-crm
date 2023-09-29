@@ -15,14 +15,11 @@ import { AccountSettingPageComponent } from './components/account-setting-page/a
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/reducers';
 import { LoaderModule } from '../shared/modules/loader/loader.module';
-import { RegisterEffect } from './store/effects/register.effect';
 import { EffectsModule } from '@ngrx/effects';
-import { LoginEffect } from './store/effects/login.effect';
-import { LogoutEffect } from './store/effects/logout.effect';
-import { UpdateStateEffect } from './store/effects/updateState.effect';
+import { AccountEffect } from './store/effects/account.effect';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { UpdateUserEffect } from './store/effects/updateUser.effect';
+
 
 @NgModule({
   declarations: [
@@ -44,7 +41,7 @@ import { UpdateUserEffect } from './store/effects/updateUser.effect';
     ButtonModule,
     InputTextModule,
     StoreModule.forFeature('account', reducers),
-    EffectsModule.forFeature([RegisterEffect,LoginEffect,LogoutEffect,UpdateStateEffect, UpdateUserEffect]),
+    EffectsModule.forFeature([AccountEffect]),
   ],
   providers: [MessageService, AuthService],
 })
