@@ -3,11 +3,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
 import { UserRequestLogin } from '../../types/account.interfaces';
 import { Store, select } from '@ngrx/store';
 import { loginAction } from '../../store/actions/login.action';
 import { isLoadingSelector } from '../../store/selectors';
+
 
 
 
@@ -91,18 +91,13 @@ export class LoginPageComponent implements OnInit, OnDestroy, AfterViewInit {
   // Отправка формы
   onSubmit()
   {
-    // this.form.disable();
-
     const user: UserRequestLogin = {
       email: this.form.value.email,
       password: this.form.value.password,
     };
 
-
     this.store.dispatch(loginAction({ user }))
-
-    this.form.enable();
-
+    
   }
 
 

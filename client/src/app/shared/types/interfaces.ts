@@ -1,5 +1,6 @@
 import { Type } from "@angular/core"
 import { AccountStateInterface } from "src/app/account/types/account.interfaces";
+import { SmenaStateInterface } from "src/app/smena/types/smena.interfaces";
 
 // Интерфейс для Route
 export interface Route {
@@ -13,7 +14,8 @@ export interface Route {
 
 // Интерфейс для глобального state
 export interface AppStateInterface {
-    account: AccountStateInterface;
+    account: AccountStateInterface,
+    smena: SmenaStateInterface
 }
 
 

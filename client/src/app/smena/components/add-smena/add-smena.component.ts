@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { currentUserSelector, isLoadingSelector } from 'src/app/account/store/selectors';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
 import { DatePipe } from '@angular/common';
+import { openSmenaAction } from '../../store/actions/smena.action';
 
 @Component({
   selector: 'app-add-smena',
@@ -17,8 +18,8 @@ export class AddSmenaComponent {
   isLoadingSelector$!: Observable<boolean | null>
   currentUserSelector$!: Observable<UserResponceRegister | null | undefined>
   currentUser!: UserResponceRegister | null | undefined
-  open_date: string | null= ''
-  close_date: string | null= ''
+  open_date: string= ''
+  close_date: string= ''
 
   constructor(private store: Store, private datePipe: DatePipe) { }
 
@@ -59,7 +60,7 @@ export class AddSmenaComponent {
 
 
   initDateOpenSmena() {
-    this.open_date = this.datePipe.transform(new Date(), 'dd.MM.yyyy HH:mm')
+    this.open_date = this.datePipe.transform(new Date(), 'dd.MM.yyyy HH:mm') || ''
   }
 
 
@@ -71,18 +72,9 @@ export class AddSmenaComponent {
       responsible: this.form.value.responsible,
       status: 'open',
       close_date: this.close_date,
-      userId: this.currentUser?._id
+      userId: this.currentUser?._id || ''
     }
 
-    console.log(smena);
-    
-
-
-
-    // Отправляем запрос
-    // this.subCreateSmena$ = this.smenaService.create(smena).subscribe((smena) => {
-    //   MaterialService.toast('Смена создана');
-    //   this.router.navigate(['/smena-list']);
-    // });
+    this.store.dispatch(openSmenaAction({ smena }))
   }
 }

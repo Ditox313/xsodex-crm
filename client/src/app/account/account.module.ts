@@ -46,6 +46,6 @@ import { UpdateUserEffect } from './store/effects/updateUser.effect';
     StoreModule.forFeature('account', reducers),
     EffectsModule.forFeature([RegisterEffect,LoginEffect,LogoutEffect,UpdateStateEffect, UpdateUserEffect]),
   ],
-  providers: [MessageService, AuthService]
+  providers: [MessageService, AuthService],
 })
 export class AccountModule { }

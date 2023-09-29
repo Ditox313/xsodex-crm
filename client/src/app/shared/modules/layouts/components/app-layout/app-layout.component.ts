@@ -3,6 +3,8 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { updateStateAction } from 'src/app/account/store/actions/updateState.action';
 import { isLoadingSelector, tokenSelector } from 'src/app/account/store/selectors';
+import { isOpenedSmenaAction } from 'src/app/smena/store/actions/smena.action';
+import { updateStateSmenaAction } from 'src/app/smena/store/actions/updateState.action';
 
 @Component({
   selector: 'app-app-layout',
@@ -33,6 +35,7 @@ export class AppLayoutComponent implements OnInit {
   }
 
 
+  // Обновляем состояние в LocalStorage
   updateState()
   {
     this.store.subscribe(state => {
@@ -42,18 +45,30 @@ export class AppLayoutComponent implements OnInit {
 
 
   initValues() {
+    // Получаем открытую смену если она есть
+    this.store.dispatch(isOpenedSmenaAction())
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
-
     this.isTokenStateSub$ = this.store.pipe(select(tokenSelector))
     
+
+    // Когда мы сделаем перезагрузку у нас слетит токнен. Соответственно пока мы не выполним dispatch по обновлении User, у нас токена не будет в state
+    // И мы можем обновлять все другие состояния.А dispatch по обновлении User стоит выполнить в последнюю очередь
     this.isTokenStateSub$.subscribe({
       next : (token) => {
+        // Подписываемся на токнен.Пока его не будет мы будем просто базово обновлять состояние.
        if(token !== '')
        {
          this.updateState()
        }
        else
        {
+        // Обновляем состояние смены
+         this.store.dispatch(updateStateSmenaAction())
+
+
+
+
+        //  Выполнять последним, что бы обновить токен только после всех обновлений состояний
          this.store.dispatch(updateStateAction())
        }
       }

@@ -14,7 +14,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ListSmenaComponent } from './components/list-smena/list-smena.component';
 import { TableModule } from 'primeng/table';
-import { DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';import { SmenaService } from './services/smena.service';
+import { reducers } from './store/reducers';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { SmenaEffect } from './store/effects/smena.effect';
+import { UpdateStateSmenaEffect } from './store/effects/updateState.effect';
 
 @NgModule({
   declarations: [
@@ -34,8 +39,10 @@ import { DatePipe } from '@angular/common';
     LoaderModule,
     ButtonModule,
     InputTextModule,
-    TableModule
+    TableModule,
+    StoreModule.forFeature('smena', reducers),
+    EffectsModule.forFeature([SmenaEffect,UpdateStateSmenaEffect]),
   ],
-  providers: [MessageService, DatePipe]
+  providers: [MessageService, DatePipe, SmenaService]
 })
 export class SmenaModule { }
