@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 import { Observable, Subscription } from 'rxjs';
 import { UserRequestLogin } from '../../types/account.interfaces';
 import { Store, select } from '@ngrx/store';
-import { loginAction } from '../../store/actions/login.action';
+import { loginAction } from '../../store/actions/account.action';
 import { isLoadingSelector } from '../../store/selectors';
 
 

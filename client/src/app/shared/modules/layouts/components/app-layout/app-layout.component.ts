@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { updateStateAction } from 'src/app/account/store/actions/updateState.action';
+import { updateStateAction } from 'src/app/account/store/actions/account.action';
 import { isLoadingSelector, tokenSelector } from 'src/app/account/store/selectors';
-import { isOpenedSmenaAction } from 'src/app/smena/store/actions/smena.action';
-import { updateStateSmenaAction } from 'src/app/smena/store/actions/updateState.action';
+import { isOpenedSmenaAction, updateStateSmenaAction } from 'src/app/smena/store/actions/smena.action';
 
 @Component({
   selector: 'app-app-layout',

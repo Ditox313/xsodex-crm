@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { UserResponceRegister } from '../../types/account.interfaces';
 import { Store, select } from '@ngrx/store';
 import { currentUserSelector, isLoadingSelector } from '../../store/selectors';
-import { AuthService } from '../../services/auth.service';
-import { updateUserAction } from '../../store/actions/updateUser.action';
+import { updateUserAction } from '../../store/actions/account.action';
+
 
 @Component({
   selector: 'app-account-setting-page',

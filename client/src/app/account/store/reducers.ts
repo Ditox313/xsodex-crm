@@ -1,12 +1,7 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { AccountStateInterface } from '../types/account.interfaces';
-import {
-  registerAction, registerFailureAction, registerSuccessAction,
-} from 'src/app/account/store/actions/register.action';
-import { loginAction, loginFailureAction, loginSuccessAction } from './actions/login.action';
-import { logoutAction, logoutFailureAction, logoutSuccessAction } from './actions/logout.action';
-import { updateStateFailureAction, updateStateSuccessAction } from './actions/updateState.action';
-import { updateUserAction, updateUserFailureAction, updateUserSuccessAction } from './actions/updateUser.action';
+import { loginAction, loginFailureAction, loginSuccessAction, logoutAction, logoutFailureAction, logoutSuccessAction, registerAction, registerFailureAction, registerSuccessAction, updateStateFailureAction, updateStateSuccessAction, updateUserAction, updateUserFailureAction, updateUserSuccessAction } from './actions/account.action';
+
 
 
 

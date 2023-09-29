@@ -3,8 +3,8 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
-import { logoutAction } from 'src/app/account/store/actions/logout.action';
 import { Location } from '@angular/common';
+import { logoutAction } from 'src/app/account/store/actions/account.action';
 
 @Component({
   selector: 'app-header-app-layout',

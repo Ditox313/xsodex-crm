@@ -7,15 +7,24 @@ import {
   loginAction,
   loginSuccessAction,
   loginFailureAction,
-} from 'src/app/account/store/actions/login.action';
+  logoutAction,
+  logoutSuccessAction,
+  logoutFailureAction,
+  registerAction,
+  registerSuccessAction,
+  registerFailureAction,
+  updateStateAction,
+  updateStateSuccessAction,
+  updateStateFailureAction,
+  updateUserAction,
+  updateUserSuccessAction,
+  updateUserFailureAction,
+} from 'src/app/account/store/actions/account.action';
 import {AuthService} from '../../services/auth.service'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-import { logoutAction, logoutFailureAction, logoutSuccessAction } from '../actions/logout.action'
-import { registerAction, registerFailureAction, registerSuccessAction } from '../actions/register.action'
 import { UserResponceRegister } from '../../types/account.interfaces'
-import { updateStateAction, updateStateFailureAction, updateStateSuccessAction } from '../actions/updateState.action'
-import { updateUserAction, updateUserFailureAction, updateUserSuccessAction } from '../actions/updateUser.action'
+
 
 
 

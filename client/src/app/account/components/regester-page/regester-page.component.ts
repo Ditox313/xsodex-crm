@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserRequestRegister } from '../../types/account.interfaces';
 import { Observable, Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { registerAction } from '../../store/actions/register.action';
 import { isLoadingSelector } from '../../store/selectors';
+import { registerAction } from '../../store/actions/account.action';
 
 
 @Component({
