@@ -18,7 +18,17 @@ const smenaSchema = new Schema({
         required: true,
     },
 
-    responsible: {
+    responsible_name: {
+        type: String,
+        required: true,
+    },
+
+    responsible_secondName: {
+        type: String,
+        required: true,
+    },
+
+    responsible_lastName: {
         type: String,
         required: true,
     },

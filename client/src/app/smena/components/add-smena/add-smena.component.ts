@@ -67,9 +67,13 @@ export class AddSmenaComponent {
 
   onSubmit()
   {
+    let responsible = this.form.value.responsible.split(' ');
+
     const smena = {
       open_date: this.open_date,
-      responsible: this.form.value.responsible,
+      responsible_name: responsible[1],
+      responsible_secondName: responsible[0],
+      responsible_lastName: responsible[2],
       status: 'open',
       close_date: this.close_date,
       userId: this.currentUser?._id || ''

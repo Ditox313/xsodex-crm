@@ -15,7 +15,9 @@ module.exports.open = async function(req, res) {
 
         const smena = await new Smena({
             open_date: req.body.open_date,
-            responsible: req.body.responsible,
+            responsible_name: req.body.responsible_name,
+            responsible_secondName: req.body.responsible_secondName,
+            responsible_lastName: req.body.responsible_lastName,
             status: req.body.status,
             close_date: req.body.close_date,
             userId: req.body.userId,

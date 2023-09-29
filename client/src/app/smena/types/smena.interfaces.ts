@@ -5,7 +5,9 @@ export interface Smena {
     _id?: string,
     order?: string,
     open_date: string,
-    responsible: string,
+    responsible_name: string,
+    responsible_secondName: string,
+    responsible_lastName: string,
     status: string,
     close_date: string,
     userId: string 
