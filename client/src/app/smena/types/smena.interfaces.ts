@@ -18,5 +18,6 @@ export interface Smena {
 // Интерфейс для state smena
 export interface SmenaStateInterface {
     isOpenedSmena?: Smena | null | undefined,
+    isLoading: boolean,
     validationErrors?: any
 }

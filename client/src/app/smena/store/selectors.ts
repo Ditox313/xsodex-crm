@@ -1,26 +1,17 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { AccountStateInterface } from 'src/app/account/types/account.interfaces'
+import { SmenaStateInterface } from '../types/smena.interfaces';
 
-export const accountFeatureSelector = createFeatureSelector<AccountStateInterface>('account');
+export const smenaFeatureSelector = createFeatureSelector<SmenaStateInterface>('smena');
 
 
 
 
 export const isLoadingSelector = createSelector(
-    accountFeatureSelector,
-    (state: AccountStateInterface) => state.isLoading
+    smenaFeatureSelector,
+    (state: SmenaStateInterface) => state.isLoading
 )
 
-
-export const tokenSelector = createSelector(
-    accountFeatureSelector,
-    (state: AccountStateInterface) => state.token
-)
-
-export const currentUserSelector = createSelector(
-    accountFeatureSelector,
-    (state: AccountStateInterface) => state.currentUser
-)
 
 
 

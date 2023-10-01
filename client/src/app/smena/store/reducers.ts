@@ -8,6 +8,7 @@ import { OpenedSmenaFailureAction, isOpenedSmenaAction, isOpenedSmenaSuccessActi
 // Инициализируем состояние
 const initialState: SmenaStateInterface = {
   isOpenedSmena: null,
+  isLoading: false,
   validationErrors: null
 };
 
@@ -22,6 +23,7 @@ const smenaReducer = createReducer(
     (state): SmenaStateInterface => ({
       ...state,
       validationErrors: null,
+      isLoading: true,
     })
   ),
 
@@ -31,6 +33,7 @@ const smenaReducer = createReducer(
       ...state,
       isOpenedSmena: action.smena,
       validationErrors: null,
+      isLoading: false,
     })
   ),
   on(
@@ -38,6 +41,7 @@ const smenaReducer = createReducer(
     (state, action): SmenaStateInterface => ({
       ...state,
       validationErrors: action.errors,
+      isLoading: false,
     })
   ),
 
