@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Observable, of, tap } from 'rxjs';
 import { Smena } from '../types/smena.interfaces';
@@ -17,5 +17,13 @@ export class SmenaService {
 
   isOpenSmena(): Observable<any> {
     return this.http.get<Smena | null>(`/api/smena/is-open-smena`);
+  }
+
+  getAllSmena(params: any = {}): Observable<Smena[]> {
+    return this.http.get<Smena[]>('/api/smena/smena-list', {
+      params: new HttpParams({
+        fromObject: params
+      })
+    });
   }
 }

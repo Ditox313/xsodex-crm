@@ -45,3 +45,21 @@ module.exports.isOpenSmena = async function (req, res) {
         errorHandler(res, e);
     }
 };
+
+
+
+
+
+module.exports.getAllSmena = async function (req, res) {
+    try {
+
+        const smenas = await Smena.find({}).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+        // Возвращаем пользователю позиции 
+        res.status(200).json(smenas);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};

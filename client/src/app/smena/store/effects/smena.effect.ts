@@ -5,7 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-import { isOpenedSmenaAction, isOpenedSmenaSuccessAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction, updateStateSmenaAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from '../actions/smena.action'
+import { isOpenedSmenaAction, isOpenedSmenaSuccessAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction, smenaListAction, smenaListFailureAction, smenaListSuccessAction, updateStateSmenaAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from '../actions/smena.action'
 import { SmenaService } from '../../services/smena.service'
 
 
@@ -80,5 +80,28 @@ export class SmenaEffect {
           );
         })
       ),
+  );
+
+
+
+
+
+  // Получение всех смен
+  smenaList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(smenaListAction),
+      switchMap((params) => {
+        return this.smena.getAllSmena({params}).pipe(
+          map((smenaList) => {
+            return smenaListSuccessAction({data: smenaList});
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              smenaListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
   );
 }

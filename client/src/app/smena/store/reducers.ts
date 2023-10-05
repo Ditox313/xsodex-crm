@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { SmenaStateInterface } from '../types/smena.interfaces';
-import { OpenedSmenaFailureAction, isOpenedSmenaAction, isOpenedSmenaSuccessAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from './actions/smena.action';
+import { OpenedSmenaFailureAction, isOpenedSmenaAction, isOpenedSmenaSuccessAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction, smenaListAction, smenaListFailureAction, smenaListSuccessAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from './actions/smena.action';
 
 
 
@@ -9,7 +9,8 @@ import { OpenedSmenaFailureAction, isOpenedSmenaAction, isOpenedSmenaSuccessActi
 const initialState: SmenaStateInterface = {
   isOpenedSmena: null,
   isLoading: false,
-  validationErrors: null
+  validationErrors: null,
+  smenaList: null
 };
 
 
@@ -92,6 +93,39 @@ const smenaReducer = createReducer(
     (state, action): SmenaStateInterface => ({
       ...state,
       validationErrors: action.errors,
+    })
+  ),
+
+
+
+
+
+
+
+  on(
+    smenaListAction,
+    (state): SmenaStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    smenaListSuccessAction,
+    (state, action): SmenaStateInterface => ({
+      ...state,
+      smenaList: action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    smenaListFailureAction,
+    (state, action): SmenaStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
     })
   ),
 );

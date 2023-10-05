@@ -1,10 +1,10 @@
 <app-header-app-layout [title]="title"></app-header-app-layout>
 <p-toast></p-toast>
-<!-- <loader *ngIf="isLoadingSelector$ | async"></loader> -->
+<loader *ngIf="isLoadingSelector$ | async"></loader>
 
 
-<div class="list">
-    <p-table [value]="products" styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }">
+<div class="list" *ngIf="smenaList">
+    <p-table [value]="smenaList" styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="add_new" [routerLink]="['/add-smena']">
                 <p-button icon="pi pi-plus"></p-button>

@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { UserResponceRegister } from '../../types/account.interfaces';
 import { Store, select } from '@ngrx/store';
 import { currentUserSelector, isLoadingSelector } from '../../store/selectors';
@@ -16,7 +16,8 @@ export class AccountSettingPageComponent {
   title: string = 'Настройки аккаунта'
   form!: FormGroup; 
   isLoadingSelector$!: Observable<boolean | null>
-  currentUserSelector$!: Observable<UserResponceRegister | null | undefined>
+  currentUserSelector!: Observable<UserResponceRegister | null | undefined>
+  currentUserSub$!: Subscription
   currentUser!: UserResponceRegister | null | undefined
   uploadFile!: File
   avatar: string | ArrayBuffer | undefined | null = '' ;
@@ -32,6 +33,12 @@ export class AccountSettingPageComponent {
   ngOnInit(): void {
     this.initionalForm();
     this.initValues()
+  }
+
+  ngOnDestroy(): void {
+    if (this.currentUserSub$) {
+      this.currentUserSub$.unsubscribe();
+    }
   }
 
   initionalForm() {
@@ -50,8 +57,8 @@ export class AccountSettingPageComponent {
   }
 
   initValues() {
-    this.currentUserSelector$ = this.store.pipe(select(currentUserSelector))
-    this.currentUserSelector$.subscribe({
+    this.currentUserSelector = this.store.pipe(select(currentUserSelector))
+    this.currentUserSub$ = this.currentUserSelector.subscribe({
       next: (user) => {
         this.currentUser = user
         

@@ -44,8 +44,6 @@ export class AppLayoutComponent implements OnInit {
 
 
   initValues() {
-    // Получаем открытую смену если она есть
-    this.store.dispatch(isOpenedSmenaAction())
     
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
     this.isTokenStateSub$ = this.store.pipe(select(tokenSelector))

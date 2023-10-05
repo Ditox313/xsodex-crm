@@ -1,7 +1,7 @@
 import {createAction, props} from '@ngrx/store'
 
 import {ActionTypes} from 'src/app/smena/store/actionTypes'
-import { Smena } from '../../types/smena.interfaces';
+import { Smena, SmenaParamsFetch } from '../../types/smena.interfaces';
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 
 
@@ -63,6 +63,29 @@ export const updateStateSmenaFailureAction = createAction(
   ActionTypes.UPDATE_STATE_SMENA_FAILURE,
   props<{ errors: any }>()
 );
+
+
+
+
+
+// Smena List
+export const smenaListAction = createAction(
+  ActionTypes.SMENA_LIST,
+  props<{ params: SmenaParamsFetch }>()
+);
+
+
+export const smenaListSuccessAction = createAction(
+  ActionTypes.SMENA_LIST_SUCCES,
+  props<{ data: any }>()
+);
+
+
+export const smenaListFailureAction = createAction(
+  ActionTypes.SMENA_LIST_FAILURE,
+  props<{ errors: any }>()
+);
+
 
 
 

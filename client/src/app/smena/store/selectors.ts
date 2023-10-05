@@ -12,6 +12,10 @@ export const isLoadingSelector = createSelector(
     (state: SmenaStateInterface) => state.isLoading
 )
 
+export const smenaListSelector = createSelector(
+    smenaFeatureSelector,
+    (state: SmenaStateInterface) => state.smenaList
+)
 
 
 

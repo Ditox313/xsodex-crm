@@ -19,5 +19,15 @@ export interface Smena {
 export interface SmenaStateInterface {
     isOpenedSmena?: Smena | null | undefined,
     isLoading: boolean,
-    validationErrors?: any
+    validationErrors?: any,
+    smenaList?: Smena[] | null | undefined
+}
+
+
+
+
+// Интерфейс для параметров запроса на получение всех смен
+export interface SmenaParamsFetch {
+    offset: number | null,
+    limit: number | null
 }

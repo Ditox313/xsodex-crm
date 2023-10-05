@@ -9,8 +9,12 @@ const controller = require('../../controllers/smena/smena.js');
 router.post('/open', passport.authenticate('jwt', { session: false }), controller.open);
 
 
-// Роут на isOpenSmena
+// Роут на проверка наличии открытой смены
 router.get('/is-open-smena', passport.authenticate('jwt', { session: false }), controller.isOpenSmena);
+
+
+// Роут на Получение всех смен
+router.get('/smena-list', passport.authenticate('jwt', { session: false }), controller.getAllSmena);
 
 
 
