@@ -3,7 +3,7 @@
 // Интерфейс для Smena
 export interface Smena {
     _id?: string,
-    order?: string,
+    order?: number,
     open_date: string,
     responsible_name: string,
     responsible_secondName: string,

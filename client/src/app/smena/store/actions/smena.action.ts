@@ -89,3 +89,12 @@ export const smenaListFailureAction = createAction(
 
 
 
+// Smena List loadmore reset
+export const smenaListResetAction = createAction(
+  ActionTypes.SMENA_LIST_RESET,
+);
+
+
+
+
+

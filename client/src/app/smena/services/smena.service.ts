@@ -22,7 +22,7 @@ export class SmenaService {
   getAllSmena(params: any = {}): Observable<Smena[]> {
     return this.http.get<Smena[]>('/api/smena/smena-list', {
       params: new HttpParams({
-        fromObject: params
+        fromObject: params.params.params
       })
     });
   }

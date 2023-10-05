@@ -55,7 +55,7 @@ export class AddSmenaComponent {
 
   pathValueUser(user: UserResponceRegister) {
     this.form.patchValue({
-      responsible: user.secondName + ' ' + user.secondName + ' ' + user.lastName,
+      responsible: user.secondName + ' ' + user.name + ' ' + user.lastName,
     });
   }
 
@@ -69,6 +69,8 @@ export class AddSmenaComponent {
   onSubmit()
   {
     let responsible = this.form.value.responsible.split(' ');
+    console.log(responsible);
+    
 
     const smena = {
       open_date: this.open_date,

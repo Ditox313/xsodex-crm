@@ -11,4 +11,5 @@ export enum ActionTypes {
   SMENA_LIST = '[Smena] Smena List',
   SMENA_LIST_SUCCES = '[Smena] Smena List succes',
   SMENA_LIST_FAILURE = '[Smena] Smena List failure',
+  SMENA_LIST_RESET = '[Smena] Smena List reset',
 }

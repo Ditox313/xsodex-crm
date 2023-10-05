@@ -47,7 +47,7 @@ const smenaSchema = new Schema({
 
 
     order: {
-        type: String,
+        type: Number,
         required: true,
     },
 

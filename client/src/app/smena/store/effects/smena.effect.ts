@@ -5,7 +5,8 @@ import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-import { isOpenedSmenaAction, isOpenedSmenaSuccessAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction, smenaListAction, smenaListFailureAction, smenaListSuccessAction, updateStateSmenaAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from '../actions/smena.action'
+import { isOpenedSmenaAction, isOpenedSmenaSuccessAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction, smenaListAction, 
+  smenaListFailureAction,  smenaListSuccessAction, updateStateSmenaAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from '../actions/smena.action'
 import { SmenaService } from '../../services/smena.service'
 
 
@@ -104,4 +105,6 @@ export class SmenaEffect {
       })
     )
   );
+
+
 }

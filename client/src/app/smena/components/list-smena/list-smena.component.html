@@ -1,17 +1,17 @@
 <app-header-app-layout [title]="title"></app-header-app-layout>
 <p-toast></p-toast>
-<loader *ngIf="isLoadingSelector$ | async"></loader>
+<loader *ngIf="isLoadingSelector | async"></loader>
 
 
 <div class="list" *ngIf="smenaList">
-    <p-table [value]="smenaList" styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="caption">
+    <p-table [value]="smenaList" styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }" >
+        <ng-template pTemplate="caption" *ngIf="!isOpenedSmena">
             <div class="add_new" [routerLink]="['/add-smena']">
                 <p-button icon="pi pi-plus"></p-button>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
-            <tr>
+            <tr *ngIf="smenaList.length > 0">
                 <th>Номер</th>
                 <th>Дата открытия</th>
                 <th>Ответственный</th>
@@ -20,15 +20,28 @@
                 <th></th>
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-product>
-            <tr>
-                <td>1</td>
-                <td>31.08.2023 14:43:03</td>
-                <td>Синицын Виталий Викторович</td>
-                <td>Открыта</td>
-                <td>28.09.2023 10:40:59</td>
+        <ng-template pTemplate="body" let-smena>
+            <tr *ngIf="smenaList.length > 0">
+                <td>{{smena.order}}</td>
+                <td>{{smena.open_date}}</td>
+                <td>{{smena.responsible_secondName}} {{smena.responsible_name}} {{smena.responsible_lastName}}</td>
+                <td *ngIf="smena.status === 'open'" style="background-color: green; color: #fff;">Открыта</td>
+                <td *ngIf="smena.status === 'close'" style="background-color: red; color: #fff;">Закрыта</td>
+                <td>{{smena.close_date}}</td>
                 <td style="cursor: pointer; text-align: center;"><i class="pi pi-trash"></i></td>
             </tr>
         </ng-template>
     </p-table>
+
+    <div *ngIf="smenaList.length === 0" class="noMoreSmenaList">
+        <h2>Список смен отсутствует...</h2>
+    </div>
+
+    <div class="btn">
+        <p-button label="Загрузить еще..." *ngIf="!noMoreSmenaList && smenaList.length > 0" (click)="loadmore()"></p-button>
+    </div>
 </div>
+
+
+
+

@@ -17,6 +17,13 @@ export const smenaListSelector = createSelector(
     (state: SmenaStateInterface) => state.smenaList
 )
 
+export const isOpenedSmenaSelector = createSelector(
+    smenaFeatureSelector,
+    (state: SmenaStateInterface) => state.isOpenedSmena
+)
+
+
+
 
 
 
