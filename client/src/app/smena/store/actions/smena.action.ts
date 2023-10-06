@@ -119,5 +119,11 @@ export const smenaDeleteFailureAction = createAction(
 );
 
 
+export const noMoreSmenaListAction = createAction(
+  ActionTypes.NO_MORE_SMENA_LIST,
+  props<{ data: boolean }>()
+);
+
+
 
 

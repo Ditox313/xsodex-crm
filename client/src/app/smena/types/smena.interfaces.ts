@@ -20,7 +20,8 @@ export interface SmenaStateInterface {
     isOpenedSmena?: Smena | null | undefined,
     isLoading: boolean,
     validationErrors?: any,
-    smenaList?: Smena[] | null | undefined
+    smenaList?: Smena[] | null | undefined,
+    noMoreSmenaList: boolean
 }
 
 

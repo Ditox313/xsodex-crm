@@ -75,9 +75,7 @@ module.exports.remove = async function (req, res) {
         const result = await Smena.deleteOne({ _id: req.params.id });
 
         if (result.deletedCount === 1) {
-            res.status(200).json({
-                message: result.deletedCount
-            });
+            res.status(200).json(req.params.id);
         } else {
             return error
         }

@@ -23,6 +23,11 @@ export const isOpenedSmenaSelector = createSelector(
 )
 
 
+export const noMoreSmenaList = createSelector(
+    smenaFeatureSelector,
+    (state: SmenaStateInterface) => state.noMoreSmenaList
+)
+
 
 
 

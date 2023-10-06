@@ -38,7 +38,7 @@
     </div>
 
     <div class="btn">
-        <p-button label="Загрузить еще..." *ngIf="!noMoreSmenaList && smenaList.length > 0" (click)="loadmore()"></p-button>
+        <p-button label="Загрузить еще..." *ngIf="!(noMoreSmenaList | async)" (click)="loadmore()"></p-button>
     </div>
 </div>
 

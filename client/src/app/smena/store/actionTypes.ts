@@ -15,4 +15,5 @@ export enum ActionTypes {
   SMENA_DELETE = '[Smena] Smena delete',
   SMENA_DELETE_SUCCES = '[Smena] Smena delete succes',
   SMENA_DELETE_FAILURE = '[Smena] Smena delete failure',
+  NO_MORE_SMENA_LIST = '[Smena] No more smena list',
 }

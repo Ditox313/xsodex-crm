@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { isOpenedSmenaAction, smenaDeleteAction, smenaListAction, smenaListResetAction } from '../../store/actions/smena.action';
 import { Smena, SmenaParamsFetch } from '../../types/smena.interfaces';
 import { BehaviorSubject, Observable, Subscription, of } from 'rxjs';
-import { isLoadingSelector, isOpenedSmenaSelector, smenaListSelector } from 'src/app/smena/store/selectors';
+import { isLoadingSelector, isOpenedSmenaSelector, noMoreSmenaList, smenaListSelector } from 'src/app/smena/store/selectors';
 
 @Component({
   selector: 'app-list-smena',
@@ -11,18 +11,19 @@ import { isLoadingSelector, isOpenedSmenaSelector, smenaListSelector } from 'src
   styleUrls: ['./list-smena.component.css']
 })
 export class ListSmenaComponent implements OnInit {
-  STEP = 5;
+  STEP = 3;
   title: string = 'Смены'
   isOpenedSmenaSelector!: Observable<Smena | null | undefined>
   isOpenedSmenaSub$!: Subscription
   isOpenedSmena!: Smena | null | undefined
   isLoadingSelector!: Observable<boolean | null>
+  noMoreSmenaList!: Observable<boolean | null>
   smenaListSelector!: Observable<Smena[] | null | undefined >
   smenaListSub$!: Subscription
   smenaList: Smena[] | null | undefined = [];
   offset: number = 0;
   limit: number = this.STEP;
-  noMoreSmenaList: Boolean = false;
+  
 
 
 
@@ -56,6 +57,10 @@ export class ListSmenaComponent implements OnInit {
     this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))
 
 
+    // Получаем селектор noMoreSmenaList
+    this.noMoreSmenaList = this.store.pipe(select(noMoreSmenaList))
+
+
     // Получаем селектор  открытой смены
     this.isOpenedSmenaSelector = this.store.pipe(select(isOpenedSmenaSelector))
     this.isOpenedSmenaSub$ = this.isOpenedSmenaSelector.subscribe({
@@ -71,11 +76,7 @@ export class ListSmenaComponent implements OnInit {
     this.smenaListSub$ = this.smenaListSelector.subscribe({
       next: (smenaList) => {
         if (smenaList) {
-          this.smenaList = this.smenaList?.concat(smenaList);
-          if(smenaList.length < this.STEP)
-          {
-            this.noMoreSmenaList = true
-          }
+          this.smenaList = smenaList;
         }
       }
     });
@@ -112,12 +113,6 @@ export class ListSmenaComponent implements OnInit {
 
     if (dicision) {
       this.store.dispatch(smenaDeleteAction({ id: smena._id }))
-
-      if (this.smenaList)
-      {
-        const idxPos = this.smenaList.findIndex((p) => p._id === smena._id);
-        this.smenaList.splice(idxPos, 1);
-      }
     }
   }
 
