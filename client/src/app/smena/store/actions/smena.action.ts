@@ -124,6 +124,10 @@ export const noMoreSmenaListAction = createAction(
   props<{ data: boolean }>()
 );
 
+export const noMoreSmenaListResetAction = createAction(
+  ActionTypes.NO_MORE_SMENA_LIST_RESET,
+);
+
 
 
 
