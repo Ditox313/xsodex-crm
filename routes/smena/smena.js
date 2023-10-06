@@ -17,5 +17,9 @@ router.get('/is-open-smena', passport.authenticate('jwt', { session: false }), c
 router.get('/smena-list', passport.authenticate('jwt', { session: false }), controller.getAllSmena);
 
 
+//Роут на удаление смены
+router.delete('/remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
+
+
 
 module.exports = router;

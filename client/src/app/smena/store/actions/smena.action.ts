@@ -77,7 +77,7 @@ export const smenaListAction = createAction(
 
 export const smenaListSuccessAction = createAction(
   ActionTypes.SMENA_LIST_SUCCES,
-  props<{ data: any }>()
+  props<{ data: Smena[] }>()
 );
 
 
@@ -94,6 +94,29 @@ export const smenaListResetAction = createAction(
   ActionTypes.SMENA_LIST_RESET,
 );
 
+
+
+
+
+
+
+// Smena delete
+export const smenaDeleteAction = createAction(
+  ActionTypes.SMENA_DELETE,
+  props<{ id: string | undefined }>()
+);
+
+
+export const smenaDeleteSuccessAction = createAction(
+  ActionTypes.SMENA_DELETE_SUCCES,
+  props<{ data: string }>()
+);
+
+
+export const smenaDeleteFailureAction = createAction(
+  ActionTypes.SMENA_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 

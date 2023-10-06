@@ -12,4 +12,7 @@ export enum ActionTypes {
   SMENA_LIST_SUCCES = '[Smena] Smena List succes',
   SMENA_LIST_FAILURE = '[Smena] Smena List failure',
   SMENA_LIST_RESET = '[Smena] Smena List reset',
+  SMENA_DELETE = '[Smena] Smena delete',
+  SMENA_DELETE_SUCCES = '[Smena] Smena delete succes',
+  SMENA_DELETE_FAILURE = '[Smena] Smena delete failure',
 }

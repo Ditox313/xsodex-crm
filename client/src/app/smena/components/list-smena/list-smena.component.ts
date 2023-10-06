@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { isOpenedSmenaAction, smenaListAction, smenaListResetAction } from '../../store/actions/smena.action';
+import { isOpenedSmenaAction, smenaDeleteAction, smenaListAction, smenaListResetAction } from '../../store/actions/smena.action';
 import { Smena, SmenaParamsFetch } from '../../types/smena.interfaces';
 import { BehaviorSubject, Observable, Subscription, of } from 'rxjs';
 import { isLoadingSelector, isOpenedSmenaSelector, smenaListSelector } from 'src/app/smena/store/selectors';
-
-
-// Шаг пагинации
-const STEP = 5;
 
 @Component({
   selector: 'app-list-smena',
@@ -15,6 +11,7 @@ const STEP = 5;
   styleUrls: ['./list-smena.component.css']
 })
 export class ListSmenaComponent implements OnInit {
+  STEP = 5;
   title: string = 'Смены'
   isOpenedSmenaSelector!: Observable<Smena | null | undefined>
   isOpenedSmenaSub$!: Subscription
@@ -23,24 +20,22 @@ export class ListSmenaComponent implements OnInit {
   smenaListSelector!: Observable<Smena[] | null | undefined >
   smenaListSub$!: Subscription
   smenaList: Smena[] | null | undefined = [];
-
-  
   offset: number = 0;
-  limit: number = STEP;
+  limit: number = this.STEP;
   noMoreSmenaList: Boolean = false;
+
 
 
   
 
 
   constructor(private store: Store) { }
-
-
-
   ngOnInit(): void {
     this.initValues();
     this.getSmenaList();
   }
+
+
 
   ngOnDestroy(): void {
     if (this.smenaListSub$) {
@@ -49,8 +44,6 @@ export class ListSmenaComponent implements OnInit {
 
     // Отчищаем состояние smenaList перед началом работы компонента
     this.store.dispatch(smenaListResetAction());
-    
-    
   }
 
 
@@ -63,7 +56,7 @@ export class ListSmenaComponent implements OnInit {
     this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))
 
 
-    // Получаем селектор на получение открытой смены
+    // Получаем селектор  открытой смены
     this.isOpenedSmenaSelector = this.store.pipe(select(isOpenedSmenaSelector))
     this.isOpenedSmenaSub$ = this.isOpenedSmenaSelector.subscribe({
       next: (isOpenedSmena) => {
@@ -79,7 +72,7 @@ export class ListSmenaComponent implements OnInit {
       next: (smenaList) => {
         if (smenaList) {
           this.smenaList = this.smenaList?.concat(smenaList);
-          if(smenaList.length < STEP)
+          if(smenaList.length < this.STEP)
           {
             this.noMoreSmenaList = true
           }
@@ -98,18 +91,34 @@ export class ListSmenaComponent implements OnInit {
       limit: this.limit,
     };
 
-
     // Отправляем запрос на получения списка смен
     this.store.dispatch(smenaListAction({ params: params }));
-
   }
 
 
 
   // Подгружаем смены
   loadmore() {
-    this.offset += STEP;
+    this.offset += this.STEP;
     this.getSmenaList();
+  }
+
+
+
+  // Удаление смены
+  onDeleteSmena(event: Event, smena: Smena) {
+    event.stopPropagation();
+    const dicision = window.confirm(`Удалить Смену?`);
+
+    if (dicision) {
+      this.store.dispatch(smenaDeleteAction({ id: smena._id }))
+
+      if (this.smenaList)
+      {
+        const idxPos = this.smenaList.findIndex((p) => p._id === smena._id);
+        this.smenaList.splice(idxPos, 1);
+      }
+    }
   }
 
 }

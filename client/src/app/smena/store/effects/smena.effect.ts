@@ -5,7 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-import { isOpenedSmenaAction, isOpenedSmenaSuccessAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction, smenaListAction, 
+import { isOpenedSmenaAction, isOpenedSmenaSuccessAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction, smenaDeleteAction, smenaDeleteFailureAction, smenaDeleteSuccessAction, smenaListAction, 
   smenaListFailureAction,  smenaListSuccessAction, updateStateSmenaAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from '../actions/smena.action'
 import { SmenaService } from '../../services/smena.service'
 
@@ -99,6 +99,30 @@ export class SmenaEffect {
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               smenaListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+  // // Удаление всех смен
+  smenaDelete$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(smenaDeleteAction),
+      switchMap((id) => {
+        return this.smena.delete(id.id).pipe(
+          map((id) => {
+            this.messageService.add({ severity: 'success', summary: `Смена удалена`, detail: 'Успешно!' });
+            return smenaDeleteSuccessAction({  data: id });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления смены`, detail: 'Попробуйте позже!' });
+            return of(
+              smenaDeleteFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

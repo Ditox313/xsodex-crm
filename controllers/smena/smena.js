@@ -63,3 +63,26 @@ module.exports.getAllSmena = async function (req, res) {
         errorHandler(res, e);
     }
 };
+
+
+
+
+
+
+// Контроллер для remove
+module.exports.remove = async function (req, res) {
+    try {
+        const result = await Smena.deleteOne({ _id: req.params.id });
+
+        if (result.deletedCount === 1) {
+            res.status(200).json({
+                message: result.deletedCount
+            });
+        } else {
+            return error
+        }
+
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};

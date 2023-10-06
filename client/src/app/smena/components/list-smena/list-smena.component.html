@@ -5,7 +5,7 @@
 
 <div class="list" *ngIf="smenaList">
     <p-table [value]="smenaList" styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }" >
-        <ng-template pTemplate="caption" *ngIf="!isOpenedSmena">
+        <ng-template pTemplate="caption" *ngIf="isOpenedSmena">
             <div class="add_new" [routerLink]="['/add-smena']">
                 <p-button icon="pi pi-plus"></p-button>
             </div>
@@ -28,7 +28,7 @@
                 <td *ngIf="smena.status === 'open'" style="background-color: green; color: #fff;">Открыта</td>
                 <td *ngIf="smena.status === 'close'" style="background-color: red; color: #fff;">Закрыта</td>
                 <td>{{smena.close_date}}</td>
-                <td style="cursor: pointer; text-align: center;"><i class="pi pi-trash"></i></td>
+                <td style="cursor: pointer; text-align: center;" (click)="onDeleteSmena($event, smena)"><i class="pi pi-trash"></i></td>
             </tr>
         </ng-template>
     </p-table>

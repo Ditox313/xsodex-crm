@@ -26,4 +26,9 @@ export class SmenaService {
       })
     });
   }
+
+  delete(id: string | undefined): Observable<any> {
+    return this.http.delete<any>(`/api/smena/remove/${id}`);
+  }
+
 }
