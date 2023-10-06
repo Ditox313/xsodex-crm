@@ -57,7 +57,7 @@ const smenaReducer = createReducer(
     (state, action): SmenaStateInterface => ({
       ...state,
       isOpenedSmena: action.data.smena.isOpenedSmena,
-      validationErrors: action.data.smena.validationErrors
+      validationErrors: action.data.smena.validationErrors,
     }),
   ),
   on(

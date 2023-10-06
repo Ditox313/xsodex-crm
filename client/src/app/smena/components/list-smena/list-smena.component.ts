@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { isOpenedSmenaAction, smenaListAction, smenaListResetAction } from '../../store/actions/smena.action';
 import { Smena, SmenaParamsFetch } from '../../types/smena.interfaces';
-import { Observable, Subscription, of } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, of } from 'rxjs';
 import { isLoadingSelector, isOpenedSmenaSelector, smenaListSelector } from 'src/app/smena/store/selectors';
 
 
 // Шаг пагинации
-const STEP = 2;
+const STEP = 5;
 
 @Component({
   selector: 'app-list-smena',
@@ -23,12 +23,13 @@ export class ListSmenaComponent implements OnInit {
   smenaListSelector!: Observable<Smena[] | null | undefined >
   smenaListSub$!: Subscription
   smenaList: Smena[] | null | undefined = [];
-  smenaListLoadmoreSelector!: Observable<Smena[] | null | undefined>
-  smenaListLoadmoreSub$!: Subscription
+
   
   offset: number = 0;
   limit: number = STEP;
   noMoreSmenaList: Boolean = false;
+
+
   
 
 
@@ -45,12 +46,10 @@ export class ListSmenaComponent implements OnInit {
     if (this.smenaListSub$) {
       this.smenaListSub$.unsubscribe();
     }
-    if (this.smenaListLoadmoreSub$) {
-      this.smenaListLoadmoreSub$.unsubscribe();
-    }
 
-    // Отчищаем состояние smenaList(Что бы после перехода на другую страницу список смен грузился заново)
+    // Отчищаем состояние smenaList перед началом работы компонента
     this.store.dispatch(smenaListResetAction());
+    
     
   }
 
@@ -69,8 +68,6 @@ export class ListSmenaComponent implements OnInit {
     this.isOpenedSmenaSub$ = this.isOpenedSmenaSelector.subscribe({
       next: (isOpenedSmena) => {
         this.isOpenedSmena = isOpenedSmena
-        console.log(this.isOpenedSmena);
-        
       }
     })
     
@@ -82,7 +79,6 @@ export class ListSmenaComponent implements OnInit {
       next: (smenaList) => {
         if (smenaList) {
           this.smenaList = this.smenaList?.concat(smenaList);
-
           if(smenaList.length < STEP)
           {
             this.noMoreSmenaList = true
@@ -90,6 +86,8 @@ export class ListSmenaComponent implements OnInit {
         }
       }
     });
+
+    
   }
 
 
@@ -100,8 +98,10 @@ export class ListSmenaComponent implements OnInit {
       limit: this.limit,
     };
 
+
     // Отправляем запрос на получения списка смен
-    this.store.dispatch(smenaListAction({ params }));
+    this.store.dispatch(smenaListAction({ params: params }));
+
   }
 
 
