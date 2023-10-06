@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from "@angular/core";
-import { Observable, of, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Smena } from '../types/smena.interfaces';
 
 

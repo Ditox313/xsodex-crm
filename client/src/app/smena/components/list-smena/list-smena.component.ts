@@ -12,6 +12,8 @@ import { isLoadingSelector, isOpenedSmenaSelector, noMoreSmenaList, smenaListSel
 })
 export class ListSmenaComponent implements OnInit {
   STEP = 3;
+  offset: number = 0;
+  limit: number = this.STEP;
   title: string = 'Смены'
   isOpenedSmenaSelector!: Observable<Smena | null | undefined>
   isOpenedSmenaSub$!: Subscription
@@ -21,12 +23,6 @@ export class ListSmenaComponent implements OnInit {
   smenaListSelector!: Observable<Smena[] | null | undefined >
   smenaListSub$!: Subscription
   smenaList: Smena[] | null | undefined = [];
-  offset: number = 0;
-  limit: number = this.STEP;
-  
-
-
-
   
 
 
@@ -86,8 +82,6 @@ export class ListSmenaComponent implements OnInit {
         }
       }
     });
-
-    
   }
 
 
@@ -121,5 +115,4 @@ export class ListSmenaComponent implements OnInit {
       this.store.dispatch(smenaDeleteAction({ id: smena._id }))
     }
   }
-
 }

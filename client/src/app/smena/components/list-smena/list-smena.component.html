@@ -21,8 +21,8 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-smena>
-            <tr *ngIf="smenaList.length > 0">
-                <td>{{smena.order}}</td>
+            <tr *ngIf="smenaList.length > 0" [routerLink]="['/show-smena',smena._id]">
+                <td >{{smena.order}}</td>
                 <td>{{smena.open_date}}</td>
                 <td>{{smena.responsible_secondName}} {{smena.responsible_name}} {{smena.responsible_lastName}}</td>
                 <td *ngIf="smena.status === 'open'" style="background-color: green; color: #fff;">Открыта</td>

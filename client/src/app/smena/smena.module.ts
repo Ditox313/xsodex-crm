@@ -19,11 +19,13 @@ import { reducers } from './store/reducers';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { SmenaEffect } from './store/effects/smena.effect';
+import { ShowSmenaComponent } from './components/show-smena/show-smena.component';
 
 @NgModule({
   declarations: [
     AddSmenaComponent,
-    ListSmenaComponent
+    ListSmenaComponent,
+    ShowSmenaComponent
   ],
   imports: [
     CommonModule,

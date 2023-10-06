@@ -1,16 +1,13 @@
-import {Injectable, OnInit} from '@angular/core'
+import {Injectable} from '@angular/core'
 import {createEffect, Actions, ofType} from '@ngrx/effects'
 import {map, catchError, switchMap, tap, concatMap} from 'rxjs/operators'
 import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
-import {Observable, Subscription, of} from 'rxjs'
+import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { isOpenedSmenaAction, isOpenedSmenaSuccessAction, noMoreSmenaListAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction, smenaDeleteAction, smenaDeleteFailureAction, smenaDeleteSuccessAction, smenaListAction, 
   smenaListFailureAction,  smenaListSuccessAction, updateStateSmenaAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from '../actions/smena.action'
 import { SmenaService } from '../../services/smena.service'
-import { Smena } from '../../types/smena.interfaces'
-import { Store, select } from '@ngrx/store'
-import { smenaListSelector } from '../selectors'
 
 
 
