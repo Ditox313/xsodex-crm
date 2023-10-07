@@ -31,4 +31,15 @@ export class SmenaService {
     return this.http.delete<any>(`/api/smena/remove/${id}`);
   }
 
+  getById(id: string): Observable<Smena> {
+    return this.http.get<Smena>(`/api/smena/${id}`);
+  }
+
+  close(id: string, close_date: string): Observable<Smena> {
+    const data = {
+      close_date: close_date
+    }
+    
+    return this.http.patch<Smena>(`/api/smena/close/${id}`, data);
+  }
 }

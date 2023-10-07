@@ -1,7 +1,7 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { SmenaStateInterface } from '../types/smena.interfaces';
 import { OpenedSmenaFailureAction, isOpenedSmenaAction, isOpenedSmenaSuccessAction, noMoreSmenaListAction, noMoreSmenaListResetAction, openSmenaAction, 
-  openSmenaFailureAction, openSmenaSuccessAction, smenaDeleteAction, smenaDeleteFailureAction, smenaDeleteSuccessAction, smenaListAction, smenaListFailureAction, smenaListResetAction, smenaListSuccessAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from './actions/smena.action';
+  openSmenaFailureAction, openSmenaSuccessAction, smenaCloseAction, smenaCloseFailureAction, smenaCloseSuccessAction, smenaDeleteAction, smenaDeleteFailureAction, smenaDeleteSuccessAction, smenaGetCurrent, smenaGetCurrentFailureAction, smenaGetCurrentReset, smenaGetCurrentSuccessAction, smenaListAction, smenaListFailureAction, smenaListResetAction, smenaListSuccessAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from './actions/smena.action';
 
 
 
@@ -12,7 +12,8 @@ const initialState: SmenaStateInterface = {
   isLoading: false,
   validationErrors: null,
   smenaList: null,
-  noMoreSmenaList: false
+  noMoreSmenaList: false,
+  currentSmena: null
 };
 
 
@@ -198,8 +199,83 @@ const smenaReducer = createReducer(
       isLoading: false,
     })
   ),
-);
 
+
+
+
+
+
+
+
+  on(
+    smenaGetCurrent,
+    (state): SmenaStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    smenaGetCurrentSuccessAction,
+    (state, action): SmenaStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentSmena: action.data
+    })
+  ),
+  on(
+    smenaGetCurrentFailureAction,
+    (state, action): SmenaStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    smenaGetCurrentReset,
+    (state): SmenaStateInterface => ({
+      ...state,
+      currentSmena: null
+    })
+  ),
+
+
+
+
+
+
+
+
+
+
+  on(
+    smenaCloseAction,
+    (state): SmenaStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    smenaCloseSuccessAction,
+    (state, action): SmenaStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    smenaCloseFailureAction,
+    (state, action): SmenaStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+);
 
 
 

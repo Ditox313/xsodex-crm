@@ -5,7 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-import { isOpenedSmenaAction, isOpenedSmenaSuccessAction, noMoreSmenaListAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction, smenaDeleteAction, smenaDeleteFailureAction, smenaDeleteSuccessAction, smenaListAction, 
+import { isOpenedSmenaAction, isOpenedSmenaSuccessAction, noMoreSmenaListAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction, smenaCloseAction, smenaCloseFailureAction, smenaCloseSuccessAction, smenaDeleteAction, smenaDeleteFailureAction, smenaDeleteSuccessAction, smenaGetCurrent, smenaGetCurrentFailureAction, smenaGetCurrentSuccessAction, smenaListAction, 
   smenaListFailureAction,  smenaListSuccessAction, updateStateSmenaAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from '../actions/smena.action'
 import { SmenaService } from '../../services/smena.service'
 
@@ -47,7 +47,7 @@ export class SmenaEffect {
 
 
 
-  // Is opened smena
+  // Получение смны со статусом OPEN
   smenaisOpened$ = createEffect(() =>
     this.actions$.pipe(
       ofType(isOpenedSmenaAction),
@@ -114,7 +114,7 @@ export class SmenaEffect {
 
 
 
-  // // Удаление всех смен
+  // Удаление смены
   smenaDelete$ = createEffect(() =>
     this.actions$.pipe(
       ofType(smenaDeleteAction),
@@ -128,6 +128,57 @@ export class SmenaEffect {
             this.messageService.add({ severity: 'error', summary: `Ошибка удаления смены`, detail: 'Попробуйте позже!' });
             return of(
               smenaDeleteFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+  // Получение текущей смены
+  getCurrentSmena$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(smenaGetCurrent),
+      switchMap((id) => {
+        return this.smena.getById(id.id).pipe(
+          map((smena) => {
+            return smenaGetCurrentSuccessAction({ data: smena });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              smenaGetCurrentFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+
+
+  // Закрытие смены
+  smenaClose$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(smenaCloseAction),
+      switchMap((data) => {
+        return this.smena.close(data.id, data.close_date).pipe(
+          map((data) => {
+            this.messageService.add({ severity: 'success', summary: `Смена Закрыта`, detail: 'Успешно!' });
+            this.router.navigate(['/list-smena']);
+            return smenaCloseSuccessAction();
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка закрытия смены`, detail: 'Попробуйте позже!' });
+            return of(
+              smenaCloseFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

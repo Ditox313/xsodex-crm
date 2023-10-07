@@ -1,3 +1,24 @@
-<app-header-app-layout [title]="title"></app-header-app-layout>
-<!-- <p-toast></p-toast>
-<loader *ngIf="isLoadingSelector | async"></loader> -->
+<app-header-app-layout [title]="title" [number]="this.currentSmema.order" *ngIf="this.currentSmema"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector | async"></loader>
+
+<div class="smena_show" *ngIf="this.currentSmema">
+    <div class="smena_show_admin_info">
+        <table>
+            <thead>
+                <th>Дата открытия</th>
+                <th>Ответственный</th>
+                <th>Статус</th>
+                <th></th>
+            </thead>
+
+            <tbody>
+                <td>{{currentSmema.open_date}}</td>
+                <td>{{currentSmema.responsible_secondName}} {{currentSmema.responsible_name}} {{currentSmema.responsible_lastName}}</td>
+                <td *ngIf="currentSmema.status === 'open'" style="color: green; font-weight: 700;">Открыта</td>
+                <td *ngIf="currentSmema.status === 'close'" style="color: red; font-weight: 700;">Закрыта</td>
+                <td><p-button label="Закрыть" styleClass="p-button-danger" (click)="closeSmena($event)"></p-button></td>
+            </tbody>
+        </table>
+    </div>
+</div>

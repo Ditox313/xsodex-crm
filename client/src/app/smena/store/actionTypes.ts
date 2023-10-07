@@ -17,4 +17,11 @@ export enum ActionTypes {
   SMENA_DELETE_FAILURE = '[Smena] Smena delete failure',
   NO_MORE_SMENA_LIST = '[Smena] No more smena list',
   NO_MORE_SMENA_LIST_RESET = '[Smena] No more smena reset',
+  SMENA_GET_CURRENT = '[Smena] Get smena current',
+  SMENA_GET_CURRENT_SUCCES = '[Smena] Get smena current succes',
+  SMENA_GET_CURRENT_FAILURE = '[Smena] Get smena current failure',
+  SMENA_GET_CURRENT_RESET = '[Smena] Get smena current reset',
+  SMENA_CLOSE = '[Smena] close',
+  SMENA_CLOSE_SUCCES = '[Smena] close succes',
+  SMENA_CLOSE_FAILURE = '[Smena] close failure',
 }

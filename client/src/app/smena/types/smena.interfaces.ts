@@ -22,6 +22,7 @@ export interface SmenaStateInterface {
     validationErrors?: any,
     smenaList?: Smena[] | null | undefined,
     noMoreSmenaList: boolean
+    currentSmena: Smena | null | undefined,
 }
 
 

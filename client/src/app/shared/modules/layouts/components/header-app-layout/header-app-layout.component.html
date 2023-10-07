@@ -1,5 +1,5 @@
 <header *ngIf="currentUser">
-    <div class="page_title">{{title}}</div>
+    <div class="page_title">{{title}} <span *ngIf="number">{{number}}</span></div>
 
     <div class="account">
         <div class="back" (click)="isGoBack()">

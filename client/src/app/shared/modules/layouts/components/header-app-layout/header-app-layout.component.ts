@@ -13,6 +13,7 @@ import { logoutAction } from 'src/app/account/store/actions/account.action';
 })
 export class HeaderAppLayoutComponent implements OnInit {
   @Input() title: string = '';
+  @Input() number?: any = '';
   currentUserSelector$!: Observable<UserResponceRegister | null | undefined>
   currentUser!: UserResponceRegister | null | undefined
   isVisibleAccountInfo: boolean = false

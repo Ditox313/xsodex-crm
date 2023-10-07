@@ -131,3 +131,54 @@ export const noMoreSmenaListResetAction = createAction(
 
 
 
+
+
+
+
+// Get Smena Current
+export const smenaGetCurrent = createAction(
+  ActionTypes.SMENA_GET_CURRENT,
+  props<{ id: string }>()
+);
+
+
+export const smenaGetCurrentSuccessAction = createAction(
+  ActionTypes.SMENA_DELETE_SUCCES,
+  props<{ data: Smena }>()
+);
+
+
+export const smenaGetCurrentFailureAction = createAction(
+  ActionTypes.SMENA_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
+
+export const smenaGetCurrentReset = createAction(
+  ActionTypes.SMENA_GET_CURRENT_RESET,
+);
+
+
+
+
+
+
+
+// Close Smena
+export const smenaCloseAction = createAction(
+  ActionTypes.SMENA_CLOSE,
+  props<{ id: string, close_date: string }>()
+);
+
+
+export const smenaCloseSuccessAction = createAction(
+  ActionTypes.SMENA_CLOSE_SUCCES,
+);
+
+
+export const smenaCloseFailureAction = createAction(
+  ActionTypes.SMENA_CLOSE_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+

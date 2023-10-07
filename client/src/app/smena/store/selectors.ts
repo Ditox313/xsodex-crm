@@ -28,6 +28,11 @@ export const noMoreSmenaList = createSelector(
     (state: SmenaStateInterface) => state.noMoreSmenaList
 )
 
+export const getCurrentSmenaSelector = createSelector(
+    smenaFeatureSelector,
+    (state: SmenaStateInterface) => state.currentSmena
+)
+
 
 
 

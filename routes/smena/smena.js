@@ -21,5 +21,13 @@ router.get('/smena-list', passport.authenticate('jwt', { session: false }), cont
 router.delete('/remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 
 
+// Роут на получение смены по Id
+router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
+
+
+// // Роут на close
+router.patch('/close/:id', passport.authenticate('jwt', { session: false }), controller.close);
+
+
 
 module.exports = router;
