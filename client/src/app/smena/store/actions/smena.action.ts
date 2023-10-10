@@ -119,6 +119,14 @@ export const smenaDeleteFailureAction = createAction(
 );
 
 
+
+
+
+
+
+
+// No more smena
+
 export const noMoreSmenaListAction = createAction(
   ActionTypes.NO_MORE_SMENA_LIST,
   props<{ data: boolean }>()
@@ -143,13 +151,13 @@ export const smenaGetCurrent = createAction(
 
 
 export const smenaGetCurrentSuccessAction = createAction(
-  ActionTypes.SMENA_DELETE_SUCCES,
+  ActionTypes.SMENA_GET_CURRENT_SUCCES,
   props<{ data: Smena }>()
 );
 
 
 export const smenaGetCurrentFailureAction = createAction(
-  ActionTypes.SMENA_DELETE_FAILURE,
+  ActionTypes.SMENA_GET_CURRENT_FAILURE,
   props<{ errors: any }>()
 );
 

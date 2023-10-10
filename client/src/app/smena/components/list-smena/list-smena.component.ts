@@ -1,8 +1,8 @@
 import {  Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { isOpenedSmenaAction, noMoreSmenaListResetAction, smenaDeleteAction, smenaListAction, smenaListResetAction } from '../../store/actions/smena.action';
+import { isOpenedSmenaAction, noMoreSmenaListResetAction, smenaDeleteAction,  smenaListAction, smenaListResetAction } from '../../store/actions/smena.action';
 import { Smena, SmenaParamsFetch } from '../../types/smena.interfaces';
-import { BehaviorSubject, Observable, Subscription, of } from 'rxjs';
+import { Observable, Subscription, of } from 'rxjs';
 import { isLoadingSelector, isOpenedSmenaSelector, noMoreSmenaList, smenaListSelector } from 'src/app/smena/store/selectors';
 
 @Component({

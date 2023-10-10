@@ -148,14 +148,6 @@ const smenaReducer = createReducer(
       isLoading: false,
     })
   ),
-
-
-
-
-
-
-
-
   on(
     smenaListResetAction,
     (state): SmenaStateInterface => ({
@@ -188,7 +180,8 @@ const smenaReducer = createReducer(
       ...state,
       isLoading: false,
       validationErrors: null,
-      smenaList: state.smenaList ? state.smenaList.filter((item) => item._id !== action.data) : state.smenaList
+      currentSmena: null,
+      smenaList: state.smenaList ? state.smenaList.filter((item) => item._id !== action.data) : state.smenaList,
     })
   ),
   on(
@@ -197,6 +190,7 @@ const smenaReducer = createReducer(
       ...state,
       validationErrors: action.errors,
       isLoading: false,
+      currentSmena: null,
     })
   ),
 

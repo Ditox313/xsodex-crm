@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Smena } from '../../types/smena.interfaces';
-import { SmenaService } from '../../services/smena.service';
 import { DatePipe } from '@angular/common';
 import { Observable, Subscription } from 'rxjs';
 import { smenaCloseAction, smenaGetCurrent, smenaGetCurrentReset } from '../../store/actions/smena.action';
@@ -28,9 +27,7 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
 
   constructor( 
     private store: Store, 
-    private router: Router,
     private rote: ActivatedRoute, 
-    private smena: SmenaService,
     private datePipe: DatePipe,
     ) {}
 
@@ -48,7 +45,7 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
       this.currentSmemaSub$.unsubscribe()
     } 
 
-    // Отчищаем состояние smenaList перед началом работы компонента
+    // Отчищаем состояние currentSmena
     this.store.dispatch(smenaGetCurrentReset());
 
   }
@@ -81,7 +78,7 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
 
   closeSmena(event: any) {
     this.close_date = this.datePipe.transform(new Date(), 'dd.MM.yyyy HH:mm') || ''
-    
+
     //Закрытие смены
     this.store.dispatch(smenaCloseAction({
       id: this.smenaId,
