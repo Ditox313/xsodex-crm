@@ -21,6 +21,11 @@ export class AppLayoutComponent implements OnInit {
       icon: 'pi-file-import'
     },
     {
+      url: '/list-cars',
+      name: 'Автопарк',
+      icon: 'pi-car'
+    },
+    {
       url: '/account-settings-page',
       name: 'Настройки',
       icon: 'pi-cog'

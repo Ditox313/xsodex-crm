@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { SmenaModule } from './smena/smena.module';
+import { CarsModule } from './cars/cars.module';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { SmenaModule } from './smena/smena.module';
     AppRoutingModule,
     AccountModule,
     SmenaModule,
+    CarsModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule ,
