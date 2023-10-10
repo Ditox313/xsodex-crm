@@ -1,6 +1,6 @@
 import {  Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { isOpenedSmenaAction, noMoreSmenaListResetAction, smenaDeleteAction,  smenaListAction, smenaListResetAction } from '../../store/actions/smena.action';
+import { isOpenedSmenaAction, noMoreSmenaListFalseAction, noMoreSmenaListTrueAction, smenaDeleteAction,  smenaListAction, smenaListResetAction } from '../../store/actions/smena.action';
 import { Smena, SmenaParamsFetch } from '../../types/smena.interfaces';
 import { Observable, Subscription, of } from 'rxjs';
 import { isLoadingSelector, isOpenedSmenaSelector, noMoreSmenaList, smenaListSelector } from 'src/app/smena/store/selectors';
@@ -45,8 +45,6 @@ export class ListSmenaComponent implements OnInit {
     // Отчищаем состояние smenaList перед началом работы компонента
     this.store.dispatch(smenaListResetAction());
 
-    // Отчищаю состояние noMoreSmenaList
-    this.store.dispatch(noMoreSmenaListResetAction());
   }
 
 
@@ -79,6 +77,15 @@ export class ListSmenaComponent implements OnInit {
       next: (smenaList) => {
         if (smenaList) {
           this.smenaList = smenaList;
+          if (this.smenaList.length >= this.STEP)
+          {
+            // Изменяем значение noMoreSmenaList в состоянии на false что бы открыть кнопку загрузить ещё
+            this.store.dispatch(noMoreSmenaListFalseAction());
+          }
+          else{
+            // Изменяем значение noMoreSmenaList в состоянии на true что бы скрыть кнопку загрузить ещё
+            this.store.dispatch(noMoreSmenaListTrueAction());
+          }
         }
       }
     });

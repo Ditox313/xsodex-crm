@@ -1,6 +1,7 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { SmenaStateInterface } from '../types/smena.interfaces';
-import { OpenedSmenaFailureAction, isOpenedSmenaAction, isOpenedSmenaSuccessAction, noMoreSmenaListAction, noMoreSmenaListResetAction, openSmenaAction, 
+import {
+  OpenedSmenaFailureAction, isOpenedSmenaAction, isOpenedSmenaSuccessAction, noMoreSmenaListAction, noMoreSmenaListFalseAction, noMoreSmenaListTrueAction, openSmenaAction, 
   openSmenaFailureAction, openSmenaSuccessAction, smenaCloseAction, smenaCloseFailureAction, smenaCloseSuccessAction, smenaDeleteAction, smenaDeleteFailureAction, smenaDeleteSuccessAction, smenaGetCurrent, smenaGetCurrentFailureAction, smenaGetCurrentReset, smenaGetCurrentSuccessAction, smenaListAction, smenaListFailureAction, smenaListResetAction, smenaListSuccessAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from './actions/smena.action';
 
 
@@ -12,7 +13,7 @@ const initialState: SmenaStateInterface = {
   isLoading: false,
   validationErrors: null,
   smenaList: null,
-  noMoreSmenaList: false,
+  noMoreSmenaList: true,
   currentSmena: null
 };
 
@@ -82,7 +83,6 @@ const smenaReducer = createReducer(
       validationErrors: null,
     })
   ),
-
   on(
     isOpenedSmenaSuccessAction,
     (state, action): SmenaStateInterface => ({
@@ -98,6 +98,7 @@ const smenaReducer = createReducer(
       validationErrors: action.errors,
     })
   ),
+
   
 
 
@@ -141,10 +142,18 @@ const smenaReducer = createReducer(
     })
   ),
   on(
-    noMoreSmenaListResetAction,
+    noMoreSmenaListFalseAction,
     (state, action): SmenaStateInterface => ({
       ...state,
       noMoreSmenaList: false,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreSmenaListTrueAction,
+    (state, action): SmenaStateInterface => ({
+      ...state,
+      noMoreSmenaList: true,
       isLoading: false,
     })
   ),
@@ -259,6 +268,7 @@ const smenaReducer = createReducer(
       ...state,
       isLoading: false,
       validationErrors: null,
+      isOpenedSmena: null
     })
   ),
   on(

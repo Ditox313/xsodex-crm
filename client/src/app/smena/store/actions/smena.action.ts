@@ -27,6 +27,8 @@ export const openSmenaFailureAction = createAction(
 
 
 
+
+
 // Is opened smena
 export const isOpenedSmenaAction = createAction(
   ActionTypes.SMENA_IS_OPENED,
@@ -42,6 +44,8 @@ export const OpenedSmenaFailureAction = createAction(
   ActionTypes.SMENA_IS_OPENED_FAILURE,
   props<{ errors: any }>()
 );
+
+
 
 
 
@@ -100,6 +104,8 @@ export const smenaListResetAction = createAction(
 
 
 
+
+
 // Smena delete
 export const smenaDeleteAction = createAction(
   ActionTypes.SMENA_DELETE,
@@ -132,8 +138,12 @@ export const noMoreSmenaListAction = createAction(
   props<{ data: boolean }>()
 );
 
-export const noMoreSmenaListResetAction = createAction(
-  ActionTypes.NO_MORE_SMENA_LIST_RESET,
+export const noMoreSmenaListFalseAction = createAction(
+  ActionTypes.NO_MORE_SMENA_LIST_FALSE,
+);
+
+export const noMoreSmenaListTrueAction = createAction(
+  ActionTypes.NO_MORE_SMENA_LIST_TRUE,
 );
 
 
