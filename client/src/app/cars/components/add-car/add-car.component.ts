@@ -1,5 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Car } from '../../types/cars.interfaces';
+import { DatePipe } from '@angular/common';
+import { CarsService } from '../../services/cars.service';
 
 @Component({
   selector: 'app-add-car',
@@ -14,6 +17,7 @@ export class AddCarComponent implements OnInit {
   @ViewChild('upload') upload!: ElementRef;
 
 
+  constructor(private cars: CarsService, public datePipe: DatePipe,) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -78,6 +82,42 @@ export class AddCarComponent implements OnInit {
 
 
   onSubmit() {
+    const car: Car = {
+      marka: this.form.value.marka,
+      model: this.form.value.model,
+      number: this.form.value.number,
+      probeg: this.form.value.probeg,
+      transmission: this.form.value.transmission,
+      start_arenda: this.form.value.start_arenda,
+      end_arenda: this.form.value.end_arenda,
+      vladelec: this.form.value.vladelec,
+      category: this.form.value.category,
+      status: this.form.value.status,
+      sts_seria: this.form.value.sts_seria,
+      sts_number: this.form.value.sts_number,
+      sts_date: this.form.value.sts_date,
+      osago_seria: this.form.value.osago_seria,
+      osago_number: this.form.value.osago_number,
+      osago_date_finish: this.form.value.osago_date_finish,
+      vin: this.form.value.vin,
+      kuzov_number: this.form.value.kuzov_number,
+      color: this.form.value.color,
+      year_production: this.form.value.year_production,
+      price_ocenka: this.form.value.price_ocenka,
+      to_date: this.form.value.to_date,
+      to_probeg_prev: this.form.value.to_probeg_prev,
+      to_probeg_next: this.form.value.to_probeg_next,
+      to_interval: this.form.value.to_interval,
+      oil_name: this.form.value.oil_name,
+      stoa_name: this.form.value.stoa_name,
+      stoa_phone: this.form.value.stoa_phone,
+    }
     
+
+    this.cars.create(car, this.uploadFile).subscribe({
+      next: (res)=> {
+        console.log(res);
+      }
+    })
   }
 }

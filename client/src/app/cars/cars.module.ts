@@ -15,6 +15,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { TreeSelectModule } from 'primeng/treeselect';
+import { MessageService } from 'primeng/api';
+import { DatePipe } from '@angular/common';
+import { CarsService } from './services/cars.service';
 
 
 
@@ -39,6 +42,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
     TableModule,
     TabViewModule,
     TreeSelectModule
-  ]
+  ],
+  providers: [MessageService, DatePipe, CarsService]
 })
 export class CarsModule { }

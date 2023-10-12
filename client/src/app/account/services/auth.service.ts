@@ -85,6 +85,7 @@ export class AuthService {
       fd.append('doverenostDate', user.doverenostDate);
     }
 
+    
     return this.http.patch<UserResponceRegister>('/api/account/auth/updateUser/', fd);
   }
 
