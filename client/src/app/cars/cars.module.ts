@@ -19,6 +19,10 @@ import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { CarsService } from './services/cars.service';
 import { InputMaskModule } from 'primeng/inputmask';
+import { reducers } from './store/reducers';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { CarsEffect } from './store/effects/cars.effect';
 
 
 
@@ -43,7 +47,9 @@ import { InputMaskModule } from 'primeng/inputmask';
     TableModule,
     TabViewModule,
     TreeSelectModule,
-    InputMaskModule
+    InputMaskModule,
+    StoreModule.forFeature('cars', reducers),
+    EffectsModule.forFeature([CarsEffect]),
   ],
   providers: [MessageService, DatePipe, CarsService]
 })

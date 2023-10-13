@@ -2,7 +2,12 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Car } from '../../types/cars.interfaces';
 import { DatePipe } from '@angular/common';
-import { CarsService } from '../../services/cars.service';
+import { Store, select } from '@ngrx/store';
+import { addCarAction } from '../../store/actions/cars.action';
+import { Observable, Subscription } from 'rxjs';
+import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
+import { currentUserSelector } from 'src/app/account/store/selectors';
+import { isLoadingSelector } from '../../store/selectors';
 
 @Component({
   selector: 'app-add-car',
@@ -16,12 +21,17 @@ export class AddCarComponent implements OnInit {
   avatar: string | ArrayBuffer | undefined | null = 'https://phonoteka.org/uploads/posts/2023-03/1680212136_phonoteka-org-p-dmitrii-razvarov-art-instagram-90.jpg';
   @ViewChild('upload') upload!: ElementRef;
   value!: string;
+  isLoadingSelector$!: Observable<boolean | null>
+  currentUserSelector$!: Observable<UserResponceRegister | null | undefined>
+  currentUser!: UserResponceRegister | null | undefined
+  currentUserSub$!: Subscription
 
 
-  constructor(private cars: CarsService, public datePipe: DatePipe,) { }
+  constructor(public datePipe: DatePipe, private store: Store,) { }
 
   ngOnInit(): void {
-    this.initForm();
+    this.initForm()
+    this.initValues()
   }
 
   initForm() {
@@ -55,6 +65,24 @@ export class AddCarComponent implements OnInit {
       stoa_name: new FormControl('', [Validators.required]),
       stoa_phone: new FormControl('', [Validators.required]),
     });
+  }
+
+
+  initValues() {
+    this.currentUserSelector$ = this.store.pipe(select(currentUserSelector))
+    this.currentUserSub$ = this.currentUserSelector$.subscribe({
+      next: (user) => {
+        this.currentUser = user
+      }
+    })
+    this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
+  }
+
+
+  ngOnDestroy(): void {
+    if (this.currentUserSub$) {
+      this.currentUserSub$.unsubscribe()
+    }
   }
 
 
@@ -112,13 +140,9 @@ export class AddCarComponent implements OnInit {
       oil_name: this.form.value.oil_name,
       stoa_name: this.form.value.stoa_name,
       stoa_phone: this.form.value.stoa_phone,
+      userId: this.currentUser?._id
     }
     
-
-    this.cars.create(car, this.uploadFile).subscribe({
-      next: (res)=> {
-        console.log(res);
-      }
-    })
+    this.store.dispatch(addCarAction({ car: car, avatar: this.uploadFile }))
   }
 }

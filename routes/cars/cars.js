@@ -10,6 +10,9 @@ const upload = require('../../middleware/upload-car-avatar.js');
 router.post('/create', passport.authenticate('jwt', { session: false }), upload.single('avatar'), controller.create);
 
 
+// Роут на Получение всех авто
+router.get('/cars-list', passport.authenticate('jwt', { session: false }), controller.getAllCars);
+
 
 
 

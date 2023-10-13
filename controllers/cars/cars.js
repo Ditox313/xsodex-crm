@@ -55,99 +55,20 @@ module.exports.create = async function (req, res) {
 
 
 
-// Контроллер для fetch
-// module.exports.fetch = async function(req, res) {
-//     try {
-//         // Ищем в таблице позиции по 2 параметрам( по дефолту 1 параметр)
-//         const cars = await Car.find({
-//                 // user: req.user.id 
-//             }).sort({ date: -1 })
-//             .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
-//             .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+module.exports.getAllCars = async function (req, res) {
+    try {
 
-//         // Возвращаем пользователю позиции 
-//         res.status(200).json(cars);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+        const carsList = await Car.find({}).sort({ open_date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+        // Возвращаем пользователю позиции 
+        res.status(200).json(carsList);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 
 
-
-
-
-
-
-// Контроллер для update
-// module.exports.update = async function(req, res) {
-//     try {
-
-//         const updated = req.body;
-
-
-//         // Если объект file есть,то заполняем параметр путем фала
-//         if (req.file) {
-//             updated.previewSrc = req.file.path;
-//         }
-
-
-
-
-
-//         // Находим и обновляем позицию. 
-//         const carUpdate = await Car.findOneAndUpdate({ _id: updated.carId }, //Ищем по id
-//             { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
-//             { new: true } //обновит позицию и верет нам уже обновленную
-//         );
-
-//         // Возвращаем пользователю обновленную позицию 
-//         res.status(200).json(req.body);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
-
-
-
-
-
-
-
-
-
-
-
-
-// Контроллер для getById
-// module.exports.getById = async function(req, res) {
-//     try {
-//         const xscar = await Car.findById(req.params.id); //Ищем категорию по id из переданных параметров
-//         res.status(200).json(xscar);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
-
-
-
-
-
-
-// Контроллер для remove
-// module.exports.remove = async function(req, res) {
-//     try {
-//         await Car.remove({
-//             _id: req.params.id
-//         });
-
-
-//         // Возвращаем результат
-//         res.status(200).json({
-//             message: "Автомобиль удален"
-//         });
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };

@@ -1,10 +1,10 @@
 <app-header-app-layout [title]="title"></app-header-app-layout>
 <p-toast></p-toast>
-<!-- <loader *ngIf="isLoadingSelector | async"></loader> -->
+<loader *ngIf="isLoadingSelector | async"></loader>
 
 
 
-<div class="cars">
+<div class="cars" *ngIf="carsList">
     <p-table [value]="carsList" styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="add_new" [routerLink]="['/add-car']">
@@ -23,7 +23,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-car>
             <tr>
-                <td><img src="{{car.img}}" alt="Изображение" width="100px"></td>
+                <td><img src="{{car.avatar}}" alt="Изображение" width="100px"></td>
                 <td>{{car.marka}}</td>
                 <td>{{car.number}}</td>
                 <td>{{car.category}}</td>

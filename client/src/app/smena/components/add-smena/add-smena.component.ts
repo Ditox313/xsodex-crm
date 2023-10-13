@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { isLoadingSelector } from 'src/app/smena/store/selectors';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
@@ -13,11 +13,12 @@ import { openSmenaAction } from '../../store/actions/smena.action';
   templateUrl: './add-smena.component.html',
   styleUrls: ['./add-smena.component.css']
 })
-export class AddSmenaComponent {
+export class AddSmenaComponent implements OnDestroy{
   title: string = 'Создать смену'
   form!: FormGroup;
   isLoadingSelector$!: Observable<boolean | null>
   currentUserSelector$!: Observable<UserResponceRegister | null | undefined>
+  currentUserSub$!: Subscription
   currentUser!: UserResponceRegister | null | undefined
   open_date: string= ''
   close_date: string= ''
@@ -31,6 +32,13 @@ export class AddSmenaComponent {
     this.initDateOpenSmena()
   }
 
+  ngOnDestroy(): void {
+    if (this.currentUserSub$)
+    {
+      this.currentUserSub$.unsubscribe()
+    }
+  }
+
 
   initionalForm() {
     this.form = new FormGroup({
@@ -41,7 +49,7 @@ export class AddSmenaComponent {
 
   initValues() {
     this.currentUserSelector$ = this.store.pipe(select(currentUserSelector))
-    this.currentUserSelector$.subscribe({
+    this.currentUserSub$ =  this.currentUserSelector$.subscribe({
       next: (user) => {
         this.currentUser = user
         if (user) {

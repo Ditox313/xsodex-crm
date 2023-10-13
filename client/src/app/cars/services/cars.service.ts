@@ -44,8 +44,14 @@ constructor(private http: HttpClient) { }
       fd.append('oil_name', car.oil_name);
       fd.append('stoa_name', car.stoa_name);
       fd.append('stoa_phone', car.stoa_phone);
-      
 
+
+      if (car.userId)
+      {
+         fd.append('userId', car.userId);
+      }
+      
+   
       if (avatar) {
          fd.append('avatar', avatar, avatar.name);
       }
@@ -54,14 +60,16 @@ constructor(private http: HttpClient) { }
       return this.http.post<Car>('/api/cars/create/', fd);
    }
 
-   // Получаем список всех позиций
-   // fetch(params: any = {}): Observable<Car[]> {
-   //    return this.http.get<Car[]>('/api/cars', {
-   //       params: new HttpParams({
-   //          fromObject: params
-   //       })
-   //    });
-   // }
+
+
+   getAllSmena(params: any = {}): Observable<Car[]> {
+      return this.http.get<Car[]>('/api/cars/cars-list', {
+         params: new HttpParams({
+            fromObject: params.params.params
+         })
+      });
+   }
+
 
 
 

@@ -29,25 +29,25 @@ export interface Car {
     oil_name: string,
     stoa_name: string,
     stoa_phone: string,
+    userId: string | undefined
 }
 
 
 
-// Интерфейс для state smena
-// export interface SmenaStateInterface {
-//     isOpenedSmena?: Smena | null | undefined,
-//     isLoading: boolean,
-//     validationErrors?: any,
-//     smenaList?: Smena[] | null | undefined,
-//     noMoreSmenaList: boolean
-//     currentSmena: Smena | null | undefined,
-// }
+// Интерфейс для state cars
+export interface CarsStateInterface {
+    isLoading: boolean,
+    validationErrors?: any,
+    carsList?: Car[] | null | undefined,
+    noMoreCarsList: boolean
+    currentCar: Car | null | undefined,
+}
 
 
 
 
 // Интерфейс для параметров запроса на получение всех смен
-// export interface SmenaParamsFetch {
-//     offset: number | null,
-//     limit: number | null
-// }
+export interface CarsParamsFetch {
+    offset: number | null,
+    limit: number | null
+}

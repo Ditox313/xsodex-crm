@@ -23,6 +23,7 @@ app.use('/api/smena', smenaRoutes);
 app.use('/api/cars', carsRoutes);
 app.use(passport.initialize());
 app.use('/files/users', express.static('files/users'));
+app.use('/files/cars', express.static('files/cars'));
 
 
 
