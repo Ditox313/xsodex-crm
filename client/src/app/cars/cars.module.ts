@@ -18,6 +18,7 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { CarsService } from './services/cars.service';
+import { InputMaskModule } from 'primeng/inputmask';
 
 
 
@@ -41,7 +42,8 @@ import { CarsService } from './services/cars.service';
     InputTextModule,
     TableModule,
     TabViewModule,
-    TreeSelectModule
+    TreeSelectModule,
+    InputMaskModule
   ],
   providers: [MessageService, DatePipe, CarsService]
 })

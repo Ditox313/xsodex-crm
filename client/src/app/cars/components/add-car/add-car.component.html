@@ -398,8 +398,12 @@
 
                                     <fieldset>
                                         <label htmlFor="stoa_phone">Телефон СТОА</label>
-                                        <input pInputText id="stoa_phone" formControlName="stoa_phone" placeholder="Введите телефон"
-                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['stoa_phone'].invalid && form.controls['stoa_phone'].touched}" />
+                                        <!-- <input pInputText id="stoa_phone"   formControlName="stoa_phone" placeholder="Введите телефон"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['stoa_phone'].invalid && form.controls['stoa_phone'].touched}" /> -->
+
+                                        <p-inputMask id="stoa_phone"   formControlName="stoa_phone" mask="+7(999)-999-99-99" placeholder="+7(999)999-99-99"
+                                        [ngClass]="{'ng-invalid ng-dirty': form.controls['stoa_phone'].invalid && form.controls['stoa_phone'].touched}"></p-inputMask>
+
                                     
                                     
                                         <div class="errorValidate" *ngIf="form.controls['stoa_phone'].invalid && form.controls['stoa_phone'].touched">

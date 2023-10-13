@@ -17,12 +17,12 @@ const fs = require('fs');
 // Создаем переменную storage. Она описывает как будут хранится и где будут хранится загруженный файлы. 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
-        const directoryPath = `files/users/${req.user._id}/cars`;
+        const directoryPath = `files/cars`;
         if (!fs.existsSync(directoryPath)) {
             fs.mkdirSync(directoryPath, { recursive: true });
         }
 
-        cb(null, `files/users/${req.user._id}/cars`);
+        cb(null, `files/cars`);
     },
     filename(req, file, cb) {
         const date = moment().format('YYYYMMDDSS');

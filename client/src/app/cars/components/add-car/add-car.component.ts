@@ -15,6 +15,7 @@ export class AddCarComponent implements OnInit {
   uploadFile!: File
   avatar: string | ArrayBuffer | undefined | null = 'https://phonoteka.org/uploads/posts/2023-03/1680212136_phonoteka-org-p-dmitrii-razvarov-art-instagram-90.jpg';
   @ViewChild('upload') upload!: ElementRef;
+  value!: string;
 
 
   constructor(private cars: CarsService, public datePipe: DatePipe,) { }

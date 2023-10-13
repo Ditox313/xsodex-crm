@@ -99,6 +99,11 @@ input {
     width: 200px;
 }
 
+p-inputMask
+{
+    margin-right: 15px;
+    margin-top: 15px;
+}
 
 input::-webkit-datetime-edit-day-field:focus,
 input::-webkit-datetime-edit-month-field:focus,
