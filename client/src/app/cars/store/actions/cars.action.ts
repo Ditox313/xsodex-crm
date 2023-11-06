@@ -145,3 +145,31 @@ export const carGetCurrentReset = createAction(
   ActionTypes.CAR_GET_CURRENT_RESET,
 );
 
+
+
+
+
+
+
+
+
+
+// Update Car
+export const updateCarAction = createAction(
+  ActionTypes.UPDATE_CAR,
+  props<{ car: Car, avatar: File }>()
+)
+
+
+export const updateCarSuccessAction = createAction(
+  ActionTypes.UPDATE_CAR_SUCCESS,
+  props<{ data: Car }>()
+);
+
+
+
+
+export const updateCarFailureAction = createAction(
+  ActionTypes.UPDATE_CAR_FAILURE,
+  props<{ errors: any }>()
+)

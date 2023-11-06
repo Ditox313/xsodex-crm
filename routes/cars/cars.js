@@ -22,6 +22,10 @@ router.delete('/car-remove/:id', passport.authenticate('jwt', { session: false }
 router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
 
 
+// Роут на update
+router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.single('avatar'), controller.update);
+
+
 
 
 

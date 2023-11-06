@@ -114,7 +114,7 @@ export const updateUserSuccessAction = createAction(
 
 
 export const updateUserFailureAction = createAction(
-  ActionTypes.UPDATE_STATE_FAILURE,
+  ActionTypes.UPDATE_USER_FAILURE,
   props<{ errors: any }>()
 )
 

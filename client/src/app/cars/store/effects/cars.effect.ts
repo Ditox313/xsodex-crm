@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { CarsService } from '../../services/cars.service'
-import { addCarAction, addCarFailureAction, addCarSuccessAction, carDeleteAction, carDeleteFailureAction, carDeleteSuccessAction, carGetCurrent, carGetCurrentFailureAction, carGetCurrentSuccessAction, carsListAction, carsListFailureAction, carsListSuccessAction, noMoreCarsListAction, updateStateCarsAction, updateStateCarsFailureAction, updateStateCarsSuccessAction } from '../actions/cars.action'
+import { addCarAction, addCarFailureAction, addCarSuccessAction, carDeleteAction, carDeleteFailureAction, carDeleteSuccessAction, carGetCurrent, carGetCurrentFailureAction, carGetCurrentSuccessAction, carsListAction, carsListFailureAction, carsListSuccessAction, noMoreCarsListAction, updateCarAction, updateCarFailureAction, updateCarSuccessAction, updateStateCarsAction, updateStateCarsFailureAction, updateStateCarsSuccessAction } from '../actions/cars.action'
 
 
 
@@ -134,6 +134,32 @@ export class CarsEffect {
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               carGetCurrentFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+
+  // Обновление автомобиля
+  UpdateCar$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateCarAction),
+      switchMap(({ car, avatar }) => {
+        return this.cars.update(car, avatar).pipe(
+          map((data) => {
+            this.messageService.add({ severity: 'success', summary: `Автомобиль обновлен`, detail: 'Успешно!' });
+            return updateCarSuccessAction({ data: data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
+            return of(
+              updateCarFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

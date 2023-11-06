@@ -126,3 +126,32 @@ module.exports.getById = async function (req, res) {
 
 
 
+
+// Контроллер для update
+module.exports.update = async function (req, res) {
+    try {
+
+        const updated = req.body;
+
+
+        // Если объект file есть,то заполняем параметр путем фала
+        if (req.file) {
+            updated.avatar = req.file.path;
+        }
+
+
+
+        // Находим и обновляем позицию. 
+        const carUpdate = await Car.findOneAndUpdate({ _id: updated._id }, //Ищем по id
+            { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
+            { new: true } //обновит позицию и верет нам уже обновленную
+        );
+
+        // Возвращаем пользователю обновленную позицию 
+        res.status(200).json(carUpdate);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+

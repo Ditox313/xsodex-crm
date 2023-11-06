@@ -30,7 +30,7 @@ export interface Car {
     oil_name: string,
     stoa_name: string,
     stoa_phone: string,
-    userId: string | undefined
+    userId?: string | undefined
     avatar?: string
 }
 

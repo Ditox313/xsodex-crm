@@ -15,7 +15,7 @@
                             <div class="avatar">
                                 <img [src]="[avatar]" alt="Изображение">
                     
-                                <div class="upload_btns">
+                                <div class="upload_btns" *ngIf="edit">
                                     <input type="file" class="dn" #upload (change)="onFileUploadAvatar($event)">
                                     <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
                                         (click)="triggerClickForUploadAvatar()"></p-button>

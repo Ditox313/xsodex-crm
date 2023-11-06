@@ -19,4 +19,7 @@ export enum ActionTypes {
   CAR_GET_CURRENT_SUCCES = '[Cars] Get car current succes',
   CAR_GET_CURRENT_FAILURE = '[Cars] Get car current failure',
   CAR_GET_CURRENT_RESET = '[Cars] Get car current reset',
+  UPDATE_CAR = '[Cars] Update  car',
+  UPDATE_CAR_SUCCESS = '[Cars] Update car success',
+  UPDATE_CAR_FAILURE = '[Cars] Update car failure',
 }
