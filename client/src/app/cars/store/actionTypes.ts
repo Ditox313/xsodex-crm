@@ -12,4 +12,7 @@ export enum ActionTypes {
   CAR_DELETE = '[Cars] Car delete',
   CAR_DELETE_SUCCES = '[Cars] Car delete succes',
   CAR_DELETE_FAILURE = '[Cars] Car delete failure',
+  UPDATE_STATE_CARS = '[Cars] Update state cars',
+  UPDATE_STATE_CARS_SUCCES = '[Cars] Update state cars success',
+  UPDATE_STATE_CARS_FAILURE = '[Cars] Update state cars failure',
 }

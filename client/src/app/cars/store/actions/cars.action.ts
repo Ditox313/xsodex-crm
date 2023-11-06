@@ -96,3 +96,26 @@ export const carDeleteFailureAction = createAction(
 
 
 
+
+
+
+
+// Update State Cars
+export const updateStateCarsAction = createAction(
+  ActionTypes.UPDATE_STATE_CARS,
+);
+
+
+export const updateStateCarsSuccessAction = createAction(
+  ActionTypes.UPDATE_STATE_CARS_SUCCES,
+  props<{ data: AppStateInterface }>()
+);
+
+
+export const updateStateCarsFailureAction = createAction(
+  ActionTypes.UPDATE_STATE_CARS_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+

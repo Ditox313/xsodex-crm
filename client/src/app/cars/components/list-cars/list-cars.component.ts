@@ -60,7 +60,6 @@ export class ListCarsComponent implements OnInit {
       next: (smenaList) => {
         if (smenaList) {
           this.carsList = smenaList;
-          console.log(this.carsList);
           
 
           if (this.carsList.length >= this.STEP) {

@@ -3,6 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { updateStateAction } from 'src/app/account/store/actions/account.action';
 import { isLoadingSelector, tokenSelector } from 'src/app/account/store/selectors';
+import { updateStateCarsAction } from 'src/app/cars/store/actions/cars.action';
 import { isOpenedSmenaAction, updateStateSmenaAction } from 'src/app/smena/store/actions/smena.action';
 
 @Component({
@@ -68,6 +69,9 @@ export class AppLayoutComponent implements OnInit {
        {
         // Обновляем состояние смены
          this.store.dispatch(updateStateSmenaAction())
+
+         // Обновляем состояние cars
+         this.store.dispatch(updateStateCarsAction())
 
 
 

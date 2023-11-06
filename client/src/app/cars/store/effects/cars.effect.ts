@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { CarsService } from '../../services/cars.service'
-import { addCarAction, addCarFailureAction, addCarSuccessAction, carDeleteAction, carDeleteFailureAction, carDeleteSuccessAction, carsListAction, carsListFailureAction, carsListSuccessAction, noMoreCarsListAction } from '../actions/cars.action'
+import { addCarAction, addCarFailureAction, addCarSuccessAction, carDeleteAction, carDeleteFailureAction, carDeleteSuccessAction, carsListAction, carsListFailureAction, carsListSuccessAction, noMoreCarsListAction, updateStateCarsAction, updateStateCarsFailureAction, updateStateCarsSuccessAction } from '../actions/cars.action'
 
 
 
@@ -93,6 +93,27 @@ export class CarsEffect {
         );
       })
     )
+  );
+
+
+
+
+
+  // Обновление состояния
+  updateStateCars$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(updateStateCarsAction),
+        map(() => {
+          const savedState: any = localStorage.getItem('appState');
+          return updateStateCarsSuccessAction({ data: JSON.parse(savedState) })
+        }),
+        catchError((errorResponse: HttpErrorResponse) => {
+          return of(
+            updateStateCarsFailureAction({ errors: 'Ошибка обновления состояния' })
+          );
+        })
+      ),
   );
 
 
