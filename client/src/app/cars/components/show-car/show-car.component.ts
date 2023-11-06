@@ -6,7 +6,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Car } from '../../types/cars.interfaces';
 import { getCurrentCarSelector, isLoadingSelector } from '../../store/selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { carGetCurrent, updateCarAction } from '../../store/actions/cars.action';
+import { carGetCurrent, carGetCurrentReset, updateCarAction } from '../../store/actions/cars.action';
 import { getCurrentSmenaSelector } from 'src/app/smena/store/selectors';
 
 @Component({
@@ -53,7 +53,7 @@ export class ShowCarComponent implements OnInit, OnDestroy {
     }
 
     // // Отчищаем состояние currentSmena
-    // this.store.dispatch(smenaGetCurrentReset());
+    this.store.dispatch(carGetCurrentReset());
 
   }
 
