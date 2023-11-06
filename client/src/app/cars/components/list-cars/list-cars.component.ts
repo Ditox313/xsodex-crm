@@ -101,7 +101,7 @@ export class ListCarsComponent implements OnInit {
   // Удаление автомобиля
   onDeleteCar(event: Event, car: Car) {
     event.stopPropagation();
-    const dicision = window.confirm(`Удалить Смену?`);
+    const dicision = window.confirm(`Удалить Автомобиль?`);
 
     if (dicision) {
       this.store.dispatch(carDeleteAction({ id: car._id }))

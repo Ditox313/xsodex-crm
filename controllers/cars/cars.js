@@ -1,6 +1,7 @@
-
 const Car = require('../../models/cars/Car');
 const errorHandler = require('../../Utils/errorHendler.js');
+const fs = require('fs');
+const path = require('path');
 
 
 
@@ -76,13 +77,25 @@ module.exports.getAllCars = async function (req, res) {
 // Контроллер для remove
 module.exports.remove = async function (req, res) {
     try {
-        const result = await Car.deleteOne({ _id: req.params.id });
 
+        // Находим нужный автомобиль и удаляем аватарку автомобиля
+        const car = await Car.findOne({ _id: req.params.id });
+        fs.unlink(car.avatar, (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+            }
+        });
+
+
+        // Удаляем автомобиль
+        const result = await Car.deleteOne({ _id: req.params.id });
         if (result.deletedCount === 1) {
             res.status(200).json(req.params.id);
         } else {
             return error
         }
+
 
     } catch (e) {
         errorHandler(res, e);
