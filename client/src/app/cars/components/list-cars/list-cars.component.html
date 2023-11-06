@@ -22,7 +22,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-car>
-            <tr>
+            <tr [routerLink]="['/show-car',car._id]">
                 <td><img src="{{car.avatar}}" alt="Изображение" width="100px"></td>
                 <td>{{car.marka}}</td>
                 <td>{{car.number}}</td>
@@ -37,7 +37,7 @@
         <h2>Список смен отсутствует...</h2>
     </div>
 
-    <!-- <div class="btn">
-        <p-button label="Загрузить еще..." *ngIf="!(noMoreSmenaList | async)" (click)="loadmore()"></p-button>
-    </div> -->
+    <div class="btn">
+        <p-button label="Загрузить еще..." *ngIf="!(noMoreCarsList | async)" (click)="loadmore()"></p-button>
+    </div>
 </div>

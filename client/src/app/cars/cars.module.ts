@@ -23,13 +23,15 @@ import { reducers } from './store/reducers';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CarsEffect } from './store/effects/cars.effect';
+import { ShowCarComponent } from './components/show-car/show-car.component';
 
 
 
 @NgModule({
   declarations: [
     ListCarsComponent,
-    AddCarComponent
+    AddCarComponent,
+    ShowCarComponent
   ],
   imports: [
     CommonModule,

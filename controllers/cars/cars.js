@@ -58,7 +58,7 @@ module.exports.create = async function (req, res) {
 module.exports.getAllCars = async function (req, res) {
     try {
 
-        const carsList = await Car.find({}).sort({ open_date: -1 })
+        const carsList = await Car.find({}).sort({ date: -1 })
             .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
             .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
 

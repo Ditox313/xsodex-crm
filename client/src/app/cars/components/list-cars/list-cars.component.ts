@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Car, CarsParamsFetch } from '../../types/cars.interfaces';
 import { carsListSelector, isLoadingSelector } from '../../store/selectors';
-import { carsListAction } from '../../store/actions/cars.action';
+import { carsListAction, carsListResetAction } from '../../store/actions/cars.action';
 
 @Component({
   selector: 'app-list-cars',
@@ -11,7 +11,7 @@ import { carsListAction } from '../../store/actions/cars.action';
   styleUrls: ['./list-cars.component.css']
 })
 export class ListCarsComponent implements OnInit {
-  STEP = 3;
+  STEP = 2;
   offset: number = 0;
   limit: number = this.STEP;
   title: string = 'Автопарк'
@@ -32,15 +32,12 @@ export class ListCarsComponent implements OnInit {
 
 
   ngOnDestroy(): void {
-    // if (this.smenaListSub$) {
-    //   this.smenaListSub$.unsubscribe();
-    // }
-    // if (this.isOpenedSmenaSub$) {
-    //   this.isOpenedSmenaSub$.unsubscribe();
-    // }
+    if (this.carsListSub$) {
+      this.carsListSub$.unsubscribe();
+    }
 
     // Отчищаем состояние smenaList перед началом работы компонента
-    // this.store.dispatch(smenaListResetAction());
+    this.store.dispatch(carsListResetAction());
 
   }
 

@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { CarsStateInterface } from '../types/cars.interfaces';
-import { addCarAction, addCarFailureAction, addCarSuccessAction, carsListAction, carsListFailureAction, carsListSuccessAction } from './actions/cars.action';
+import { addCarAction, addCarFailureAction, addCarSuccessAction, carsListAction, carsListFailureAction, carsListResetAction, carsListSuccessAction } from './actions/cars.action';
 
 
 
@@ -82,6 +82,13 @@ const carsReducer = createReducer(
       isLoading: false,
     })
   ),
+  on(
+    carsListResetAction,
+    (state): CarsStateInterface => ({
+      ...state,
+      carsList: null,
+    })
+  ),
   // on(
   //   noMoreSmenaListAction,
   //   (state, action): SmenaStateInterface => ({
@@ -106,13 +113,7 @@ const carsReducer = createReducer(
   //     isLoading: false,
   //   })
   // ),
-  // on(
-  //   smenaListResetAction,
-  //   (state): SmenaStateInterface => ({
-  //     ...state,
-  //     smenaList: null,
-  //   })
-  // ),
+
 
 
 );

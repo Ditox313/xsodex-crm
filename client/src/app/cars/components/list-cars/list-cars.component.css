@@ -1,0 +1,23 @@
+.cars {
+    padding: 0 20px;
+}
+
+.btn {
+    margin-top: 20px;
+}
+
+.noMoreCarsList {
+    margin-top: 20px;
+}
+
+td {
+    cursor: pointer;
+    padding-bottom: 5px !important;
+    padding-top: 5px !important;
+}
+
+td img
+{
+    width: 85px;
+    border-radius: 3px;
+}
