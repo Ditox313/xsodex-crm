@@ -1,3 +1,437 @@
 <app-header-app-layout [title]="title"></app-header-app-layout>
 <p-toast></p-toast>
-<!-- <loader *ngIf="isLoadingSelector | async"></loader> -->
+<loader *ngIf="isLoadingSelector | async"></loader>
+
+
+
+
+<div class="show-car" *ngIf="currentCar">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <p-tabView>
+            <p-tabPanel header="Общая информация">
+                <div class="tab_wrapper">
+                    <div class="show_car_page">
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                            <div class="avatar">
+                                <img [src]="[avatar]" alt="Изображение">
+                    
+                                <div class="upload_btns">
+                                    <input type="file" class="dn" #upload (change)="onFileUploadAvatar($event)">
+                                    <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
+                                        (click)="triggerClickForUploadAvatar()"></p-button>
+                                </div>
+                            </div>
+                    
+                            <div class="show_car_inputs">
+                                <div>
+                                    <fieldset>
+                                        <label htmlFor="marka">Марка</label>
+                                        <input pInputText id="marka" formControlName="marka"  placeholder="Введите марку"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['marka'].invalid && form.controls['marka'].touched}" />
+                        
+                        
+                                        <div class="errorValidate" *ngIf="form.controls['marka'].invalid && form.controls['marka'].touched">
+                                            <p *ngIf="form.controls['marka'].errors && form.controls['marka'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="model">Модель</label>
+                                        <input pInputText id="model" formControlName="model" placeholder="Введите модель"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['model'].invalid && form.controls['model'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['model'].invalid && form.controls['model'].touched">
+                                            <p *ngIf="form.controls['model'].errors && form.controls['model'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="number">Номер</label>
+                                        <input pInputText id="number" formControlName="number" placeholder="Введите номер"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['number'].invalid && form.controls['number'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['number'].invalid && form.controls['number'].touched">
+                                            <p *ngIf="form.controls['number'].errors && form.controls['number'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="probeg">Пробег</label>
+                                        <input pInputText id="probeg" formControlName="probeg" placeholder="Введите пробег"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['probeg'].invalid && form.controls['probeg'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['probeg'].invalid && form.controls['probeg'].touched">
+                                            <p *ngIf="form.controls['probeg'].errors && form.controls['probeg'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="transmission">Трансмиссия</label>
+                                            <select id="transmission" formControlName="transmission"
+                                                [ngClass]="{'invalid': form.controls['transmission'].invalid && form.controls['transmission'].touched}">
+                                                <option value="" disabled selected>Выбрать ↷</option>
+                                                <option value="КПП">КПП</option>
+                                                <option value="МКПП">МКПП</option>
+                                            </select>
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['transmission'].invalid && form.controls['transmission'].touched">
+                                            <p *ngIf="form.controls['transmission'].errors && form.controls['transmission'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="start_arenda">Дата заезда</label>
+                                        <input type="date" id="start_arenda" formControlName="start_arenda"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['start_arenda'].invalid && form.controls['start_arenda'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['start_arenda'].invalid && form.controls['start_arenda'].touched">
+                                            <p *ngIf="form.controls['start_arenda'].errors && form.controls['start_arenda'].errors['required']">
+                                                Введите дату
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="end_arenda">Дата выезда</label>
+                                        <input type="date" id="end_arenda" formControlName="end_arenda"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['end_arenda'].invalid && form.controls['end_arenda'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['end_arenda'].invalid && form.controls['end_arenda'].touched">
+                                            <p *ngIf="form.controls['end_arenda'].errors && form.controls['end_arenda'].errors['required']">
+                                                Введите дату
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="vladelec">Владелец</label>
+                                        <select id="vladelec" formControlName="vladelec"
+                                            [ngClass]="{'invalid': form.controls['vladelec'].invalid && form.controls['vladelec'].touched}">
+                                            <option value="" disabled selected>Выбрать ↷</option>
+                                            <option value="Партнер 1">Партнер 1</option>
+                                            <option value="Партнер 2">Партнер 2</option>
+                                        </select>
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['vladelec'].invalid && form.controls['vladelec'].touched">
+                                            <p *ngIf="form.controls['vladelec'].errors && form.controls['vladelec'].errors['required']">
+                                                Заполните поле
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="category">Категория</label>
+                                        <select id="category" formControlName="category"
+                                            [ngClass]="{'invalid': form.controls['category'].invalid && form.controls['category'].touched}">
+                                            <option value="" disabled selected>Выбрать ↷</option>
+                                            <option value="Бизнес">Бизнес</option>
+                                            <option value="Комфорт">Комфорт</option>
+                                            <option value="Премиум">Премиум</option>
+                                        </select>
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['category'].invalid && form.controls['category'].touched">
+                                            <p *ngIf="form.controls['category'].errors && form.controls['category'].errors['required']">
+                                                Заполните поле
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="status">Статус</label>
+                                        <select id="status" formControlName="status"
+                                            [ngClass]="{'invalid': form.controls['status'].invalid && form.controls['status'].touched}">
+                                            <option value="" disabled selected>Выбрать ↷</option>
+                                            <option value="Рабочий в парке">Рабочий в парке</option>
+                                            <option value="Тех.обслуживание">Тех.обслуживание</option>
+                                            <option value="Кузовной ремонт">Кузовной ремонт</option>
+                                            <option value="По запросу">Выбыл с парка</option>
+                                        </select>
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['status'].invalid && form.controls['status'].touched">
+                                            <p *ngIf="form.controls['status'].errors && form.controls['status'].errors['required']">
+                                                Заполните поле
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="sts_seria">Серия СТС</label>
+                                        <input pInputText id="sts_seria" formControlName="sts_seria" placeholder="Введите СТС серию"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['sts_seria'].invalid && form.controls['sts_seria'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['sts_seria'].invalid && form.controls['sts_seria'].touched">
+                                            <p *ngIf="form.controls['sts_seria'].errors && form.controls['sts_seria'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="sts_number">Номер СТС</label>
+                                        <input pInputText id="sts_number" formControlName="sts_number" placeholder="Введите СТС номер"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['sts_number'].invalid && form.controls['sts_number'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['sts_number'].invalid && form.controls['sts_number'].touched">
+                                            <p *ngIf="form.controls['sts_number'].errors && form.controls['sts_number'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="sts_date">Дата выдачи СТС</label>
+                                        <input type="date" id="sts_date" formControlName="sts_date"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['sts_date'].invalid && form.controls['sts_date'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['sts_date'].invalid && form.controls['sts_date'].touched">
+                                            <p *ngIf="form.controls['sts_date'].errors && form.controls['sts_date'].errors['required']">
+                                                Введите дату
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="osago_seria">Серия ОСАГО</label>
+                                        <input pInputText id="osago_seria" formControlName="osago_seria" placeholder="Введите серию ОСАГО"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['osago_seria'].invalid && form.controls['osago_seria'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['osago_seria'].invalid && form.controls['osago_seria'].touched">
+                                            <p *ngIf="form.controls['osago_seria'].errors && form.controls['osago_seria'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="osago_number">Номер ОСАГО</label>
+                                        <input pInputText id="osago_number" formControlName="osago_number" placeholder="Введите номер ОСАГО"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['osago_number'].invalid && form.controls['osago_number'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['osago_number'].invalid && form.controls['osago_number'].touched">
+                                            <p *ngIf="form.controls['osago_number'].errors && form.controls['osago_number'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="osago_date_finish">Дата окончания ОСАГО</label>
+                                        <input type="date" id="osago_date_finish" formControlName="osago_date_finish"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['osago_date_finish'].invalid && form.controls['osago_date_finish'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['osago_date_finish'].invalid && form.controls['osago_date_finish'].touched">
+                                            <p *ngIf="form.controls['osago_date_finish'].errors && form.controls['osago_date_finish'].errors['required']">
+                                                Введите дату
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="vin">VIN номер</label>
+                                        <input pInputText id="vin" formControlName="vin" placeholder="Введите VIN номер"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['vin'].invalid && form.controls['vin'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['vin'].invalid && form.controls['vin'].touched">
+                                            <p *ngIf="form.controls['vin'].errors && form.controls['vin'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="kuzov_number">Номер кузова</label>
+                                        <input pInputText id="kuzov_number" formControlName="kuzov_number" placeholder="Введите номер кузова"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['kuzov_number'].invalid && form.controls['kuzov_number'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['kuzov_number'].invalid && form.controls['kuzov_number'].touched">
+                                            <p *ngIf="form.controls['kuzov_number'].errors && form.controls['kuzov_number'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="color">Цвет</label>
+                                        <input pInputText id="color" formControlName="color" placeholder="Введите цвет"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['color'].invalid && form.controls['color'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['color'].invalid && form.controls['color'].touched">
+                                            <p *ngIf="form.controls['color'].errors && form.controls['color'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="year_production">Год выпуска</label>
+                                        <input pInputText id="year_production" formControlName="year_production" placeholder="Введите дату"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['year_production'].invalid && form.controls['year_production'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['year_production'].invalid && form.controls['year_production'].touched">
+                                            <p *ngIf="form.controls['year_production'].errors && form.controls['year_production'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="price_ocenka">Оценочная стоимость</label>
+                                        <input pInputText id="price_ocenka" formControlName="price_ocenka" placeholder="Введите цену"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['price_ocenka'].invalid && form.controls['price_ocenka'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate"
+                                            *ngIf="form.controls['price_ocenka'].invalid && form.controls['price_ocenka'].touched">
+                                            <p *ngIf="form.controls['price_ocenka'].errors && form.controls['price_ocenka'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="to_date">Дата крайнего ТО</label>
+                                        <input type="date" id="to_date" formControlName="to_date"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['to_date'].invalid && form.controls['to_date'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['to_date'].invalid && form.controls['to_date'].touched">
+                                            <p *ngIf="form.controls['to_date'].errors && form.controls['to_date'].errors['required']">
+                                                Введите дату
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="to_probeg_prev">Пробег крайнего ТО</label>
+                                        <input pInputText id="to_probeg_prev" formControlName="to_probeg_prev" placeholder="Введите значение"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['to_probeg_prev'].invalid && form.controls['to_probeg_prev'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['to_probeg_prev'].invalid && form.controls['to_probeg_prev'].touched">
+                                            <p *ngIf="form.controls['to_probeg_prev'].errors && form.controls['to_probeg_prev'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="to_probeg_next">Пробег для следующего ТО</label>
+                                        <input pInputText id="to_probeg_next" formControlName="to_probeg_next" placeholder="Введите значение"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['to_probeg_next'].invalid && form.controls['to_probeg_next'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate"
+                                            *ngIf="form.controls['to_probeg_next'].invalid && form.controls['to_probeg_next'].touched">
+                                            <p *ngIf="form.controls['to_probeg_next'].errors && form.controls['to_probeg_next'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="to_probeg_next">Интервал ТО</label>
+                                        <input pInputText id="to_interval" formControlName="to_interval" placeholder="Введите значение"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['to_interval'].invalid && form.controls['to_interval'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate"
+                                            *ngIf="form.controls['to_interval'].invalid && form.controls['to_interval'].touched">
+                                            <p *ngIf="form.controls['to_interval'].errors && form.controls['to_interval'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="oil_name">Моторное масло</label>
+                                        <input pInputText id="oil_name" formControlName="oil_name" placeholder="Введите значение"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['oil_name'].invalid && form.controls['oil_name'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['oil_name'].invalid && form.controls['oil_name'].touched">
+                                            <p *ngIf="form.controls['oil_name'].errors && form.controls['oil_name'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="stoa_name">Название СТОА</label>
+                                        <input pInputText id="stoa_name" formControlName="stoa_name" placeholder="Введите значение"
+                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['stoa_name'].invalid && form.controls['stoa_name'].touched}" />
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['stoa_name'].invalid && form.controls['stoa_name'].touched">
+                                            <p *ngIf="form.controls['stoa_name'].errors && form.controls['stoa_name'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <label htmlFor="stoa_phone">Телефон СТОА</label>
+                                        <p-inputMask id="stoa_phone"   formControlName="stoa_phone" mask="+7(999)-999-99-99" placeholder="+7(999)999-99-99"
+                                        [ngClass]="{'ng-invalid ng-dirty': form.controls['stoa_phone'].invalid && form.controls['stoa_phone'].touched}"></p-inputMask>
+
+                                    
+                                    
+                                        <div class="errorValidate" *ngIf="form.controls['stoa_phone'].invalid && form.controls['stoa_phone'].touched">
+                                            <p *ngIf="form.controls['stoa_phone'].errors && form.controls['stoa_phone'].errors['required']">
+                                                Поле не должно быть пустым
+                                            </p>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <button type="submit" class="submit" *ngIf="edit"  [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+
+
+
+
+
+
+            <p-tabPanel header="Header II">
+                2
+            </p-tabPanel>
+
+        </p-tabView>
+    </form>
+
+    <div class="back" (click)="initEdit()" [ngClass]="{edit_active: edit}">
+        <p-button icon="pi pi-pencil" styleClass="p-button-sm" ></p-button>
+    </div>
+</div>

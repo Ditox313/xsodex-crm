@@ -14,9 +14,12 @@ router.post('/create', passport.authenticate('jwt', { session: false }), upload.
 router.get('/cars-list', passport.authenticate('jwt', { session: false }), controller.getAllCars);
 
 
-
 //Роут на удаление автомобиля
 router.delete('/car-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
+
+
+// Роут на получение автомобиля по Id
+router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
 
 
 

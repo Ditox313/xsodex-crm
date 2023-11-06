@@ -31,6 +31,7 @@ export interface Car {
     stoa_name: string,
     stoa_phone: string,
     userId: string | undefined
+    avatar?: string
 }
 
 

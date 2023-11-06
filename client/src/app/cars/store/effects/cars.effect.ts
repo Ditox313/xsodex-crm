@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { CarsService } from '../../services/cars.service'
-import { addCarAction, addCarFailureAction, addCarSuccessAction, carDeleteAction, carDeleteFailureAction, carDeleteSuccessAction, carsListAction, carsListFailureAction, carsListSuccessAction, noMoreCarsListAction, updateStateCarsAction, updateStateCarsFailureAction, updateStateCarsSuccessAction } from '../actions/cars.action'
+import { addCarAction, addCarFailureAction, addCarSuccessAction, carDeleteAction, carDeleteFailureAction, carDeleteSuccessAction, carGetCurrent, carGetCurrentFailureAction, carGetCurrentSuccessAction, carsListAction, carsListFailureAction, carsListSuccessAction, noMoreCarsListAction, updateStateCarsAction, updateStateCarsFailureAction, updateStateCarsSuccessAction } from '../actions/cars.action'
 
 
 
@@ -114,6 +114,31 @@ export class CarsEffect {
           );
         })
       ),
+  );
+
+
+
+
+
+
+
+  // Получение текущего автомобиля
+  getCurrentCar$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(carGetCurrent),
+      switchMap((id) => {
+        return this.cars.getById(id.id).pipe(
+          map((car) => {
+            return carGetCurrentSuccessAction({ data: car });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              carGetCurrentFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
   );
 
 

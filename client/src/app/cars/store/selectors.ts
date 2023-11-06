@@ -25,10 +25,11 @@ export const noMoreCarsList = createSelector(
     (state: CarsStateInterface) => state.noMoreCarsList
 )
 
-// export const getCurrentSmenaSelector = createSelector(
-//     smenaFeatureSelector,
-//     (state: SmenaStateInterface) => state.currentSmena
-// )
+
+export const getCurrentCarSelector = createSelector(
+    carsFeatureSelector,
+    (state: CarsStateInterface) => state.currentCar
+)
 
 
 

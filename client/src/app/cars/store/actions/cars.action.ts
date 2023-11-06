@@ -119,3 +119,29 @@ export const updateStateCarsFailureAction = createAction(
 
 
 
+
+
+
+
+// Get Car Current
+export const carGetCurrent = createAction(
+  ActionTypes.CAR_GET_CURRENT,
+  props<{ id: string }>()
+);
+
+
+export const carGetCurrentSuccessAction = createAction(
+  ActionTypes.CAR_GET_CURRENT_SUCCES,
+  props<{ data: Car }>()
+);
+
+
+export const carGetCurrentFailureAction = createAction(
+  ActionTypes.CAR_GET_CURRENT_FAILURE,
+  props<{ errors: any }>()
+);
+
+export const carGetCurrentReset = createAction(
+  ActionTypes.CAR_GET_CURRENT_RESET,
+);
+

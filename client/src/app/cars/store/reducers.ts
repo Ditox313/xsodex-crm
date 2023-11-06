@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { CarsStateInterface } from '../types/cars.interfaces';
-import { addCarAction, addCarFailureAction, addCarSuccessAction, carDeleteAction, carDeleteFailureAction, carDeleteSuccessAction, carsListAction, carsListFailureAction, carsListResetAction, carsListSuccessAction, noMoreCarsListAction, noMoreCarsListFalseAction, updateStateCarsFailureAction, updateStateCarsSuccessAction } from './actions/cars.action';
+import { addCarAction, addCarFailureAction, addCarSuccessAction, carDeleteAction, carDeleteFailureAction, carDeleteSuccessAction, carGetCurrent, carGetCurrentFailureAction, carGetCurrentReset, carGetCurrentSuccessAction, carsListAction, carsListFailureAction, carsListResetAction, carsListSuccessAction, noMoreCarsListAction, noMoreCarsListFalseAction, updateStateCarsFailureAction, updateStateCarsSuccessAction } from './actions/cars.action';
 
 
 
@@ -173,6 +173,46 @@ const carsReducer = createReducer(
     (state, action): CarsStateInterface => ({
       ...state,
       validationErrors: action.errors,
+    })
+  ),
+
+
+
+
+
+
+
+  on(
+    carGetCurrent,
+    (state): CarsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    carGetCurrentSuccessAction,
+    (state, action): CarsStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentCar: action.data
+    })
+  ),
+  on(
+    carGetCurrentFailureAction,
+    (state, action): CarsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    carGetCurrentReset,
+    (state): CarsStateInterface => ({
+      ...state,
+      currentCar: null
     })
   ),
 

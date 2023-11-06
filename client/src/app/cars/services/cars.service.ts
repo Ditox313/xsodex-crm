@@ -72,7 +72,12 @@ constructor(private http: HttpClient) { }
 
 
 
-   //Удаление авто
+   getById(id: string): Observable<Car> {
+      return this.http.get<Car>(`/api/cars/${id}`);
+   }
+
+
+
    delete(id: any): Observable<any> {
       return this.http.delete<any>(`/api/cars/car-remove/${id}`);
    }
@@ -131,15 +136,6 @@ constructor(private http: HttpClient) { }
 
    //    return this.http.patch<Car>(`/api/cars/update/${id}`, fd);
    // }
-
-
-
-
-   // Получаем позицию по id
-   // getById(id: string): Observable<Car> {
-   //    return this.http.get<Car>(`/api/cars/${id}`);
-   // }
-
 
   
 }
