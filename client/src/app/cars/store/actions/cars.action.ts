@@ -47,10 +47,6 @@ export const carsListFailureAction = createAction(
 );
 
 
-export const carsListResetAction = createAction(
-  ActionTypes.CARS_LIST_RESET,
-);
-
 
 
 
