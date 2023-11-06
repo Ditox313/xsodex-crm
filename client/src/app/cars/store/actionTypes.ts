@@ -6,4 +6,5 @@ export enum ActionTypes {
   CARS_LIST_SUCCES = '[Smena] Cars List succes',
   CARS_LIST_FAILURE = '[Smena] Cars List failure',
   CARS_LIST_RESET = '[Smena] Cars List reset',
+  
 }
