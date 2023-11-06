@@ -42,13 +42,17 @@ export class ListSmenaComponent implements OnInit {
       this.isOpenedSmenaSub$.unsubscribe();
     }
 
-    // Отчищаем состояние smenaList перед началом работы компонента
+    // Отчищаем состояние carsList если не хотим сохранять список смен  в состояние
     this.store.dispatch(smenaListResetAction());
 
   }
 
 
   initValues() {
+    // Отчищаем состояние перед запросом на получение списка смен
+    this.store.dispatch(smenaListResetAction())
+
+
     // Отправляем запрос на получение открытой смены
     this.store.dispatch(isOpenedSmenaAction())
 

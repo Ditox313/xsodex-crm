@@ -36,13 +36,17 @@ export class ListCarsComponent implements OnInit {
       this.carsListSub$.unsubscribe();
     }
 
-    // Отчищаем состояние smenaList перед началом работы компонента
+    // Отчищаем состояние carsList если не хотим сохранять список авто  в состояние
     this.store.dispatch(carsListResetAction());
 
   }
 
 
   initValues() {
+    // Отчищаем состояние перед запросом на получение списка авто
+    this.store.dispatch(carsListResetAction());
+
+
     // Получаем селектор loader
     this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))
 
