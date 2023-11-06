@@ -3,7 +3,6 @@
 <loader *ngIf="isLoadingSelector | async"></loader>
 
 
-
 <div class="cars" *ngIf="carsList">
     <p-table [value]="carsList" styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
@@ -24,20 +23,22 @@
         <ng-template pTemplate="body" let-car>
             <tr [routerLink]="['/show-car',car._id]">
                 <td><img src="{{car.avatar}}" alt="Изображение" width="100px"></td>
-                <td>{{car.marka}}</td>
-                <td>{{car.number}}</td>
+                <td><strong>{{car.marka}}</strong></td>
+                <td><strong>{{car.number}}</strong></td>
                 <td>{{car.category}}</td>
                 <td>{{car.status}}</td>
-                <td  style="cursor: pointer; text-align: center;" ><i class="pi pi-trash"></i></td>
+                <td style="cursor: pointer; text-align: center;" (click)="onDeleteCar($event, car)"><i
+                        class="pi pi-trash"></i></td>
             </tr>
         </ng-template>
     </p-table>
 
     <div *ngIf="carsList.length === 0" class="noMoreCarsList">
-        <h2>Список смен отсутствует...</h2>
+        <h2>Нет автомобилей...</h2>
     </div>
 
     <div class="btn">
         <p-button label="Загрузить еще..." *ngIf="!(noMoreCarsList | async)" (click)="loadmore()"></p-button>
     </div>
 </div>
+

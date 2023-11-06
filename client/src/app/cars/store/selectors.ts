@@ -20,10 +20,10 @@ export const carsListSelector = createSelector(
 
 
 
-// export const noMoreSmenaList = createSelector(
-//     smenaFeatureSelector,
-//     (state: SmenaStateInterface) => state.noMoreSmenaList
-// )
+export const noMoreCarsList = createSelector(
+    carsFeatureSelector,
+    (state: CarsStateInterface) => state.noMoreCarsList
+)
 
 // export const getCurrentSmenaSelector = createSelector(
 //     smenaFeatureSelector,

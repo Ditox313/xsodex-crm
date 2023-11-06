@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Car, CarsParamsFetch } from '../../types/cars.interfaces';
-import { carsListSelector, isLoadingSelector } from '../../store/selectors';
-import { carsListAction, carsListResetAction } from '../../store/actions/cars.action';
+import { carsListSelector, isLoadingSelector, noMoreCarsList } from '../../store/selectors';
+import { carDeleteAction, carsListAction, carsListResetAction, noMoreCarsListFalseAction, noMoreCarsListTrueAction } from '../../store/actions/cars.action';
 
 @Component({
   selector: 'app-list-cars',
@@ -48,7 +48,9 @@ export class ListCarsComponent implements OnInit {
 
 
     // Получаем селектор noMoreSmenaList
-    // this.noMoreSmenaList = this.store.pipe(select(noMoreSmenaList))
+    this.noMoreCarsList = this.store.pipe(select(noMoreCarsList))
+
+    
 
 
     // Получаем селектор на получение списка смен и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
@@ -62,12 +64,12 @@ export class ListCarsComponent implements OnInit {
           
 
           if (this.carsList.length >= this.STEP) {
-            // Изменяем значение noMoreSmenaList в состоянии на false что бы открыть кнопку загрузить ещё
-            // this.store.dispatch(noMoreSmenaListFalseAction());
+            // Изменяем значение noMoreCarsList в состоянии на false что бы открыть кнопку загрузить ещё
+            this.store.dispatch(noMoreCarsListFalseAction());
           }
           else {
-            // Изменяем значение noMoreSmenaList в состоянии на true что бы скрыть кнопку загрузить ещё
-            // this.store.dispatch(noMoreSmenaListTrueAction());
+            // Изменяем значение noMoreCarsList в состоянии на true что бы скрыть кнопку загрузить ещё
+            this.store.dispatch(noMoreCarsListTrueAction());
           }
         }
       }
@@ -96,13 +98,13 @@ export class ListCarsComponent implements OnInit {
 
 
 
-  // Удаление смены
-  onDeleteSmena(event: Event, smena: Car) {
+  // Удаление автомобиля
+  onDeleteCar(event: Event, car: Car) {
     event.stopPropagation();
     const dicision = window.confirm(`Удалить Смену?`);
 
-    // if (dicision) {
-    //   this.store.dispatch(smenaDeleteAction({ id: smena._id }))
-    // }
+    if (dicision) {
+      this.store.dispatch(carDeleteAction({ id: car._id }))
+    }
   }
 }

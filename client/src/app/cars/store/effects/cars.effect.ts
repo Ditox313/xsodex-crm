@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { CarsService } from '../../services/cars.service'
-import { addCarAction, addCarFailureAction, addCarSuccessAction, carsListAction, carsListFailureAction, carsListSuccessAction } from '../actions/cars.action'
+import { addCarAction, addCarFailureAction, addCarSuccessAction, carDeleteAction, carDeleteFailureAction, carDeleteSuccessAction, carsListAction, carsListFailureAction, carsListSuccessAction, noMoreCarsListAction } from '../actions/cars.action'
 
 
 
@@ -53,16 +53,41 @@ export class CarsEffect {
     this.actions$.pipe(
       ofType(carsListAction),
       concatMap((params) => {
-        return this.cars.getAllSmena({ params }).pipe(
+        return this.cars.getAllCars({ params }).pipe(
           concatMap((carsList) => {
-            // if (smenaList.length === 0) {
-            //   return of(noMoreSmenaListAction({ data: true }));
-            // }
+            if (carsList.length === 0) {
+              return of(noMoreCarsListAction({ data: true }));
+            }
             return of(carsListSuccessAction({ data: carsList }));
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               carsListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+  // Удаление автомобиля
+  carDelete$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(carDeleteAction),
+      switchMap((id) => {
+        return this.cars.delete(id.id).pipe(
+          map((id) => {
+            this.messageService.add({ severity: 'success', summary: `Автомобиль удален`, detail: 'Успешно!' });
+            return carDeleteSuccessAction({ data: id });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления смены`, detail: 'Попробуйте позже!' });
+            return of(
+              carDeleteFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

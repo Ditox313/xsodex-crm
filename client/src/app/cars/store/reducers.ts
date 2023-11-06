@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { CarsStateInterface } from '../types/cars.interfaces';
-import { addCarAction, addCarFailureAction, addCarSuccessAction, carsListAction, carsListFailureAction, carsListResetAction, carsListSuccessAction } from './actions/cars.action';
+import { addCarAction, addCarFailureAction, addCarSuccessAction, carDeleteAction, carDeleteFailureAction, carDeleteSuccessAction, carsListAction, carsListFailureAction, carsListResetAction, carsListSuccessAction, noMoreCarsListAction, noMoreCarsListFalseAction } from './actions/cars.action';
 
 
 
@@ -89,30 +89,66 @@ const carsReducer = createReducer(
       carsList: null,
     })
   ),
-  // on(
-  //   noMoreSmenaListAction,
-  //   (state, action): SmenaStateInterface => ({
-  //     ...state,
-  //     noMoreSmenaList: action.data,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMoreSmenaListFalseAction,
-  //   (state, action): SmenaStateInterface => ({
-  //     ...state,
-  //     noMoreSmenaList: false,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMoreSmenaListTrueAction,
-  //   (state, action): SmenaStateInterface => ({
-  //     ...state,
-  //     noMoreSmenaList: true,
-  //     isLoading: false,
-  //   })
-  // ),
+  on(
+    noMoreCarsListAction,
+    (state, action): CarsStateInterface => ({
+      ...state,
+      noMoreCarsList: action.data,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreCarsListFalseAction,
+    (state, action): CarsStateInterface => ({
+      ...state,
+      noMoreCarsList: false,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreCarsListAction,
+    (state, action): CarsStateInterface => ({
+      ...state,
+      noMoreCarsList: true,
+      isLoading: false,
+    })
+  ),
+
+
+
+
+
+
+
+
+  on(
+    carDeleteAction,
+    (state): CarsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    carDeleteSuccessAction,
+    (state, action): CarsStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentCar: null,
+      carsList: state.carsList ? state.carsList.filter((item) => item._id !== action.data) : state.carsList,
+    })
+  ),
+  on(
+    carDeleteFailureAction,
+    (state, action): CarsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+      currentCar: null,
+    })
+  ),
 
 
 

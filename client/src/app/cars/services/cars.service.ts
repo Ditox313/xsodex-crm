@@ -62,12 +62,19 @@ constructor(private http: HttpClient) { }
 
 
 
-   getAllSmena(params: any = {}): Observable<Car[]> {
+   getAllCars(params: any = {}): Observable<Car[]> {
       return this.http.get<Car[]>('/api/cars/cars-list', {
          params: new HttpParams({
             fromObject: params.params.params
          })
       });
+   }
+
+
+
+   //Удаление авто
+   delete(id: any): Observable<any> {
+      return this.http.delete<any>(`/api/cars/car-remove/${id}`);
    }
 
 
@@ -134,8 +141,5 @@ constructor(private http: HttpClient) { }
    // }
 
 
-   // Удаление авто
-   // delete(id: any): Observable<any> {
-   //    return this.http.delete<any>(`/api/cars/${id}`);
-   // }
+  
 }

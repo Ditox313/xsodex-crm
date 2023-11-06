@@ -15,6 +15,11 @@ router.get('/cars-list', passport.authenticate('jwt', { session: false }), contr
 
 
 
+//Роут на удаление автомобиля
+router.delete('/car-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
+
+
+
 
 
 module.exports = router;

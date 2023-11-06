@@ -72,3 +72,24 @@ module.exports.getAllCars = async function (req, res) {
 
 
 
+
+// Контроллер для remove
+module.exports.remove = async function (req, res) {
+    try {
+        const result = await Car.deleteOne({ _id: req.params.id });
+
+        if (result.deletedCount === 1) {
+            res.status(200).json(req.params.id);
+        } else {
+            return error
+        }
+
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
+
+

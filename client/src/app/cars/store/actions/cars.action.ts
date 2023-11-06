@@ -55,4 +55,44 @@ export const carsListResetAction = createAction(
 
 
 
+// No more Cars List
+
+export const noMoreCarsListAction = createAction(
+  ActionTypes.NO_MORE_CARS_LIST,
+  props<{ data: boolean }>()
+);
+
+export const noMoreCarsListFalseAction = createAction(
+  ActionTypes.NO_MORE_CARS_LIST_FALSE,
+);
+
+export const noMoreCarsListTrueAction = createAction(
+  ActionTypes.NO_MORE_CARS_LIST_TRUE,
+);
+
+
+
+
+
+
+// Car delete
+export const carDeleteAction = createAction(
+  ActionTypes.CAR_DELETE,
+  props<{ id: string | undefined }>()
+);
+
+
+export const carDeleteSuccessAction = createAction(
+  ActionTypes.CAR_DELETE_SUCCES,
+  props<{ data: string }>()
+);
+
+
+export const carDeleteFailureAction = createAction(
+  ActionTypes.CAR_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+
 

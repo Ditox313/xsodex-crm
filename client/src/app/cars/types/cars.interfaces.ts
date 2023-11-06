@@ -1,6 +1,7 @@
 
 
 export interface Car {
+    _id?: string,
     marka: string,
     model: string,
     number: string,
