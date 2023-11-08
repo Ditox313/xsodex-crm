@@ -3,7 +3,8 @@ const User = require('../../models/account/User.js');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys.js');
 const errorHandler = require('../../Utils/errorHendler.js');
-
+const fs = require('fs');
+const path = require('path');
 
 
 
@@ -103,7 +104,7 @@ module.exports.updateUser = async function (req, res) {
         const salt = bcrypt.genSaltSync(10);
         const updated = req.body;
         const actualUser = await User.findOne({ _id: req.user._id, });
-
+        
 
         if (req.body.password === null || req.body.password === '') {
             updated.password = actualUser.password;
@@ -113,7 +114,12 @@ module.exports.updateUser = async function (req, res) {
         }
 
 
-        if (req.file) {
+        if (req.file && actualUser) {
+            fs.unlink(actualUser.avatar, (err) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+                }
+            });
             updated.avatar = req.file.path;
         }
 

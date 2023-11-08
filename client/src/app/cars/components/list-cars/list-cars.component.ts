@@ -61,9 +61,9 @@ export class ListCarsComponent implements OnInit {
     // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
     this.carsListSelector = this.store.pipe(select(carsListSelector))
     this.carsListSub$ = this.carsListSelector.subscribe({
-      next: (smenaList) => {
-        if (smenaList) {
-          this.carsList = smenaList;
+      next: (carsList) => {
+        if (carsList) {
+          this.carsList = carsList;
           
 
           if (this.carsList.length >= this.STEP) {

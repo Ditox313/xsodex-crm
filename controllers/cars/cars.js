@@ -136,6 +136,14 @@ module.exports.update = async function (req, res) {
 
         // Если объект file есть,то заполняем параметр путем фала
         if (req.file) {
+            // Находим нужный автомобиль и удаляем аватарку автомобиля
+            const car = await Car.findOne({ _id: req.body._id });
+            fs.unlink(car.avatar, (err) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+                }
+            });
+
             updated.avatar = req.file.path;
         }
 

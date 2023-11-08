@@ -105,10 +105,12 @@ export class ShowCarComponent implements OnInit, OnDestroy {
   initValues() {
     //Отправляем запрос на получение текущего автомобиля
     this.store.dispatch(carGetCurrent({ id: this.carId }));
+
     this.currentCarSelector = this.store.pipe(select(getCurrentCarSelector))
     this.currentCarSub$ = this.currentCarSelector.subscribe({
       next: (currentCar) => {
         this.currentCar = currentCar
+        
         
         if (currentCar) {
           this.pathValueCar(currentCar)
