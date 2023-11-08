@@ -85,9 +85,7 @@ export class AddCarComponent implements OnInit {
       gorod_value_9: new FormControl('',),
       gorod_name_10: new FormControl('',),
       gorod_value_10: new FormControl('',),
-      // gorod_name_zalog: new FormControl('',),
       gorod_value_zalog: new FormControl('',),
-      // gorod_name_dop_hour: new FormControl('',),
       gorod_value_dop_hour: new FormControl('',),
 
       mejgorod_name_1: new FormControl('',),
@@ -110,9 +108,7 @@ export class AddCarComponent implements OnInit {
       mejgorod_value_9: new FormControl('',),
       mejgorod_name_10: new FormControl('',),
       mejgorod_value_10: new FormControl('',),
-      // mejgorod_name_zalog: new FormControl('',),
       mejgorod_value_zalog: new FormControl('',),
-      // mejgorod_name_dop_hour: new FormControl('',),
       mejgorod_value_dop_hour: new FormControl('',),
 
       russia_name_1: new FormControl('',),
@@ -135,9 +131,7 @@ export class AddCarComponent implements OnInit {
       russia_value_9: new FormControl('',),
       russia_name_10: new FormControl('',),
       russia_value_10: new FormControl('',),
-      // russia_name_zalog: new FormControl('',),
       russia_value_zalog: new FormControl('',),
-      // russia_name_dop_hour: new FormControl('',),
       russia_value_dop_hour: new FormControl('',),
     });
   }
@@ -186,6 +180,9 @@ export class AddCarComponent implements OnInit {
 
 
   onSubmit() {
+
+    const test = this.form
+
     const car: Car = {
       marka: this.form.value.marka,
       model: this.form.value.model,
@@ -215,8 +212,53 @@ export class AddCarComponent implements OnInit {
       oil_name: this.form.value.oil_name,
       stoa_name: this.form.value.stoa_name,
       stoa_phone: this.form.value.stoa_phone,
-      userId: this.currentUser?._id
+      userId: this.currentUser?._id,
+      tarif_gorod: [
+        [this.form.value.gorod_name_1, this.form.value.gorod_value_1],
+        [this.form.value.gorod_name_2, this.form.value.gorod_value_2],
+        [this.form.value.gorod_name_3, this.form.value.gorod_value_3],
+        [this.form.value.gorod_name_4, this.form.value.gorod_value_4],
+        [this.form.value.gorod_name_5, this.form.value.gorod_value_5],
+        [this.form.value.gorod_name_6, this.form.value.gorod_value_6],
+        [this.form.value.gorod_name_7, this.form.value.gorod_value_7],
+        [this.form.value.gorod_name_8, this.form.value.gorod_value_8],
+        [this.form.value.gorod_name_9, this.form.value.gorod_value_9],
+        [this.form.value.gorod_name_10, this.form.value.gorod_value_10],
+        ['zalog', this.form.value.gorod_value_zalog],
+        ['dop_hour', this.form.value.gorod_value_dop_hour],
+      ],
+      tarif_mejgorod: [
+        [this.form.value.mejgorod_name_1, this.form.value.mejgorod_value_1],
+        [this.form.value.mejgorod_name_2, this.form.value.mejgorod_value_2],
+        [this.form.value.mejgorod_name_3, this.form.value.mejgorod_value_3],
+        [this.form.value.mejgorod_name_4, this.form.value.mejgorod_value_4],
+        [this.form.value.mejgorod_name_5, this.form.value.mejgorod_value_5],
+        [this.form.value.mejgorod_name_6, this.form.value.mejgorod_value_6],
+        [this.form.value.mejgorod_name_7, this.form.value.mejgorod_value_7],
+        [this.form.value.mejgorod_name_8, this.form.value.mejgorod_value_8],
+        [this.form.value.mejgorod_name_9, this.form.value.mejgorod_value_9],
+        [this.form.value.mejgorod_name_10, this.form.value.mejgorod_value_10],
+        ['zalog', this.form.value.mejgorod_value_zalog],
+        ['dop_hour', this.form.value.mejgorod_value_dop_hour],
+      ],
+      tarif_russia: [
+        [this.form.value.russia_name_1, this.form.value.russia_value_1],
+        [this.form.value.russia_name_2, this.form.value.russia_value_2],
+        [this.form.value.russia_name_3, this.form.value.russia_value_3],
+        [this.form.value.russia_name_4, this.form.value.russia_value_4],
+        [this.form.value.russia_name_5, this.form.value.russia_value_5],
+        [this.form.value.russia_name_6, this.form.value.russia_value_6],
+        [this.form.value.russia_name_7, this.form.value.russia_value_7],
+        [this.form.value.russia_name_8, this.form.value.russia_value_8],
+        [this.form.value.russia_name_9, this.form.value.russia_value_9],
+        [this.form.value.russia_name_10, this.form.value.russia_value_10],
+        ['zalog', this.form.value.russia_value_zalog],
+        ['dop_hour', this.form.value.russia_value_dop_hour],
+      ],
+
     }
+    
+    console.log(car);
     
     this.store.dispatch(addCarAction({ car: car, avatar: this.uploadFile }))
   }

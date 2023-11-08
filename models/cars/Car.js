@@ -149,6 +149,22 @@ const carSchema = new Schema({
         default: ''
     },
 
+
+    tarif_gorod: {
+        type: Array,
+        required: true,
+    },
+
+
+    tarif_mejgorod: {
+        type: Array,
+        required: true,
+    },
+
+    tarif_russia: {
+        type: Array,
+        required: true,
+    },
     date: {
         type: Date,
         default: Date.now,

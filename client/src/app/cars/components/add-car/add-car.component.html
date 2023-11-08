@@ -398,8 +398,6 @@
 
                                     <fieldset>
                                         <label htmlFor="stoa_phone">Телефон СТОА</label>
-                                        <!-- <input pInputText id="stoa_phone"   formControlName="stoa_phone" placeholder="Введите телефон"
-                                            [ngClass]="{'ng-invalid ng-dirty': form.controls['stoa_phone'].invalid && form.controls['stoa_phone'].touched}" /> -->
 
                                         <p-inputMask id="stoa_phone"   formControlName="stoa_phone" mask="+7(999)-999-99-99" placeholder="+7(999)999-99-99"
                                         [ngClass]="{'ng-invalid ng-dirty': form.controls['stoa_phone'].invalid && form.controls['stoa_phone'].touched}"></p-inputMask>
@@ -575,61 +573,61 @@
                         <fieldset>
                             <p-inputMask id="russia_name_1" formControlName="russia_name_1" mask="99-99"
                                 placeholder="Введите интервал"></p-inputMask>
-                            <input pInputText id="russia_name_1" formControlName="russia_name_1" placeholder="Введите цену" /> 
+                            <input pInputText id="russia_value_1" formControlName="russia_value_1" placeholder="Введите цену" /> 
                         </fieldset>
 
                         <fieldset>
                             <p-inputMask id="russia_name_2" formControlName="russia_name_2" mask="99-99"
                                 placeholder="Введите интервал"></p-inputMask>
-                            <input pInputText id="russia_name_2" formControlName="russia_name_2" placeholder="Введите цену" />
+                            <input pInputText id="russia_value_2" formControlName="russia_value_2" placeholder="Введите цену" />
                         </fieldset>
 
                         <fieldset>
                             <p-inputMask id="russia_name_3" formControlName="russia_name_3" mask="99-99"
                                 placeholder="Введите интервал"></p-inputMask>
-                            <input pInputText id="russia_name_3" formControlName="russia_name_3" placeholder="Введите цену" />
+                            <input pInputText id="russia_value_3" formControlName="russia_value_3" placeholder="Введите цену" />
                         </fieldset>
 
                         <fieldset>
                             <p-inputMask id="russia_name_4" formControlName="russia_name_4" mask="99-99"
                                 placeholder="Введите интервал"></p-inputMask>
-                            <input pInputText id="russia_name_4" formControlName="russia_name_4" placeholder="Введите цену" />
+                            <input pInputText id="russia_value_4" formControlName="russia_value_4" placeholder="Введите цену" />
                         </fieldset>
 
                         <fieldset>
                             <p-inputMask id="russia_name_5" formControlName="russia_name_5" mask="99-99"
                                 placeholder="Введите интервал"></p-inputMask>
-                            <input pInputText id="russia_name_5" formControlName="russia_name_5" placeholder="Введите цену" />
+                            <input pInputText id="russia_value_5" formControlName="russia_value_5" placeholder="Введите цену" />
                         </fieldset>
 
                         <fieldset>
                             <p-inputMask id="russia_name_6" formControlName="russia_name_6" mask="99-99"
                                 placeholder="Введите интервал"></p-inputMask>
-                            <input pInputText id="russia_name_6" formControlName="russia_name_6" placeholder="Введите цену" />
+                            <input pInputText id="russia_value_6" formControlName="russia_value_6" placeholder="Введите цену" />
                         </fieldset>
 
                         <fieldset>
                             <p-inputMask id="russia_name_7" formControlName="russia_name_7" mask="99-99"
                                 placeholder="Введите интервал"></p-inputMask>
-                            <input pInputText id="russia_name_7" formControlName="russia_name_7" placeholder="Введите цену" />
+                            <input pInputText id="russia_value_7" formControlName="russia_value_7" placeholder="Введите цену" />
                         </fieldset>
 
                         <fieldset>
                             <p-inputMask id="russia_name_8" formControlName="russia_name_8" mask="99-99"
                                 placeholder="Введите интервал"></p-inputMask>
-                            <input pInputText id="russia_name_8" formControlName="russia_name_8" placeholder="Введите цену" />
+                            <input pInputText id="russia_value_8" formControlName="russia_value_8" placeholder="Введите цену" />
                         </fieldset>
 
                         <fieldset>
                             <p-inputMask id="russia_name_9" formControlName="russia_name_9" mask="99-99"
                                 placeholder="Введите интервал"></p-inputMask>
-                            <input pInputText id="russia_name_9" formControlName="russia_name_9" placeholder="Введите цену" />
+                            <input pInputText id="russia_value_9" formControlName="russia_value_9" placeholder="Введите цену" />
                         </fieldset>
 
                         <fieldset>
                             <p-inputMask id="russia_name_10" formControlName="russia_name_10" mask="99-99"
                                 placeholder="Введите интервал"></p-inputMask>
-                            <input pInputText id="russia_name_10" formControlName="russia_name_10" placeholder="Введите цену" />
+                            <input pInputText id="russia_value_10" formControlName="russia_value_10" placeholder="Введите цену" />
                         </fieldset>
 
                         <fieldset style="width: 100%; display: flex; align-items: center;">
@@ -644,7 +642,10 @@
                         </fieldset>
                     </div>
                 </div>
+                <button type="submit" class="submit" style="margin-top: 25px;" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
             </p-tabPanel>
         </p-tabView>
+
+        
     </form>
 </div>

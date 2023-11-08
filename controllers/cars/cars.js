@@ -39,6 +39,10 @@ module.exports.create = async function (req, res) {
             oil_name: req.body.oil_name,
             stoa_name: req.body.stoa_name,
             stoa_phone: req.body.stoa_phone,
+            stoa_phone: req.body.stoa_phone,
+            tarif_gorod: JSON.parse(req.body.tarif_gorod),
+            tarif_mejgorod: JSON.parse(req.body.tarif_mejgorod),
+            tarif_russia: JSON.parse(req.body.tarif_russia),
             user: req.user._id,
             avatar: req.file ? req.file.path : '', //Если файл загружен то задаем путь до файла
         }).save();
