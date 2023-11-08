@@ -1,15 +1,16 @@
 .app_layout{
     display: flex;
-    height: 100vh;
     font-family: 'Montserrat', sans-serif;
 }
 
 
 .sidebar
 {
+    min-height: 100vh;
     width: 15%;
     background-color: #194A9E;
     padding: 20px;
+    padding-bottom: 0;
 }
 
 .content{

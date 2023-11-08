@@ -119,6 +119,13 @@ fieldset
     margin-bottom: 30px;
 }
 
+.tarifs fieldset
+{
+    margin-bottom: 0;
+}
+
+
+
 button
 {
     color: #ffffff;
@@ -142,3 +149,21 @@ button:disabled
 {
     margin-top: 10px;
 }
+
+.tarifs>div input
+{
+    margin-right: 0 !important;
+    margin-top: 10px !important;
+}
+
+.tarifs
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.tarifs>div
+{
+    width: 33%;
+}
+
