@@ -53,7 +53,7 @@ module.exports.isOpenSmena = async function (req, res) {
 module.exports.getAllSmena = async function (req, res) {
     try {
 
-        const smenaList = await Smena.find({}).sort({ open_date: -1 })
+        const smenaList = await Smena.find({}).sort({ date: -1 })
             .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
             .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
 

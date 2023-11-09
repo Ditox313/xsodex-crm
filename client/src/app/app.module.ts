@@ -13,12 +13,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { SmenaModule } from './smena/smena.module';
 import { CarsModule } from './cars/cars.module';
+import { PartnersModule } from './partners/partners.module';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,6 +27,7 @@ import { CarsModule } from './cars/cars.module';
     AccountModule,
     SmenaModule,
     CarsModule,
+    PartnersModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule ,

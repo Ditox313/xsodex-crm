@@ -11,6 +11,7 @@ export interface Smena {
     status: string,
     close_date: string,
     userId: string 
+    date?: string
 }
 
 
