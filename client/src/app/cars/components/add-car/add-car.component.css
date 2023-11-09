@@ -119,10 +119,7 @@ fieldset
     margin-bottom: 30px;
 }
 
-.tarifs fieldset
-{
-    margin-bottom: 0;
-}
+
 
 
 
@@ -148,6 +145,11 @@ button:disabled
 .submit
 {
     margin-top: 10px;
+}
+
+
+.tarifs fieldset {
+    margin-bottom: 0;
 }
 
 .tarifs>div input

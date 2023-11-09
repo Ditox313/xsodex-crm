@@ -121,6 +121,10 @@ constructor(private http: HttpClient) { }
       fd.append('stoa_name', car.stoa_name);
       fd.append('stoa_phone', car.stoa_phone);
 
+      fd.append('tarif_gorod', JSON.stringify(car.tarif_gorod));
+      fd.append('tarif_mejgorod', JSON.stringify(car.tarif_mejgorod));
+      fd.append('tarif_russia', JSON.stringify(car.tarif_russia));
+
 
       if (avatar) {
          fd.append('avatar', avatar, avatar.name);

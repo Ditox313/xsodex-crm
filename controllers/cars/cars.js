@@ -136,6 +136,11 @@ module.exports.update = async function (req, res) {
     try {
 
         const updated = req.body;
+        updated.tarif_gorod = JSON.parse(req.body.tarif_gorod)
+        updated.tarif_mejgorod = JSON.parse(req.body.tarif_mejgorod)
+        updated.tarif_russia = JSON.parse(req.body.tarif_russia)
+        
+
 
 
         // Если объект file есть,то заполняем параметр путем фала
