@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Car, CarsParamsFetch } from '../../types/cars.interfaces';
@@ -10,7 +10,7 @@ import { carDeleteAction, carsListAction, carsListResetAction, noMoreCarsListFal
   templateUrl: './list-cars.component.html',
   styleUrls: ['./list-cars.component.css']
 })
-export class ListCarsComponent implements OnInit {
+export class ListCarsComponent implements OnInit, OnDestroy {
   STEP = 2;
   offset: number = 0;
   limit: number = this.STEP;
@@ -93,7 +93,7 @@ export class ListCarsComponent implements OnInit {
 
 
 
-  // Подгружаем смены
+  // Подгружаем автомобили
   loadmore() {
     this.offset += this.STEP;
     this.getSmenaList();

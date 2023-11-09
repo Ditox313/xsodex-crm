@@ -65,7 +65,74 @@ export class AddCarComponent implements OnInit {
       stoa_name: new FormControl('', [Validators.required]),
       stoa_phone: new FormControl('', [Validators.required]),
 
-      
+      gorod_name_1: new FormControl('',),
+      gorod_value_1: new FormControl('',),
+      gorod_name_2: new FormControl('',),
+      gorod_value_2: new FormControl('',),
+      gorod_name_3: new FormControl('',),
+      gorod_value_3: new FormControl('',),
+      gorod_name_4: new FormControl('',),
+      gorod_value_4: new FormControl('',),
+      gorod_name_5: new FormControl('',),
+      gorod_value_5: new FormControl('',),
+      gorod_name_6: new FormControl('',),
+      gorod_value_6: new FormControl('',),
+      gorod_name_7: new FormControl('',),
+      gorod_value_7: new FormControl('',),
+      gorod_name_8: new FormControl('',),
+      gorod_value_8: new FormControl('',),
+      gorod_name_9: new FormControl('',),
+      gorod_value_9: new FormControl('',),
+      gorod_name_10: new FormControl('',),
+      gorod_value_10: new FormControl('',),
+      gorod_value_zalog: new FormControl('',),
+      gorod_value_dop_hour: new FormControl('',),
+
+      mejgorod_name_1: new FormControl('',),
+      mejgorod_value_1: new FormControl('',),
+      mejgorod_name_2: new FormControl('',),
+      mejgorod_value_2: new FormControl('',),
+      mejgorod_name_3: new FormControl('',),
+      mejgorod_value_3: new FormControl('',),
+      mejgorod_name_4: new FormControl('',),
+      mejgorod_value_4: new FormControl('',),
+      mejgorod_name_5: new FormControl('',),
+      mejgorod_value_5: new FormControl('',),
+      mejgorod_name_6: new FormControl('',),
+      mejgorod_value_6: new FormControl('',),
+      mejgorod_name_7: new FormControl('',),
+      mejgorod_value_7: new FormControl('',),
+      mejgorod_name_8: new FormControl('',),
+      mejgorod_value_8: new FormControl('',),
+      mejgorod_name_9: new FormControl('',),
+      mejgorod_value_9: new FormControl('',),
+      mejgorod_name_10: new FormControl('',),
+      mejgorod_value_10: new FormControl('',),
+      mejgorod_value_zalog: new FormControl('',),
+      mejgorod_value_dop_hour: new FormControl('',),
+
+      russia_name_1: new FormControl('',),
+      russia_value_1: new FormControl('',),
+      russia_name_2: new FormControl('',),
+      russia_value_2: new FormControl('',),
+      russia_name_3: new FormControl('',),
+      russia_value_3: new FormControl('',),
+      russia_name_4: new FormControl('',),
+      russia_value_4: new FormControl('',),
+      russia_name_5: new FormControl('',),
+      russia_value_5: new FormControl('',),
+      russia_name_6: new FormControl('',),
+      russia_value_6: new FormControl('',),
+      russia_name_7: new FormControl('',),
+      russia_value_7: new FormControl('',),
+      russia_name_8: new FormControl('',),
+      russia_value_8: new FormControl('',),
+      russia_name_9: new FormControl('',),
+      russia_value_9: new FormControl('',),
+      russia_name_10: new FormControl('',),
+      russia_value_10: new FormControl('',),
+      russia_value_zalog: new FormControl('',),
+      russia_value_dop_hour: new FormControl('',),
     });
   }
 
@@ -191,6 +258,7 @@ export class AddCarComponent implements OnInit {
 
     }
     
+    console.log(car);
     
     this.store.dispatch(addCarAction({ car: car, avatar: this.uploadFile }))
   }

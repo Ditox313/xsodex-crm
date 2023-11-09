@@ -12,8 +12,8 @@ export interface Partner {
     code_podrazdeleniya: string
     passport_register: string
     phone_main: string
-    passport_img_1?: string
-    passport_img_2?: string
+    file_1?: string
+    file_2?: string
     _id?: string
 }
 

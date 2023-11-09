@@ -17,12 +17,14 @@ import { getRoutes } from './routes/partners.route';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { ListPartnersComponent } from './components/list-partners/list-partners.component';
+import { AddPartnerComponent } from './components/add-partner/add-partner.component';
 
 
 
 @NgModule({
   declarations: [
-    ListPartnersComponent
+    ListPartnersComponent,
+    AddPartnerComponent
   ],
   imports: [
     CommonModule,
