@@ -131,20 +131,20 @@
 
             <div class="add_partner_images">
                 <div class="file_1">
-                    <img [src]="" alt="Изображение">
+                    <img [src]="[file_1]" alt="Изображение">
                     
                     <div class="upload_btns">
-                        <input type="file_1" class="dn" #upload_1 (change)="onFile1Upload($event)">
+                        <input type="file" class="dn" #upload_1 (change)="onFile1Upload($event)">
                         <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
                             (click)="onFile1UploadClick()"></p-button>
                     </div>
                 </div>
 
                 <div class="file_2">
-                    <img [src]="" alt="Изображение">
+                    <img [src]="[file_2]" alt="Изображение">
                     
                     <div class="upload_btns">
-                        <input type="file_2" class="dn" #upload_2 (change)="onFile2Upload($event)">
+                        <input type="file" class="dn" #upload_2 (change)="onFile2Upload($event)">
                         <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
                             (click)="onFile2UploadClick()"></p-button>
                     </div>

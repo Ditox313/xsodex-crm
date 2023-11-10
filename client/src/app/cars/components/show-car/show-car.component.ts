@@ -15,7 +15,7 @@ import { getCurrentSmenaSelector } from 'src/app/smena/store/selectors';
   styleUrls: ['./show-car.component.css']
 })
 export class ShowCarComponent implements OnInit, OnDestroy {
-  title: string = 'Просмотр автомобиля'
+  title: string = ''
   getParamsSub$!: Subscription
   isLoadingSelector!: Observable<boolean | null>
   currentCarSelector!: Observable<Car | null | undefined>
@@ -27,6 +27,7 @@ export class ShowCarComponent implements OnInit, OnDestroy {
   avatar: string | ArrayBuffer | undefined | null = 'https://phonoteka.org/uploads/posts/2023-03/1680212136_phonoteka-org-p-dmitrii-razvarov-art-instagram-90.jpg';
   @ViewChild('upload') upload!: ElementRef;
   edit: boolean = false
+  
 
 
 
@@ -181,8 +182,8 @@ export class ShowCarComponent implements OnInit, OnDestroy {
       next: (currentCar) => {
         this.currentCar = currentCar
         
-        
         if (currentCar) {
+          this.title = `Просмотр автомобиля ${currentCar.marka} ${currentCar.model}`
           this.pathValueCar(currentCar)
         }
       }

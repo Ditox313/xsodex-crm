@@ -15,8 +15,8 @@ export class AddPartnerComponent {
   form!: FormGroup;
   uploadFile_1!: File
   uploadFile_2!: File
-  file_1: string | ArrayBuffer | undefined | null = '';
-  file_2: string | ArrayBuffer | undefined | null = '';
+  file_1: string | ArrayBuffer | undefined | null = 'https://phonoteka.org/uploads/posts/2023-03/1680212136_phonoteka-org-p-dmitrii-razvarov-art-instagram-90.jpg';
+  file_2: string | ArrayBuffer | undefined | null = 'https://phonoteka.org/uploads/posts/2023-03/1680212136_phonoteka-org-p-dmitrii-razvarov-art-instagram-90.jpg';
   @ViewChild('upload_1') upload_1!: ElementRef;
   @ViewChild('upload_2') upload_2!: ElementRef;
   value!: string;
@@ -69,64 +69,49 @@ export class AddPartnerComponent {
 
   // Обрабатываем загрузку картинок
   onFile1Upload(event: any) {
-    // const file = event.target.files['0'];
-    // this.passport__1 = file;
+    const file = event.target.files['0'];
+    this.uploadFile_1 = file;
 
-    // // Подключаем ридер для считывания картинки
-    // const reader = new FileReader();
+    const reader = new FileReader();
+    // Метод вызовется тогда, когда загрузится вся картинка
+    reader.onload = () => {
+      // Переменная для хранения информации об изображении
+      this.file_1 = reader.result;
+    };
+    // Читаем нужный нам файл
+    reader.readAsDataURL(file);
+  };
+    
 
-    // // Метод вызовется тогда, когда загрузится вся картинка
-    // reader.onload = () => {
-    //   if (event.target.files['0'].type !== 'application/pdf') {
-    //     // Переменная для хранения информации об изображении
-    //     this.passport_1_preview = reader.result;
-    //   }
-    //   else {
-    //     // Переменная для хранения информации об изображении
-    //     this.passport_1_preview = 'https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg';
-    //   }
 
-    //   this.passport__1_name = event.target.files['0'].name;
-    // };
-
-    // // Читаем нужный нам файл
-    // reader.readAsDataURL(file);
-  }
   onFile2Upload(event: any) {
-    // const file = event.target.files['0'];
-    // this.passport__2 = file;
+    const file = event.target.files['0'];
+    this.uploadFile_2 = file;
 
-    // // Подключаем ридер для считывания картинки
-    // const reader = new FileReader();
-
-    // // Метод вызовется тогда, когда загрузится вся картинка
-    // reader.onload = () => {
-    //   if (event.target.files['0'].type !== 'application/pdf') {
-    //     // Переменная для хранения информации об изображении
-    //     this.passport_2_preview = reader.result;
-    //   }
-    //   else {
-    //     // Переменная для хранения информации об изображении
-    //     this.passport_2_preview = 'https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg';
-    //   }
-
-    //   this.passport__2_name = event.target.files['0'].name;
-    // };
-
-    // // Читаем нужный нам файл
-    // reader.readAsDataURL(file);
+    const reader = new FileReader();
+    // Метод вызовется тогда, когда загрузится вся картинка
+    reader.onload = () => {
+      // Переменная для хранения информации об изображении
+      this.file_2 = reader.result;
+    };
+    // Читаем нужный нам файл
+    reader.readAsDataURL(file);
   }
 
 
   // Обрабатываем кнопку загрузки тригиря клик по скрытому инпуту
   onFile1UploadClick() {
-    // this.inputRef.nativeElement.click();
+    this.upload_1.nativeElement.click();
   }
   onFile2UploadClick() {
-    // this.inputRef2.nativeElement.click();
+    this.upload_2.nativeElement.click();
   }
 
 
+  // Проверяем оканчивается ли строка на определенные символы
+  endsWith(str: any, suffix: any) {
+    return new RegExp(suffix + '$').test(str);
+  };
 
 
 
