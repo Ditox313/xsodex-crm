@@ -1,6 +1,6 @@
 <app-header-app-layout [title]="title"></app-header-app-layout>
 <p-toast></p-toast>
-<loader *ngIf="isLoadingSelector$ | async "></loader>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
 
 
 
@@ -61,9 +61,9 @@
                 </fieldset>
 
                 <fieldset>
-                    <label htmlFor="code_podrazdeleniya">Код подразделения</label>
-                    <input pInputText id="passporcode_podrazdeleniyat_who_take" formControlName="code_podrazdeleniya" placeholder="Введите значение"
-                        [ngClass]="{'ng-invalid ng-dirty': form.controls['code_podrazdeleniya'].invalid && form.controls['code_podrazdeleniya'].touched}" />
+                    <label htmlFor="code_podrazdeleniya">Код подразделения</label>                        
+                        <p-inputMask mask="999-999" id="code_podrazdeleniya" formControlName="code_podrazdeleniya" placeholder="999-999"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['code_podrazdeleniya'].invalid && form.controls['code_podrazdeleniya'].touched}"></p-inputMask>
                 
                 
                     <div class="errorValidate"
@@ -130,14 +130,18 @@
             </div>
 
             <div class="add_partner_images">
-                <div class="file_1">
+                <div class="file_1" *ngIf="!this.isPDF(file_1, '.pdf')">
                     <img [src]="[file_1]" alt="Изображение">
+
+                    <pdf-viewer *ngIf="this.isPDF(file_1, '.pdf')" [src]="[file_1]" [render-text]="true"
+                        [original-size]="false" style="width: 100%; height: 250px"></pdf-viewer>
                     
                     <div class="upload_btns">
                         <input type="file" class="dn" #upload_1 (change)="onFile1Upload($event)">
                         <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
                             (click)="onFile1UploadClick()"></p-button>
                     </div>
+                    
                 </div>
 
                 <div class="file_2">

@@ -7,7 +7,8 @@ const moment = require('moment');
 
 const fs = require('fs');
 
-
+// Транслитерация
+const transliteration = require('transliteration');
 
 
 
@@ -26,7 +27,7 @@ const storage = multer.diskStorage({
     },
     filename(req, file, cb) {
         const date = moment().format('YYYYMMDDSS');
-        cb(null, `${date}-${file.originalname}`);
+        cb(null, `${date}-${transliteration.transliterate(file.originalname)}`);
     }
 });
 

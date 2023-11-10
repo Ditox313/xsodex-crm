@@ -11,7 +11,8 @@ export interface Partner {
     passport_who_take: string
     code_podrazdeleniya: string
     passport_register: string
-    phone_main: string
+    phone_1: string
+    phone_2: string
     file_1?: string
     file_2?: string
     _id?: string
@@ -19,14 +20,14 @@ export interface Partner {
 
 
 
-// Интерфейс для state cars
-// export interface CarsStateInterface {
-//     isLoading: boolean,
-//     validationErrors?: any,
-//     carsList?: Car[] | null | undefined,
-//     noMoreCarsList: boolean
-//     currentCar: Car | null | undefined,
-// }
+// Интерфейс для state partners
+export interface PartnersStateInterface {
+    isLoading: boolean,
+    validationErrors?: any,
+    partnersList?: Partner[] | null | undefined | any,
+    noMorePartnersList: boolean
+    currentPartner: Partner | null | undefined | any,
+}
 
 
 

@@ -20,16 +20,16 @@ const transliteration = require('transliteration');
 // Создаем переменную storage. Она описывает как будут хранится и где будут хранится загруженный файлы. 
 const storage = multer.diskStorage({
     destination(req, file, cb) {
-        const directoryPath = `files/cars`;
+        const directoryPath = `files/partners/docs`;
         if (!fs.existsSync(directoryPath)) {
             fs.mkdirSync(directoryPath, { recursive: true });
         }
 
-        cb(null, `files/cars`);
+        cb(null, `files/partners/docs`);
     },
     filename(req, file, cb) {
         const date = moment().format('YYYYMMDDSS');
-        cb(null, `${date}-${transliteration.transliterate(file.originalname)}`);
+        cb(null, `${date}-${transliteration.transliterate(file.originalname) }`);
     }
 });
 
@@ -37,7 +37,7 @@ const storage = multer.diskStorage({
 
 // Валидатор
 const fileFilter = function (req, file, cb) {
-    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg') {
+    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'application/pdf') {
         cb(null, true);
     } else {
         cb(null, false);

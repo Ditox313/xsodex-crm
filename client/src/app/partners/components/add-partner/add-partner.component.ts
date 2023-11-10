@@ -3,7 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { Partner } from '../../types/partners.interfaces';
 import { DatePipe } from '@angular/common';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
+import { addPartnerAction } from '../../store/actions/partners.action';
+import { isLoadingSelector } from '../../store/selectors';
 
 @Component({
   selector: 'app-add-partner',
@@ -49,13 +51,14 @@ export class AddPartnerComponent {
 
 
   initValues() {
+    this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
     // this.currentUserSelector$ = this.store.pipe(select(currentUserSelector))
     // this.currentUserSub$ = this.currentUserSelector$.subscribe({
     //   next: (user) => {
     //     this.currentUser = user
     //   }
     // })
-    // this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
+    
   }
 
 
@@ -75,8 +78,14 @@ export class AddPartnerComponent {
     const reader = new FileReader();
     // Метод вызовется тогда, когда загрузится вся картинка
     reader.onload = () => {
-      // Переменная для хранения информации об изображении
-      this.file_1 = reader.result;
+      if (event.target.files['0'].type !== 'application/pdf') {
+        // Переменная для хранения информации об изображении
+        this.file_1 = reader.result;
+      }
+      else {
+        // Переменная для хранения информации об изображении
+        this.file_1 = 'https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg';
+      }
     };
     // Читаем нужный нам файл
     reader.readAsDataURL(file);
@@ -90,9 +99,16 @@ export class AddPartnerComponent {
 
     const reader = new FileReader();
     // Метод вызовется тогда, когда загрузится вся картинка
+    // Метод вызовется тогда, когда загрузится вся картинка
     reader.onload = () => {
-      // Переменная для хранения информации об изображении
-      this.file_2 = reader.result;
+      if (event.target.files['0'].type !== 'application/pdf') {
+        // Переменная для хранения информации об изображении
+        this.file_2 = reader.result;
+      }
+      else {
+        // Переменная для хранения информации об изображении
+        this.file_2 = 'https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg';
+      }
     };
     // Читаем нужный нам файл
     reader.readAsDataURL(file);
@@ -108,8 +124,8 @@ export class AddPartnerComponent {
   }
 
 
-  // Проверяем оканчивается ли строка на определенные символы
-  endsWith(str: any, suffix: any) {
+  // Проверяем оканчивается ли строка на определенные символы.Внашем случае PDF
+  isPDF(str: any, suffix: any) {
     return new RegExp(suffix + '$').test(str);
   };
 
@@ -121,84 +137,36 @@ export class AddPartnerComponent {
 
   onSubmit() {
 
-    // const test = this.form
-
-    // const car: Car = {
-    //   marka: this.form.value.marka,
-    //   model: this.form.value.model,
-    //   number: this.form.value.number,
-    //   probeg: this.form.value.probeg,
-    //   transmission: this.form.value.transmission,
-    //   start_arenda: this.form.value.start_arenda,
-    //   end_arenda: this.form.value.end_arenda,
-    //   vladelec: this.form.value.vladelec,
-    //   category: this.form.value.category,
-    //   status: this.form.value.status,
-    //   sts_seria: this.form.value.sts_seria,
-    //   sts_number: this.form.value.sts_number,
-    //   sts_date: this.form.value.sts_date,
-    //   osago_seria: this.form.value.osago_seria,
-    //   osago_number: this.form.value.osago_number,
-    //   osago_date_finish: this.form.value.osago_date_finish,
-    //   vin: this.form.value.vin,
-    //   kuzov_number: this.form.value.kuzov_number,
-    //   color: this.form.value.color,
-    //   year_production: this.form.value.year_production,
-    //   price_ocenka: this.form.value.price_ocenka,
-    //   to_date: this.form.value.to_date,
-    //   to_probeg_prev: this.form.value.to_probeg_prev,
-    //   to_probeg_next: this.form.value.to_probeg_next,
-    //   to_interval: this.form.value.to_interval,
-    //   oil_name: this.form.value.oil_name,
-    //   stoa_name: this.form.value.stoa_name,
-    //   stoa_phone: this.form.value.stoa_phone,
-    //   userId: this.currentUser?._id,
-    //   tarif_gorod: [
-    //     [this.form.value.gorod_name_1, this.form.value.gorod_value_1],
-    //     [this.form.value.gorod_name_2, this.form.value.gorod_value_2],
-    //     [this.form.value.gorod_name_3, this.form.value.gorod_value_3],
-    //     [this.form.value.gorod_name_4, this.form.value.gorod_value_4],
-    //     [this.form.value.gorod_name_5, this.form.value.gorod_value_5],
-    //     [this.form.value.gorod_name_6, this.form.value.gorod_value_6],
-    //     [this.form.value.gorod_name_7, this.form.value.gorod_value_7],
-    //     [this.form.value.gorod_name_8, this.form.value.gorod_value_8],
-    //     [this.form.value.gorod_name_9, this.form.value.gorod_value_9],
-    //     [this.form.value.gorod_name_10, this.form.value.gorod_value_10],
-    //     ['zalog', this.form.value.gorod_value_zalog],
-    //     ['dop_hour', this.form.value.gorod_value_dop_hour],
-    //   ],
-    //   tarif_mejgorod: [
-    //     [this.form.value.mejgorod_name_1, this.form.value.mejgorod_value_1],
-    //     [this.form.value.mejgorod_name_2, this.form.value.mejgorod_value_2],
-    //     [this.form.value.mejgorod_name_3, this.form.value.mejgorod_value_3],
-    //     [this.form.value.mejgorod_name_4, this.form.value.mejgorod_value_4],
-    //     [this.form.value.mejgorod_name_5, this.form.value.mejgorod_value_5],
-    //     [this.form.value.mejgorod_name_6, this.form.value.mejgorod_value_6],
-    //     [this.form.value.mejgorod_name_7, this.form.value.mejgorod_value_7],
-    //     [this.form.value.mejgorod_name_8, this.form.value.mejgorod_value_8],
-    //     [this.form.value.mejgorod_name_9, this.form.value.mejgorod_value_9],
-    //     [this.form.value.mejgorod_name_10, this.form.value.mejgorod_value_10],
-    //     ['zalog', this.form.value.mejgorod_value_zalog],
-    //     ['dop_hour', this.form.value.mejgorod_value_dop_hour],
-    //   ],
-    //   tarif_russia: [
-    //     [this.form.value.russia_name_1, this.form.value.russia_value_1],
-    //     [this.form.value.russia_name_2, this.form.value.russia_value_2],
-    //     [this.form.value.russia_name_3, this.form.value.russia_value_3],
-    //     [this.form.value.russia_name_4, this.form.value.russia_value_4],
-    //     [this.form.value.russia_name_5, this.form.value.russia_value_5],
-    //     [this.form.value.russia_name_6, this.form.value.russia_value_6],
-    //     [this.form.value.russia_name_7, this.form.value.russia_value_7],
-    //     [this.form.value.russia_name_8, this.form.value.russia_value_8],
-    //     [this.form.value.russia_name_9, this.form.value.russia_value_9],
-    //     [this.form.value.russia_name_10, this.form.value.russia_value_10],
-    //     ['zalog', this.form.value.russia_value_zalog],
-    //     ['dop_hour', this.form.value.russia_value_dop_hour],
-    //   ],
-
-    // }
+    let fio = this.form.value.fio.split(' ');
+    let passport_seria_number = this.form.value.passport_seria_number.split('-');
 
 
-    // this.store.dispatch(addCarAction({ car: car, avatar: this.uploadFile }))
+    const partner: Partner = {
+      name: fio[1],
+      surname: fio[0],
+      lastname: fio[2],
+      passport_seria: passport_seria_number[0],
+      passport_number: passport_seria_number[1],
+      passport_date: this.form.value.passport_date,
+      passport_who_take: this.form.value.passport_who_take,
+      code_podrazdeleniya: this.form.value.code_podrazdeleniya,
+      passport_register: this.form.value.passport_register,
+      phone_1: this.form.value.phone_1,
+      phone_2: this.form.value.phone_2,
+    };
+
+    
+
+    this.store.dispatch(addPartnerAction({ partner: partner, file_1: this.uploadFile_1, file_2: this.uploadFile_2, }))
+
+    // this.subCreatePartner$ = this.partners
+    //   .create(partner, this.passport__1, this.passport__2)
+    //   .subscribe((partners) => {
+    //     MaterialService.toast('Партнер добавлен');
+    //     this.router.navigate(['/partners-page']);
+    //   });
+
+
+   
   }
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { updateStateAction } from 'src/app/account/store/actions/account.action';
 import { isLoadingSelector, tokenSelector } from 'src/app/account/store/selectors';
 import { updateStateCarsAction } from 'src/app/cars/store/actions/cars.action';
+import { updateStatePartnersAction } from 'src/app/partners/store/actions/partners.action';
 import { isOpenedSmenaAction, updateStateSmenaAction } from 'src/app/smena/store/actions/smena.action';
 
 @Component({
@@ -77,6 +78,9 @@ export class AppLayoutComponent implements OnInit {
 
          // Обновляем состояние cars
          this.store.dispatch(updateStateCarsAction())
+
+         // Обновляем состояние partners
+         this.store.dispatch(updateStatePartnersAction())
 
 
 
