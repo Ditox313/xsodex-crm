@@ -40,14 +40,15 @@ export class PartnersService {
     return this.http.post<Partner>(`/api/partners/create`, fd);
   }
 
-  // Получаем список всех позиций
-  // fetch(params: any = {}): Observable<Partner[]> {
-  //   return this.http.get<Partner[]>('/api/partners', {
-  //     params: new HttpParams({
-  //       fromObject: params,
-  //     }),
-  //   });
-  // }
+  // Получаем список всех партнеров
+  getAllPartners(params: any = {}): Observable<Partner[]> {
+    return this.http.get<Partner[]>('/api/partners/partners-list', {
+      params: new HttpParams({
+        fromObject: params.params.params
+      })
+    });
+  }
+
 
   // get_all(): Observable<Partner[]> {
   //   return this.http.get<Partner[]>('/api/partners/all');
@@ -89,8 +90,8 @@ export class PartnersService {
   //   return this.http.get<Partner>(`/api/partners/${id}`);
   // }
 
-  // // Удаление
-  // delete(id: any): Observable<any> {
-  //   return this.http.delete<any>(`/api/partners/${id}`);
-  // }
+  // Удаление
+  delete(id: any): Observable<any> {
+    return this.http.delete<any>(`/api/partners/partner-remove/${id}`);
+  }
 }

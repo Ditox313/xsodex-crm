@@ -1,7 +1,7 @@
 import {createAction, props} from '@ngrx/store'
 import {ActionTypes} from 'src/app/partners/store/actionTypes'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
-import { Partner } from '../../types/partners.interfaces';
+import { Partner, PartnersParamsFetch } from '../../types/partners.interfaces';
 
 
 // Add partner
@@ -28,70 +28,70 @@ export const addPartnerFailureAction = createAction(
 
 
 
-// Cars List
-// export const carsListAction = createAction(
-//   ActionTypes.CARS_LIST,
-//   props<{ params: CarsParamsFetch }>()
-// );
+// Partners List
+export const partnersListAction = createAction(
+  ActionTypes.PARTNERS_LIST,
+  props<{ params: PartnersParamsFetch }>()
+);
 
 
-// export const carsListSuccessAction = createAction(
-//   ActionTypes.CARS_LIST_SUCCES,
-//   props<{ data: Car[] }>()
-// );
+export const partnersListSuccessAction = createAction(
+  ActionTypes.PARTNERS_LIST_SUCCES,
+  props<{ data: Partner[] }>()
+);
 
 
-// export const carsListFailureAction = createAction(
-//   ActionTypes.CARS_LIST_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const partnersListFailureAction = createAction(
+  ActionTypes.PARTNERS_LIST_FAILURE,
+  props<{ errors: any }>()
+);
 
 
-// export const carsListResetAction = createAction(
-//   ActionTypes.CARS_LIST_RESET,
-// );
-
-
-
-
-
-// No more Cars List
-
-// export const noMoreCarsListAction = createAction(
-//   ActionTypes.NO_MORE_CARS_LIST,
-//   props<{ data: boolean }>()
-// );
-
-// export const noMoreCarsListFalseAction = createAction(
-//   ActionTypes.NO_MORE_CARS_LIST_FALSE,
-// );
-
-// export const noMoreCarsListTrueAction = createAction(
-//   ActionTypes.NO_MORE_CARS_LIST_TRUE,
-// );
+export const partnersListResetAction = createAction(
+  ActionTypes.PARTNERS_LIST_RESET,
+);
 
 
 
 
 
+// No more Partners List
 
-// Car delete
-// export const carDeleteAction = createAction(
-//   ActionTypes.CAR_DELETE,
-//   props<{ id: string | undefined }>()
-// );
+export const noMorePartnersListAction = createAction(
+  ActionTypes.NO_MORE_PARTNERS_LIST,
+  props<{ data: boolean }>()
+);
+
+export const noMorePartnersListFalseAction = createAction(
+  ActionTypes.NO_MORE_PARTNERS_LIST_FALSE,
+);
+
+export const noMorePartnersListTrueAction = createAction(
+  ActionTypes.NO_MORE_PARTNERS_LIST_TRUE,
+);
 
 
-// export const carDeleteSuccessAction = createAction(
-//   ActionTypes.CAR_DELETE_SUCCES,
-//   props<{ data: string }>()
-// );
 
 
-// export const carDeleteFailureAction = createAction(
-//   ActionTypes.CAR_DELETE_FAILURE,
-//   props<{ errors: any }>()
-// );
+
+
+// Partner delete
+export const partnerDeleteAction = createAction(
+  ActionTypes.PARTNER_DELETE,
+  props<{ id: string | undefined }>()
+);
+
+
+export const partnerDeleteSuccessAction = createAction(
+  ActionTypes.PARTNER_DELETE_SUCCES,
+  props<{ data: string }>()
+);
+
+
+export const partnerDeleteFailureAction = createAction(
+  ActionTypes.PARTNER_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 

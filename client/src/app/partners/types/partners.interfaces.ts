@@ -32,8 +32,8 @@ export interface PartnersStateInterface {
 
 
 
-// Интерфейс для параметров запроса на получение всех смен
-// export interface CarsParamsFetch {
-//     offset: number | null,
-//     limit: number | null
-// }
+// Интерфейс для параметров запроса на получение всех партнеров
+export interface PartnersParamsFetch {
+    offset: number | null,
+    limit: number | null
+}

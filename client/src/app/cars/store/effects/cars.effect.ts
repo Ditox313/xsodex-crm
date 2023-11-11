@@ -85,7 +85,7 @@ export class CarsEffect {
             return carDeleteSuccessAction({ data: id });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
-            this.messageService.add({ severity: 'error', summary: `Ошибка удаления смены`, detail: 'Попробуйте позже!' });
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления автомобиля`, detail: 'Попробуйте позже!' });
             return of(
               carDeleteFailureAction({ errors: errorResponse.error.errors })
             );

@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { PartnersStateInterface } from '../types/partners.interfaces';
-import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from './actions/partners.action';
+import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, noMorePartnersListFalseAction, noMorePartnersListTrueAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnersListAction, partnersListFailureAction, partnersListResetAction, partnersListSuccessAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from './actions/partners.action';
 
 
 
@@ -56,99 +56,99 @@ const partnersReducer = createReducer(
 
 
 
-  // on(
-  //   carsListAction,
-  //   (state): CarsStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    partnersListAction,
+    (state): PartnersStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   carsListSuccessAction,
-  //   (state, action): CarsStateInterface => ({
-  //     ...state,
-  //     carsList: state.carsList ? [...state.carsList, ...action.data] : action.data,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //   })
-  // ),
-  // on(
-  //   carsListFailureAction,
-  //   (state, action): CarsStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   carsListResetAction,
-  //   (state): CarsStateInterface => ({
-  //     ...state,
-  //     carsList: null,
-  //   })
-  // ),
-  // on(
-  //   noMoreCarsListAction,
-  //   (state, action): CarsStateInterface => ({
-  //     ...state,
-  //     noMoreCarsList: action.data,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMoreCarsListFalseAction,
-  //   (state, action): CarsStateInterface => ({
-  //     ...state,
-  //     noMoreCarsList: false,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMoreCarsListAction,
-  //   (state, action): CarsStateInterface => ({
-  //     ...state,
-  //     noMoreCarsList: true,
-  //     isLoading: false,
-  //   })
-  // ),
-
-
+  on(
+    partnersListSuccessAction,
+    (state, action): PartnersStateInterface => ({
+      ...state,
+      partnersList: state.partnersList ? [...state.partnersList, ...action.data] : action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    partnersListFailureAction,
+    (state, action): PartnersStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    partnersListResetAction,
+    (state): PartnersStateInterface => ({
+      ...state,
+      partnersList: null,
+    })
+  ),
+  on(
+    noMorePartnersListAction,
+    (state, action): PartnersStateInterface => ({
+      ...state,
+      noMorePartnersList: action.data,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMorePartnersListFalseAction,
+    (state, action): PartnersStateInterface => ({
+      ...state,
+      noMorePartnersList: false,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMorePartnersListTrueAction,
+    (state, action): PartnersStateInterface => ({
+      ...state,
+      noMorePartnersList: true,
+      isLoading: false,
+    })
+  ),
 
 
 
 
 
 
-  // on(
-  //   carDeleteAction,
-  //   (state): CarsStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
 
-  // on(
-  //   carDeleteSuccessAction,
-  //   (state, action): CarsStateInterface => ({
-  //     ...state,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //     currentCar: null,
-  //     carsList: state.carsList ? state.carsList.filter((item) => item._id !== action.data) : state.carsList,
-  //   })
-  // ),
-  // on(
-  //   carDeleteFailureAction,
-  //   (state, action): CarsStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //     currentCar: null,
-  //   })
-  // ),
+
+  on(
+    partnerDeleteAction,
+    (state): PartnersStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    partnerDeleteSuccessAction,
+    (state, action): PartnersStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentPartner: null,
+      partnersList: state.partnersList ? state.partnersList.filter((item: { _id: string; }) => item._id !== action.data) : state.partnersList,
+    })
+  ),
+  on(
+    partnerDeleteFailureAction,
+    (state, action): PartnersStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+      currentPartner: null,
+    })
+  ),
 
 
 
@@ -161,11 +161,11 @@ const partnersReducer = createReducer(
     updateStatePartnersSuccessAction,
     (state, action): PartnersStateInterface => ({
       ...state,
-      isLoading: action.data.cars.isLoading,
-      validationErrors: action.data.cars.validationErrors,
-      partnersList: action.data.cars.carsList ,
-      noMorePartnersList: action.data.cars.noMoreCarsList,
-      currentPartner: action.data.cars.currentCar
+      isLoading: action.data.partners.isLoading,
+      validationErrors: action.data.partners.validationErrors,
+      partnersList: action.data.partners.partnersList ,
+      noMorePartnersList: action.data.partners.noMorePartnersList,
+      currentPartner: action.data.partners.currentPartner
     }),
   ),
   on(

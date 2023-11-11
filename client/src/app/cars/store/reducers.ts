@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { CarsStateInterface } from '../types/cars.interfaces';
-import { addCarAction, addCarFailureAction, addCarSuccessAction, carDeleteAction, carDeleteFailureAction, carDeleteSuccessAction, carGetCurrent, carGetCurrentFailureAction, carGetCurrentReset, carGetCurrentSuccessAction, carsListAction, carsListFailureAction, carsListResetAction, carsListSuccessAction, noMoreCarsListAction, noMoreCarsListFalseAction, updateStateCarsFailureAction, updateStateCarsSuccessAction } from './actions/cars.action';
+import { addCarAction, addCarFailureAction, addCarSuccessAction, carDeleteAction, carDeleteFailureAction, carDeleteSuccessAction, carGetCurrent, carGetCurrentFailureAction, carGetCurrentReset, carGetCurrentSuccessAction, carsListAction, carsListFailureAction, carsListResetAction, carsListSuccessAction, noMoreCarsListAction, noMoreCarsListFalseAction, noMoreCarsListTrueAction, updateStateCarsFailureAction, updateStateCarsSuccessAction } from './actions/cars.action';
 
 
 
@@ -106,7 +106,7 @@ const carsReducer = createReducer(
     })
   ),
   on(
-    noMoreCarsListAction,
+    noMoreCarsListTrueAction,
     (state, action): CarsStateInterface => ({
       ...state,
       noMoreCarsList: true,

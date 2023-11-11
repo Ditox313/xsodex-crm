@@ -10,12 +10,12 @@ const upload = require('../../middleware/upload-partner-docs.js');
 router.post('/create', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.create);
 
 
-// Роут на Получение всех авто
-// router.get('/cars-list', passport.authenticate('jwt', { session: false }), controller.getAllCars);
+// Роут на Получение всех партнеров
+router.get('/partners-list', passport.authenticate('jwt', { session: false }), controller.getAllPartners);
 
 
-//Роут на удаление автомобиля
-// router.delete('/car-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
+//Роут на удаление партнера
+router.delete('/partner-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 
 
 // Роут на получение автомобиля по Id

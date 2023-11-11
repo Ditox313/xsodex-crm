@@ -10,36 +10,32 @@
                 <p-button icon="pi pi-plus"></p-button>
             </div>
         </ng-template>
-        <!-- <ng-template pTemplate="header">
+        <ng-template pTemplate="header">
             <tr>
-                <th>Изображение</th>
-                <th>Марка</th>
-                <th>Номер</th>
-                <th>Категория</th>
-                <th>Статус</th>
+                <th>ФИО</th>
+                <th>Телефон №1</th>
+                <th>Телефон №2</th>
                 <th></th>
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-car>
-            <tr [routerLink]="['/show-car',car._id]">
-                <td><img src="{{car.avatar}}" alt="Изображение" width="100px"></td>
-                <td><strong>{{car.marka}}</strong></td>
-                <td><strong>{{car.number}}</strong></td>
-                <td>{{car.category}}</td>
-                <td>{{car.status}}</td>
+        <ng-template pTemplate="body" let-partner>
+            <tr [routerLink]="['/show-partner',partner._id]">
+                <td><strong>{{partner.surname}} {{partner.name}} {{partner.lastname}}</strong></td>
+                <td>{{partner.phone_1}}</td>
+                <td>{{partner.phone_2}}</td>
                 <td style="cursor: pointer; text-align: center;" (click)="onDeletePartner($event, partner)"><i
                         class="pi pi-trash"></i></td>
             </tr>
-        </ng-template> -->
+        </ng-template>
     </p-table>
 
-    <!-- <div *ngIf="partnersList.length === 0" class="noMorePartnersList">
+    <div *ngIf="partnersList.length === 0" class="noMorePartnersList">
         <h2>Нет партнеров...</h2>
-    </div> -->
+    </div>
 
-    <!-- <div class="btn">
+    <div class="btn">
         <p-button label="Загрузить еще..." *ngIf="!(noMorePartnersList | async)" (click)="loadmore()"></p-button>
-    </div> -->
+    </div>
 </div>
 

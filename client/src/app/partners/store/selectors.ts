@@ -13,23 +13,22 @@ export const isLoadingSelector = createSelector(
     (state: PartnersStateInterface) => state.isLoading
 )
 
-// export const carsListSelector = createSelector(
-//     carsFeatureSelector,
-//     (state: CarsStateInterface) => state.carsList
-// )
+export const partnersListSelector = createSelector(
+    partnersFeatureSelector,
+    (state: PartnersStateInterface) => state.partnersList
+)
 
 
+export const noMorePartnersList = createSelector(
+    partnersFeatureSelector,
+    (state: PartnersStateInterface) => state.noMorePartnersList
+)
 
-// export const noMoreCarsList = createSelector(
-//     carsFeatureSelector,
-//     (state: CarsStateInterface) => state.noMoreCarsList
-// )
 
-
-// export const getCurrentCarSelector = createSelector(
-//     carsFeatureSelector,
-//     (state: CarsStateInterface) => state.currentCar
-// )
+export const getCurrentPartnerSelector = createSelector(
+    partnersFeatureSelector,
+    (state: PartnersStateInterface) => state.currentPartner
+)
 
 
 

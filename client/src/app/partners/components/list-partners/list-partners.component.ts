@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { Partner } from '../../types/partners.interfaces';
-import { Store } from '@ngrx/store';
+import { Partner, PartnersParamsFetch } from '../../types/partners.interfaces';
+import { Store, select } from '@ngrx/store';
+import { isLoadingSelector, noMorePartnersList, partnersListSelector } from '../../store/selectors';
+import { noMorePartnersListFalseAction, noMorePartnersListTrueAction, partnerDeleteAction, partnersListAction, partnersListResetAction } from '../../store/actions/partners.action';
 
 @Component({
   selector: 'app-list-partners',
@@ -15,89 +17,89 @@ export class ListPartnersComponent implements OnInit, OnDestroy {
   title: string = 'Партнеры'
   isLoadingSelector!: Observable<boolean | null>
   noMorePartnersList!: Observable<boolean | null>
-  // carsListSelector!: Observable<Car[] | null | undefined>
+  partnersListSelector!: Observable<Partner[] | null | undefined>
   partnersListSub$!: Subscription
   partnersList: Partner[] | null | undefined = [];
 
 
   constructor(private store: Store) { }
   ngOnInit(): void {
-    // this.initValues();
-    // this.getSmenaList();
+    this.initValues();
+    this.getPartnersList();
   }
 
   ngOnDestroy(): void {
-    // if (this.carsListSub$) {
-    //   this.carsListSub$.unsubscribe();
-    // }
+    if (this.partnersListSub$) {
+      this.partnersListSub$.unsubscribe();
+    }
 
-    // Отчищаем состояние carsList если не хотим сохранять список авто  в состояние
-    // this.store.dispatch(carsListResetAction());
+    // Отчищаем состояние partnersList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(partnersListResetAction());
   }
 
   initValues() {
     // Отчищаем состояние перед запросом на получение списка авто
-    // this.store.dispatch(carsListResetAction());
+    this.store.dispatch(partnersListResetAction());
 
 
     // Получаем селектор loader
-    // this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))
+    this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))
 
 
-    // Получаем селектор noMoreSmenaList
-    // this.noMoreCarsList = this.store.pipe(select(noMoreCarsList))
+    // Получаем селектор noMorePartnersList
+    this.noMorePartnersList = this.store.pipe(select(noMorePartnersList))
 
 
 
 
-    // Получаем селектор на получение списка смен и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
+    // Получаем селектор на получение списка партнеров и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
     // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
-    // this.carsListSelector = this.store.pipe(select(carsListSelector))
-    // this.carsListSub$ = this.carsListSelector.subscribe({
-    //   next: (carsList) => {
-    //     if (carsList) {
-    //       this.carsList = carsList;
+    this.partnersListSelector = this.store.pipe(select(partnersListSelector))
+    this.partnersListSub$ = this.partnersListSelector.subscribe({
+      next: (partnersList) => {
+        if (partnersList) {
+          this.partnersList = partnersList;
 
 
-    //       if (this.carsList.length >= this.STEP) {
-    //         // Изменяем значение noMoreCarsList в состоянии на false что бы открыть кнопку загрузить ещё
-    //         this.store.dispatch(noMoreCarsListFalseAction());
-    //       }
-    //       else {
-    //         // Изменяем значение noMoreCarsList в состоянии на true что бы скрыть кнопку загрузить ещё
-    //         this.store.dispatch(noMoreCarsListTrueAction());
-    //       }
-    //     }
-    //   }
-    // });
+          if (this.partnersList.length >= this.STEP) {
+            // Изменяем значение noMorePartnersList в состоянии на false что бы открыть кнопку загрузить ещё
+            this.store.dispatch(noMorePartnersListFalseAction());
+          }
+          else {
+            // Изменяем значение noMorePartnersList в состоянии на true что бы скрыть кнопку загрузить ещё
+            this.store.dispatch(noMorePartnersListTrueAction());
+          }
+        }
+      }
+    });
   }
 
 
-  getSmenaList() {
-    // const params: CarsParamsFetch = {
-    //   offset: this.offset,
-    //   limit: this.limit,
-    // };
+  getPartnersList() {
+    const params: PartnersParamsFetch = {
+      offset: this.offset,
+      limit: this.limit,
+    };
 
     // Отправляем запрос на получения списка смен
-    // this.store.dispatch(carsListAction({ params: params }));
+    this.store.dispatch(partnersListAction({ params: params }));
   }
 
 
   // Подгружаем партнеров
   loadmore() {
     this.offset += this.STEP;
-    this.getSmenaList();
+    this.getPartnersList();
   }
 
 
   // Удаление партнера
-  onDeletePartnrer(event: Event, partner: Partner) {
+  onDeletePartner(event: Event, partner: Partner) {
     event.stopPropagation();
     const dicision = window.confirm(`Удалить Партнера?`);
 
     if (dicision) {
-      // this.store.dispatch(carDeleteAction({ id: car._id }))
+      this.store.dispatch(partnerDeleteAction({ id: partner._id }))
     }
   }
 }

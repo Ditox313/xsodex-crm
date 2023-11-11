@@ -26,7 +26,7 @@ export class ListCarsComponent implements OnInit, OnDestroy {
   constructor(private store: Store) { }
   ngOnInit(): void {
     this.initValues();
-    this.getSmenaList();
+    this.getCarsList();
   }
 
 
@@ -81,7 +81,7 @@ export class ListCarsComponent implements OnInit, OnDestroy {
 
 
 
-  getSmenaList() {
+  getCarsList() {
     const params: CarsParamsFetch = {
       offset: this.offset,
       limit: this.limit,
@@ -96,7 +96,7 @@ export class ListCarsComponent implements OnInit, OnDestroy {
   // Подгружаем автомобили
   loadmore() {
     this.offset += this.STEP;
-    this.getSmenaList();
+    this.getCarsList();
   }
 
 

@@ -5,7 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction } from '../actions/partners.action'
+import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnersListAction, partnersListFailureAction, partnersListSuccessAction, updateStatePartnersAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from '../actions/partners.action'
 import { PartnersService } from '../../services/partners.service'
 
 
@@ -48,73 +48,73 @@ export class PartnersEffect {
 
 
 
-  // Получение всех авто
-  // carsList$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(carsListAction),
-  //     concatMap((params) => {
-  //       return this.cars.getAllCars({ params }).pipe(
-  //         concatMap((carsList) => {
-  //           if (carsList.length === 0) {
-  //             return of(noMoreCarsListAction({ data: true }));
-  //           }
-  //           return of(carsListSuccessAction({ data: carsList }));
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             carsListFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Получение всех партнеров
+  partnersList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(partnersListAction),
+      concatMap((params) => {
+        return this.partners.getAllPartners({ params }).pipe(
+          concatMap((carsList) => {
+            if (carsList.length === 0) {
+              return of(noMorePartnersListAction({ data: true }));
+            }
+            return of(partnersListSuccessAction({ data: carsList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              partnersListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
 
 
-  // Удаление автомобиля
-  // carDelete$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(carDeleteAction),
-  //     switchMap((id) => {
-  //       return this.cars.delete(id.id).pipe(
-  //         map((id) => {
-  //           this.messageService.add({ severity: 'success', summary: `Автомобиль удален`, detail: 'Успешно!' });
-  //           return carDeleteSuccessAction({ data: id });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `Ошибка удаления смены`, detail: 'Попробуйте позже!' });
-  //           return of(
-  //             carDeleteFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Удаление партнера
+  carDelete$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(partnerDeleteAction),
+      switchMap((id) => {
+        return this.partners.delete(id.id).pipe(
+          map((id) => {
+            this.messageService.add({ severity: 'success', summary: `Партнер удален`, detail: 'Успешно!' });
+            return partnerDeleteSuccessAction({ data: id });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления партнера`, detail: 'Попробуйте позже!' });
+            return of(
+              partnerDeleteFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
 
 
   // Обновление состояния
-  // updateStateCars$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(updateStateCarsAction),
-  //       map(() => {
-  //         const savedState: any = localStorage.getItem('appState');
-  //         return updateStateCarsSuccessAction({ data: JSON.parse(savedState) })
-  //       }),
-  //       catchError((errorResponse: HttpErrorResponse) => {
-  //         return of(
-  //           updateStateCarsFailureAction({ errors: 'Ошибка обновления состояния' })
-  //         );
-  //       })
-  //     ),
-  // );
+  updateStatePartners$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(updateStatePartnersAction),
+        map(() => {
+          const savedState: any = localStorage.getItem('appState');
+          return updateStatePartnersSuccessAction({ data: JSON.parse(savedState) })
+        }),
+        catchError((errorResponse: HttpErrorResponse) => {
+          return of(
+            updateStatePartnersFailureAction({ errors: 'Ошибка обновления состояния' })
+          );
+        })
+      ),
+  );
 
 
 
