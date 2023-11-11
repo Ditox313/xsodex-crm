@@ -146,6 +146,9 @@
 
                 <div class="file_2">
                     <img [src]="[file_2]" alt="Изображение">
+
+                    <pdf-viewer *ngIf="this.isPDF(file_2, '.pdf')" [src]="[file_2]" [render-text]="true" [original-size]="false"
+                        style="width: 100%; height: 250px"></pdf-viewer>
                     
                     <div class="upload_btns">
                         <input type="file" class="dn" #upload_2 (change)="onFile2Upload($event)">

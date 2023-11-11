@@ -24,8 +24,6 @@ export class AddPartnerComponent {
   value!: string;
   isLoadingSelector$!: Observable<boolean | null>
   currentPartnerSelector$!: Observable<Partner | null | undefined>
-  // currentUser!: Partner | null | undefined
-  // currentUserSub$!: Subscription
 
 
   constructor(public datePipe: DatePipe, private store: Store,) { }
@@ -52,20 +50,6 @@ export class AddPartnerComponent {
 
   initValues() {
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
-    // this.currentUserSelector$ = this.store.pipe(select(currentUserSelector))
-    // this.currentUserSub$ = this.currentUserSelector$.subscribe({
-    //   next: (user) => {
-    //     this.currentUser = user
-    //   }
-    // })
-    
-  }
-
-
-  ngOnDestroy(): void {
-    // if (this.currentUserSub$) {
-    //   this.currentUserSub$.unsubscribe()
-    // }
   }
 
 
@@ -156,17 +140,6 @@ export class AddPartnerComponent {
     };
 
     
-
     this.store.dispatch(addPartnerAction({ partner: partner, file_1: this.uploadFile_1, file_2: this.uploadFile_2, }))
-
-    // this.subCreatePartner$ = this.partners
-    //   .create(partner, this.passport__1, this.passport__2)
-    //   .subscribe((partners) => {
-    //     MaterialService.toast('Партнер добавлен');
-    //     this.router.navigate(['/partners-page']);
-    //   });
-
-
-   
   }
 }

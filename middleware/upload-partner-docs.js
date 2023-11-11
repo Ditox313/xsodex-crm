@@ -27,9 +27,10 @@ const storage = multer.diskStorage({
 
         cb(null, `files/partners/docs`);
     },
-    filename(req, file, cb) {
-        const date = moment().format('YYYYMMDDSS');
-        cb(null, `${date}-${transliteration.transliterate(file.originalname) }`);
+
+     filename(req, file, cb) {
+        const date = moment().format('YYYYMMDDSSS');
+         cb(null, `${date}-${transliteration.transliterate(req.body.surname + '-' + req.body.name + '-' + req.body.lastname + file.originalname)}`);
     }
 });
 
