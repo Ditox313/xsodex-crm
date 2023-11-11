@@ -26,8 +26,9 @@ const storage = multer.diskStorage({
         cb(null, `files/users/${req.user._id}/account`);
     },
     filename(req, file, cb) {
-        const date = moment().format('YYYYMMDDSS');
-        cb(null, `${date}-${file.originalname}`);
+        const date = moment().format('YYYYMMDDSSS');
+        const filename = req.body.secondName + '-' + req.body.name + '-' + file.originalname
+        cb(null, `${date}-${filename}`);
     }
 });
 

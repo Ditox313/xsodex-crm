@@ -28,8 +28,9 @@ const storage = multer.diskStorage({
         cb(null, `files/cars`);
     },
     filename(req, file, cb) {
-        const date = moment().format('YYYYMMDDSS');
-        cb(null, `${date}-${transliteration.transliterate(file.originalname)}`);
+        const date = moment().format('YYYYMMDDSSS');
+        const filename = req.body.marka + '-' + req.body.model + '-' + file.originalname
+        cb(null, `${date}-${filename}`);
     }
 });
 
