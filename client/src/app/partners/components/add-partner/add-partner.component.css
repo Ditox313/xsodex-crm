@@ -29,15 +29,7 @@ label {
     display: inline-block;
 }
 
-.add_partner_inputs
-{
-    /* width: 70%; */
-}
 
-.add_partner_images
-{
-    /* width: 30%; */
-}
 
 .add_partner_inputs fieldset {
     display: inline-flex;

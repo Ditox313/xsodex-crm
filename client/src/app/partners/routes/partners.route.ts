@@ -4,6 +4,7 @@ import { AppLayoutComponent } from "src/app/shared/modules/layouts/components/ap
 import { AuthGuard } from "../../shared/guards/auth.guard";
 import { ListPartnersComponent } from "../components/list-partners/list-partners.component";
 import { AddPartnerComponent } from "../components/add-partner/add-partner.component";
+import { ShowPartnerComponent } from "../components/show-partner/show-partner.component";
 
 
 
@@ -22,10 +23,10 @@ export function getRoutes(): Route[] {
                     path: 'list-partners',
                     component: ListPartnersComponent,
                 },
-                // {
-                //     path: 'show-car/:id', 
-                //     component: ShowCarComponent,
-                // },
+                {
+                    path: 'show-partner/:id', 
+                    component: ShowPartnerComponent,
+                },
             ],
         },
 

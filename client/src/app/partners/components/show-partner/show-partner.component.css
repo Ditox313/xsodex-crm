@@ -1,10 +1,30 @@
-.show-car {
+.show-partner {
     padding: 0 20px;
+    position: relative;
 }
 
-.tab_wrapper {
+
+.show-partner form>div {
+    margin-bottom: 40px;
+}
+
+.show_partner_images {
     display: flex;
-    align-items: flex-start;
+}
+
+.show_partner_images>div {
+    margin-right: 50px;
+}
+
+.show_partner_images>div:last-child {
+    margin-right: 0px;
+}
+
+
+.edit {
+    position: absolute;
+    top: -20px;
+    right: 20px;
 }
 
 
@@ -15,34 +35,11 @@ label {
 }
 
 
-.avatar {
-    margin-right: 30px;
-}
 
-.avatar img {
-    width: 150px;
-    border-radius: 5px;
-}
-
-.show_car_inputs fieldset {
+.show_partner_inputs fieldset {
     display: inline-flex;
     flex-direction: column;
     position: relative;
-}
-
-.show_car_page form {
-    display: flex;
-    justify-content: space-between;
-}
-
-.show_car_page form input {
-    margin-right: 15px;
-    margin-top: 15px;
-}
-
-.avatar img
-{
-    min-width: 127px;
 }
 
 .errorValidate {
@@ -118,6 +115,10 @@ fieldset {
     margin-bottom: 30px;
 }
 
+
+
+
+
 button {
     color: #ffffff;
     background: #3B82F6;
@@ -135,59 +136,16 @@ button:disabled {
     opacity: 0.6;
 }
 
-input:disabled
-{
-    color: #333 !important;
-    opacity: 1 !important;
-}
-
-select:disabled {
-    color: #333 !important;
-    opacity: 1 !important;
-}
-
-#stoa_phone{
-    opacity: 1 !important;
-}
-
 .submit {
     margin-top: 10px;
 }
 
-.show-car
-{
-    position: relative;
+
+.show_partner_images>div {
+    width: 310px;
 }
 
-.edit {
-    position: absolute;
-    top: -20px;
-    right: 20px;
-}
 
-.edit_active
-{
+.edit_active {
     opacity: 0.4 !important;
-}
-
-
-
-
-
-.tarifs fieldset {
-    margin-bottom: 0;
-}
-
-.tarifs>div input {
-    margin-right: 0 !important;
-    margin-top: 10px !important;
-}
-
-.tarifs {
-    display: flex;
-    justify-content: space-between;
-}
-
-.tarifs>div {
-    width: 33%;
 }

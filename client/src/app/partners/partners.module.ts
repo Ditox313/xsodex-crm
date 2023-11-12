@@ -23,12 +23,15 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './store/reducers';
 import { PartnersEffect } from './store/effects/partners.effect';
+import { ShowPartnerComponent } from './components/show-partner/show-partner.component';
+import { PartnersService } from './services/partners.service';
 
 
 @NgModule({
   declarations: [
     ListPartnersComponent,
-    AddPartnerComponent
+    AddPartnerComponent,
+    ShowPartnerComponent
   ],
   imports: [
     CommonModule,
@@ -51,6 +54,6 @@ import { PartnersEffect } from './store/effects/partners.effect';
     StoreModule.forFeature('partners', reducers),
     EffectsModule.forFeature([PartnersEffect]),
   ],
-  providers: [MessageService, DatePipe]
+  providers: [MessageService, DatePipe, PartnersService]
 })
 export class PartnersModule { }

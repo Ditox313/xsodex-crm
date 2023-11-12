@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { PartnersStateInterface } from '../types/partners.interfaces';
-import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, noMorePartnersListFalseAction, noMorePartnersListTrueAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnersListAction, partnersListFailureAction, partnersListResetAction, partnersListSuccessAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from './actions/partners.action';
+import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, noMorePartnersListFalseAction, noMorePartnersListTrueAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnerGetCurrent, partnerGetCurrentFailureAction, partnerGetCurrentReset, partnerGetCurrentSuccessAction, partnersListAction, partnersListFailureAction, partnersListResetAction, partnersListSuccessAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from './actions/partners.action';
 
 
 
@@ -182,39 +182,39 @@ const partnersReducer = createReducer(
 
 
 
-  // on(
-  //   carGetCurrent,
-  //   (state): CarsStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    partnerGetCurrent,
+    (state): PartnersStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   carGetCurrentSuccessAction,
-  //   (state, action): CarsStateInterface => ({
-  //     ...state,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //     currentCar: action.data
-  //   })
-  // ),
-  // on(
-  //   carGetCurrentFailureAction,
-  //   (state, action): CarsStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   carGetCurrentReset,
-  //   (state): CarsStateInterface => ({
-  //     ...state,
-  //     currentCar: null
-  //   })
-  // ),
+  on(
+    partnerGetCurrentSuccessAction,
+    (state, action): PartnersStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentPartner: action.data
+    })
+  ),
+  on(
+    partnerGetCurrentFailureAction,
+    (state, action): PartnersStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    partnerGetCurrentReset,
+    (state): PartnersStateInterface => ({
+      ...state,
+      currentPartner: null
+    })
+  ),
 
 );
 

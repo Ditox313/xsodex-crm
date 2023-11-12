@@ -197,8 +197,6 @@ export class ShowCarComponent implements OnInit, OnDestroy {
 
 
   pathValueCar(car: Car) {
-    console.log(car);
-    
     this.form.patchValue({
       marka: car?.marka,
       model: car?.model,

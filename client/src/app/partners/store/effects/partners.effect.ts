@@ -5,7 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnersListAction, partnersListFailureAction, partnersListSuccessAction, updateStatePartnersAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from '../actions/partners.action'
+import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnerGetCurrent, partnerGetCurrentFailureAction, partnerGetCurrentSuccessAction, partnersListAction, partnersListFailureAction, partnersListSuccessAction, updateStatePartnersAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from '../actions/partners.action'
 import { PartnersService } from '../../services/partners.service'
 
 
@@ -122,24 +122,24 @@ export class PartnersEffect {
 
 
 
-  // Получение текущего автомобиля
-  // getCurrentCar$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(carGetCurrent),
-  //     switchMap((id) => {
-  //       return this.cars.getById(id.id).pipe(
-  //         map((car) => {
-  //           return carGetCurrentSuccessAction({ data: car });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             carGetCurrentFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Получение текущего партнера
+  getPartnerCar$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(partnerGetCurrent),
+      switchMap((id) => {
+        return this.partners.getById(id.id).pipe(
+          map((car) => {
+            return partnerGetCurrentSuccessAction({ data: car });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              partnerGetCurrentFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

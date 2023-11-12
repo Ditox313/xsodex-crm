@@ -50,6 +50,11 @@ export class PartnersService {
   }
 
 
+  getById(id: string): Observable<Partner> {
+    return this.http.get<Partner>(`/api/partners/${id}`);
+  }
+
+
   // get_all(): Observable<Partner[]> {
   //   return this.http.get<Partner[]>('/api/partners/all');
   // }

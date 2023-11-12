@@ -18,8 +18,8 @@ router.get('/partners-list', passport.authenticate('jwt', { session: false }), c
 router.delete('/partner-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 
 
-// Роут на получение автомобиля по Id
-// router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
+// Роут на получение партнера по Id
+router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
 
 
 // Роут на update
