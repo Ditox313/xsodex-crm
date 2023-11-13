@@ -53,7 +53,7 @@ export class ShowCarComponent implements OnInit, OnDestroy {
       this.currentCarSub$.unsubscribe()
     }
 
-    // // Отчищаем состояние currentSmena
+    // Отчищаем состояние currentSmena
     this.store.dispatch(carGetCurrentReset());
 
   }
@@ -174,6 +174,9 @@ export class ShowCarComponent implements OnInit, OnDestroy {
 
 
   initValues() {
+    // Отчищаем состояние currentSmena
+    this.store.dispatch(carGetCurrentReset());
+    
     //Отправляем запрос на получение текущего автомобиля
     this.store.dispatch(carGetCurrent({ id: this.carId }));
 

@@ -5,7 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnerGetCurrent, partnerGetCurrentFailureAction, partnerGetCurrentSuccessAction, partnersListAction, partnersListFailureAction, partnersListSuccessAction, updateStatePartnersAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from '../actions/partners.action'
+import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnerGetCurrent, partnerGetCurrentFailureAction, partnerGetCurrentSuccessAction, partnersListAction, partnersListFailureAction, partnersListSuccessAction, updatePartnerAction, updatePartnerSuccessAction, updateStatePartnersAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from '../actions/partners.action'
 import { PartnersService } from '../../services/partners.service'
 
 
@@ -146,26 +146,26 @@ export class PartnersEffect {
 
 
 
-  // Обновление автомобиля
-  // UpdateCar$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(updateCarAction),
-  //     switchMap(({ car, avatar }) => {
-  //       return this.cars.update(car, avatar).pipe(
-  //         map((data) => {
-  //           this.messageService.add({ severity: 'success', summary: `Автомобиль обновлен`, detail: 'Успешно!' });
-  //           return updateCarSuccessAction({ data: data });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
-  //           return of(
-  //             updateCarFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Обновление партнера
+  UpdatePartner$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updatePartnerAction),
+      switchMap(({ partner, file_1, file_2 }) => {
+        return this.partners.update(partner, file_1, file_2).pipe(
+          map((data) => {
+            this.messageService.add({ severity: 'success', summary: `Партнер обновлен`, detail: 'Успешно!' });
+            return updatePartnerSuccessAction({ data: data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
+            return of(
+              updateStatePartnersFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

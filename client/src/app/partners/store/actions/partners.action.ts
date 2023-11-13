@@ -7,7 +7,7 @@ import { Partner, PartnersParamsFetch } from '../../types/partners.interfaces';
 // Add partner
 export const addPartnerAction = createAction(
   ActionTypes.ADD_PARTNER,
-  props<{ partner: Partner, file_1?: File, file_2?: File, }>()
+  props<{ partner: Partner, file_1?: File, file_2?: File }>()
 );
 
 export const addPartnerSuccessAction = createAction(
@@ -154,22 +154,22 @@ export const partnerGetCurrentReset = createAction(
 
 
 
-// Update Car
-// export const updateCarAction = createAction(
-//   ActionTypes.UPDATE_CAR,
-//   props<{ car: Car, avatar: File }>()
-// )
+// Update Partner
+export const updatePartnerAction = createAction(
+  ActionTypes.UPDATE_PARTNER,
+  props<{ partner: Partner, file_1?: File, file_2?: File }>()
+)
 
 
-// export const updateCarSuccessAction = createAction(
-//   ActionTypes.UPDATE_CAR_SUCCESS,
-//   props<{ data: Car }>()
-// );
+export const updatePartnerSuccessAction = createAction(
+  ActionTypes.UPDATE_PARTNER_SUCCESS,
+  props<{ data: Partner }>()
+);
 
 
 
 
-// export const updateCarFailureAction = createAction(
-//   ActionTypes.UPDATE_CAR_FAILURE,
-//   props<{ errors: any }>()
-// )
+export const updatePARTNERFailureAction = createAction(
+  ActionTypes.UPDATE_PARTNER_FAILURE,
+  props<{ errors: any }>()
+)

@@ -143,31 +143,38 @@
 
             </div>
 
-            <div class="show_partner_images">
+            <div class="show_partner_images" *ngIf="currentPartner">
                 <div class="file_1" >
                     <img [src]="[file_1]" alt="Изображение" *ngIf="!this.isPDF(file_1, '.pdf')">
 
-                    <pdf-viewer *ngIf="this.isPDF(file_1, '.pdf')" [src]="[file_1]" [render-text]="true"
-                        [original-size]="false" style="width: 100%; height: 250px"></pdf-viewer>
+                    <div *ngIf="this.isPDF(file_1, '.pdf')">
+                        <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg" alt="Изображение" >
+                    </div>
+                    
 
                     <div class="upload_btns">
                         <input type="file" class="dn" #upload_1 (change)="onFile1Upload($event)">
                         <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
                             (click)="onFile1UploadClick()"></p-button>
+
+                        <a href="{{file_1}}" target="_blank" *ngIf="this.isPDF(file_1, '.pdf')" class="pdf_view">
+                            <i class="pi pi-eye"></i>
+                        </a>
                     </div>
 
                 </div>
 
                 <div class="file_2">
-                    <img [src]="[file_2]" alt="Изображение">
-
-                    <pdf-viewer *ngIf="this.isPDF(file_2, '.pdf')" [src]="[file_2]" [render-text]="true"
-                        [original-size]="false" style="width: 100%; height: 250px"></pdf-viewer>
+                    <img [src]="[file_2]" alt="Изображение" *ngIf="!this.isPDF(file_2, '.pdf')">
+                    <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg" alt="Изображение" *ngIf="this.isPDF(file_2, '.pdf')">
 
                     <div class="upload_btns">
                         <input type="file" class="dn" #upload_2 (change)="onFile2Upload($event)">
                         <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
                             (click)="onFile2UploadClick()"></p-button>
+                        <a href="{{file_2}}" target="_blank" *ngIf="this.isPDF(file_2, '.pdf')" class="pdf_view">
+                            <i class="pi pi-eye"></i>
+                        </a>
                     </div>
                 </div>
             </div>

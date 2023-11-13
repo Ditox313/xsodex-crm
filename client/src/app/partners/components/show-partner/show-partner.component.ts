@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { getCurrentPartnerSelector, isLoadingSelector } from '../../store/selectors';
 import { ActivatedRoute } from '@angular/router';
-import { partnerGetCurrent } from '../../store/actions/partners.action';
+import { partnerGetCurrent, partnerGetCurrentReset, updatePartnerAction } from '../../store/actions/partners.action';
 
 @Component({
   selector: 'app-show-partner',
@@ -30,7 +30,6 @@ export class ShowPartnerComponent {
   edit: boolean = false
   getParamsSub$!: Subscription
   partnerId!: string
-  test: any = 'files/partners/docs/20231112841-Кабанов-Сергей-ИвановичÐÐºÑ â27 Ð¾Ñ 10 Ð½Ð¾ÑÐ±ÑÑ 2021.pdf'
 
 
 
@@ -51,8 +50,8 @@ export class ShowPartnerComponent {
       this.currentPartnerSub$.unsubscribe()
     }
 
-    // // Отчищаем состояние currentSmena
-    // this.store.dispatch(carGetCurrentReset());
+    //Отчищаем состояние currentCar
+    this.store.dispatch(partnerGetCurrentReset());
 
   }
 
@@ -74,10 +73,15 @@ export class ShowPartnerComponent {
       phone_1: new FormControl('', [Validators.required]),
       phone_2: new FormControl('', [Validators.required]),
     });
+
+    this.form.disable();
   }
 
 
   initValues() {
+    //Отчищаем состояние currentCar
+    this.store.dispatch(partnerGetCurrentReset());
+
     //Отправляем запрос на получение текущего партнера
     this.store.dispatch(partnerGetCurrent({ id: this.partnerId }));
 
@@ -90,17 +94,7 @@ export class ShowPartnerComponent {
           this.title = `Просмотр партнера ${currentPartner.surname} ${currentPartner.name}`
           this.pathValuePartner(currentPartner)
         }
-
-        console.log(currentPartner);
-        
-
-        // if (currentPartner?.file_1) {
-        //   this.file_1 = '/' + currentPartner.file_1.replace(/\\/g, "/");
-        // }
-
-        // if (currentPartner?.file_2) {
-        //   this.file_2 = '/' + currentPartner.file_2.replace(/\\/g, "/");
-        // }
+      
       }
     })
 
@@ -210,6 +204,7 @@ export class ShowPartnerComponent {
 
 
     const partner: Partner = {
+      _id: this.currentPartner?._id,
       name: fio[1],
       surname: fio[0],
       lastname: fio[2],
@@ -224,6 +219,6 @@ export class ShowPartnerComponent {
     };
 
 
-    // this.store.dispatch(addPartnerAction({ partner: partner, file_1: this.uploadFile_1, file_2: this.uploadFile_2, }))
+    this.store.dispatch(updatePartnerAction({ partner: partner, file_1: this.uploadFile_1, file_2: this.uploadFile_2, }))
   }
 }

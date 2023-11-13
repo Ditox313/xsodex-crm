@@ -14,7 +14,7 @@
 }
 
 .add_partner_images > div {
-    margin-right: 50px;
+    margin-right: 20px;
 }
 
 .add_partner_images>div:last-child {
@@ -136,7 +136,8 @@ button:disabled {
 }
 
 
-.add_partner_images>div
-{
-    width: 310px;
+
+.add_partner_images img {
+    width: 250px;
+    margin-bottom: 10px;
 }

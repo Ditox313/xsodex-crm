@@ -18,7 +18,6 @@ import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { ListPartnersComponent } from './components/list-partners/list-partners.component';
 import { AddPartnerComponent } from './components/add-partner/add-partner.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './store/reducers';
@@ -50,7 +49,6 @@ import { PartnersService } from './services/partners.service';
     TabViewModule,
     TreeSelectModule,
     InputMaskModule,
-    PdfViewerModule,
     StoreModule.forFeature('partners', reducers),
     EffectsModule.forFeature([PartnersEffect]),
   ],

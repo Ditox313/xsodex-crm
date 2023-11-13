@@ -149,3 +149,42 @@ button:disabled {
 .edit_active {
     opacity: 0.4 !important;
 }
+
+.upload_btns
+{
+    display: flex;
+    align-items: center;
+}
+
+.show_partner_images img
+{
+    /* min-height: 206px; */
+    margin-bottom: 10px;
+}
+
+
+.pdf_view
+{
+    background-color: #3B82F6;
+    height: 42px;
+    line-height: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 17.5px;
+    margin-left: 10px;
+    border-radius: 6px;
+    color: #fff !important;
+    transition: all 0.3s;
+}
+
+.pdf_view:hover
+{
+    transition: all 0.3s;
+    opacity: 0.7;
+}
+
+.pdf_view i
+{
+    font-size: 18px;
+}
