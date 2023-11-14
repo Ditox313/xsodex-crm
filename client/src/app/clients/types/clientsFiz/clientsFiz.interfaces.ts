@@ -25,7 +25,7 @@ export interface ClientFizStateInterface {
     isLoading: boolean,
     validationErrors?: any,
     clientsFizList?: ClientFiz[] | null | undefined | any,
-    noMoreclientsFizList: boolean
+    noMoreClientsFizList: boolean
     currentClientFiz: ClientFiz | null | undefined | any,
 }
 

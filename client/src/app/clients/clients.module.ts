@@ -15,26 +15,22 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { InputMaskModule } from 'primeng/inputmask';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
-import { AddClientFizComponent } from './components/clients-fiz/add-client-fiz/add-client-fiz.component';
-import { getRoutesClientsFiz } from './routes/clients-fiz/clients-fiz.route';
-import { ListClientsFizComponent } from './components/clients-fiz/list-clients-fiz/list-clients-fiz.component';
-
-// import { getRoutes } from './routes/partners.route';
-// import { StoreModule } from '@ngrx/store';
-// import { EffectsModule } from '@ngrx/effects';
-// import { reducers } from './store/reducers';
-// import { PartnersEffect } from './store/effects/partners.effect';
-// import { PartnersService } from './services/partners.service';
+import { AddClientFizComponent } from './components/clientsFiz/add-client-fiz/add-client-fiz.component';
+import { getRoutesClientsFiz } from './routes/clientsFiz/clientsFiz.route';
+import { ListClientsFizComponent } from './components/clientsFiz/list-clients-fiz/list-clients-fiz.component';
+import { StoreModule } from '@ngrx/store';
+import { reducerFiz } from './store/reducers/reducersClientsFiz';
+import { EffectsModule } from '@ngrx/effects';
+import { ClientsFizEffect } from './store/effects/effectsClientsFiz/clientsFiz.effect';
+import { ClientsFizService } from './services/clientsFiz/clientsFiz.service';
 
 
 
 
 @NgModule({
   declarations: [
-
-  
     AddClientFizComponent,
-        ListClientsFizComponent
+    ListClientsFizComponent
   ],
   imports: [
     CommonModule,
@@ -53,9 +49,9 @@ import { ListClientsFizComponent } from './components/clients-fiz/list-clients-f
     TabViewModule,
     TreeSelectModule,
     InputMaskModule,
-    // StoreModule.forFeature('partners', reducers),
-    // EffectsModule.forFeature([PartnersEffect]),
+    StoreModule.forFeature('clientsFiz', reducerFiz),
+    EffectsModule.forFeature([ClientsFizEffect]),
   ],
-  providers: [MessageService, DatePipe]
+  providers: [MessageService, DatePipe, ClientsFizService]
 })
 export class ClientsModule { }
