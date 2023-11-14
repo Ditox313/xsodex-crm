@@ -28,6 +28,11 @@ export class AppLayoutComponent implements OnInit {
       icon: 'pi-car'
     },
     {
+      url: '/list-clients-fiz',
+      name: 'Клиенты',
+      icon: 'pi-users'
+    },
+    {
       url: '/list-partners',
       name: 'Партнеры',
       icon: 'pi-users'

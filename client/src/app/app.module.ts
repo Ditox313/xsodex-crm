@@ -14,6 +14,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { SmenaModule } from './smena/smena.module';
 import { CarsModule } from './cars/cars.module';
 import { PartnersModule } from './partners/partners.module';
+import { ClientsModule } from './clients/clients.module';
 
 
 
@@ -28,6 +29,7 @@ import { PartnersModule } from './partners/partners.module';
     SmenaModule,
     CarsModule,
     PartnersModule,
+    ClientsModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule ,
