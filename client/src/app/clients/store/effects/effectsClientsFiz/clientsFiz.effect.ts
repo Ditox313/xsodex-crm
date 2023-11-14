@@ -5,7 +5,9 @@ import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-// import { PartnersService } from '../../services/partners.service'
+import { ClientsFizService } from 'src/app/clients/services/clientsFiz/clientsFiz.service'
+import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
+
 
 
 
@@ -18,30 +20,30 @@ export class ClientsFizEffect {
     private actions$: Actions,
     private router: Router,
     private messageService: MessageService, 
-    // private partners: PartnersService,
+    private clientsFiz: ClientsFizService,
   ) {}
 
 
-  // Создание партнера
-  // addPartner$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(addPartnerAction), 
-  //     switchMap(({ partner, file_1, file_2 }) => {
-  //       return this.partners.create(partner, file_1, file_2).pipe(
-  //         map((partner) => {
-  //           this.messageService.add({ severity: 'success', summary: `Партнер создан`, detail: 'Успешно!' });
-  //           this.router.navigate(['/list-partners']);
-  //           return addPartnerSuccessAction({ partner: partner }); 
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             addPartnerFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Создание физического лица
+  addClientFiz$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addClientFizAction), 
+      switchMap(({ clientFiz, file_1, file_2, file_3, file_4 }) => {
+        return this.clientsFiz.create(clientFiz, file_1, file_2, file_3, file_4).pipe(
+          map((clientFiz) => {
+            this.messageService.add({ severity: 'success', summary: `Клиент создан`, detail: 'Успешно!' });
+            this.router.navigate(['/list-clients-fiz']);
+            return addClientFizSuccessAction({ clientFiz: clientFiz }); 
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              addClientFizFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

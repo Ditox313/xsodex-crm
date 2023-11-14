@@ -21,9 +21,9 @@ export class AddPartnerComponent {
   file_2: string | ArrayBuffer | undefined | null = 'https://phonoteka.org/uploads/posts/2023-03/1680212136_phonoteka-org-p-dmitrii-razvarov-art-instagram-90.jpg';
   @ViewChild('upload_1') upload_1!: ElementRef;
   @ViewChild('upload_2') upload_2!: ElementRef;
-  value!: string;
+  // value!: string;
   isLoadingSelector$!: Observable<boolean | null>
-  currentPartnerSelector$!: Observable<Partner | null | undefined>
+  // currentPartnerSelector$!: Observable<Partner | null | undefined>
 
 
   constructor(public datePipe: DatePipe, private store: Store,) { }

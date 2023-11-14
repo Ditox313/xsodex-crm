@@ -1,5 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
-import { ClientFizStateInterface } from '../../types/clientsFiz/clientsFiz.interfaces';
+import { ClientFizStateInterface } from '../../../types/clientsFiz/clientsFiz.interfaces';
+import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action';
 
 
 
@@ -23,31 +24,31 @@ const initialState: ClientFizStateInterface = {
 // Создаем редьюсер
 const clientsFizReducer = createReducer(
   initialState,
-  // on(
-  //   addPartnerAction,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true,
-  //   })
-  // ),
+  on(
+    addClientFizAction,
+    (state): ClientFizStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true,
+    })
+  ),
 
-  // on(
-  //   addPartnerSuccessAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   addPartnerFailureAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
+  on(
+    addClientFizSuccessAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: false,
+    })
+  ),
+  on(
+    addClientFizFailureAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
 
 
 

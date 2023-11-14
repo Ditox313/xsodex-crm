@@ -1,25 +1,26 @@
 import {createAction, props} from '@ngrx/store'
-import {ActionTypes} from 'src/app/partners/store/actionTypes'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
+import { ActionTypes } from '../../actionTypes/clientsFiz/actionTypesClientsFiz';
+import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
 
 
-// Add partner
-// export const addPartnerAction = createAction(
-//   ActionTypes.ADD_PARTNER,
-//   props<{ partner: Partner, file_1?: File, file_2?: File }>()
-// );
+// Add clientFiz
+export const addClientFizAction = createAction(
+  ActionTypes.ADD_CLIENT_FIZ,
+    props<{ clientFiz: ClientFiz, file_1?: File, file_2?: File, file_3?: File, file_4?: File }>()
+);
 
-// export const addPartnerSuccessAction = createAction(
-//   ActionTypes.ADD_PARTNER_SUCCESS,
-//   props<{ partner: Partner }>()
-// );
+export const addClientFizSuccessAction = createAction(
+  ActionTypes.ADD_CLIENT_FIZ_SUCCESS,
+  props<{ clientFiz: ClientFiz }>()
+);
 
 
-// export const addPartnerFailureAction = createAction(
-//   ActionTypes.ADD_PARTNER_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const addClientFizFailureAction = createAction(
+  ActionTypes.ADD_CLIENT_FIZ_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 

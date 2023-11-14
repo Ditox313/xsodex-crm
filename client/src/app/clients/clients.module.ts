@@ -19,10 +19,11 @@ import { AddClientFizComponent } from './components/clientsFiz/add-client-fiz/ad
 import { getRoutesClientsFiz } from './routes/clientsFiz/clientsFiz.route';
 import { ListClientsFizComponent } from './components/clientsFiz/list-clients-fiz/list-clients-fiz.component';
 import { StoreModule } from '@ngrx/store';
-import { reducerFiz } from './store/reducers/reducersClientsFiz';
+import { reducerFiz } from './store/reducers/clientsFiz/reducersClientsFiz';
 import { EffectsModule } from '@ngrx/effects';
 import { ClientsFizEffect } from './store/effects/effectsClientsFiz/clientsFiz.effect';
 import { ClientsFizService } from './services/clientsFiz/clientsFiz.service';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 
 
@@ -46,6 +47,7 @@ import { ClientsFizService } from './services/clientsFiz/clientsFiz.service';
     ButtonModule,
     InputTextModule,
     TableModule,
+    ToggleButtonModule,
     TabViewModule,
     TreeSelectModule,
     InputMaskModule,

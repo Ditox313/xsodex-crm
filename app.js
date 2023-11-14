@@ -7,6 +7,7 @@ const authRoutes = require('./routes/account/auth.js');
 const smenaRoutes = require('./routes/smena/smena.js');
 const carsRoutes = require('./routes/cars/cars.js');
 const partnersRoutes = require('./routes/partners/partners.js');
+const clientsFizRoutes = require('./routes/clients/clientsFiz/clientsFiz.js');
 const dbConnect = require('./Utils/dbConnect.js');
 const passport = require('passport');
 require('./middleware/passport')(passport);
@@ -23,10 +24,12 @@ app.use('/api/account/auth', authRoutes);
 app.use('/api/smena', smenaRoutes);
 app.use('/api/cars', carsRoutes);
 app.use('/api/partners', partnersRoutes);
+app.use('/api/clientsFiz', clientsFizRoutes);
 app.use(passport.initialize());
 app.use('/files/users', express.static('files/users'));
 app.use('/files/cars', express.static('files/cars'));
 app.use('/files/partners', express.static('files/partners'));
+app.use('/files/clients', express.static('files/clients'));
 
 
 
