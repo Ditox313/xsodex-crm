@@ -18,7 +18,7 @@ export interface ClientFiz {
     prava_seria: string,
     prava_number: string,
     prava_date: string,
-    resident?: boolean,
+    resident?: string,
     phone_1: string,
     phone_2_dop_name?: string,
     phone_2_dop_number?: string,

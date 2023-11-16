@@ -28,7 +28,7 @@ export class AddClientFizComponent {
   @ViewChild('upload_3') upload_3!: ElementRef;
   @ViewChild('upload_4') upload_4!: ElementRef;
   isLoadingSelector$!: Observable<boolean | null>
-  resident: boolean = true
+  resident!: string
 
 
 
@@ -195,7 +195,8 @@ export class AddClientFizComponent {
     let fio = this.form.value.fio.split(' ');
     let passport_seria_number = this.form.value.passport_seria_number.split('-');
     let prava_seria_number = this.form.value.prava_seria_number.split('-');
-
+    this.resident = this.form.value.resident ? 'true' : 'false'
+    
 
     const clientFiz: ClientFiz = {
       name: fio[1],

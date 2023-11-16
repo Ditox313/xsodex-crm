@@ -114,7 +114,7 @@ const clientFizSchema = new Schema({
     resident: {
         type: String,
         default: '',
-        required: true,
+        required: false,
     },
 
 

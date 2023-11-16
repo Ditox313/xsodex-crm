@@ -2,8 +2,10 @@
 import { Route } from "src/app/shared/types/interfaces";
 import { AppLayoutComponent } from "src/app/shared/modules/layouts/components/app-layout/app-layout.component";
 import { AuthGuard } from "../../../shared/guards/auth.guard";
-import { AddClientFizComponent } from "../../components/clientsFiz/add-client-fiz/add-client-fiz.component";
-import { ListClientsFizComponent } from "../../components/clientsFiz/list-clients-fiz/list-clients-fiz.component";
+import { AddClientFizComponent } from "../../components/clients-fiz/add-client-fiz/add-client-fiz.component";
+import { ListClientsFizComponent } from "../../components/clients-fiz/list-clients-fiz/list-clients-fiz.component";
+
+
 
 
 
