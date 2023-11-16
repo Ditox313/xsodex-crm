@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
-import { ClientFizStateInterface } from '../../types/clientsFiz/clientsFiz.interfaces';
+import { ClientFizStateInterface } from '../../../types/clientsFiz/clientsFiz.interfaces';
 
 
 
@@ -14,16 +14,16 @@ export const isLoadingSelector = createSelector(
     (state: ClientFizStateInterface) => state.isLoading
 )
 
-// export const partnersListSelector = createSelector(
-//     partnersFeatureSelector,
-//     (state: PartnersStateInterface) => state.partnersList
-// )
+export const clientsFizListSelector = createSelector(
+    clientsFizFeatureSelector,
+    (state: ClientFizStateInterface) => state.clientsFizList
+)
 
 
-// export const noMorePartnersList = createSelector(
-//     partnersFeatureSelector,
-//     (state: PartnersStateInterface) => state.noMorePartnersList
-// )
+export const noMoreClientsFizList = createSelector(
+    clientsFizFeatureSelector,
+    (state: ClientFizStateInterface) => state.noMoreClientsFizList
+)
 
 
 // export const getCurrentPartnerSelector = createSelector(

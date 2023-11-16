@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { ClientFizStateInterface } from '../../../types/clientsFiz/clientsFiz.interfaces';
-import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action';
+import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListResetAction, clientsFizListSuccessAction, noMoreClientsFizListAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action';
 
 
 
@@ -59,63 +59,63 @@ const clientsFizReducer = createReducer(
 
 
 
-  // on(
-  //   partnersListAction,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    clientsFizListAction,
+    (state): ClientFizStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   partnersListSuccessAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     partnersList: state.partnersList ? [...state.partnersList, ...action.data] : action.data,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //   })
-  // ),
-  // on(
-  //   partnersListFailureAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   partnersListResetAction,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     partnersList: null,
-  //   })
-  // ),
-  // on(
-  //   noMorePartnersListAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     noMorePartnersList: action.data,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMorePartnersListFalseAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     noMorePartnersList: false,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMorePartnersListTrueAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     noMorePartnersList: true,
-  //     isLoading: false,
-  //   })
-  // ),
+  on(
+    clientsFizListSuccessAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      clientsFizList: state.clientsFizList ? [...state.clientsFizList, ...action.data] : action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    clientsFizListFailureAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    clientsFizListResetAction,
+    (state): ClientFizStateInterface => ({
+      ...state,
+      clientsFizList: null,
+    })
+  ),
+  on(
+    noMoreClientsFizListAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      noMoreClientsFizList: action.data,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreClientsFizListFalseAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      noMoreClientsFizList: false,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreClientsFizListTrueAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      noMoreClientsFizList: true,
+      isLoading: false,
+    })
+  ),
 
 
 
@@ -160,24 +160,24 @@ const clientsFizReducer = createReducer(
 
 
 
-  // on(
-  //   updateStatePartnersSuccessAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     isLoading: action.data.partners.isLoading,
-  //     validationErrors: action.data.partners.validationErrors,
-  //     partnersList: action.data.partners.partnersList ,
-  //     noMorePartnersList: action.data.partners.noMorePartnersList,
-  //     currentPartner: action.data.partners.currentPartner
-  //   }),
-  // ),
-  // on(
-  //   updateStatePartnersFailureAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //   })
-  // ),
+  on(
+    updateStateClientsFizSuccessAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      isLoading: action.data.partners.isLoading,
+      validationErrors: action.data.clientsFiz.validationErrors,
+      clientsFizList: action.data.clientsFiz.clientsFizList ,
+      noMoreClientsFizList: action.data.clientsFiz.noMoreClientsFizList,
+      currentClientFiz: action.data.clientsFiz.currentClientFiz
+    }),
+  ),
+  on(
+    updateStateClientsFizFailureAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+    })
+  ),
 
 
 

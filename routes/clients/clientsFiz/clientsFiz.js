@@ -10,8 +10,8 @@ const upload = require('../../../middleware/upload-clientsFiz-docs.js');
 router.post('/create', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }, { name: 'file_3' }, { name: 'file_4' }]), controller.create);
 
 
-// Роут на Получение всех партнеров
-// router.get('/partners-list', passport.authenticate('jwt', { session: false }), controller.getAllPartners);
+// Роут на Получение всех физических лиц
+router.get('/clientsFiz-list', passport.authenticate('jwt', { session: false }), controller.getAllClientsFiz);
 
 
 //Роут на удаление партнера

@@ -54,19 +54,19 @@ module.exports.create = async function (req, res) {
 
 
 
-// module.exports.getAllPartners = async function (req, res) {
-//     try {
+module.exports.getAllClientsFiz = async function (req, res) {
+    try {
 
-//         const partnersList = await Partner.find({}).sort({ date: -1 })
-//             .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
-//             .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+        const clientsFizList = await ClientFiz.find({}).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
 
-//         // Возвращаем пользователю позиции 
-//         res.status(200).json(partnersList);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+        // Возвращаем пользователю позиции 
+        res.status(200).json(clientsFizList);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 

@@ -1,7 +1,7 @@
 import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { ActionTypes } from '../../actionTypes/clientsFiz/actionTypesClientsFiz';
-import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
+import { ClientFiz, ClientsFizParamsFetch } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
 
 
@@ -29,47 +29,47 @@ export const addClientFizFailureAction = createAction(
 
 
 
-// Partners List
-// export const partnersListAction = createAction(
-//   ActionTypes.PARTNERS_LIST,
-//   props<{ params: PartnersParamsFetch }>()
-// );
+// ClientsFiz List
+export const clientsFizListAction = createAction(
+  ActionTypes.CLIENTS_FIZ_LIST,
+  props<{ params: ClientsFizParamsFetch }>()
+);
 
 
-// export const partnersListSuccessAction = createAction(
-//   ActionTypes.PARTNERS_LIST_SUCCES,
-//   props<{ data: Partner[] }>()
-// );
+export const clientsFizListSuccessAction = createAction(
+  ActionTypes.CLIENTS_FIZ_LIST_SUCCES,
+  props<{ data: ClientFiz[] }>()
+);
 
 
-// export const partnersListFailureAction = createAction(
-//   ActionTypes.PARTNERS_LIST_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const clientsFizListFailureAction = createAction(
+  ActionTypes.CLIENTS_FIZ_LIST_FAILURE,
+  props<{ errors: any }>()
+);
 
 
-// export const partnersListResetAction = createAction(
-//   ActionTypes.PARTNERS_LIST_RESET,
-// );
+export const clientsFizListResetAction = createAction(
+  ActionTypes.CLIENTS_FIZ_LIST_RESET,
+);
 
 
 
 
 
-// No more Partners List
+// No more ClientsFiz List
 
-// export const noMorePartnersListAction = createAction(
-//   ActionTypes.NO_MORE_PARTNERS_LIST,
-//   props<{ data: boolean }>()
-// );
+export const noMoreClientsFizListAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_FIZ_LIST,
+  props<{ data: boolean }>()
+);
 
-// export const noMorePartnersListFalseAction = createAction(
-//   ActionTypes.NO_MORE_PARTNERS_LIST_FALSE,
-// );
+export const noMoreClientsFizListFalseAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_FIZ_LIST_FALSE,
+);
 
-// export const noMorePartnersListTrueAction = createAction(
-//   ActionTypes.NO_MORE_PARTNERS_LIST_TRUE,
-// );
+export const noMoreClientsFizListTrueAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_FIZ_LIST_TRUE,
+);
 
 
 
@@ -101,22 +101,22 @@ export const addClientFizFailureAction = createAction(
 
 
 
-// Update State Cars
-// export const updateStatePartnersAction = createAction(
-//   ActionTypes.UPDATE_STATE_PARTNERS,
-// );
+// Update State ClientsFiz
+export const updateStateClientsFizAction = createAction(
+  ActionTypes.UPDATE_STATE_CLIENTS_FIZ,
+);
 
 
-// export const updateStatePartnersSuccessAction = createAction(
-//   ActionTypes.UPDATE_STATE_PARTNERS_SUCCES,
-//   props<{ data: AppStateInterface }>()
-// );
+export const updateStateClientsFizSuccessAction = createAction(
+  ActionTypes.UPDATE_STATE_CLIENTS_FIZ_SUCCES,
+  props<{ data: AppStateInterface }>()
+);
 
 
-// export const updateStatePartnersFailureAction = createAction(
-//   ActionTypes.UPDATE_STATE_PARTNERS_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const updateStateClientsFizFailureAction = createAction(
+  ActionTypes.UPDATE_STATE_CLIENTS_FIZ_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 

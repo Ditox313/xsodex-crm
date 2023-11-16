@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsFizService } from 'src/app/clients/services/clientsFiz/clientsFiz.service'
-import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
+import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, noMoreClientsFizListAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
 
 
 
@@ -49,27 +49,27 @@ export class ClientsFizEffect {
 
 
 
-  // Получение всех партнеров
-  // partnersList$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(partnersListAction),
-  //     concatMap((params) => {
-  //       return this.partners.getAllPartners({ params }).pipe(
-  //         concatMap((carsList) => {
-  //           if (carsList.length === 0) {
-  //             return of(noMorePartnersListAction({ data: true }));
-  //           }
-  //           return of(partnersListSuccessAction({ data: carsList }));
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             partnersListFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Получение всех физических лиц
+  clientsFizList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientsFizListAction),
+      concatMap((params) => {
+        return this.clientsFiz.getAllClientsFiz({ params }).pipe(
+          concatMap((clientsFizList) => {
+            if (clientsFizList.length === 0) {
+              return of(noMoreClientsFizListAction({ data: true }));
+            }
+            return of(clientsFizListSuccessAction({ data: clientsFizList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              clientsFizListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
@@ -101,21 +101,21 @@ export class ClientsFizEffect {
 
 
   // Обновление состояния
-  // updateStatePartners$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(updateStatePartnersAction),
-  //       map(() => {
-  //         const savedState: any = localStorage.getItem('appState');
-  //         return updateStatePartnersSuccessAction({ data: JSON.parse(savedState) })
-  //       }),
-  //       catchError((errorResponse: HttpErrorResponse) => {
-  //         return of(
-  //           updateStatePartnersFailureAction({ errors: 'Ошибка обновления состояния' })
-  //         );
-  //       })
-  //     ),
-  // );
+  updateStateClientsFiz$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(updateStateClientsFizAction),
+        map(() => {
+          const savedState: any = localStorage.getItem('appState');
+          return updateStateClientsFizSuccessAction({ data: JSON.parse(savedState) })
+        }),
+        catchError((errorResponse: HttpErrorResponse) => {
+          return of(
+            updateStateClientsFizFailureAction({ errors: 'Ошибка обновления состояния' })
+          );
+        })
+      ),
+  );
 
 
 

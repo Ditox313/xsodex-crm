@@ -64,14 +64,14 @@ export class ClientsFizService {
     return this.http.post<ClientFiz>(`/api/clientsFiz/create`, fd);
   }
 
-  // Получаем список всех партнеров
-  // getAllPartners(params: any = {}): Observable<Partner[]> {
-  //   return this.http.get<Partner[]>('/api/partners/partners-list', {
-  //     params: new HttpParams({
-  //       fromObject: params.params.params
-  //     })
-  //   });
-  // }
+  // Получаем список всех клиентов
+  getAllClientsFiz(params: any = {}): Observable<ClientFiz[]> {
+    return this.http.get<ClientFiz[]>('/api/clientsFiz/clientsFiz-list', {
+      params: new HttpParams({
+        fromObject: params.params.params
+      })
+    });
+  }
 
 
   // getById(id: string): Observable<Partner> {

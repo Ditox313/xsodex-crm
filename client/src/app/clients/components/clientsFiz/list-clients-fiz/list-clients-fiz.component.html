@@ -14,8 +14,7 @@
         <ng-template pTemplate="header">
             <tr>
                 <th>ФИО</th>
-                <th>Телефон №1</th>
-                <th>Телефон №2</th>
+                <th>Телефон</th>
                 <th></th>
             </tr>
         </ng-template>
@@ -24,7 +23,6 @@
             <tr [routerLink]="['/show-client-fiz',clientFiz._id]">
                 <td><strong>{{clientFiz.surname}} {{clientFiz.name}} {{clientFiz.lastname}}</strong></td>
                 <td>{{clientFiz.phone_1}}</td>
-                <td>{{clientFiz.phone_2}}</td>
                 <td style="cursor: pointer; text-align: center;" (click)="onDeleteClientFiz($event, clientFiz)"><i
                         class="pi pi-trash"></i></td>
             </tr>

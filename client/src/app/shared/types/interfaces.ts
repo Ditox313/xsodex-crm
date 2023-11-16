@@ -1,6 +1,7 @@
 import { Type } from "@angular/core"
 import { AccountStateInterface } from "src/app/account/types/account.interfaces";
 import { CarsStateInterface } from "src/app/cars/types/cars.interfaces";
+import { ClientFizStateInterface } from "src/app/clients/types/clientsFiz/clientsFiz.interfaces";
 import { PartnersStateInterface } from "src/app/partners/types/partners.interfaces";
 import { SmenaStateInterface } from "src/app/smena/types/smena.interfaces";
 
@@ -19,7 +20,8 @@ export interface AppStateInterface {
     account: AccountStateInterface,
     smena: SmenaStateInterface,
     cars: CarsStateInterface,
-    partners: PartnersStateInterface
+    partners: PartnersStateInterface,
+    clientsFiz: ClientFizStateInterface
 }
 
 

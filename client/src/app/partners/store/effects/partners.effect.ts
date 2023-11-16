@@ -54,11 +54,11 @@ export class PartnersEffect {
       ofType(partnersListAction),
       concatMap((params) => {
         return this.partners.getAllPartners({ params }).pipe(
-          concatMap((carsList) => {
-            if (carsList.length === 0) {
+          concatMap((partnersList) => {
+            if (partnersList.length === 0) {
               return of(noMorePartnersListAction({ data: true }));
             }
-            return of(partnersListSuccessAction({ data: carsList }));
+            return of(partnersListSuccessAction({ data: partnersList }));
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
