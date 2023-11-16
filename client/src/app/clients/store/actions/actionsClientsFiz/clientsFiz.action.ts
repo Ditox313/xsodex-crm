@@ -76,23 +76,23 @@ export const noMoreClientsFizListTrueAction = createAction(
 
 
 
-// Partner delete
-// export const partnerDeleteAction = createAction(
-//   ActionTypes.PARTNER_DELETE,
-//   props<{ id: string | undefined }>()
-// );
+// ClientFiz delete
+export const clientFizDeleteAction = createAction(
+  ActionTypes.CLIENT_FIZ_DELETE,
+  props<{ id: string | undefined }>()
+);
 
 
-// export const partnerDeleteSuccessAction = createAction(
-//   ActionTypes.PARTNER_DELETE_SUCCES,
-//   props<{ data: string }>()
-// );
+export const clientFizDeleteSuccessAction = createAction(
+  ActionTypes.CLIENT_FIZ_DELETE_SUCCES,
+  props<{ data: string }>()
+);
 
 
-// export const partnerDeleteFailureAction = createAction(
-//   ActionTypes.PARTNER_DELETE_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const clientFizDeleteFailureAction = createAction(
+  ActionTypes.CLIENT_FIZ_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 

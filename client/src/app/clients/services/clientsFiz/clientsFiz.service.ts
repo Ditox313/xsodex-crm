@@ -114,7 +114,7 @@ export class ClientsFizService {
 
 
   // Удаление
-  // delete(id: any): Observable<any> {
-  //   return this.http.delete<any>(`/api/partners/partner-remove/${id}`);
-  // }
+  delete(id: any): Observable<any> {
+    return this.http.delete<any>(`/api/clientsFiz/clientFiz-remove/${id}`);
+  }
 }

@@ -14,8 +14,8 @@ router.post('/create', passport.authenticate('jwt', { session: false }), upload.
 router.get('/clientsFiz-list', passport.authenticate('jwt', { session: false }), controller.getAllClientsFiz);
 
 
-//Роут на удаление партнера
-// router.delete('/partner-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
+//Роут на удаление физического лица
+router.delete('/clientFiz-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 
 
 // Роут на получение партнера по Id

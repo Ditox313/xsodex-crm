@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsFizService } from 'src/app/clients/services/clientsFiz/clientsFiz.service'
-import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, noMoreClientsFizListAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
+import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, noMoreClientsFizListAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
 
 
 
@@ -75,26 +75,26 @@ export class ClientsFizEffect {
 
 
 
-  // Удаление партнера
-  // carDelete$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(partnerDeleteAction),
-  //     switchMap((id) => {
-  //       return this.partners.delete(id.id).pipe(
-  //         map((id) => {
-  //           this.messageService.add({ severity: 'success', summary: `Партнер удален`, detail: 'Успешно!' });
-  //           return partnerDeleteSuccessAction({ data: id });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `Ошибка удаления партнера`, detail: 'Попробуйте позже!' });
-  //           return of(
-  //             partnerDeleteFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Удаление физичексого лица
+  clientFizDelete$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientFizDeleteAction),
+      switchMap((id) => {
+        return this.clientsFiz.delete(id.id).pipe(
+          map((id) => {
+            this.messageService.add({ severity: 'success', summary: `Партнер удален`, detail: 'Успешно!' });
+            return clientFizDeleteSuccessAction({ data: id });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления партнера`, detail: 'Попробуйте позже!' });
+            return of(
+              clientFizDeleteFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

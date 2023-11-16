@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { clientsFizListAction, clientsFizListResetAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { clientFizDeleteAction, clientsFizListAction, clientsFizListResetAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 import { clientsFizListSelector, isLoadingSelector, noMoreClientsFizList } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
 import { ClientFiz, ClientsFizParamsFetch } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
@@ -62,11 +62,11 @@ export class ListClientsFizComponent {
 
 
           if (this.clientsFizList.length >= this.STEP) {
-            // Изменяем значение noMorePartnersList в состоянии на false что бы открыть кнопку загрузить ещё
+            // Изменяем значение noMoreClientsFizList в состоянии на false что бы открыть кнопку загрузить ещё
             this.store.dispatch(noMoreClientsFizListFalseAction());
           }
           else {
-            // Изменяем значение noMorePartnersList в состоянии на true что бы скрыть кнопку загрузить ещё
+            // Изменяем значение noMoreClientsFizList в состоянии на true что бы скрыть кнопку загрузить ещё
             this.store.dispatch(noMoreClientsFizListTrueAction());
           }
         }
@@ -86,20 +86,20 @@ export class ListClientsFizComponent {
   }
 
 
-  // Подгружаем партнеров
+  // Подгружаем физических лиц
   loadmore() {
     this.offset += this.STEP;
     this.getClientsFizList();
   }
 
 
-  // Удаление партнера
-  onDeleteClientFiz(event: Event, partner: ClientFiz) {
+  // Удаление физического лица
+  onDeleteClientFiz(event: Event, clientFiz: ClientFiz) {
     event.stopPropagation();
     const dicision = window.confirm(`Удалить клиента?`);
 
     if (dicision) {
-      // this.store.dispatch(partnerDeleteAction({ id: partner._id }))
+      this.store.dispatch(clientFizDeleteAction({ id: clientFiz._id }))
     }
   }
 }
