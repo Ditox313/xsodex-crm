@@ -22,4 +22,8 @@ export enum ActionTypes {
   UPDATE_PARTNER = '[Partners] Update  partner',
   UPDATE_PARTNER_SUCCESS = '[Partners] Update partner success',
   UPDATE_PARTNER_FAILURE = '[Partners] Update partner failure',
+  PARTNERS_LIST_NO_PARAMS = '[Partners] Partners List no params',
+  PARTNERS_LIST_NO_PARAMS_SUCCES = '[Partners] Partners List no params succes',
+  PARTNERS_LIST_NO_PARAMS_FAILURE = '[Partners] Partners List no params failure',
+  PARTNERS_LIST_NO_PARAMS_RESET = '[Partners] Partners List no params reset',
 }

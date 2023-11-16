@@ -5,7 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnerGetCurrent, partnerGetCurrentFailureAction, partnerGetCurrentSuccessAction, partnersListAction, partnersListFailureAction, partnersListSuccessAction, updatePartnerAction, updatePartnerSuccessAction, updateStatePartnersAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from '../actions/partners.action'
+import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnerGetCurrent, partnerGetCurrentFailureAction, partnerGetCurrentSuccessAction, partnersListAction, partnersListFailureAction, partnersListNoParamsAction, partnersListNoParamsFailureAction, partnersListNoParamsSuccessAction, partnersListSuccessAction, updatePartnerAction, updatePartnerSuccessAction, updateStatePartnersAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from '../actions/partners.action'
 import { PartnersService } from '../../services/partners.service'
 
 
@@ -160,6 +160,29 @@ export class PartnersEffect {
             this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
             return of(
               updateStatePartnersFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+  // Получение всех партнеров без параметров
+  partnersNoParamsList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(partnersListNoParamsAction),
+      concatMap((params) => {
+        return this.partners.getAllPartnersNoParams().pipe(
+          concatMap((partnersList) => {
+            return of(partnersListNoParamsSuccessAction({ data: partnersList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              partnersListNoParamsFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

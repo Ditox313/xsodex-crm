@@ -8,6 +8,10 @@ import { Observable, Subscription } from 'rxjs';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { isLoadingSelector } from '../../store/selectors';
+import { Partner } from 'src/app/partners/types/partners.interfaces';
+import { partnersListSelector } from 'src/app/partners/store/selectors';
+import { partnersListAction, partnersListNoParamsAction, partnersListNoParamsResetAction } from 'src/app/partners/store/actions/partners.action';
+import { clientsFizListAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 
 @Component({
   selector: 'app-add-car',
@@ -25,6 +29,9 @@ export class AddCarComponent implements OnInit {
   currentUserSelector$!: Observable<UserResponceRegister | null | undefined>
   currentUser!: UserResponceRegister | null | undefined
   currentUserSub$!: Subscription
+  partnersListSelector!: Observable<Partner[] | null | undefined>
+  partnersListSub$!: Subscription
+  partnersList: Partner[] | null | undefined = [];
 
 
   constructor(public datePipe: DatePipe, private store: Store,) { }
@@ -145,6 +152,22 @@ export class AddCarComponent implements OnInit {
       }
     })
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
+
+
+
+    // Отправляем запрос на получения списка физлиц без параметров
+    this.store.dispatch(partnersListNoParamsAction());
+    
+    // Получаем селектор на получение списка партнеров и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
+    // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
+    this.partnersListSelector = this.store.pipe(select(partnersListSelector))
+    this.partnersListSub$ = this.partnersListSelector.subscribe({
+      next: (partnersList) => {
+        if (partnersList) {
+          this.partnersList = partnersList;
+        }
+      }
+    });
   }
 
 
@@ -152,6 +175,12 @@ export class AddCarComponent implements OnInit {
     if (this.currentUserSub$) {
       this.currentUserSub$.unsubscribe()
     }
+    if (this.partnersListSub$) {
+      this.partnersListSub$.unsubscribe()
+    }
+
+    // Отчищаем состояние currentpartnersListNoParams
+    this.store.dispatch(partnersListNoParamsResetAction());
   }
 
 

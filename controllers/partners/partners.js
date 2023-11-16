@@ -56,6 +56,21 @@ module.exports.getAllPartners = async function (req, res) {
 
 
 
+module.exports.getAllPartnersNoParams = async function (req, res) {
+    try {
+
+        const partnersList = await Partner.find({}).sort({ date: -1 })
+
+        // Возвращаем пользователю позиции 
+        res.status(200).json(partnersList);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
+
 
 // Контроллер для remove
 module.exports.remove = async function (req, res) {

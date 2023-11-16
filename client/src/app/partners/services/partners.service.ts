@@ -50,6 +50,13 @@ export class PartnersService {
   }
 
 
+
+  // Получаем список всех партнеров без параметров
+  getAllPartnersNoParams(): Observable<Partner[]> {
+    return this.http.get<Partner[]>('/api/partners/partners-list-no-params');
+  }
+
+
   getById(id: string): Observable<Partner> {
     return this.http.get<Partner>(`/api/partners/${id}`);
   }

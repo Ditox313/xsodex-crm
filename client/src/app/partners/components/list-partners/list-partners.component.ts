@@ -81,7 +81,7 @@ export class ListPartnersComponent implements OnInit, OnDestroy {
       limit: this.limit,
     };
 
-    // Отправляем запрос на получения списка смен
+    // Отправляем запрос на получения списка партнеров
     this.store.dispatch(partnersListAction({ params: params }));
   }
 

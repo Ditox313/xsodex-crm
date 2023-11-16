@@ -124,8 +124,8 @@
                                         <select id="vladelec" formControlName="vladelec"
                                             [ngClass]="{'invalid': form.controls['vladelec'].invalid && form.controls['vladelec'].touched}">
                                             <option value="" disabled selected>Выбрать ↷</option>
-                                            <option value="Партнер 1">Партнер 1</option>
-                                            <option value="Партнер 2">Партнер 2</option>
+                                            <option value="{{partner.surname}} {{partner.name}} {{partner.lastname}}" *ngFor="let partner of partnersList">
+                                                {{partner.surname}} {{partner.name}}</option>
                                         </select>
                                     
                                     

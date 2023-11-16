@@ -31,7 +31,7 @@ export const addPartnerFailureAction = createAction(
 // Partners List
 export const partnersListAction = createAction(
   ActionTypes.PARTNERS_LIST,
-  props<{ params: PartnersParamsFetch }>()
+  props<{ params?: PartnersParamsFetch  }>()
 );
 
 
@@ -173,3 +173,30 @@ export const updatePARTNERFailureAction = createAction(
   ActionTypes.UPDATE_PARTNER_FAILURE,
   props<{ errors: any }>()
 )
+
+
+
+
+
+
+// Partners List no params
+export const partnersListNoParamsAction = createAction(
+  ActionTypes.PARTNERS_LIST_NO_PARAMS,
+);
+
+
+export const partnersListNoParamsSuccessAction = createAction(
+  ActionTypes.PARTNERS_LIST_NO_PARAMS_SUCCES,
+  props<{ data: Partner[] }>()
+);
+
+
+export const partnersListNoParamsFailureAction = createAction(
+  ActionTypes.PARTNERS_LIST_NO_PARAMS_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const partnersListNoParamsResetAction = createAction(
+  ActionTypes.PARTNERS_LIST_NO_PARAMS_RESET,
+);

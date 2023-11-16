@@ -8,6 +8,9 @@ import { getCurrentCarSelector, isLoadingSelector } from '../../store/selectors'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { carGetCurrent, carGetCurrentReset, updateCarAction } from '../../store/actions/cars.action';
 import { getCurrentSmenaSelector } from 'src/app/smena/store/selectors';
+import { Partner } from 'src/app/partners/types/partners.interfaces';
+import { partnersListNoParamsAction, partnersListNoParamsResetAction } from 'src/app/partners/store/actions/partners.action';
+import { partnersListSelector } from 'src/app/partners/store/selectors';
 
 @Component({
   selector: 'app-show-car',
@@ -27,6 +30,9 @@ export class ShowCarComponent implements OnInit, OnDestroy {
   avatar: string | ArrayBuffer | undefined | null = 'https://phonoteka.org/uploads/posts/2023-03/1680212136_phonoteka-org-p-dmitrii-razvarov-art-instagram-90.jpg';
   @ViewChild('upload') upload!: ElementRef;
   edit: boolean = false
+  partnersListSelector!: Observable<Partner[] | null | undefined>
+  partnersListSub$!: Subscription
+  partnersList: Partner[] | null | undefined = [];
   
 
 
@@ -53,8 +59,11 @@ export class ShowCarComponent implements OnInit, OnDestroy {
       this.currentCarSub$.unsubscribe()
     }
 
-    // Отчищаем состояние currentSmena
+    // Отчищаем состояние currentCar
     this.store.dispatch(carGetCurrentReset());
+
+    // Отчищаем состояние currentpartnersListNoParams
+    this.store.dispatch(partnersListNoParamsResetAction());
 
   }
 
@@ -174,8 +183,25 @@ export class ShowCarComponent implements OnInit, OnDestroy {
 
 
   initValues() {
+
     // Отчищаем состояние currentSmena
     this.store.dispatch(carGetCurrentReset());
+
+
+    // Отправляем запрос на получения списка физлиц без параметров
+    this.store.dispatch(partnersListNoParamsAction());
+
+    // Получаем селектор на получение списка партнеров и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
+    // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
+    this.partnersListSelector = this.store.pipe(select(partnersListSelector))
+    this.partnersListSub$ = this.partnersListSelector.subscribe({
+      next: (partnersList) => {
+        if (partnersList) {
+          this.partnersList = partnersList;
+        }
+      }
+    });
+
     
     //Отправляем запрос на получение текущего автомобиля
     this.store.dispatch(carGetCurrent({ id: this.carId }));
