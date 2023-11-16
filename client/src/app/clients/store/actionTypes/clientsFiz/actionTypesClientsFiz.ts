@@ -19,7 +19,7 @@ export enum ActionTypes {
   CLIENT_FIZ_GET_CURRENT_SUCCES = '[ClientsFiz] Get clientFiz current succes',
   CLIENT_FIZ_GET_CURRENT_FAILURE = '[ClientsFiz] Get clientFiz current failure',
   CLIENT_FIZ_GET_CURRENT_RESET = '[ClientsFiz] Get clientFiz current reset',
-  // UPDATE_PARTNER = '[Partners] Update  partner',
-  // UPDATE_PARTNER_SUCCESS = '[Partners] Update partner success',
-  // UPDATE_PARTNER_FAILURE = '[Partners] Update partner failure',
+  UPDATE_CLIENT_FIZ = '[ClientsFiz] Update  clientFiz',
+  UPDATE_CLIENT_FIZ_SUCCESS = '[ClientsFiz] Update clientFiz success',
+  UPDATE_CLIENT_FIZ_FAILURE = '[ClientsFiz] Update clientFiz failure',
 }

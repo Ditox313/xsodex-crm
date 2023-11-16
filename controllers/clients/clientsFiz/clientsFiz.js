@@ -140,52 +140,79 @@ module.exports.getById = async function (req, res) {
 
 
 // Контроллер для update
-// module.exports.update = async function (req, res) {
-//     try {
+module.exports.update = async function (req, res) {
+    try {
 
-//         const updated = req.body;
-
-
-
-//         // Если объект file есть,то заполняем параметр путем фала
-//         if (req.files.file_1) {
-//             // Находим нужный автомобиль и удаляем аватарку автомобиля
-//             const partner = await Partner.findOne({ _id: req.body._id });
-//             fs.unlink(partner.file_1, (err) => {
-//                 if (err) {
-//                     return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-//                 }
-//             });
-
-//             updated.file_1 = req.files.file_1[0] ? req.files.file_1[0].path : '';
-//         }
-
-//         // Если объект file есть,то заполняем параметр путем фала
-//         if (req.files.file_2) {
-//             // Находим нужный автомобиль и удаляем аватарку автомобиля
-//             const partner = await Partner.findOne({ _id: req.body._id });
-//             fs.unlink(partner.file_2, (err) => {
-//                 if (err) {
-//                     return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-//                 }
-//             });
-
-//             updated.file_2 = req.files.file_2[0] ? req.files.file_2[0].path : '';
-//         }
+        const updated = req.body;
 
 
 
-//         // Находим и обновляем позицию. 
-//         const partnerUpdate = await Partner.findOneAndUpdate({ _id: updated._id }, //Ищем по id
-//             { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
-//             { new: true } //обновит позицию и верет нам уже обновленную
-//         );
+        // Если объект file есть,то заполняем параметр путем фала
+        if (req.files.file_1) {
+            // Находим нужный автомобиль и удаляем аватарку автомобиля
+            const partner = await ClientFiz.findOne({ _id: req.body._id });
+            fs.unlink(partner.file_1, (err) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+                }
+            });
 
-//         // Возвращаем пользователю обновленную позицию 
-//         res.status(200).json(partnerUpdate);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+            updated.file_1 = req.files.file_1[0] ? req.files.file_1[0].path : '';
+        }
+
+        // Если объект file есть,то заполняем параметр путем фала
+        if (req.files.file_2) {
+            // Находим нужный автомобиль и удаляем аватарку автомобиля
+            const partner = await ClientFiz.findOne({ _id: req.body._id });
+            fs.unlink(partner.file_2, (err) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+                }
+            });
+
+            updated.file_2 = req.files.file_2[0] ? req.files.file_2[0].path : '';
+        }
+
+        // Если объект file есть,то заполняем параметр путем фала
+        if (req.files.file_3) {
+            // Находим нужный автомобиль и удаляем аватарку автомобиля
+            const partner = await ClientFiz.findOne({ _id: req.body._id });
+            fs.unlink(partner.file_3, (err) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+                }
+            });
+
+            updated.file_3 = req.files.file_3[0] ? req.files.file_3[0].path : '';
+        }
+
+
+        // Если объект file есть,то заполняем параметр путем фала
+        if (req.files.file_4) {
+            // Находим нужный автомобиль и удаляем аватарку автомобиля
+            const partner = await ClientFiz.findOne({ _id: req.body._id });
+            fs.unlink(partner.file_4, (err) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+                }
+            });
+
+            updated.file_4 = req.files.file_4[0] ? req.files.file_4[0].path : '';
+        }
+
+
+
+        // Находим и обновляем позицию. 
+        const clientFizUpdate = await ClientFiz.findOneAndUpdate({ _id: updated._id }, //Ищем по id
+            { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
+            { new: true } //обновит позицию и верет нам уже обновленную
+        );
+
+        // Возвращаем пользователю обновленную позицию 
+        res.status(200).json(clientFizUpdate);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 

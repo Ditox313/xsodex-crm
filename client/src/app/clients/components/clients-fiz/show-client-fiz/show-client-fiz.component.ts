@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { clientFizGetCurrent } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { clientFizGetCurrent, clientFizGetCurrentReset, clientsFizListResetAction, updateClientFizAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 import { getCurrentClientFizSelector, isLoadingSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
 import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
@@ -54,8 +54,8 @@ export class ShowClientFizComponent {
       this.currentClientFizSub$.unsubscribe()
     }
 
-    //Отчищаем состояние currentCar
-    // this.store.dispatch(partnerGetCurrentReset());
+    //Отчищаем состояние currentClientFiz
+    this.store.dispatch(clientFizGetCurrentReset());
 
   }
 
@@ -95,8 +95,7 @@ export class ShowClientFizComponent {
 
 
   initValues() {
-    //Отчищаем состояние currentCar
-    // this.store.dispatch(partnerGetCurrentReset());
+
 
     //Отправляем запрос на получение текущего физического лица
     this.store.dispatch(clientFizGetCurrent({ id: this.clientFizId }));
@@ -146,7 +145,6 @@ export class ShowClientFizComponent {
     this.uploadFile_2 = file;
 
     const reader = new FileReader();
-    // Метод вызовется тогда, когда загрузится вся картинка
     // Метод вызовется тогда, когда загрузится вся картинка
     reader.onload = () => {
       if (event.target.files['0'].type !== 'application/pdf') {
@@ -285,24 +283,39 @@ export class ShowClientFizComponent {
 
     let fio = this.form.value.fio.split(' ');
     let passport_seria_number = this.form.value.passport_seria_number.split('-');
+    let prava_seria_number = this.form.value.prava_seria_number.split('-');
+    this.resident = this.form.value.resident ? 'true' : 'false'
 
 
-    // const partner: Partner = {
-    //   _id: this.currentPartner?._id,
-    //   name: fio[1],
-    //   surname: fio[0],
-    //   lastname: fio[2],
-    //   passport_seria: passport_seria_number[0],
-    //   passport_number: passport_seria_number[1],
-    //   passport_date: this.form.value.passport_date,
-    //   passport_who_take: this.form.value.passport_who_take,
-    //   code_podrazdeleniya: this.form.value.code_podrazdeleniya,
-    //   passport_register: this.form.value.passport_register,
-    //   phone_1: this.form.value.phone_1,
-    //   phone_2: this.form.value.phone_2,
-    // };
+    const clientFiz: ClientFiz = {
+      _id: this.currentClientFiz?._id,
+      name: fio[1],
+      surname: fio[0],
+      lastname: fio[2],
+      date_birth: this.form.value.date_birth,
+      passport_seria: passport_seria_number[0],
+      passport_number: passport_seria_number[1],
+      passport_date: this.form.value.passport_date,
+      passport_who_take: this.form.value.passport_who_take,
+      code_podrazdeleniya: this.form.value.code_podrazdeleniya,
+      passport_register: this.form.value.passport_register,
+      passport_address_fact: this.form.value.passport_register,
+      prava_seria: prava_seria_number[0],
+      prava_number: prava_seria_number[1],
+      prava_date: this.form.value.prava_date,
+      resident: this.resident,
+      phone_1: this.form.value.phone_1,
+      phone_2_dop_name: this.form.value.phone_2_dop_name,
+      phone_2_dop_number: this.form.value.phone_2_dop_number,
+      phone_3_dop_name: this.form.value.phone_3_dop_name,
+      phone_3_dop_number: this.form.value.phone_3_dop_number,
+      phone_4_dop_name: this.form.value.phone_4_dop_name,
+      phone_4_dop_number: this.form.value.phone_4_dop_number,
+      phone_5_dop_name: this.form.value.phone_5_dop_name,
+      phone_5_dop_number: this.form.value.phone_5_dop_number,
+    };
 
 
-    // this.store.dispatch(updatePartnerAction({ partner: partner, file_1: this.uploadFile_1, file_2: this.uploadFile_2, }))
+    this.store.dispatch(updateClientFizAction({ clientFiz: clientFiz, file_1: this.uploadFile_1, file_2: this.uploadFile_2, file_3: this.uploadFile_3, file_4: this.uploadFile_4 }))
   }
 }

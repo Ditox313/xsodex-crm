@@ -155,22 +155,22 @@ export const clientFizGetCurrentReset = createAction(
 
 
 
-// Update Partner
-// export const updatePartnerAction = createAction(
-//   ActionTypes.UPDATE_PARTNER,
-//   props<{ partner: Partner, file_1?: File, file_2?: File }>()
-// )
+// Update ClientFiz
+export const updateClientFizAction = createAction(
+  ActionTypes.UPDATE_CLIENT_FIZ,
+  props<{ clientFiz: ClientFiz, file_1?: File, file_2?: File, file_3?: File, file_4?: File }>()
+)
 
 
-// export const updatePartnerSuccessAction = createAction(
-//   ActionTypes.UPDATE_PARTNER_SUCCESS,
-//   props<{ data: Partner }>()
-// );
+export const updateClientFizSuccessAction = createAction(
+  ActionTypes.UPDATE_CLIENT_FIZ_SUCCESS,
+  props<{ data: ClientFiz }>()
+);
 
 
 
 
-// export const updatePARTNERFailureAction = createAction(
-//   ActionTypes.UPDATE_PARTNER_FAILURE,
-//   props<{ errors: any }>()
-// )
+export const updateClientFizFailureAction = createAction(
+  ActionTypes.UPDATE_CLIENT_FIZ_FAILURE,
+  props<{ errors: any }>()
+)

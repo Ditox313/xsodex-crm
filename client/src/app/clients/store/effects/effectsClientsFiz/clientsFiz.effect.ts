@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsFizService } from 'src/app/clients/services/clientsFiz/clientsFiz.service'
-import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, noMoreClientsFizListAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
+import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, noMoreClientsFizListAction, updateClientFizAction, updateClientFizFailureAction, updateClientFizSuccessAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
 
 
 
@@ -147,26 +147,26 @@ export class ClientsFizEffect {
 
 
 
-  // Обновление партнера
-  // UpdatePartner$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(updatePartnerAction),
-  //     switchMap(({ partner, file_1, file_2 }) => {
-  //       return this.partners.update(partner, file_1, file_2).pipe(
-  //         map((data) => {
-  //           this.messageService.add({ severity: 'success', summary: `Партнер обновлен`, detail: 'Успешно!' });
-  //           return updatePartnerSuccessAction({ data: data });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
-  //           return of(
-  //             updateStatePartnersFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Обновление физического лица
+  UpdateClientFiz$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateClientFizAction),
+      switchMap(({ clientFiz, file_1, file_2, file_3, file_4 }) => {
+        return this.clientsFiz.update(clientFiz, file_1, file_2, file_3, file_4).pipe(
+          map((data) => {
+            this.messageService.add({ severity: 'success', summary: `Клиент обновлен`, detail: 'Успешно!' });
+            return updateClientFizSuccessAction({ data: data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
+            return of(
+              updateClientFizFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

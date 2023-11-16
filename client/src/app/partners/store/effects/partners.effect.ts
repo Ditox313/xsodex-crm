@@ -5,7 +5,7 @@ import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnerGetCurrent, partnerGetCurrentFailureAction, partnerGetCurrentSuccessAction, partnersListAction, partnersListFailureAction, partnersListNoParamsAction, partnersListNoParamsFailureAction, partnersListNoParamsSuccessAction, partnersListSuccessAction, updatePartnerAction, updatePartnerSuccessAction, updateStatePartnersAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from '../actions/partners.action'
+import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnerGetCurrent, partnerGetCurrentFailureAction, partnerGetCurrentSuccessAction, partnersListAction, partnersListFailureAction, partnersListNoParamsAction, partnersListNoParamsFailureAction, partnersListNoParamsSuccessAction, partnersListSuccessAction, updatePartnerAction, updatePartnerFailureAction, updatePartnerSuccessAction, updateStatePartnersAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from '../actions/partners.action'
 import { PartnersService } from '../../services/partners.service'
 
 
@@ -159,7 +159,7 @@ export class PartnersEffect {
           catchError((errorResponse: HttpErrorResponse) => {
             this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
             return of(
-              updateStatePartnersFailureAction({ errors: errorResponse.error.errors })
+              updatePartnerFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

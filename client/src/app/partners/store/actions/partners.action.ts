@@ -169,7 +169,7 @@ export const updatePartnerSuccessAction = createAction(
 
 
 
-export const updatePARTNERFailureAction = createAction(
+export const updatePartnerFailureAction = createAction(
   ActionTypes.UPDATE_PARTNER_FAILURE,
   props<{ errors: any }>()
 )
