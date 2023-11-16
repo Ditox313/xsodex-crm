@@ -124,27 +124,27 @@ export const updateStateClientsFizFailureAction = createAction(
 
 
 
-// Get Partners Current
-// export const partnerGetCurrent = createAction(
-//   ActionTypes.PARTNER_GET_CURRENT,
-//   props<{ id: string }>()
-// );
+// Get ClientFiz Current
+export const clientFizGetCurrent = createAction(
+  ActionTypes.CLIENT_FIZ_GET_CURRENT,
+  props<{ id: string }>()
+);
 
 
-// export const partnerGetCurrentSuccessAction = createAction(
-//   ActionTypes.PARTNER_GET_CURRENT_SUCCES,
-//   props<{ data: Partner }>()
-// );
+export const clientFizGetCurrentSuccessAction = createAction(
+  ActionTypes.CLIENT_FIZ_GET_CURRENT_SUCCES,
+  props<{ data: ClientFiz }>()
+);
 
 
-// export const partnerGetCurrentFailureAction = createAction(
-//   ActionTypes.PARTNER_GET_CURRENT_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const clientFizGetCurrentFailureAction = createAction(
+  ActionTypes.CLIENT_FIZ_GET_CURRENT_FAILURE,
+  props<{ errors: any }>()
+);
 
-// export const partnerGetCurrentReset = createAction(
-//   ActionTypes.PARTNER_GET_CURRENT_FAILURE,
-// );
+export const clientFizGetCurrentReset = createAction(
+  ActionTypes.CLIENT_FIZ_GET_CURRENT_RESET,
+);
 
 
 

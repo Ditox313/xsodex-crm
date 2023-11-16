@@ -24,6 +24,7 @@ import { ClientsFizService } from './services/clientsFiz/clientsFiz.service';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 import { AddClientFizComponent } from './components/clients-fiz/add-client-fiz/add-client-fiz.component';
 import { ListClientsFizComponent } from './components/clients-fiz/list-clients-fiz/list-clients-fiz.component';
+import { ShowClientFizComponent } from './components/clients-fiz/show-client-fiz/show-client-fiz.component';
 
 
 
@@ -31,7 +32,8 @@ import { ListClientsFizComponent } from './components/clients-fiz/list-clients-f
 @NgModule({
   declarations: [
     AddClientFizComponent,
-    ListClientsFizComponent
+    ListClientsFizComponent,
+    ShowClientFizComponent
   ],
   imports: [
     CommonModule,

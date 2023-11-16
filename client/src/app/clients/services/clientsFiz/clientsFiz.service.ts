@@ -74,9 +74,9 @@ export class ClientsFizService {
   }
 
 
-  // getById(id: string): Observable<Partner> {
-  //   return this.http.get<Partner>(`/api/partners/${id}`);
-  // }
+  getById(id: string): Observable<ClientFiz> {
+    return this.http.get<ClientFiz>(`/api/clientsFiz/${id}`);
+  }
 
 
 

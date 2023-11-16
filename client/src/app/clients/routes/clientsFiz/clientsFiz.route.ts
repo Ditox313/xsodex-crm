@@ -4,6 +4,7 @@ import { AppLayoutComponent } from "src/app/shared/modules/layouts/components/ap
 import { AuthGuard } from "../../../shared/guards/auth.guard";
 import { AddClientFizComponent } from "../../components/clients-fiz/add-client-fiz/add-client-fiz.component";
 import { ListClientsFizComponent } from "../../components/clients-fiz/list-clients-fiz/list-clients-fiz.component";
+import { ShowClientFizComponent } from "../../components/clients-fiz/show-client-fiz/show-client-fiz.component";
 
 
 
@@ -25,10 +26,10 @@ export function getRoutesClientsFiz(): Route[] {
                     path: 'list-clients-fiz',
                     component: ListClientsFizComponent,
                 },
-                // {
-                //     path: 'show-partner/:id', 
-                //     component: ShowPartnerComponent,
-                // },
+                {
+                    path: 'show-client-fiz/:id', 
+                    component: ShowClientFizComponent,
+                },
             ],
         },
 

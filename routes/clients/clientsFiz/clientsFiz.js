@@ -18,8 +18,8 @@ router.get('/clientsFiz-list', passport.authenticate('jwt', { session: false }),
 router.delete('/clientFiz-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 
 
-// Роут на получение партнера по Id
-// router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
+// Роут на получение физического лица по Id
+router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
 
 
 // Роут на update

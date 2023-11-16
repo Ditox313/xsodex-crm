@@ -26,10 +26,10 @@ export const noMoreClientsFizList = createSelector(
 )
 
 
-// export const getCurrentPartnerSelector = createSelector(
-//     partnersFeatureSelector,
-//     (state: PartnersStateInterface) => state.currentPartner
-// )
+export const getCurrentClientFizSelector = createSelector(
+    clientsFizFeatureSelector,
+    (state: ClientFizStateInterface) => state.currentClientFiz
+)
 
 
 

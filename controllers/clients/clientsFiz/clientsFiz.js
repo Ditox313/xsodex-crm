@@ -124,14 +124,14 @@ module.exports.remove = async function (req, res) {
 
 
 // Контроллер для getById
-// module.exports.getById = async function (req, res) {
-//     try {
-//         const car = await Partner.findById(req.params.id); //Ищем категорию по id из переданных параметров
-//         res.status(200).json(car);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+module.exports.getById = async function (req, res) {
+    try {
+        const clientFiz = await ClientFiz.findById(req.params.id); //Ищем категорию по id из переданных параметров
+        res.status(200).json(clientFiz);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 

@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsFizService } from 'src/app/clients/services/clientsFiz/clientsFiz.service'
-import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, noMoreClientsFizListAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
+import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, noMoreClientsFizListAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
 
 
 
@@ -123,24 +123,24 @@ export class ClientsFizEffect {
 
 
 
-  // Получение текущего партнера
-  // getPartnerCar$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(partnerGetCurrent),
-  //     switchMap((id) => {
-  //       return this.partners.getById(id.id).pipe(
-  //         map((car) => {
-  //           return partnerGetCurrentSuccessAction({ data: car });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             partnerGetCurrentFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Получение текущего физического лица
+  getClientFizCurrent$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientFizGetCurrent),
+      switchMap((id) => {
+        return this.clientsFiz.getById(id.id).pipe(
+          map((clientFiz) => {
+            return clientFizGetCurrentSuccessAction({ data: clientFiz });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              clientFizGetCurrentFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
