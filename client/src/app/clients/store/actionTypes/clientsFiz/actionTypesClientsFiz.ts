@@ -22,4 +22,7 @@ export enum ActionTypes {
   UPDATE_CLIENT_FIZ = '[ClientsFiz] Update  clientFiz',
   UPDATE_CLIENT_FIZ_SUCCESS = '[ClientsFiz] Update clientFiz success',
   UPDATE_CLIENT_FIZ_FAILURE = '[ClientsFiz] Update clientFiz failure',
+  ADD_CLIENT_FIZ_DOGOVOR = '[ClientsFiz] Add clientFiz dogovor',
+  ADD_CLIENT_FIZ_DOGOVOR_SUCCESS = '[ClientsFiz] Add clientFiz dogovor success',
+  ADD_CLIENT_FIZ_DOGOVOR_FAILURE = '[ClientsFiz] Add clientFiz dogovor failure',
 }

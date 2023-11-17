@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsFizService } from 'src/app/clients/services/clientsFiz/clientsFiz.service'
-import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, noMoreClientsFizListAction, updateClientFizAction, updateClientFizFailureAction, updateClientFizSuccessAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
+import { addClientFizAction, addClientFizDogovorAction, addClientFizDogovorFailureAction, addClientFizDogovorSuccessAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, noMoreClientsFizListAction, updateClientFizAction, updateClientFizFailureAction, updateClientFizSuccessAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
 
 
 
@@ -161,6 +161,32 @@ export class ClientsFizEffect {
             this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
             return of(
               updateClientFizFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+
+  // Создание договора
+  addClientFizDogovor$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addClientFizDogovorAction),
+      switchMap(({ dogovor }) => {
+        return this.clientsFiz.create_dogovor(dogovor).pipe(
+          map((dogovor) => {
+            this.messageService.add({ severity: 'success', summary: `Договор создан`, detail: 'Успешно!' });
+            this.router.navigate([`/list-dogovors-clients-fiz/${dogovor.client}`]);
+            return addClientFizDogovorSuccessAction();
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              addClientFizDogovorFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

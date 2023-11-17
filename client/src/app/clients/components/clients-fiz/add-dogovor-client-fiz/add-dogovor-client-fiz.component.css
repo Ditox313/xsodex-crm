@@ -1,31 +1,15 @@
-.show-clientFiz {
-    padding: 50px 20px 0px 20px;
-    position: relative;
+.add-dogovor-clientFiz {
+    padding: 0 20px;
 }
 
 
-.show-clientFiz form>div {
+.add-dogovor-clientFiz form>div {
     margin-bottom: 40px;
 }
 
-.show_clientFiz_images {
-    display: flex;
-}
-
-.show_clientFiz_images>div {
-    margin-right: 50px;
-}
-
-.show_clientFiz_images>div:last-child {
-    margin-right: 0px;
-}
 
 
-.edit {
-    position: absolute;
-    top: -20px;
-    right: 20px;
-}
+
 
 
 label {
@@ -36,7 +20,7 @@ label {
 
 
 
-.show_clientFiz_inputs fieldset {
+.add_clientFiz_inputs fieldset {
     display: inline-flex;
     flex-direction: column;
     position: relative;
@@ -95,6 +79,7 @@ input {
     font-size: 16px;
     cursor: pointer;
     width: 200px;
+    height: 47px;
 }
 
 p-inputMask {
@@ -106,6 +91,11 @@ p-togglebutton {
     margin-right: 15px;
     margin-top: 15px;
 }
+
+/* p-togglebutton > div
+{
+    height: 45px !important;
+} */
 
 input::-webkit-datetime-edit-day-field:focus,
 input::-webkit-datetime-edit-month-field:focus,
@@ -146,54 +136,3 @@ button:disabled {
 }
 
 
-.show_clientFiz_images>div {
-    width: 310px;
-}
-
-
-.edit_active {
-    opacity: 0.4 !important;
-}
-
-.upload_btns {
-    display: flex;
-    align-items: center;
-}
-
-.show_clientFiz_images img {
-    margin-bottom: 10px;
-}
-
-
-.pdf_view {
-    background-color: #3B82F6;
-    height: 42px;
-    line-height: 42px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 17.5px;
-    margin-left: 10px;
-    border-radius: 6px;
-    color: #fff !important;
-    transition: all 0.3s;
-}
-
-.pdf_view:hover {
-    transition: all 0.3s;
-    opacity: 0.7;
-}
-
-.pdf_view i {
-    font-size: 18px;
-}
-
-.edit span
-{
-    color: #ffffff;
-    background: #3B82F6;
-    padding: 11px 15px;
-    display: inline-block;
-    border-radius: 6px;
-    cursor: pointer;
-}

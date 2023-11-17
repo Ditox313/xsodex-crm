@@ -1,7 +1,7 @@
 import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { ActionTypes } from '../../actionTypes/clientsFiz/actionTypesClientsFiz';
-import { ClientFiz, ClientsFizParamsFetch } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
+import { ClientFiz, ClientsFizParamsFetch, Dogovor } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
 
 
@@ -174,3 +174,23 @@ export const updateClientFizFailureAction = createAction(
   ActionTypes.UPDATE_CLIENT_FIZ_FAILURE,
   props<{ errors: any }>()
 )
+
+
+
+
+
+// Создать договор
+export const addClientFizDogovorAction = createAction(
+  ActionTypes.ADD_CLIENT_FIZ_DOGOVOR,
+  props<{ dogovor: Dogovor }>()
+);
+
+export const addClientFizDogovorSuccessAction = createAction(
+  ActionTypes.ADD_CLIENT_FIZ_DOGOVOR_SUCCESS,
+);
+
+
+export const addClientFizDogovorFailureAction = createAction(
+  ActionTypes.ADD_CLIENT_FIZ_DOGOVOR_FAILURE,
+  props<{ errors: any }>()
+);

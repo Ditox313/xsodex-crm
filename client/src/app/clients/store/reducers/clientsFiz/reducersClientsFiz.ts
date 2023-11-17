@@ -15,7 +15,7 @@ const initialState: ClientFizStateInterface = {
   validationErrors: null,
   clientsFizList: null,
   noMoreClientsFizList: true,
-  currentClientFiz: null
+  currentClientFiz: null,
 };
 
 

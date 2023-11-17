@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ClientFiz } from '../../types/clientsFiz/clientsFiz.interfaces';
+import { ClientFiz, Dogovor } from '../../types/clientsFiz/clientsFiz.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -142,4 +142,12 @@ export class ClientsFizService {
   delete(id: any): Observable<any> {
     return this.http.delete<any>(`/api/clientsFiz/clientFiz-remove/${id}`);
   }
+
+
+
+  // Создаем договор
+  create_dogovor(dogovor: Dogovor): Observable<Dogovor> {
+    return this.http.post<Dogovor>(`/api/clientsFiz/create_dogovor`, dogovor);
+  }
+
 }

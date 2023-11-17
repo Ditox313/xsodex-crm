@@ -55,3 +55,19 @@ export interface ClientsFizParamsFetch {
     offset: number | null,
     limit: number | null
 }
+
+
+
+
+// Интерфейс для договора
+export interface Dogovor {
+    _id?: string;
+    date_start: string;
+    dogovor_number: string;
+    date_end: string | null | undefined;
+    client: string | null | undefined;
+    administrator: string | null | undefined;
+    content: string;
+    state: string;
+    date?: string;
+}

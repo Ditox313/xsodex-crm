@@ -26,7 +26,8 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), controller.
 router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.update);
 
 
-
+// Роут на create dogovor
+router.post('/create_dogovor', passport.authenticate('jwt', { session: false }), controller.create_dogovor);
 
 
 module.exports = router;

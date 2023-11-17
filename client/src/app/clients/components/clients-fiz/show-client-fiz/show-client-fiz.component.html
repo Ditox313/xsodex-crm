@@ -13,51 +13,49 @@
                     <input pInputText id="fio" formControlName="fio" placeholder="Введите ФИО"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['fio'].invalid && form.controls['fio'].touched}"
                         style="width: 300px;" />
-
-
+        
+        
                     <div class="errorValidate" *ngIf="form.controls['fio'].invalid && form.controls['fio'].touched">
                         <p *ngIf="form.controls['fio'].errors && form.controls['fio'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-
+        
                 <fieldset>
                     <label htmlFor="passport_who_take">Дата рождения</label>
-                    <input type="date" pInputText id="date_birth" formControlName="date_birth"
-                        placeholder="Введите значение"
+                    <input type="date" pInputText id="date_birth" formControlName="date_birth" placeholder="Введите значение"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['date_birth'].invalid && form.controls['date_birth'].touched}" />
-
-
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['date_birth'].invalid && form.controls['date_birth'].touched">
-                        <p
-                            *ngIf="form.controls['date_birth'].errors && form.controls['date_birth'].errors['required']">
+                        <p *ngIf="form.controls['date_birth'].errors && form.controls['date_birth'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-
-
+        
+        
                 <fieldset>
                     <label htmlFor="status">Резидент</label>
-
+        
                     <p-toggleButton formControlName="resident" onLabel="Да" offLabel="Нет"></p-toggleButton>
-
+        
                 </fieldset>
-
+        
                 <fieldset>
                     <label htmlFor="passport_seria_number">Серия и номер паспорта</label>
-
-                    <p-inputMask *ngIf="this.form.value.resident" id="passport_seria_number" formControlName="passport_seria_number"
-                        placeholder="Серия и номер" mask="9999-999999"
+        
+                    <p-inputMask *ngIf="this.form.value.resident" id="passport_seria_number"
+                        formControlName="passport_seria_number" placeholder="Серия и номер" mask="9999-999999"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['passport_seria_number'].invalid && form.controls['passport_seria_number'].touched}"></p-inputMask>
-
+        
                     <input *ngIf="!this.form.value.resident" id="passport_seria_number" formControlName="passport_seria_number"
                         placeholder="Серия и номер"
-                        [ngClass]="{'ng-invalid ng-dirty': form.controls['passport_seria_number'].invalid && form.controls['passport_seria_number'].touched}"/>
-
-
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['passport_seria_number'].invalid && form.controls['passport_seria_number'].touched}" />
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['passport_seria_number'].invalid && form.controls['passport_seria_number'].touched">
                         <p
@@ -66,30 +64,28 @@
                         </p>
                     </div>
                 </fieldset>
-
+        
                 <fieldset>
                     <label htmlFor="passport_date">Дата выдачи паспорта</label>
                     <input type="date" pInputText id="passport_date" formControlName="passport_date"
                         placeholder="Введите значение"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['passport_date'].invalid && form.controls['passport_date'].touched}" />
-
-
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['passport_date'].invalid && form.controls['passport_date'].touched">
-                        <p
-                            *ngIf="form.controls['passport_date'].errors && form.controls['passport_date'].errors['required']">
+                        <p *ngIf="form.controls['passport_date'].errors && form.controls['passport_date'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-
+        
                 <fieldset>
                     <label htmlFor="passport_who_take">Кем выдан пасспорт</label>
-                    <input pInputText id="passport_who_take" formControlName="passport_who_take"
-                        placeholder="Введите значение"
+                    <input pInputText id="passport_who_take" formControlName="passport_who_take" placeholder="Введите значение"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['passport_who_take'].invalid && form.controls['passport_who_take'].touched}" />
-
-
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['passport_who_take'].invalid && form.controls['passport_who_take'].touched">
                         <p
@@ -98,14 +94,14 @@
                         </p>
                     </div>
                 </fieldset>
-
+        
                 <fieldset>
                     <label htmlFor="code_podrazdeleniya">Код подразделения</label>
                     <p-inputMask mask="999-999" id="code_podrazdeleniya" formControlName="code_podrazdeleniya"
                         placeholder="999-999"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['code_podrazdeleniya'].invalid && form.controls['code_podrazdeleniya'].touched}"></p-inputMask>
-
-
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['code_podrazdeleniya'].invalid && form.controls['code_podrazdeleniya'].touched">
                         <p
@@ -114,14 +110,13 @@
                         </p>
                     </div>
                 </fieldset>
-
+        
                 <fieldset>
                     <label htmlFor="passport_register">Регистрация</label>
-                    <input pInputText id="passport_register" formControlName="passport_register"
-                        placeholder="Введите значение"
+                    <input pInputText id="passport_register" formControlName="passport_register" placeholder="Введите значение"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['passport_register'].invalid && form.controls['passport_register'].touched}" />
-
-
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['passport_register'].invalid && form.controls['passport_register'].touched">
                         <p
@@ -130,30 +125,32 @@
                         </p>
                     </div>
                 </fieldset>
-
-
+        
+        
                 <fieldset>
                     <label htmlFor="passport_register">Фактический адрес</label>
-                    <input pInputText id="passport_address_fact" formControlName="passport_address_fact" placeholder="Введите значение"
+                    <input pInputText id="passport_address_fact" formControlName="passport_address_fact"
+                        placeholder="Введите значение"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['passport_address_fact'].invalid && form.controls['passport_address_fact'].touched}" />
-                
-                
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['passport_address_fact'].invalid && form.controls['passport_address_fact'].touched">
-                        <p *ngIf="form.controls['passport_address_fact'].errors && form.controls['passport_address_fact'].errors['required']">
+                        <p
+                            *ngIf="form.controls['passport_address_fact'].errors && form.controls['passport_address_fact'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-
-
+        
+        
                 <fieldset>
                     <label htmlFor="passport_seria_number">Серия и номер прав</label>
                     <p-inputMask id="prava_seria_number" formControlName="prava_seria_number" placeholder="Серия и номер прав"
                         mask="9999-999999"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['prava_seria_number'].invalid && form.controls['prava_seria_number'].touched}"></p-inputMask>
-                
-                
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['prava_seria_number'].invalid && form.controls['prava_seria_number'].touched">
                         <p
@@ -162,208 +159,216 @@
                         </p>
                     </div>
                 </fieldset>
-
-
-                 <fieldset>
+        
+        
+                <fieldset>
                     <label htmlFor="prava_date">Дата выдачи прав</label>
-                    <input type="date" pInputText id="prava_date" formControlName="prava_date"
-                        placeholder="Введите значение"
+                    <input type="date" pInputText id="prava_date" formControlName="prava_date" placeholder="Введите значение"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['prava_date'].invalid && form.controls['prava_date'].touched}" />
-
-
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['prava_date'].invalid && form.controls['prava_date'].touched">
-                        <p
-                            *ngIf="form.controls['prava_date'].errors && form.controls['prava_date'].errors['required']">
+                        <p *ngIf="form.controls['prava_date'].errors && form.controls['prava_date'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-
-
-                
-
+        
+        
+        
+        
                 <fieldset>
                     <label htmlFor="phone_1">Телефон(Основной)</label>
-
-                    <p-inputMask mask="+7(999)-999-99-99" id="phone_1" formControlName="phone_1"
-                        placeholder="+7(999)999-99-99"
+        
+                    <p-inputMask mask="+7(999)-999-99-99" id="phone_1" formControlName="phone_1" placeholder="+7(999)999-99-99"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['phone_1'].invalid && form.controls['phone_1'].touched}"></p-inputMask>
-
-
-
-                    <div class="errorValidate"
-                        *ngIf="form.controls['phone_1'].invalid && form.controls['phone_1'].touched">
+        
+        
+        
+                    <div class="errorValidate" *ngIf="form.controls['phone_1'].invalid && form.controls['phone_1'].touched">
                         <p *ngIf="form.controls['phone_1'].errors && form.controls['phone_1'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-
+        
                 <fieldset>
                     <label htmlFor="phone_2_dop_name">Доп.телефон №2 - имя</label>
-
+        
                     <input pInputText id="phone_2_dop_name" formControlName="phone_2_dop_name" placeholder="Введите значение"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['phone_2_dop_name'].invalid && form.controls['phone_2_dop_name'].touched}" />
-
-
-
+        
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['phone_2_dop_name'].invalid && form.controls['phone_2_dop_name'].touched">
-                        <p *ngIf="form.controls['phone_2_dop_name'].errors && form.controls['phone_2_dop_name'].errors['required']">
+                        <p
+                            *ngIf="form.controls['phone_2_dop_name'].errors && form.controls['phone_2_dop_name'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-
-
+        
+        
                 <fieldset>
                     <label htmlFor="phone_2_dop_number">Доп.телефон №2 </label>
-                
-                    <p-inputMask mask="+7(999)-999-99-99" id="phone_2_dop_number" formControlName="phone_2_dop_number" placeholder="+7(999)999-99-99"
+        
+                    <p-inputMask mask="+7(999)-999-99-99" id="phone_2_dop_number" formControlName="phone_2_dop_number"
+                        placeholder="+7(999)999-99-99"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['phone_2_dop_number'].invalid && form.controls['phone_2_dop_number'].touched}"></p-inputMask>
-                
-                
-                
-                    <div class="errorValidate" *ngIf="form.controls['phone_2_dop_number'].invalid && form.controls['phone_2_dop_number'].touched">
-                        <p *ngIf="form.controls['phone_2_dop_number'].errors && form.controls['phone_2_dop_number'].errors['required']">
+        
+        
+        
+                    <div class="errorValidate"
+                        *ngIf="form.controls['phone_2_dop_number'].invalid && form.controls['phone_2_dop_number'].touched">
+                        <p
+                            *ngIf="form.controls['phone_2_dop_number'].errors && form.controls['phone_2_dop_number'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-
-
+        
+        
                 <fieldset>
                     <label htmlFor="phone_3_dop_name">Доп.телефон №3 - имя</label>
-                
+        
                     <input pInputText id="phone_3_dop_name" formControlName="phone_3_dop_name" placeholder="Введите значение"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['phone_3_dop_name'].invalid && form.controls['phone_3_dop_name'].touched}" />
-                
-                
-                
+        
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['phone_3_dop_name'].invalid && form.controls['phone_3_dop_name'].touched">
-                        <p *ngIf="form.controls['phone_3_dop_name'].errors && form.controls['phone_3_dop_name'].errors['required']">
+                        <p
+                            *ngIf="form.controls['phone_3_dop_name'].errors && form.controls['phone_3_dop_name'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-                
-                
+        
+        
                 <fieldset>
                     <label htmlFor="phone_3_dop_number">Доп.телефон №3 </label>
-                
+        
                     <p-inputMask mask="+7(999)-999-99-99" id="phone_3_dop_number" formControlName="phone_3_dop_number"
                         placeholder="+7(999)999-99-99"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['phone_3_dop_number'].invalid && form.controls['phone_3_dop_number'].touched}"></p-inputMask>
-                
-                
-                
+        
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['phone_3_dop_number'].invalid && form.controls['phone_3_dop_number'].touched">
-                        <p *ngIf="form.controls['phone_3_dop_number'].errors && form.controls['phone_3_dop_number'].errors['required']">
+                        <p
+                            *ngIf="form.controls['phone_3_dop_number'].errors && form.controls['phone_3_dop_number'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-
-
+        
+        
                 <fieldset>
                     <label htmlFor="phone_4_dop_name">Доп.телефон №4 - имя</label>
-                
+        
                     <input pInputText id="phone_4_dop_name" formControlName="phone_4_dop_name" placeholder="Введите значение"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['phone_4_dop_name'].invalid && form.controls['phone_4_dop_name'].touched}" />
-                
-                
-                
+        
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['phone_4_dop_name'].invalid && form.controls['phone_4_dop_name'].touched">
-                        <p *ngIf="form.controls['phone_4_dop_name'].errors && form.controls['phone_4_dop_name'].errors['required']">
+                        <p
+                            *ngIf="form.controls['phone_4_dop_name'].errors && form.controls['phone_4_dop_name'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-                
-                
+        
+        
                 <fieldset>
                     <label htmlFor="phone_4_dop_number">Доп.телефон №4 </label>
-                
+        
                     <p-inputMask mask="+7(999)-999-99-99" id="phone_4_dop_number" formControlName="phone_4_dop_number"
                         placeholder="+7(999)999-99-99"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['phone_4_dop_number'].invalid && form.controls['phone_4_dop_number'].touched}"></p-inputMask>
-                
-                
-                
+        
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['phone_4_dop_number'].invalid && form.controls['phone_4_dop_number'].touched">
-                        <p *ngIf="form.controls['phone_4_dop_number'].errors && form.controls['phone_4_dop_number'].errors['required']">
+                        <p
+                            *ngIf="form.controls['phone_4_dop_number'].errors && form.controls['phone_4_dop_number'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-
-
-
+        
+        
+        
                 <fieldset>
                     <label htmlFor="phone_5_dop_name">Доп.телефон №5 - имя</label>
-                
+        
                     <input pInputText id="phone_5_dop_name" formControlName="phone_5_dop_name" placeholder="Введите значение"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['phone_5_dop_name'].invalid && form.controls['phone_5_dop_name'].touched}" />
-                
-                
-                
+        
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['phone_5_dop_name'].invalid && form.controls['phone_5_dop_name'].touched">
-                        <p *ngIf="form.controls['phone_5_dop_name'].errors && form.controls['phone_5_dop_name'].errors['required']">
+                        <p
+                            *ngIf="form.controls['phone_5_dop_name'].errors && form.controls['phone_5_dop_name'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
-                
-                
+        
+        
                 <fieldset>
                     <label htmlFor="phone_5_dop_number">Доп.телефон №5 </label>
-                
+        
                     <p-inputMask mask="+7(999)-999-99-99" id="phone_5_dop_number" formControlName="phone_5_dop_number"
                         placeholder="+7(999)999-99-99"
                         [ngClass]="{'ng-invalid ng-dirty': form.controls['phone_5_dop_number'].invalid && form.controls['phone_5_dop_number'].touched}"></p-inputMask>
-                
-                
-                
+        
+        
+        
                     <div class="errorValidate"
                         *ngIf="form.controls['phone_5_dop_number'].invalid && form.controls['phone_5_dop_number'].touched">
-                        <p *ngIf="form.controls['phone_5_dop_number'].errors && form.controls['phone_5_dop_number'].errors['required']">
+                        <p
+                            *ngIf="form.controls['phone_5_dop_number'].errors && form.controls['phone_5_dop_number'].errors['required']">
                             Поле не должно быть пустым
                         </p>
                     </div>
                 </fieldset>
             </div>
-
+        
             <div class="show_clientFiz_images">
-                <div class="file_1" >
+                <div class="file_1">
                     <img [src]="[file_1]" alt="Изображение" *ngIf="!this.isPDF(file_1, '.pdf')">
-
+        
                     <div *ngIf="this.isPDF(file_1, '.pdf')">
-                        <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg" alt="Изображение" >
+                        <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg"
+                            alt="Изображение">
                     </div>
-                    
-
+        
+        
                     <div class="upload_btns">
                         <input type="file" class="dn" #upload_1 (change)="onFile1Upload($event)">
                         <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
                             (click)="onFile1UploadClick()"></p-button>
-
+        
                         <a href="{{file_1}}" target="_blank" *ngIf="this.isPDF(file_1, '.pdf')" class="pdf_view">
                             <i class="pi pi-eye"></i>
                         </a>
                     </div>
-
+        
                 </div>
-
+        
                 <div class="file_2">
                     <img [src]="[file_2]" alt="Изображение" *ngIf="!this.isPDF(file_2, '.pdf')">
-                    <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg" alt="Изображение" *ngIf="this.isPDF(file_2, '.pdf')">
-
+                    <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg"
+                        alt="Изображение" *ngIf="this.isPDF(file_2, '.pdf')">
+        
                     <div class="upload_btns">
                         <input type="file" class="dn" #upload_2 (change)="onFile2Upload($event)">
                         <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
@@ -373,13 +378,13 @@
                         </a>
                     </div>
                 </div>
-
-
+        
+        
                 <div class="file_3">
                     <img [src]="[file_3]" alt="Изображение" *ngIf="!this.isPDF(file_3, '.pdf')">
-                    <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg" alt="Изображение"
-                        *ngIf="this.isPDF(file_3, '.pdf')">
-                
+                    <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg"
+                        alt="Изображение" *ngIf="this.isPDF(file_3, '.pdf')">
+        
                     <div class="upload_btns">
                         <input type="file" class="dn" #upload_3 (change)="onFile3Upload($event)">
                         <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
@@ -389,13 +394,13 @@
                         </a>
                     </div>
                 </div>
-
-
+        
+        
                 <div class="file_4">
                     <img [src]="[file_4]" alt="Изображение" *ngIf="!this.isPDF(file_4, '.pdf')">
-                    <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg" alt="Изображение"
-                        *ngIf="this.isPDF(file_4, '.pdf')">
-                
+                    <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg"
+                        alt="Изображение" *ngIf="this.isPDF(file_4, '.pdf')">
+        
                     <div class="upload_btns">
                         <input type="file" class="dn" #upload_4 (change)="onFile4Upload($event)">
                         <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
@@ -407,11 +412,13 @@
                 </div>
             </div>
         </div>
-
+        
         <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
     </form>
 
     <div class="edit" (click)="initEdit()" [ngClass]="{edit_active: edit}">
+        <span [routerLink]="['/list-dogovors-clients-fiz', clientFizId]" style="margin-right: 20px;">Договоры</span>
+
         <p-button icon="pi pi-pencil" styleClass="p-button-sm"></p-button>
     </div>
 </div>

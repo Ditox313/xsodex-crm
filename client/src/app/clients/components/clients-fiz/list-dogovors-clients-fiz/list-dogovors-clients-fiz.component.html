@@ -1,0 +1,43 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector | async"></loader>
+
+
+<div class="clientFizListDogovors" *ngIf="clientFizListDogovors">
+    <p-table [value]="clientFizListDogovors" styleClass="p-datatable-gridlines list_table"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="add_new" [routerLink]="['/add-dogovor-client-fiz', clientFizId]">
+                <p-button icon="pi pi-plus"></p-button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Номер договора</th>
+                <th>Дата начала</th>
+                <th>Дата окончания</th>
+                <th>Статус</th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-clientFizDogovor>
+            <tr [routerLink]="['/show-client-fiz-dogovor',clientFizDogovor._id]">
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td style="cursor: pointer; text-align: center;" (click)="onDeleteClientFizDogovor($event, clientFizDogovor)"><i
+                        class="pi pi-trash"></i></td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <div *ngIf="clientFizListDogovors.length === 0" class="noMoreClientFizListDogovors">
+        <h2>Нет договоров...</h2>
+    </div>
+
+    <div class="btn">
+        <p-button label="Загрузить еще..." *ngIf="!(noMoreClientFizListDogovors | async)" (click)="loadmore()"></p-button>
+    </div>
+</div>
