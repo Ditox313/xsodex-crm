@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { isLoadingSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
-import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
+import { clientFizDogovorDeleteAction, clientFizDogovorsListAction, clientFizDogovorsListResetAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { clientsFizDogovorsListSelector, isLoadingSelector, noMoreClientDogovorsFizList } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
+import { ClientFiz, ClientFizDogovorsParamsFetch, Dogovor } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
 @Component({
   selector: 'app-list-dogovors-clients-fiz',
@@ -42,8 +43,8 @@ export class ListDogovorsClientsFizComponent {
       this.getParamsSub$.unsubscribe();
     }
 
-    // Отчищаем состояние clientsFizList если не хотим сохранять список авто  в состояние
-    // this.store.dispatch(clientsFizListResetAction());
+    // Отчищаем состояние clientsFizList Dogovors если не хотим сохранять список авто  в состояние
+    this.store.dispatch(clientFizDogovorsListResetAction());
   }
 
   getParams() {
@@ -53,51 +54,52 @@ export class ListDogovorsClientsFizComponent {
   }
 
   initValues() {
-    // Отчищаем состояние перед запросом на получение списка физических лиц
-    // this.store.dispatch(clientsFizListResetAction());
 
+    // Отчищаем состояние clientsFizList Dogovors если не хотим сохранять список авто  в состояние
+    // this.store.dispatch(clientFizDogovorsListResetAction());
 
     // Получаем селектор loader
     this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))
 
 
-    // Получаем селектор noMoreClientsFizList
-    // this.noMoreClientsFizList = this.store.pipe(select(noMoreClientsFizList))
+    // Получаем селектор noMoreClientsFizDogovorsList
+    this.noMoreClientFizListDogovors = this.store.pipe(select(noMoreClientDogovorsFizList))
 
 
 
 
-    // Получаем селектор на получение списка физических лиц и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
+    // Получаем селектор на получение списка и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
     // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
-    // this.clientsFizListSelector = this.store.pipe(select(clientsFizListSelector))
-    // this.clientsFizListSub$ = this.clientsFizListSelector.subscribe({
-    //   next: (clientsFizList) => {
-    //     if (clientsFizList) {
-    //       this.clientsFizList = clientsFizList;
+    this.clientFizListDogovorsSelector = this.store.pipe(select(clientsFizDogovorsListSelector))
+    this.clientFizListDogovorsSub$ = this.clientFizListDogovorsSelector.subscribe({
+      next: (clientsFizDogovorsList) => {
+        if (clientsFizDogovorsList) {
+          this.clientFizListDogovors = clientsFizDogovorsList;
 
 
-    //       if (this.clientsFizList.length >= this.STEP) {
-    //         // Изменяем значение noMoreClientsFizList в состоянии на false что бы открыть кнопку загрузить ещё
-    //         this.store.dispatch(noMoreClientsFizListFalseAction());
-    //       }
-    //       else {
-    //         // Изменяем значение noMoreClientsFizList в состоянии на true что бы скрыть кнопку загрузить ещё
-    //         this.store.dispatch(noMoreClientsFizListTrueAction());
-    //       }
-    //     }
-    //   }
-    // });
+          if (this.clientFizListDogovors.length >= this.STEP) {
+            // Изменяем значение noMoreClientsFizList в состоянии на false что бы открыть кнопку загрузить ещё
+            this.store.dispatch(noMoreClientsFizListFalseAction());
+          }
+          else {
+            // Изменяем значение noMoreClientsFizList в состоянии на true что бы скрыть кнопку загрузить ещё
+            this.store.dispatch(noMoreClientsFizListTrueAction());
+          }
+        }
+      }
+    });
   }
 
 
   getClientFizListDogovors() {
-    // const params: ClientsFizParamsFetch = {
-    //   offset: this.offset,
-    //   limit: this.limit,
-    // };
+    const params: ClientFizDogovorsParamsFetch = {
+      offset: this.offset,
+      limit: this.limit,
+      clientId: this.clientFizId
+    };
 
     // // Отправляем запрос на получения списка физических лиц
-    // this.store.dispatch(clientsFizListAction({ params: params }));
+    this.store.dispatch(clientFizDogovorsListAction({ params: params }));
   }
 
 
@@ -109,12 +111,12 @@ export class ListDogovorsClientsFizComponent {
 
 
   // Удаление физического лица
-  onDeleteClientFizDogovor(event: Event, clientFiz: ClientFiz) {
+  onDeleteClientFizDogovor(event: Event, clientFizDogovor: Dogovor) {
     event.stopPropagation();
-    const dicision = window.confirm(`Удалить клиента?`);
+    const dicision = window.confirm(`Удалить договор?`);
 
     if (dicision) {
-      // this.store.dispatch(clientFizDeleteAction({ id: clientFiz._id }))
+      this.store.dispatch(clientFizDogovorDeleteAction({ id: clientFizDogovor._id }))
     }
   }
 }

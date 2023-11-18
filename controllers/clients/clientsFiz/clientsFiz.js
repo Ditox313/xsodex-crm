@@ -249,3 +249,45 @@ module.exports.create_dogovor = async function (req, res) {
         errorHandler(res, e);
     }
 };
+
+
+
+
+
+
+// Получаем список договоров для клиента
+module.exports.get_all_dogovorsById = async function (req, res) {
+    try {
+        // Получите список договоров для клиента из базы данных или другого источника данных
+        // const dogovors = await Dogovor.find({ client: req.params.id });
+
+        const dogovors = await Dogovor.find({ client: req.params.id }).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+        // Верните список договоров в ответе
+        res.status(200).json(dogovors);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
+
+// Контроллер для remove
+module.exports.remove_dogovor = async function (req, res) {
+    try {
+
+        // Удаляем договор
+        const result = await Dogovor.deleteOne({ _id: req.params.id });
+        if (result.deletedCount === 1) {
+            res.status(200).json(req.params.id);
+        } else {
+            res.status(200).json('Ошибка удаления');
+        }
+
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};

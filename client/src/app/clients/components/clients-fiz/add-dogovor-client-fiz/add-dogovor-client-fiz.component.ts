@@ -11,7 +11,7 @@ import { getCurrentClientFizSelector, isLoadingSelector } from 'src/app/clients/
 import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
 
-// Для корректной работы необходимо установить отдельный пакет типов для каждой библиотеки и в tsconfig в compilerOptions 
+// Для корректной работы необходимо установить отдельный пакет типов для каждой библиотеки(см ошибку) и в tsconfig в compilerOptions 
 // добавить "allowSyntheticDefaultImports": true,
 import * as pdfMake from "pdfmake/build/pdfmake";
 import * as  pdfFonts from "pdfmake/build/vfs_fonts";

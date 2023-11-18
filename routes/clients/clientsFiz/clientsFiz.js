@@ -30,4 +30,13 @@ router.patch('/update/:id', passport.authenticate('jwt', { session: false }), up
 router.post('/create_dogovor', passport.authenticate('jwt', { session: false }), controller.create_dogovor);
 
 
+
+// Роут на получение всех договоров
+router.get('/get_all_dogovors/:id', passport.authenticate('jwt', { session: false }), controller.get_all_dogovorsById);
+
+
+//Роут на удаление договора
+router.delete('/clientFizDogovor-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove_dogovor);
+
+
 module.exports = router;

@@ -27,6 +27,7 @@ import { ListClientsFizComponent } from './components/clients-fiz/list-clients-f
 import { ShowClientFizComponent } from './components/clients-fiz/show-client-fiz/show-client-fiz.component';
 import { ListDogovorsClientsFizComponent } from './components/clients-fiz/list-dogovors-clients-fiz/list-dogovors-clients-fiz.component';
 import { AddDogovorClientFizComponent } from './components/clients-fiz/add-dogovor-client-fiz/add-dogovor-client-fiz.component';
+import { ShowDogovorClientFizComponent } from './components/clients-fiz/show-dogovor-client-fiz/show-dogovor-client-fiz.component';
 
 
 
@@ -37,7 +38,8 @@ import { AddDogovorClientFizComponent } from './components/clients-fiz/add-dogov
     ListClientsFizComponent,
     ShowClientFizComponent,
     ListDogovorsClientsFizComponent,
-    AddDogovorClientFizComponent
+    AddDogovorClientFizComponent,
+    ShowDogovorClientFizComponent
   ],
   imports: [
     CommonModule,

@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsFizService } from 'src/app/clients/services/clientsFiz/clientsFiz.service'
-import { addClientFizAction, addClientFizDogovorAction, addClientFizDogovorFailureAction, addClientFizDogovorSuccessAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, noMoreClientsFizListAction, updateClientFizAction, updateClientFizFailureAction, updateClientFizSuccessAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
+import { addClientFizAction, addClientFizDogovorAction, addClientFizDogovorFailureAction, addClientFizDogovorSuccessAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizDogovorDeleteAction, clientFizDogovorDeleteFailureAction, clientFizDogovorDeleteSuccessAction, clientFizDogovorsListAction, clientFizDogovorsListFailureAction, clientFizDogovorsListSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, noMoreClientFizDogovorsListAction, noMoreClientsFizListAction, updateClientFizAction, updateClientFizFailureAction, updateClientFizSuccessAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
 
 
 
@@ -82,11 +82,11 @@ export class ClientsFizEffect {
       switchMap((id) => {
         return this.clientsFiz.delete(id.id).pipe(
           map((id) => {
-            this.messageService.add({ severity: 'success', summary: `Партнер удален`, detail: 'Успешно!' });
+            this.messageService.add({ severity: 'success', summary: `Клиент удален`, detail: 'Успешно!' });
             return clientFizDeleteSuccessAction({ data: id });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
-            this.messageService.add({ severity: 'error', summary: `Ошибка удаления партнера`, detail: 'Попробуйте позже!' });
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления клиента`, detail: 'Попробуйте позже!' });
             return of(
               clientFizDeleteFailureAction({ errors: errorResponse.error.errors })
             );
@@ -193,6 +193,62 @@ export class ClientsFizEffect {
       })
     )
   );
+
+
+
+
+
+
+
+
+
+  // Получение всех договоров для физлица
+  clientFizDogovorsList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientFizDogovorsListAction),
+      concatMap((params) => {
+        return this.clientsFiz.get_all_dogovors({ params }).pipe(
+          concatMap((clientsFizDogovorsList) => {
+            if (clientsFizDogovorsList.length === 0) {
+              return of(noMoreClientFizDogovorsListAction({ data: true }));
+            }
+            return of(clientFizDogovorsListSuccessAction({ data: clientsFizDogovorsList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              clientFizDogovorsListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+  // Удаление договора
+  clientFizDogovorDelete$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientFizDogovorDeleteAction),
+      switchMap((id) => {
+        return this.clientsFiz.delete_dogovor(id.id).pipe(
+          map((id) => {
+            this.messageService.add({ severity: 'success', summary: `Договор удален`, detail: 'Успешно!' });
+            return clientFizDogovorDeleteSuccessAction({ data: id });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления договора`, detail: 'Попробуйте позже!' });
+            return of(
+              clientFizDogovorDeleteFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
 
 
 

@@ -1,7 +1,7 @@
 import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { ActionTypes } from '../../actionTypes/clientsFiz/actionTypesClientsFiz';
-import { ClientFiz, ClientsFizParamsFetch, Dogovor } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
+import { ClientFiz, ClientFizDogovorsParamsFetch, ClientsFizParamsFetch, Dogovor } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
 
 
@@ -192,5 +192,73 @@ export const addClientFizDogovorSuccessAction = createAction(
 
 export const addClientFizDogovorFailureAction = createAction(
   ActionTypes.ADD_CLIENT_FIZ_DOGOVOR_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+
+
+
+// ClientsFiz Dogovors List
+export const clientFizDogovorsListAction = createAction(
+  ActionTypes.CLIENT_FIZ_DOGOVORS_LIST,
+  props<{ params: ClientFizDogovorsParamsFetch }>()
+);
+
+
+export const clientFizDogovorsListSuccessAction = createAction(
+  ActionTypes.CLIENT_FIZ_DOGOVORS_LIST_SUCCES,
+  props<{ data: Dogovor[] }>()
+);
+
+
+export const clientFizDogovorsListFailureAction = createAction(
+  ActionTypes.CLIENT_FIZ_DOGOVORS_LIST_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const clientFizDogovorsListResetAction = createAction(
+  ActionTypes.CLIENT_FIZ_DOGOVORS_LIST_RESET,
+);
+
+
+
+
+
+
+// No more ClientsFiz Dogovors List
+export const noMoreClientFizDogovorsListAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_FIZ_LIST,
+  props<{ data: boolean }>()
+);
+
+export const noMoreClientFizDogovorsListFalseAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_FIZ_LIST_FALSE,
+);
+
+export const noMoreClientFizDogovorsListTrueAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_FIZ_LIST_TRUE,
+);
+
+
+
+
+
+// Delete dogovor
+export const clientFizDogovorDeleteAction = createAction(
+  ActionTypes.CLIENT_FIZ_DOGOVOR_DELETE,
+  props<{ id: string | undefined }>()
+);
+
+
+export const clientFizDogovorDeleteSuccessAction = createAction(
+  ActionTypes.CLIENT_FIZ_DOGOVOR_DELETE_SUCCES,
+  props<{ data: string }>()
+);
+
+
+export const clientFizDogovorDeleteFailureAction = createAction(
+  ActionTypes.CLIENT_FIZ_DOGOVOR_DELETE_FAILURE,
   props<{ errors: any }>()
 );

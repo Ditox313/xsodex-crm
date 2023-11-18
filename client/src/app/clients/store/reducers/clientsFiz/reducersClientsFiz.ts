@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { ClientFizStateInterface } from '../../../types/clientsFiz/clientsFiz.interfaces';
-import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentReset, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListResetAction, clientsFizListSuccessAction, noMoreClientsFizListAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action';
+import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizDogovorDeleteAction, clientFizDogovorDeleteFailureAction, clientFizDogovorDeleteSuccessAction, clientFizDogovorsListAction, clientFizDogovorsListFailureAction, clientFizDogovorsListResetAction, clientFizDogovorsListSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentReset, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListResetAction, clientsFizListSuccessAction, noMoreClientFizDogovorsListAction, noMoreClientFizDogovorsListFalseAction, noMoreClientFizDogovorsListTrueAction, noMoreClientsFizListAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action';
 
 
 
@@ -16,6 +16,8 @@ const initialState: ClientFizStateInterface = {
   clientsFizList: null,
   noMoreClientsFizList: true,
   currentClientFiz: null,
+  dogovorsList: null,
+  noMoreClientsFizDogovorsList: true,
 };
 
 
@@ -168,7 +170,9 @@ const clientsFizReducer = createReducer(
       validationErrors: action.data.clientsFiz.validationErrors,
       clientsFizList: action.data.clientsFiz.clientsFizList ,
       noMoreClientsFizList: action.data.clientsFiz.noMoreClientsFizList,
-      currentClientFiz: action.data.clientsFiz.currentClientFiz
+      noMoreClientsFizDogovorsList: action.data.clientsFiz.noMoreClientsFizDogovorsList,
+      currentClientFiz: action.data.clientsFiz.currentClientFiz,
+      dogovorsList: action.data.clientsFiz.dogovorsList,
     }),
   ),
   on(
@@ -216,6 +220,104 @@ const clientsFizReducer = createReducer(
     (state): ClientFizStateInterface => ({
       ...state,
       currentClientFiz: null
+    })
+  ),
+
+
+
+
+
+
+
+
+  on(
+    clientFizDogovorsListAction,
+    (state): ClientFizStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    clientFizDogovorsListSuccessAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      dogovorsList: state.dogovorsList ? [...state.dogovorsList, ...action.data] : action.data,
+    })
+  ),
+  on(
+    clientFizDogovorsListFailureAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    clientFizDogovorsListResetAction,
+    (state): ClientFizStateInterface => ({
+      ...state,
+      dogovorsList: null,
+    })
+  ),
+  on(
+    noMoreClientFizDogovorsListAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      noMoreClientsFizDogovorsList: action.data,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreClientFizDogovorsListFalseAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      noMoreClientsFizDogovorsList: false,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreClientFizDogovorsListTrueAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      noMoreClientsFizDogovorsList: true,
+      isLoading: false,
+    })
+  ),
+
+
+
+
+
+
+  on(
+    clientFizDogovorDeleteAction,
+    (state): ClientFizStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    clientFizDogovorDeleteSuccessAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentClientFiz: null,
+      dogovorsList: state.dogovorsList ? state.dogovorsList.filter((item: { _id: string; }) => item._id !== action.data) : state.dogovorsList,
+    })
+  ),
+  on(
+    clientFizDogovorDeleteFailureAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
     })
   ),
 

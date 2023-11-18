@@ -57,6 +57,8 @@ export class ShowClientFizComponent {
     //Отчищаем состояние currentClientFiz
     this.store.dispatch(clientFizGetCurrentReset());
 
+    
+
   }
 
 

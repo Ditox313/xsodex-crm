@@ -23,10 +23,11 @@
 
         <ng-template pTemplate="body" let-clientFizDogovor>
             <tr [routerLink]="['/show-client-fiz-dogovor',clientFizDogovor._id]">
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
+                <td>{{clientFizDogovor.dogovor_number}}</td>
+                <td>{{clientFizDogovor.date_start}}</td>
+                <td>{{clientFizDogovor.date_end}}</td>
+                <td *ngIf="clientFizDogovor.state === 'active'">Активный</td>
+                <td *ngIf="clientFizDogovor.state !== 'active'">Истек</td>
                 <td style="cursor: pointer; text-align: center;" (click)="onDeleteClientFizDogovor($event, clientFizDogovor)"><i
                         class="pi pi-trash"></i></td>
             </tr>

@@ -138,7 +138,7 @@ export class ClientsFizService {
    }
 
 
-  // Удаление
+  // Удаление физлица
   delete(id: any): Observable<any> {
     return this.http.delete<any>(`/api/clientsFiz/clientFiz-remove/${id}`);
   }
@@ -148,6 +148,23 @@ export class ClientsFizService {
   // Создаем договор
   create_dogovor(dogovor: Dogovor): Observable<Dogovor> {
     return this.http.post<Dogovor>(`/api/clientsFiz/create_dogovor`, dogovor);
+  }
+
+
+
+  // Получить все договоры
+  get_all_dogovors(params: any = {}): Observable<any> {
+    return this.http.get<any>(`/api/clientsFiz/get_all_dogovors/${params.params.params.clientId}`, {
+      params: new HttpParams({
+        fromObject: params.params.params
+      })
+    });
+  }
+
+
+  // Удаление договора
+  delete_dogovor(id: any): Observable<any> {
+    return this.http.delete<any>(`/api/clientsFiz/clientFizDogovor-remove/${id}`);
   }
 
 }

@@ -43,8 +43,10 @@ export interface ClientFizStateInterface {
     isLoading: boolean,
     validationErrors?: any,
     clientsFizList?: ClientFiz[] | null | undefined | any,
-    noMoreClientsFizList: boolean
+    noMoreClientsFizList: boolean,
+    noMoreClientsFizDogovorsList: boolean,
     currentClientFiz: ClientFiz | null | undefined | any,
+    dogovorsList: Dogovor | null | undefined | any
 }
 
 
@@ -70,4 +72,14 @@ export interface Dogovor {
     content: string;
     state: string;
     date?: string;
+}
+
+
+
+
+// Интерфейс для клиентов запроса на получение всех договоров
+export interface ClientFizDogovorsParamsFetch {
+    offset: number | null,
+    limit: number | null,
+    clientId?: string | null
 }

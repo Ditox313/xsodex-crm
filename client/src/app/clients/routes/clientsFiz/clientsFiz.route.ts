@@ -7,6 +7,7 @@ import { ListClientsFizComponent } from "../../components/clients-fiz/list-clien
 import { ShowClientFizComponent } from "../../components/clients-fiz/show-client-fiz/show-client-fiz.component";
 import { ListDogovorsClientsFizComponent } from "../../components/clients-fiz/list-dogovors-clients-fiz/list-dogovors-clients-fiz.component";
 import { AddDogovorClientFizComponent } from "../../components/clients-fiz/add-dogovor-client-fiz/add-dogovor-client-fiz.component";
+import { ShowDogovorClientFizComponent } from "../../components/clients-fiz/show-dogovor-client-fiz/show-dogovor-client-fiz.component";
 
 
 
@@ -39,6 +40,10 @@ export function getRoutesClientsFiz(): Route[] {
                 {
                     path: 'add-dogovor-client-fiz/:id',
                     component: AddDogovorClientFizComponent,
+                },
+                {
+                    path: 'show-client-fiz/:id/:id',
+                    component: ShowDogovorClientFizComponent,
                 },
             ],
         },
