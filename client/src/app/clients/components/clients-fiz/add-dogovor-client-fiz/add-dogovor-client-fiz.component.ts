@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
@@ -10,8 +10,14 @@ import { addClientFizDogovorAction, clientFizGetCurrent } from 'src/app/clients/
 import { getCurrentClientFizSelector, isLoadingSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
 import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
-import { jsPDF } from 'jspdf'
-import html2canvas from 'html2canvas';
+
+// Для корректной работы необходимо установить отдельный пакет типов для каждой библиотеки и в tsconfig в compilerOptions 
+// добавить "allowSyntheticDefaultImports": true,
+import * as pdfMake from "pdfmake/build/pdfmake";
+import * as  pdfFonts from "pdfmake/build/vfs_fonts";
+(pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
+import htmlToPdfmake from "html-to-pdfmake"
+
 
 
 
@@ -40,7 +46,7 @@ export class AddDogovorClientFizComponent {
 
 
 
-  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute,) { }
+  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute, private renderer: Renderer2) { }
 
 
   ngOnInit(): void {
@@ -108,44 +114,18 @@ export class AddDogovorClientFizComponent {
 
   // Генерируем PDF
  generatePDF() {
+   var html = htmlToPdfmake(this.content.nativeElement.innerHTML);
 
+   if (this.currentClientFiz)
+   {
+     let docDefinition = {
+       content: [html],
+       filename: 'Договор для клиента' + this.currentClientFiz.surname + '-' + this.currentClientFiz.name + '-' + this.currentClientFiz.lastname + '.pdf'
+     };
 
-   let pdfData = new jsPDF('p', 'mm', 'a4');
-
-   // Получение HTML-кода из элемента data
-   let htmlContent = this.content.nativeElement;
-
-   // Создание PDF из HTML-кода
-   pdfData.html(htmlContent, {
-     callback: function (pdf) {
-       pdf.save(`Договор автопроката 'd-M-y')}.pdf`);
-     }
-   });
-
-  //  let data = this.content.nativeElement;
-
-   
-
-  //  html2canvas(data as any, { scale: 2 }).then(canvas => {
-  //    var imgWidth = 210;
-  //    var imgHeight = canvas.height * imgWidth / canvas.width;
-  //    const contentDataURL = canvas.toDataURL('image/png');
-  //    let pdfData = new jsPDF('p', 'mm', 'a4');
-  //    var position = 0;
-  //    pdfData.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-
-  //    // Проверка, есть ли еще страницы и добавление их в PDF
-  //    var totalPages = Math.ceil(canvas.height / pdfData.internal.pageSize.getHeight());
-  //    for (var i = 1; i < totalPages; i++) {
-  //      position = -(pdfData.internal.pageSize.getHeight() * i);
-  //      pdfData.addPage();
-  //      pdfData.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-  //    }
-
-  //    pdfData.save(`Договор на ${this.currentClientFiz?.surname}-${this.currentClientFiz?.name}-${this.currentClientFiz?.lastname}-от-${this.datePipe.transform(this.xs_actual_date, 'd-M-y')}.pdf`);
-  //  });
-   
-
+     pdfMake.createPdf(docDefinition).download();
+   }
+    
   } 
 
   // Создаем договор
