@@ -78,6 +78,9 @@ module.exports.remove = async function (req, res) {
     try {
 
         const clientFiz = await ClientFiz.findOne({ _id: req.params.id });
+        // Удаляем все договоры клиента при удалении
+        const dogovors = await Dogovor.deleteMany({ client: req.params.id });
+
         fs.unlink(clientFiz.file_1, (err) => {
             if (err) {
                 console.error(err);
