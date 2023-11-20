@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { clientFizDeleteAction, clientsFizListAction, clientsFizListResetAction, clientsFizSearchAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { clientFizDeleteAction, clientsFizListAction, clientsFizListResetAction, clientsFizSearchAction, clientsFizSearchResetAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 import { clientsFizListSelector, clientsFizSearchSelector, isLoadingSelector, noMoreClientsFizList } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
 import { ClientFiz, ClientsFizParamsFetch } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
@@ -44,11 +44,17 @@ export class ListClientsFizComponent {
 
     // Отчищаем состояние clientsFizList если не хотим сохранять список авто  в состояние
     this.store.dispatch(clientsFizListResetAction());
+
+    // Отчищаем состояние поиска
+    this.store.dispatch(clientsFizSearchResetAction());
   }
 
   initValues() {
     // Отчищаем состояние перед запросом на получение списка физических лиц
     this.store.dispatch(clientsFizListResetAction());
+
+    // Отчищаем состояние поиска
+    this.store.dispatch(clientsFizSearchResetAction());
 
 
     // Получаем селектор loader

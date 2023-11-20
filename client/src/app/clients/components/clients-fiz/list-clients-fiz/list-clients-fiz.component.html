@@ -4,9 +4,17 @@
 
 
 <div class="clientsFizList" *ngIf="clientsFizList">
-    <div class="search">
-        <input type="text" (keyup)="search($event)" placeholder="Введите для поиска...">
+    <div class="top_line">
+        <div>
+            <span class="active">Физические лица</span>
+            <span [routerLink]="['']">Юридические лица</span>
+        </div>
+
+        <div>
+            <input type="text" (keyup)="search($event)" placeholder="Введите для поиска...">
+        </div>
     </div>
+    
 
     <p-table *ngIf="!hasQuery" [value]="clientsFizList" styleClass="p-datatable-gridlines list_table"
         [tableStyle]="{ 'min-width': '50rem' }">

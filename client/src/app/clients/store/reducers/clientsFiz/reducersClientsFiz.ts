@@ -175,7 +175,8 @@ const clientsFizReducer = createReducer(
       noMoreClientsFizDogovorsList: action.data.clientsFiz.noMoreClientsFizDogovorsList,
       currentClientFiz: action.data.clientsFiz.currentClientFiz,
       dogovorsList: action.data.clientsFiz.dogovorsList,
-      currentDogovorClientFiz: action.data.clientsFiz.currentDogovorClientFiz
+      currentDogovorClientFiz: action.data.clientsFiz.currentDogovorClientFiz,
+      searchList: action.data.clientsFiz.searchList
     }),
   ),
   on(
