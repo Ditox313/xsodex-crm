@@ -1,0 +1,367 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
+
+
+
+<div class="add-clientLaw">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+            <div class="add_clientLaw_inputs">
+                <fieldset>
+                    <label htmlFor="name">Название</label>
+                    <input pInputText id="name" formControlName="name" placeholder="Введите название"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['name'].invalid && form.controls['name'].touched}"/>
+
+
+                    <div class="errorValidate" *ngIf="form.controls['name'].invalid && form.controls['name'].touched">
+                        <p *ngIf="form.controls['name'].errors && form.controls['name'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+                <fieldset>
+                    <label htmlFor="short_name">Сокращенное название</label>
+                    <input pInputText id="short_name" formControlName="short_name" placeholder="Введите название"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['short_name'].invalid && form.controls['short_name'].touched}"/>
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['short_name'].invalid && form.controls['short_name'].touched">
+                        <p *ngIf="form.controls['short_name'].errors && form.controls['short_name'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+                <fieldset>
+                    <label htmlFor="inn">ИНН</label>
+                    <input pInputText id="inn" formControlName="inn" placeholder="Введите инн"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['inn'].invalid && form.controls['inn'].touched}" />
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['inn'].invalid && form.controls['inn'].touched">
+                        <p *ngIf="form.controls['inn'].errors && form.controls['inn'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+
+                <fieldset>
+                    <label htmlFor="kpp">КПП</label>
+                    <input pInputText id="kpp" formControlName="kpp" placeholder="Введите кпп"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['kpp'].invalid && form.controls['kpp'].touched}" />
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['kpp'].invalid && form.controls['kpp'].touched">
+                        <p *ngIf="form.controls['kpp'].errors && form.controls['kpp'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+                <fieldset>
+                    <label htmlFor="ogrn">ОГРН (Необязательно)</label>
+                    <input pInputText id="ogrn" formControlName="ogrn" placeholder="Введите огрн"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['ogrn'].invalid && form.controls['ogrn'].touched}" />
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['ogrn'].invalid && form.controls['ogrn'].touched">
+                        <p *ngIf="form.controls['ogrn'].errors && form.controls['ogrn'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+                <fieldset>
+                    <label htmlFor="ogrn_ip">ОГРНИП (Необязательно)</label>
+                    <input pInputText id="ogrn_ip" formControlName="ogrn_ip" placeholder="Введите огрнип"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['ogrn_ip'].invalid && form.controls['ogrn_ip'].touched}" />
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['ogrn_ip'].invalid && form.controls['ogrn_ip'].touched">
+                        <p *ngIf="form.controls['ogrn_ip'].errors && form.controls['ogrn_ip'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+                <fieldset>
+                    <label htmlFor="svidetelstvo_ip">Свидетельство ИП (Необязательно)</label>
+                    <input pInputText id="svidetelstvo_ip" formControlName="svidetelstvo_ip" placeholder="Введите свидетельство"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['svidetelstvo_ip'].invalid && form.controls['svidetelstvo_ip'].touched}" />
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['svidetelstvo_ip'].invalid && form.controls['svidetelstvo_ip'].touched">
+                        <p *ngIf="form.controls['svidetelstvo_ip'].errors && form.controls['svidetelstvo_ip'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+
+                <fieldset>
+                    <label htmlFor="law_address">Юридический адрес</label>
+                    <input pInputText id="law_address" formControlName="law_address"
+                        placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['law_address'].invalid && form.controls['law_address'].touched}" />
+
+
+                    <div class="errorValidate"
+                        *ngIf="form.controls['law_address'].invalid && form.controls['law_address'].touched">
+                        <p
+                            *ngIf="form.controls['law_address'].errors && form.controls['law_address'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+
+                <fieldset>
+                    <label htmlFor="fact_address">Фактический адрес</label>
+                    <input pInputText id="fact_address" formControlName="fact_address" placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['fact_address'].invalid && form.controls['fact_address'].touched}" />
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['fact_address'].invalid && form.controls['fact_address'].touched">
+                        <p *ngIf="form.controls['fact_address'].errors && form.controls['fact_address'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+                <fieldset>
+                    <label htmlFor="mail_address">Почтовый адрес</label>
+                    <input pInputText id="mail_address" formControlName="mail_address" placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['mail_address'].invalid && form.controls['mail_address'].touched}" />
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['mail_address'].invalid && form.controls['mail_address'].touched">
+                        <p *ngIf="form.controls['mail_address'].errors && form.controls['mail_address'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+                <fieldset>
+                    <label htmlFor="boss_role">Должность руководителя</label>
+                    <input pInputText id="boss_role" formControlName="boss_role" placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['boss_role'].invalid && form.controls['boss_role'].touched}" />
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['boss_role'].invalid && form.controls['boss_role'].touched">
+                        <p *ngIf="form.controls['boss_role'].errors && form.controls['boss_role'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+                <fieldset>
+                    <label htmlFor="boss_fio">ФИО руководителя</label>
+                    <input pInputText id="boss_fio" formControlName="boss_fio" placeholder="Введите ФИО руководителя"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['boss_fio'].invalid && form.controls['boss_fio'].touched}" style="width: 300px;" />
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['boss_fio'].invalid && form.controls['boss_fio'].touched">
+                        <p *ngIf="form.controls['boss_fio'].errors && form.controls['boss_fio'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+
+
+                <fieldset>
+                    <label htmlFor="osnovanie_boss_role">Основание для назначения</label>
+                    <input pInputText id="osnovanie_boss_role" formControlName="osnovanie_boss_role" placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['osnovanie_boss_role'].invalid && form.controls['osnovanie_boss_role'].touched}"
+                        style="width: 300px;" />
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['osnovanie_boss_role'].invalid && form.controls['osnovanie_boss_role'].touched">
+                        <p *ngIf="form.controls['osnovanie_boss_role'].errors && form.controls['osnovanie_boss_role'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+
+                                
+                
+                <fieldset>
+                    <label htmlFor="phone_1">Телефон(Основной)</label>
+
+                    <p-inputMask mask="+7(999)-999-99-99" id="phone_1" formControlName="phone_1"
+                        placeholder="+7(999)999-99-99"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['phone_1'].invalid && form.controls['phone_1'].touched}"></p-inputMask>
+
+
+                    <div class="errorValidate"
+                        *ngIf="form.controls['phone_1'].invalid && form.controls['phone_1'].touched">
+                        <p *ngIf="form.controls['phone_1'].errors && form.controls['phone_1'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+                <fieldset>
+                    <label htmlFor="phone_2">Телефон(Дополнительный)</label>
+                
+                    <p-inputMask mask="+7(999)-999-99-99" id="phone_2" formControlName="phone_2" placeholder="+7(999)999-99-99"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['phone_2'].invalid && form.controls['phone_2'].touched}"></p-inputMask>
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['phone_2'].invalid && form.controls['phone_2'].touched">
+                        <p *ngIf="form.controls['phone_2'].errors && form.controls['phone_2'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+                <fieldset>
+                    <label htmlFor="email">Email</label>
+                
+                    <input id="email" formControlName="email" placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['email'].invalid && form.controls['email'].touched}"/>
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['email'].invalid && form.controls['email'].touched">
+                        <p *ngIf="form.controls['email'].errors && form.controls['email'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+
+
+                <fieldset>
+                    <label htmlFor="rc_number">Расчетный счет</label>
+                
+                    <input id="rc_number" formControlName="rc_number" placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['rc_number'].invalid && form.controls['rc_number'].touched}" />
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['rc_number'].invalid && form.controls['rc_number'].touched">
+                        <p *ngIf="form.controls['rc_number'].errors && form.controls['rc_number'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+
+                <fieldset>
+                    <label htmlFor="kor_rc_number">Корреспондентский счет</label>
+                
+                    <input id="kor_rc_number" formControlName="kor_rc_number" placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['rc_number'].invalid && form.controls['rc_number'].touched}"/>
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['kor_rc_number'].invalid && form.controls['kor_rc_number'].touched">
+                        <p *ngIf="form.controls['kor_rc_number'].errors && form.controls['kor_rc_number'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+                <fieldset>
+                    <label htmlFor="bik_number">БИК банка</label>
+                
+                    <input id="bik_number" formControlName="bik_number" placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['bik_number'].invalid && form.controls['bik_number'].touched}"/>
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['bik_number'].invalid && form.controls['bik_number'].touched">
+                        <p *ngIf="form.controls['bik_number'].errors && form.controls['bik_number'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+
+
+
+                <fieldset>
+                    <label htmlFor="name_bank">Наименование банка</label>
+                
+                    <input id="name_bank" formControlName="name_bank" placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['name_bank'].invalid && form.controls['name_bank'].touched}"/>
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['name_bank'].invalid && form.controls['name_bank'].touched">
+                        <p *ngIf="form.controls['name_bank'].errors && form.controls['name_bank'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="add_clientLaw_images">
+                <div class="file_1">
+                    <img [src]="[file_1]" alt="Изображение">
+
+
+                    <div class="upload_btns">
+                        <input type="file" class="dn" #upload_1 (change)="onFile1Upload($event)">
+                        <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
+                            (click)="onFile1UploadClick()"></p-button>
+                    </div>
+
+                </div>
+
+                <div class="file_2">
+                    <img [src]="[file_2]" alt="Изображение">
+
+
+                    <div class="upload_btns">
+                        <input type="file" class="dn" #upload_2 (change)="onFile2Upload($event)">
+                        <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
+                            (click)="onFile2UploadClick()"></p-button>
+                    </div>
+                </div>
+
+                <div class="file_3">
+                    <img [src]="[file_3]" alt="Изображение">
+                
+                
+                    <div class="upload_btns">
+                        <input type="file" class="dn" #upload_3 (change)="onFile3Upload($event)">
+                        <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
+                            (click)="onFile3UploadClick()"></p-button>
+                    </div>
+                </div>
+
+                <div class="file_4">
+                    <img [src]="[file_4]" alt="Изображение">
+                
+                
+                    <div class="upload_btns">
+                        <input type="file" class="dn" #upload_4 (change)="onFile4Upload($event)">
+                        <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
+                            (click)="onFile4UploadClick()"></p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+    </form>
+</div>

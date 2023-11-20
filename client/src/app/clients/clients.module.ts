@@ -28,6 +28,12 @@ import { ShowClientFizComponent } from './components/clients-fiz/show-client-fiz
 import { ListDogovorsClientsFizComponent } from './components/clients-fiz/list-dogovors-clients-fiz/list-dogovors-clients-fiz.component';
 import { AddDogovorClientFizComponent } from './components/clients-fiz/add-dogovor-client-fiz/add-dogovor-client-fiz.component';
 import { ShowDogovorClientFizComponent } from './components/clients-fiz/show-dogovor-client-fiz/show-dogovor-client-fiz.component';
+import { ListClientsLawComponent } from './components/clients-law/list-clients-law/list-clients-law.component';
+import { getRoutesClientsLaw } from './routes/clientsLaw/clientsLaw.route';
+import { AddClientLawComponent } from './components/clients-law/add-client-law/add-client-law.component';
+import { reducerLaw } from './store/reducers/clientsLaw/reducersClientsLaw';
+import { ClientsLawEffect } from './store/effects/effectsClientsLaw/clientsLaw.effect';
+import { ClientsLawService } from './services/clientsLaw/clientsLaw.service';
 
 
 
@@ -39,7 +45,9 @@ import { ShowDogovorClientFizComponent } from './components/clients-fiz/show-dog
     ShowClientFizComponent,
     ListDogovorsClientsFizComponent,
     AddDogovorClientFizComponent,
-    ShowDogovorClientFizComponent
+    ShowDogovorClientFizComponent,
+    ListClientsLawComponent,
+    AddClientLawComponent
   ],
   imports: [
     CommonModule,
@@ -47,6 +55,7 @@ import { ShowDogovorClientFizComponent } from './components/clients-fiz/show-dog
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forChild(getRoutesClientsFiz()),
+    RouterModule.forChild(getRoutesClientsLaw()),
     LayoutsModule,
     RouterModule,
     BrowserAnimationsModule,
@@ -60,8 +69,9 @@ import { ShowDogovorClientFizComponent } from './components/clients-fiz/show-dog
     TreeSelectModule,
     InputMaskModule,
     StoreModule.forFeature('clientsFiz', reducerFiz),
-    EffectsModule.forFeature([ClientsFizEffect]),
+    StoreModule.forFeature('clientsLaw', reducerLaw),
+    EffectsModule.forFeature([ClientsFizEffect, ClientsLawEffect]),
   ],
-  providers: [MessageService, DatePipe, ClientsFizService]
+  providers: [MessageService, DatePipe, ClientsFizService, ClientsLawService]
 })
 export class ClientsModule { }

@@ -3,11 +3,11 @@
 <loader *ngIf="isLoadingSelector | async"></loader>
 
 
-<div class="clientsFizList" *ngIf="clientsFizList">
+<div class="clientsLawList" *ngIf="clientsLawList">
     <div class="top_line">
         <div>
-            <span class="active">Физические лица</span>
-            <span [routerLink]="['/list-clients-law']">Юридические лица</span>
+            <span [routerLink]="['/list-clients-fiz']">Физические лица</span>
+            <span class="active" >Юридические лица</span>
         </div>
 
         <div>
@@ -16,11 +16,11 @@
     </div>
     
 
-    <p-table *ngIf="!hasQuery" [value]="clientsFizList" styleClass="p-datatable-gridlines list_table"
+    <p-table *ngIf="!hasQuery" [value]="clientsLawList" styleClass="p-datatable-gridlines list_table"
         [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption" >
             <div class="table_top">
-                <div class="add_new" [routerLink]="['/add-client-fiz']">
+                <div class="add_new" [routerLink]="['/add-client-law']">
                     <p-button icon="pi pi-plus"></p-button>
                 </div>
             </div>
@@ -33,21 +33,21 @@
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-clientFiz>
-            <tr [routerLink]="['/show-client-fiz',clientFiz._id]">
+        <!-- <ng-template pTemplate="body" let-clientLaw>
+            <tr [routerLink]="['/show-client-law',clientLaw._id]">
                 <td><strong>{{clientFiz.surname}} {{clientFiz.name}} {{clientFiz.lastname}}</strong></td>
                 <td>{{clientFiz.phone_1}}</td>
-                <td style="cursor: pointer; text-align: center;" (click)="onDeleteClientFiz($event, clientFiz)"><i
+                <td style="cursor: pointer; text-align: center;" (click)="onDeleteClientLaw($event, clientFiz)"><i
                         class="pi pi-trash"></i></td>
             </tr>
-        </ng-template>
+        </ng-template> -->
     </p-table>
 
-    <p-table *ngIf="hasQuery && clientsFizSearch" [value]="clientsFizSearch" styleClass="p-datatable-gridlines list_table"
+    <p-table *ngIf="hasQuery && clientsLawSearch" [value]="clientsLawSearch" styleClass="p-datatable-gridlines list_table"
         [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="table_top">
-                <div class="add_new" [routerLink]="['/add-client-fiz']">
+                <div class="add_new" [routerLink]="['/add-client-law']">
                     <p-button icon="pi pi-plus"></p-button>
                 </div>
             </div>
@@ -60,25 +60,25 @@
             </tr>
         </ng-template>
     
-        <ng-template pTemplate="body" let-clientFiz>
+        <!-- <ng-template pTemplate="body" let-clientFiz>
             <tr [routerLink]="['/show-client-fiz',clientFiz._id]">
                 <td><strong>{{clientFiz.surname}} {{clientFiz.name}} {{clientFiz.lastname}}</strong></td>
                 <td>{{clientFiz.phone_1}}</td>
                 <td style="cursor: pointer; text-align: center;" (click)="onDeleteClientFiz($event, clientFiz)"><i
                         class="pi pi-trash"></i></td>
             </tr>
-        </ng-template>
+        </ng-template> -->
     </p-table>
 
-    <div *ngIf="clientsFizList.length === 0" class="noMoreClientsFizList">
+    <div *ngIf="clientsLawList.length === 0" class="noMoreClientsLawList">
         <h2>Нет клиентов...</h2>
     </div>
 
-    <div *ngIf="hasQuery && clientsFizSearch && clientsFizSearch.length === 0" class="noMoreClientsFizList">
+    <div *ngIf="hasQuery && clientsLawSearch && clientsLawSearch.length === 0" class="noMoreClientsLawList">
         <h2>Клиентов не найдено...</h2>
     </div>
 
     <div class="btn">
-        <p-button label="Загрузить еще..." *ngIf="!(noMoreClientsFizList | async) && !hasQuery" (click)="loadmore()"></p-button>
+        <p-button label="Загрузить еще..." *ngIf="!(noMoreClientsLawList | async) && !hasQuery" (click)="loadmore()"></p-button>
     </div>
 </div>
