@@ -56,7 +56,7 @@ export class ListDogovorsClientsFizComponent {
   initValues() {
 
     // Отчищаем состояние clientsFizList Dogovors если не хотим сохранять список авто  в состояние
-    // this.store.dispatch(clientFizDogovorsListResetAction());
+    this.store.dispatch(clientFizDogovorsListResetAction());
 
     // Получаем селектор loader
     this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))

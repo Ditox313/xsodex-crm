@@ -15,7 +15,7 @@ export enum ActionTypes {
   UPDATE_STATE_PARTNERS = '[Partners] Update state partner',
   UPDATE_STATE_PARTNERS_SUCCES = '[Partners] Update state partner success',
   UPDATE_STATE_PARTNERS_FAILURE = '[Partners] Update state partner failure',
-  PARTNER_GET_CURRENT = '[Partners] Get car current',
+  PARTNER_GET_CURRENT = '[Partners] Get partner current',
   PARTNER_GET_CURRENT_SUCCES = '[Partners] Get partner current succes',
   PARTNER_GET_CURRENT_FAILURE = '[Partners] Get partner current failure',
   PARTNER_GET_CURRENT_RESET = '[Partners] Get partner current reset',

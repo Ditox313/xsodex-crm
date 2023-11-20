@@ -42,7 +42,7 @@ export function getRoutesClientsFiz(): Route[] {
                     component: AddDogovorClientFizComponent,
                 },
                 {
-                    path: 'show-client-fiz/:id/:id',
+                    path: 'show-dogovor-client-fiz/:id',
                     component: ShowDogovorClientFizComponent,
                 },
             ],

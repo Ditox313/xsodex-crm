@@ -35,4 +35,8 @@ export enum ActionTypes {
   CLIENT_FIZ_DOGOVOR_DELETE = '[ClientsFiz] clientFiz dogovor delete',
   CLIENT_FIZ_DOGOVOR_DELETE_SUCCES = '[ClientsFiz] clientFiz dogovor delete succes',
   CLIENT_FIZ_DOGOVOR_DELETE_FAILURE = '[ClientsFiz] clientFiz dogovor delete failure',
+  CLIENT_FIZ_DOGOVOR_GET_CURRENT = '[ClientsFiz] Get clientFiz dogovor  current',
+  CLIENT_FIZ_DOGOVOR_GET_CURRENT_SUCCES = '[ClientsFiz] Get clientFiz dogovor current succes',
+  CLIENT_FIZ_DOGOVOR_GET_CURRENT_FAILURE = '[ClientsFiz] Get clientFiz dogovor current failure',
+  CLIENT_FIZ_DOGOVOR_GET_CURRENT_RESET = '[ClientsFiz] Get clientFiz dogovor current reset',
 }

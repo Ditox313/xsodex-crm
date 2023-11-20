@@ -31,9 +31,9 @@ export class ShowClientFizComponent {
   currentClientFizSelector!: Observable<ClientFiz | null | undefined>
   currentClientFizSub$!: Subscription
   currentClientFiz!: ClientFiz | null | undefined
+  getParamsSub$!: Subscription
   title: string = ''
   edit: boolean = false
-  getParamsSub$!: Subscription
   clientFizId!: string
   resident!: string
 
@@ -56,9 +56,6 @@ export class ShowClientFizComponent {
 
     //Отчищаем состояние currentClientFiz
     this.store.dispatch(clientFizGetCurrentReset());
-
-    
-
   }
 
 
@@ -97,8 +94,6 @@ export class ShowClientFizComponent {
 
 
   initValues() {
-
-
     //Отправляем запрос на получение текущего физического лица
     this.store.dispatch(clientFizGetCurrent({ id: this.clientFizId }));
 

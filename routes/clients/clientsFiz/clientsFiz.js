@@ -39,4 +39,8 @@ router.get('/get_all_dogovors/:id', passport.authenticate('jwt', { session: fals
 router.delete('/clientFizDogovor-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove_dogovor);
 
 
+// Роут на получение договор по Id
+router.get('/delete-dogovor/:id', passport.authenticate('jwt', { session: false }), controller.getDogovorById);
+
+
 module.exports = router;

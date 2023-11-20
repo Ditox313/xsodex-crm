@@ -22,7 +22,7 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-clientFizDogovor>
-            <tr [routerLink]="['/show-client-fiz-dogovor',clientFizDogovor._id]">
+            <tr [routerLink]="['/show-dogovor-client-fiz', clientFizDogovor._id]">
                 <td>{{clientFizDogovor.dogovor_number}}</td>
                 <td>{{clientFizDogovor.date_start}}</td>
                 <td>{{clientFizDogovor.date_end}}</td>
