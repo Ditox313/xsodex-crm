@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { clientFizDeleteAction, clientsFizListAction, clientsFizListResetAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
-import { clientsFizListSelector, isLoadingSelector, noMoreClientsFizList } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
+import { clientFizDeleteAction, clientsFizListAction, clientsFizListResetAction, clientsFizSearchAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { clientsFizListSelector, clientsFizSearchSelector, isLoadingSelector, noMoreClientsFizList } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
 import { ClientFiz, ClientsFizParamsFetch } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
 @Component({
@@ -20,6 +20,12 @@ export class ListClientsFizComponent {
   clientsFizListSelector!: Observable<ClientFiz[] | null | undefined>
   clientsFizListSub$!: Subscription
   clientsFizList: ClientFiz[] | null | undefined = [];
+  clientsFizSearchSelector!: Observable<ClientFiz[] | null | undefined>
+  clientsFizSearchSub$!: Subscription
+  clientsFizSearch: ClientFiz[] | null | undefined = [];
+  searchResult: ClientFiz[] = [];
+  hasQuery: Boolean = false;
+
 
 
   constructor(private store: Store) { }
@@ -31,6 +37,9 @@ export class ListClientsFizComponent {
   ngOnDestroy(): void {
     if (this.clientsFizListSub$) {
       this.clientsFizListSub$.unsubscribe();
+    }
+    if (this.clientsFizSearchSub$) {
+      this.clientsFizSearchSub$.unsubscribe();
     }
 
     // Отчищаем состояние clientsFizList если не хотим сохранять список авто  в состояние
@@ -101,5 +110,38 @@ export class ListClientsFizComponent {
     if (dicision) {
       this.store.dispatch(clientFizDeleteAction({ id: clientFiz._id }))
     }
+  }
+
+
+  // Поиск физ.лица
+  search(e: any) {
+    // Отчищаем запрос
+    let query: string = e.target.value.trim()
+
+    // Если запрос ничего не содержит или содержит только пробелы
+    let matchSpaces = query.match(/\s*/);
+
+    if (matchSpaces && matchSpaces[0] === query) {
+      this.hasQuery = false;
+      return;
+    }
+
+    
+
+    // Отправляем запрос на сервер
+    this.store.dispatch(clientsFizSearchAction({ data: query }));
+
+
+    // Получаем селектор на получение списка поиска физических лиц и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
+    // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
+    this.clientsFizSearchSelector = this.store.pipe(select(clientsFizSearchSelector))
+    this.clientsFizSearchSub$ = this.clientsFizSearchSelector.subscribe({
+      next: (clientsFizSearch) => {
+        if (clientsFizSearch) {
+          this.clientsFizSearch = clientsFizSearch;
+          this.hasQuery = true;
+        }
+      }
+    });
   }
 }

@@ -1,7 +1,7 @@
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ClientFiz, Dogovor } from '../../types/clientsFiz/clientsFiz.interfaces';
 
 @Injectable({
@@ -170,5 +170,11 @@ export class ClientsFizService {
   // Получаем договор по id
   getDogovorById(id: string): Observable<Dogovor> {
     return this.http.get<Dogovor>(`/api/clientsFiz/delete-dogovor/${id}`);
+  }
+
+
+  // Поиск
+  search(searchData: any): Observable<ClientFiz[]> {
+    return this.http.post<ClientFiz[]>('/api/clientsFiz/search-client', searchData)
   }
 }

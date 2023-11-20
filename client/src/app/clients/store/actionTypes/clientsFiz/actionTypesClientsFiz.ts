@@ -39,4 +39,8 @@ export enum ActionTypes {
   CLIENT_FIZ_DOGOVOR_GET_CURRENT_SUCCES = '[ClientsFiz] Get clientFiz dogovor current succes',
   CLIENT_FIZ_DOGOVOR_GET_CURRENT_FAILURE = '[ClientsFiz] Get clientFiz dogovor current failure',
   CLIENT_FIZ_DOGOVOR_GET_CURRENT_RESET = '[ClientsFiz] Get clientFiz dogovor current reset',
+  CLIENTS_SEARCH = '[ClientsFiz] search ',
+  CLIENTS_SEARCH_SUCCES = '[ClientsFiz] search succes',
+  CLIENTS_SEARCH_FAILURE = '[ClientsFiz] search failure',
+  CLIENTS_SEARCH_RESET = '[ClientsFiz] search list reset',
 }

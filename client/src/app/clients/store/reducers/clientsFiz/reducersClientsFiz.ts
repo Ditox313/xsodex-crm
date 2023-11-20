@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { ClientFizStateInterface } from '../../../types/clientsFiz/clientsFiz.interfaces';
-import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizDogovorDeleteAction, clientFizDogovorDeleteFailureAction, clientFizDogovorDeleteSuccessAction, clientFizDogovorGetCurrent, clientFizDogovorGetCurrentFailureAction, clientFizDogovorGetCurrentReset, clientFizDogovorGetCurrentSuccessAction, clientFizDogovorsListAction, clientFizDogovorsListFailureAction, clientFizDogovorsListResetAction, clientFizDogovorsListSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentReset, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListResetAction, clientsFizListSuccessAction, noMoreClientFizDogovorsListAction, noMoreClientFizDogovorsListFalseAction, noMoreClientFizDogovorsListTrueAction, noMoreClientsFizListAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action';
+import { addClientFizAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizDogovorDeleteAction, clientFizDogovorDeleteFailureAction, clientFizDogovorDeleteSuccessAction, clientFizDogovorGetCurrent, clientFizDogovorGetCurrentFailureAction, clientFizDogovorGetCurrentReset, clientFizDogovorGetCurrentSuccessAction, clientFizDogovorsListAction, clientFizDogovorsListFailureAction, clientFizDogovorsListResetAction, clientFizDogovorsListSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentReset, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListResetAction, clientsFizListSuccessAction, clientsFizSearchAction, clientsFizSearchFailureAction, clientsFizSearchResetAction, clientsFizSearchSuccessAction, noMoreClientFizDogovorsListAction, noMoreClientFizDogovorsListFalseAction, noMoreClientFizDogovorsListTrueAction, noMoreClientsFizListAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action';
 
 
 
@@ -18,7 +18,8 @@ const initialState: ClientFizStateInterface = {
   currentClientFiz: null,
   dogovorsList: null,
   noMoreClientsFizDogovorsList: true,
-  currentDogovorClientFiz: null
+  currentDogovorClientFiz: null,
+  searchList: null
 };
 
 
@@ -174,6 +175,7 @@ const clientsFizReducer = createReducer(
       noMoreClientsFizDogovorsList: action.data.clientsFiz.noMoreClientsFizDogovorsList,
       currentClientFiz: action.data.clientsFiz.currentClientFiz,
       dogovorsList: action.data.clientsFiz.dogovorsList,
+      currentDogovorClientFiz: action.data.clientsFiz.currentDogovorClientFiz
     }),
   ),
   on(
@@ -363,6 +365,47 @@ const clientsFizReducer = createReducer(
       currentDogovorClientFiz: null
     })
   ),
+
+
+
+
+
+
+  on(
+    clientsFizSearchAction,
+    (state): ClientFizStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    clientsFizSearchSuccessAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      searchList: action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    clientsFizSearchFailureAction,
+    (state, action): ClientFizStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    clientsFizSearchResetAction,
+    (state): ClientFizStateInterface => ({
+      ...state,
+      searchList: null,
+    })
+  ),
+
+
 
 );
 

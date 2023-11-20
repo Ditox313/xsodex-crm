@@ -51,6 +51,13 @@ export const getCurrentDogovorClientFizSelector = createSelector(
 
 
 
+export const clientsFizSearchSelector = createSelector(
+    clientsFizFeatureSelector,
+    (state: ClientFizStateInterface) => state.searchList
+)
+
+
+
 
 
 

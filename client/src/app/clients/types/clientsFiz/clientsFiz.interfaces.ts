@@ -48,6 +48,7 @@ export interface ClientFizStateInterface {
     currentClientFiz: ClientFiz | null | undefined | any,
     dogovorsList: Dogovor | null | undefined | any
     currentDogovorClientFiz: Dogovor | null | undefined | any,
+    searchList?: ClientFiz[] | null | undefined | any,
 }
 
 

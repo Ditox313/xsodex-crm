@@ -289,3 +289,31 @@ export const clientFizDogovorGetCurrentFailureAction = createAction(
 export const clientFizDogovorGetCurrentReset = createAction(
   ActionTypes.CLIENT_FIZ_DOGOVOR_GET_CURRENT_RESET,
 );
+
+
+
+
+
+
+// Поиск
+export const clientsFizSearchAction = createAction(
+  ActionTypes.CLIENTS_SEARCH,
+  props<{ data: any }>()
+);
+
+
+export const clientsFizSearchSuccessAction = createAction(
+  ActionTypes.CLIENTS_SEARCH_SUCCES,
+  props<{ data: ClientFiz[] }>()
+);
+
+
+export const clientsFizSearchFailureAction = createAction(
+  ActionTypes.CLIENTS_SEARCH_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const clientsFizSearchResetAction = createAction(
+  ActionTypes.CLIENTS_SEARCH_RESET,
+);

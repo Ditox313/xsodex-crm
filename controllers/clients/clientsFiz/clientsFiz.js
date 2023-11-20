@@ -307,3 +307,22 @@ module.exports.getDogovorById = async function (req, res) {
         errorHandler(res, e);
     }
 };
+
+
+
+
+
+
+// Контроллер на поиск
+module.exports.search = async function (req, res) {
+    try {
+
+        search = await ClientFiz.find({ surname: { $regex: new RegExp('^' + req.body.searchData.data + '.*', 'i') } }).exec();
+        search = search.slice(0, 10);
+
+        res.status(200).json(search);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+
+};

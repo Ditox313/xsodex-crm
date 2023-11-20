@@ -43,4 +43,8 @@ router.delete('/clientFizDogovor-remove/:id', passport.authenticate('jwt', { ses
 router.get('/delete-dogovor/:id', passport.authenticate('jwt', { session: false }), controller.getDogovorById);
 
 
+// Роут на поиск
+router.post('/search-client', passport.authenticate('jwt', { session: false }), controller.search);
+
+
 module.exports = router;
