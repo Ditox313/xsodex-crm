@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { ClientLawStateInterface } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
-import { addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentReset, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListResetAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchResetAction, clientsLawSearchSuccessAction, noMoreClientsLawListAction, noMoreClientsLawListFalseAction, noMoreClientsLawListTrueAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action';
+import { addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawDogovorDeleteAction, clientLawDogovorDeleteFailureAction, clientLawDogovorDeleteSuccessAction, clientLawDogovorsListAction, clientLawDogovorsListFailureAction, clientLawDogovorsListResetAction, clientLawDogovorsListSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentReset, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListResetAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchResetAction, clientsLawSearchSuccessAction, noMoreClientLawDogovorsListAction, noMoreClientLawDogovorsListFalseAction, noMoreClientLawDogovorsListTrueAction, noMoreClientsLawListAction, noMoreClientsLawListFalseAction, noMoreClientsLawListTrueAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action';
 
 
 
@@ -234,96 +234,96 @@ const clientsLawReducer = createReducer(
 
 
 
-  // on(
-  //   clientFizDogovorsListAction,
-  //   (state): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    clientLawDogovorsListAction,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   clientFizDogovorsListSuccessAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //     dogovorsList: state.dogovorsList ? [...state.dogovorsList, ...action.data] : action.data,
-  //   })
-  // ),
-  // on(
-  //   clientFizDogovorsListFailureAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   clientFizDogovorsListResetAction,
-  //   (state): ClientFizStateInterface => ({
-  //     ...state,
-  //     dogovorsList: null,
-  //   })
-  // ),
-  // on(
-  //   noMoreClientFizDogovorsListAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     noMoreClientsFizDogovorsList: action.data,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMoreClientFizDogovorsListFalseAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     noMoreClientsFizDogovorsList: false,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMoreClientFizDogovorsListTrueAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     noMoreClientsFizDogovorsList: true,
-  //     isLoading: false,
-  //   })
-  // ),
-
-
+  on(
+    clientLawDogovorsListSuccessAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      dogovorsList: state.dogovorsList ? [...state.dogovorsList, ...action.data] : action.data,
+    })
+  ),
+  on(
+    clientLawDogovorsListFailureAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    clientLawDogovorsListResetAction,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      dogovorsList: null,
+    })
+  ),
+  on(
+    noMoreClientLawDogovorsListAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      noMoreClientsLawDogovorsList: action.data,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreClientLawDogovorsListFalseAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      noMoreClientsLawDogovorsList: false,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreClientLawDogovorsListTrueAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      noMoreClientsLawDogovorsList: true,
+      isLoading: false,
+    })
+  ),
 
 
 
 
-  // on(
-  //   clientFizDogovorDeleteAction,
-  //   (state): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
 
-  // on(
-  //   clientFizDogovorDeleteSuccessAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //     currentClientFiz: null,
-  //     dogovorsList: state.dogovorsList ? state.dogovorsList.filter((item: { _id: string; }) => item._id !== action.data) : state.dogovorsList,
-  //   })
-  // ),
-  // on(
-  //   clientFizDogovorDeleteFailureAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
+
+  on(
+    clientLawDogovorDeleteAction,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    clientLawDogovorDeleteSuccessAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentClientLaw: null,
+      dogovorsList: state.dogovorsList ? state.dogovorsList.filter((item: { _id: string; }) => item._id !== action.data) : state.dogovorsList,
+    })
+  ),
+  on(
+    clientLawDogovorDeleteFailureAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
 
 
 

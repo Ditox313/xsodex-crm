@@ -32,11 +32,11 @@ router.post('/create_dogovor', passport.authenticate('jwt', { session: false }),
 
 
 // Роут на получение всех договоров
-// router.get('/get_all_dogovors/:id', passport.authenticate('jwt', { session: false }), controller.get_all_dogovorsById);
+router.get('/get_all_dogovors/:id', passport.authenticate('jwt', { session: false }), controller.get_all_dogovorsById);
 
 
 //Роут на удаление договора
-// router.delete('/clientLawDogovor-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove_dogovor);
+router.delete('/clientLawDogovor-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove_dogovor);
 
 
 // Роут на получение договор по Id

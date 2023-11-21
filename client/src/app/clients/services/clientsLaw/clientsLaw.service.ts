@@ -151,19 +151,19 @@ export class ClientsLawService {
 
 
   // Получить все договоры
-  // get_all_dogovors(params: any = {}): Observable<any> {
-  //   return this.http.get<any>(`/api/clientsFiz/get_all_dogovors/${params.params.params.clientId}`, {
-  //     params: new HttpParams({
-  //       fromObject: params.params.params
-  //     })
-  //   });
-  // }
+  get_all_dogovors(params: any = {}): Observable<any> {
+    return this.http.get<any>(`/api/clientsLaw/get_all_dogovors/${params.params.params.clientId}`, {
+      params: new HttpParams({
+        fromObject: params.params.params
+      })
+    });
+  }
 
 
   // Удаление договора
-  // delete_dogovor(id: any): Observable<any> {
-  //   return this.http.delete<any>(`/api/clientsFiz/clientFizDogovor-remove/${id}`);
-  // }
+  delete_dogovor(id: any): Observable<any> {
+    return this.http.delete<any>(`/api/clientsLaw/clientLawDogovor-remove/${id}`);
+  }
 
   // Получаем договор по id
   // getDogovorById(id: string): Observable<Dogovor> {

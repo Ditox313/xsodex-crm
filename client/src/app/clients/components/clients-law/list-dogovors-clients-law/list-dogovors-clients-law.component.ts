@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { isLoadingSelector } from 'src/app/clients/store/selectors/clientslaw/selectorsClientsLaw';
+import { clientLawDogovorDeleteAction, clientLawDogovorsListAction, clientLawDogovorsListResetAction, noMoreClientsLawListFalseAction, noMoreClientsLawListTrueAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
+import { clientsLawDogovorsListSelector, isLoadingSelector, noMoreClientDogovorsLawList } from 'src/app/clients/store/selectors/clientslaw/selectorsClientsLaw';
 import { ClientLaw, ClientLawDogovorsParamsFetch, Dogovor } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 
 @Component({
@@ -42,8 +43,8 @@ export class ListDogovorsClientsLawComponent {
       this.getParamsSub$.unsubscribe();
     }
 
-    // Отчищаем состояние clientsFizList Dogovors если не хотим сохранять список авто  в состояние
-    // this.store.dispatch(clientFizDogovorsListResetAction());
+    // Отчищаем состояние clientsLawList Dogovors если не хотим сохранять список авто  в состояние
+    this.store.dispatch(clientLawDogovorsListResetAction());
   }
 
   getParams() {
@@ -54,39 +55,39 @@ export class ListDogovorsClientsLawComponent {
 
   initValues() {
 
-    // Отчищаем состояние clientsFizList Dogovors если не хотим сохранять список авто  в состояние
-    // this.store.dispatch(clientFizDogovorsListResetAction());
+    // Отчищаем состояние clientsLawList Dogovors если не хотим сохранять список авто  в состояние
+    this.store.dispatch(clientLawDogovorsListResetAction());
 
     // Получаем селектор loader
     this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))
 
 
     // Получаем селектор noMoreClientsFizDogovorsList
-    // this.noMoreClientFizListDogovors = this.store.pipe(select(noMoreClientDogovorsFizList))
+    this.noMoreClientLawListDogovors = this.store.pipe(select(noMoreClientDogovorsLawList))
 
 
 
 
     // Получаем селектор на получение списка и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
     // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
-    // this.clientFizListDogovorsSelector = this.store.pipe(select(clientsFizDogovorsListSelector))
-    // this.clientFizListDogovorsSub$ = this.clientFizListDogovorsSelector.subscribe({
-    //   next: (clientsFizDogovorsList) => {
-    //     if (clientsFizDogovorsList) {
-    //       this.clientFizListDogovors = clientsFizDogovorsList;
+    this.clientLawListDogovorsSelector = this.store.pipe(select(clientsLawDogovorsListSelector))
+    this.clientLawListDogovorsSub$ = this.clientLawListDogovorsSelector.subscribe({
+      next: (clientsLawDogovorsList) => {
+        if (clientsLawDogovorsList) {
+          this.clientLawListDogovors = clientsLawDogovorsList;
 
 
-    //       if (this.clientFizListDogovors.length >= this.STEP) {
-    //         // Изменяем значение noMoreClientsFizList в состоянии на false что бы открыть кнопку загрузить ещё
-    //         this.store.dispatch(noMoreClientsFizListFalseAction());
-    //       }
-    //       else {
-    //         // Изменяем значение noMoreClientsFizList в состоянии на true что бы скрыть кнопку загрузить ещё
-    //         this.store.dispatch(noMoreClientsFizListTrueAction());
-    //       }
-    //     }
-    //   }
-    // });
+          if (this.clientLawListDogovors.length >= this.STEP) {
+            // Изменяем значение noMoreClientsFizList в состоянии на false что бы открыть кнопку загрузить ещё
+            this.store.dispatch(noMoreClientsLawListFalseAction());
+          }
+          else {
+            // Изменяем значение noMoreClientsFizList в состоянии на true что бы скрыть кнопку загрузить ещё
+            this.store.dispatch(noMoreClientsLawListTrueAction());
+          }
+        }
+      }
+    });
   }
 
 
@@ -98,7 +99,7 @@ export class ListDogovorsClientsLawComponent {
     };
 
     // // Отправляем запрос на получения списка физических лиц
-    // this.store.dispatch(clientFizDogovorsListAction({ params: params }));
+    this.store.dispatch(clientLawDogovorsListAction({ params: params }));
   }
 
 
@@ -115,7 +116,7 @@ export class ListDogovorsClientsLawComponent {
     const dicision = window.confirm(`Удалить договор?`);
 
     if (dicision) {
-      // this.store.dispatch(clientFizDogovorDeleteAction({ id: clientFizDogovor._id }))
+      this.store.dispatch(clientLawDogovorDeleteAction({ id: clientLawDogovor._id }))
     }
   }
 }

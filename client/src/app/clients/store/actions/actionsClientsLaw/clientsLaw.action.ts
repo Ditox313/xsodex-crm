@@ -1,6 +1,6 @@
 import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
-import { ClientLaw, ClientsLawParamsFetch, Dogovor } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
+import { ClientLaw, ClientLawDogovorsParamsFetch, ClientsLawParamsFetch, Dogovor } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 import { ActionTypes } from '../../actionTypes/clientsLaw/actionTypesClientsLaw';
 
 
@@ -200,68 +200,68 @@ export const addClientLawDogovorFailureAction = createAction(
 
 
 // ClientsFiz Dogovors List
-// export const clientFizDogovorsListAction = createAction(
-//   ActionTypes.CLIENT_FIZ_DOGOVORS_LIST,
-//   props<{ params: ClientFizDogovorsParamsFetch }>()
-// );
+export const clientLawDogovorsListAction = createAction(
+  ActionTypes.CLIENT_LAW_DOGOVORS_LIST,
+  props<{ params: ClientLawDogovorsParamsFetch }>()
+);
 
 
-// export const clientFizDogovorsListSuccessAction = createAction(
-//   ActionTypes.CLIENT_FIZ_DOGOVORS_LIST_SUCCES,
-//   props<{ data: Dogovor[] }>()
-// );
+export const clientLawDogovorsListSuccessAction = createAction(
+  ActionTypes.CLIENT_LAW_DOGOVORS_LIST_SUCCES,
+  props<{ data: Dogovor[] }>()
+);
 
 
-// export const clientFizDogovorsListFailureAction = createAction(
-//   ActionTypes.CLIENT_FIZ_DOGOVORS_LIST_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const clientLawDogovorsListFailureAction = createAction(
+  ActionTypes.CLIENT_LAW_DOGOVORS_LIST_FAILURE,
+  props<{ errors: any }>()
+);
 
 
-// export const clientFizDogovorsListResetAction = createAction(
-//   ActionTypes.CLIENT_FIZ_DOGOVORS_LIST_RESET,
-// );
-
-
-
+export const clientLawDogovorsListResetAction = createAction(
+  ActionTypes.CLIENT_LAW_DOGOVORS_LIST_RESET,
+);
 
 
 
-// No more ClientsFiz Dogovors List
-// export const noMoreClientFizDogovorsListAction = createAction(
-//   ActionTypes.NO_MORE_CLIENTS_FIZ_LIST,
-//   props<{ data: boolean }>()
-// );
 
-// export const noMoreClientFizDogovorsListFalseAction = createAction(
-//   ActionTypes.NO_MORE_CLIENTS_FIZ_LIST_FALSE,
-// );
 
-// export const noMoreClientFizDogovorsListTrueAction = createAction(
-//   ActionTypes.NO_MORE_CLIENTS_FIZ_LIST_TRUE,
-// );
+
+// No more ClientsLaw Dogovors List
+export const noMoreClientLawDogovorsListAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_LAW_LIST,
+  props<{ data: boolean }>()
+);
+
+export const noMoreClientLawDogovorsListFalseAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_LAW_LIST_FALSE,
+);
+
+export const noMoreClientLawDogovorsListTrueAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_LAW_LIST_TRUE,
+);
 
 
 
 
 
 // Delete dogovor
-// export const clientFizDogovorDeleteAction = createAction(
-//   ActionTypes.CLIENT_FIZ_DOGOVOR_DELETE,
-//   props<{ id: string | undefined }>()
-// );
+export const clientLawDogovorDeleteAction = createAction(
+  ActionTypes.CLIENT_LAW_DOGOVOR_DELETE,
+  props<{ id: string | undefined }>()
+);
 
 
-// export const clientFizDogovorDeleteSuccessAction = createAction(
-//   ActionTypes.CLIENT_FIZ_DOGOVOR_DELETE_SUCCES,
-//   props<{ data: string }>()
-// );
+export const clientLawDogovorDeleteSuccessAction = createAction(
+  ActionTypes.CLIENT_LAW_DOGOVOR_DELETE_SUCCES,
+  props<{ data: string }>()
+);
 
 
-// export const clientFizDogovorDeleteFailureAction = createAction(
-//   ActionTypes.CLIENT_FIZ_DOGOVOR_DELETE_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const clientLawDogovorDeleteFailureAction = createAction(
+  ActionTypes.CLIENT_LAW_DOGOVOR_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 

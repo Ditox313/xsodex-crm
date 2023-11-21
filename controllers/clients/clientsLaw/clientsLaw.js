@@ -77,7 +77,7 @@ module.exports.remove = async function (req, res) {
 
         const clientLaw = await ClientLaw.findOne({ _id: req.params.id });
         // Удаляем все договоры клиента при удалении
-        // const dogovors = await Dogovor.deleteMany({ client: req.params.id });
+        const dogovors = await Dogovor.deleteMany({ client: req.params.id });
 
         fs.unlink(clientLaw.file_1, (err) => {
             if (err) {
@@ -251,41 +251,38 @@ module.exports.create_dogovor = async function (req, res) {
 
 
 // Получаем список договоров для клиента
-// module.exports.get_all_dogovorsById = async function (req, res) {
-//     try {
-//         // Получите список договоров для клиента из базы данных или другого источника данных
-//         // const dogovors = await Dogovor.find({ client: req.params.id });
+module.exports.get_all_dogovorsById = async function (req, res) {
+    try {
 
-//         const dogovors = await Dogovor.find({ client: req.params.id }).sort({ date: -1 })
-//             .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
-//             .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+        const dogovors = await Dogovor.find({ client: req.params.id }).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
 
-//         // Верните список договоров в ответе
-//         res.status(200).json(dogovors);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+        // Верните список договоров в ответе
+        res.status(200).json(dogovors);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 
 
-// Контроллер для remove
-// module.exports.remove_dogovor = async function (req, res) {
-//     try {
+// Контроллер для remove dogovor
+module.exports.remove_dogovor = async function (req, res) {
+    try {
+        // Удаляем договор
+        const result = await Dogovor.deleteOne({ _id: req.params.id });
+        if (result.deletedCount === 1) {
+            res.status(200).json(req.params.id);
+        } else {
+            res.status(200).json('Ошибка удаления');
+        }
 
-//         // Удаляем договор
-//         const result = await Dogovor.deleteOne({ _id: req.params.id });
-//         if (result.deletedCount === 1) {
-//             res.status(200).json(req.params.id);
-//         } else {
-//             res.status(200).json('Ошибка удаления');
-//         }
-
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 

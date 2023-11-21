@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsLawService } from 'src/app/clients/services/clientsLaw/clientsLaw.service'
-import { addClientLawAction, addClientLawDogovorAction, addClientLawDogovorFailureAction, addClientLawDogovorSuccessAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreClientsLawListAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
+import { addClientLawAction, addClientLawDogovorAction, addClientLawDogovorFailureAction, addClientLawDogovorSuccessAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawDogovorDeleteAction, clientLawDogovorDeleteFailureAction, clientLawDogovorDeleteSuccessAction, clientLawDogovorsListAction, clientLawDogovorsListFailureAction, clientLawDogovorsListSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreClientLawDogovorsListAction, noMoreClientsLawListAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
 
 
 
@@ -203,51 +203,51 @@ export class ClientsLawEffect {
 
 
   // Получение всех договоров для физлица
-  // clientFizDogovorsList$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(clientFizDogovorsListAction),
-  //     concatMap((params) => {
-  //       return this.clientsFiz.get_all_dogovors({ params }).pipe(
-  //         concatMap((clientsFizDogovorsList) => {
-  //           if (clientsFizDogovorsList.length === 0) {
-  //             return of(noMoreClientFizDogovorsListAction({ data: true }));
-  //           }
-  //           return of(clientFizDogovorsListSuccessAction({ data: clientsFizDogovorsList }));
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             clientFizDogovorsListFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  clientLawDogovorsList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientLawDogovorsListAction),
+      concatMap((params) => {
+        return this.clientsLaw.get_all_dogovors({ params }).pipe(
+          concatMap((clientsLawDogovorsList) => {
+            if (clientsLawDogovorsList.length === 0) {
+              return of(noMoreClientLawDogovorsListAction({ data: true }));
+            }
+            return of(clientLawDogovorsListSuccessAction({ data: clientsLawDogovorsList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              clientLawDogovorsListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
 
 
   // Удаление договора
-  // clientFizDogovorDelete$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(clientFizDogovorDeleteAction),
-  //     switchMap((id) => {
-  //       return this.clientsFiz.delete_dogovor(id.id).pipe(
-  //         map((id) => {
-  //           this.messageService.add({ severity: 'success', summary: `Договор удален`, detail: 'Успешно!' });
-  //           return clientFizDogovorDeleteSuccessAction({ data: id });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `Ошибка удаления договора`, detail: 'Попробуйте позже!' });
-  //           return of(
-  //             clientFizDogovorDeleteFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  clientLawDogovorDelete$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientLawDogovorDeleteAction),
+      switchMap((id) => {
+        return this.clientsLaw.delete_dogovor(id.id).pipe(
+          map((id) => {
+            this.messageService.add({ severity: 'success', summary: `Договор удален`, detail: 'Успешно!' });
+            return clientLawDogovorDeleteSuccessAction({ data: id });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления договора`, detail: 'Попробуйте позже!' });
+            return of(
+              clientLawDogovorDeleteFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
