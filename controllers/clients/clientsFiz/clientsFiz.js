@@ -148,14 +148,12 @@ module.exports.update = async function (req, res) {
     try {
 
         const updated = req.body;
-
+        const client = await ClientFiz.findOne({ _id: req.body._id });
 
 
         // Если объект file есть,то заполняем параметр путем фала
         if (req.files.file_1) {
-            // Находим нужный автомобиль и удаляем аватарку автомобиля
-            const partner = await ClientFiz.findOne({ _id: req.body._id });
-            fs.unlink(partner.file_1, (err) => {
+            fs.unlink(client.file_1, (err) => {
                 if (err) {
                     return res.status(500).json({ error: 'Ошибка при удалении картинки' });
                 }
@@ -166,9 +164,7 @@ module.exports.update = async function (req, res) {
 
         // Если объект file есть,то заполняем параметр путем фала
         if (req.files.file_2) {
-            // Находим нужный автомобиль и удаляем аватарку автомобиля
-            const partner = await ClientFiz.findOne({ _id: req.body._id });
-            fs.unlink(partner.file_2, (err) => {
+            fs.unlink(client.file_2, (err) => {
                 if (err) {
                     return res.status(500).json({ error: 'Ошибка при удалении картинки' });
                 }
@@ -179,9 +175,7 @@ module.exports.update = async function (req, res) {
 
         // Если объект file есть,то заполняем параметр путем фала
         if (req.files.file_3) {
-            // Находим нужный автомобиль и удаляем аватарку автомобиля
-            const partner = await ClientFiz.findOne({ _id: req.body._id });
-            fs.unlink(partner.file_3, (err) => {
+            fs.unlink(client.file_3, (err) => {
                 if (err) {
                     return res.status(500).json({ error: 'Ошибка при удалении картинки' });
                 }
@@ -193,9 +187,7 @@ module.exports.update = async function (req, res) {
 
         // Если объект file есть,то заполняем параметр путем фала
         if (req.files.file_4) {
-            // Находим нужный автомобиль и удаляем аватарку автомобиля
-            const partner = await ClientFiz.findOne({ _id: req.body._id });
-            fs.unlink(partner.file_4, (err) => {
+            fs.unlink(client.file_4, (err) => {
                 if (err) {
                     return res.status(500).json({ error: 'Ошибка при удалении картинки' });
                 }

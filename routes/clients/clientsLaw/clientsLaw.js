@@ -18,12 +18,12 @@ router.get('/clientsLaw-list', passport.authenticate('jwt', { session: false }),
 router.delete('/clientLaw-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 
 
-// Роут на получение физического лица по Id
-// router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
+// Роут на получение юридического лица по Id
+router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
 
 
 // Роут на update
-// router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.update);
+router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }, { name: 'file_3' }, { name: 'file_4' }]), controller.update);
 
 
 // Роут на create dogovor

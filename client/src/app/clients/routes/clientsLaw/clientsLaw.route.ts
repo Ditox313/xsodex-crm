@@ -10,6 +10,7 @@ import { AddDogovorClientFizComponent } from "../../components/clients-fiz/add-d
 import { ShowDogovorClientFizComponent } from "../../components/clients-fiz/show-dogovor-client-fiz/show-dogovor-client-fiz.component";
 import { ListClientsLawComponent } from "../../components/clients-law/list-clients-law/list-clients-law.component";
 import { AddClientLawComponent } from "../../components/clients-law/add-client-law/add-client-law.component";
+import { ShowClientLawComponent } from "../../components/clients-law/show-client-law/show-client-law.component";
 
 
 
@@ -31,10 +32,10 @@ export function getRoutesClientsLaw(): Route[] {
                     path: 'list-clients-law',
                     component: ListClientsLawComponent,
                 },
-                // {
-                //     path: 'show-client-law/:id', 
-                //     component: ShowClientFizComponent,
-                // },
+                {
+                    path: 'show-client-law/:id', 
+                    component: ShowClientLawComponent,
+                },
                 // {
                 //     path: 'list-dogovors-clients-law/:id',
                 //     component: ListDogovorsClientsFizComponent,

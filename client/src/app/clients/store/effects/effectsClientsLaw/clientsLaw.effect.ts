@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsLawService } from 'src/app/clients/services/clientsLaw/clientsLaw.service'
-import { addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreClientsLawListAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
+import { addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreClientsLawListAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
 
 
 
@@ -101,21 +101,21 @@ export class ClientsLawEffect {
 
 
   // Обновление состояния
-  // updateStateClientsFiz$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(updateStateClientsFizAction),
-  //       map(() => {
-  //         const savedState: any = localStorage.getItem('appState');
-  //         return updateStateClientsFizSuccessAction({ data: JSON.parse(savedState) })
-  //       }),
-  //       catchError((errorResponse: HttpErrorResponse) => {
-  //         return of(
-  //           updateStateClientsFizFailureAction({ errors: 'Ошибка обновления состояния' })
-  //         );
-  //       })
-  //     ),
-  // );
+  updateStateClientsLaw$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(updateStateClientsLawAction),
+        map(() => {
+          const savedState: any = localStorage.getItem('appState');
+          return updateStateClientsLawSuccessAction({ data: JSON.parse(savedState) })
+        }),
+        catchError((errorResponse: HttpErrorResponse) => {
+          return of(
+            updateStateClientsLawFailureAction({ errors: 'Ошибка обновления состояния' })
+          );
+        })
+      ),
+  );
 
 
 
@@ -123,50 +123,50 @@ export class ClientsLawEffect {
 
 
 
-  // Получение текущего физического лица
-  // getClientFizCurrent$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(clientFizGetCurrent),
-  //     switchMap((id) => {
-  //       return this.clientsFiz.getById(id.id).pipe(
-  //         map((clientFiz) => {
-  //           return clientFizGetCurrentSuccessAction({ data: clientFiz });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             clientFizGetCurrentFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Получение текущего юридического лица
+  getClientLawCurrent$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientLawGetCurrent),
+      switchMap((id) => {
+        return this.clientsLaw.getById(id.id).pipe(
+          map((clientLaw) => {
+            return clientLawGetCurrentSuccessAction({ data: clientLaw });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              clientLawGetCurrentFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
 
 
 
-  // Обновление физического лица
-  // UpdateClientFiz$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(updateClientFizAction),
-  //     switchMap(({ clientFiz, file_1, file_2, file_3, file_4 }) => {
-  //       return this.clientsFiz.update(clientFiz, file_1, file_2, file_3, file_4).pipe(
-  //         map((data) => {
-  //           this.messageService.add({ severity: 'success', summary: `Клиент обновлен`, detail: 'Успешно!' });
-  //           return updateClientFizSuccessAction({ data: data });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
-  //           return of(
-  //             updateClientFizFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Обновление Юридического лица
+  UpdateClientLaw$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateClientLawAction),
+      switchMap(({ clientLaw, file_1, file_2, file_3, file_4 }) => {
+        return this.clientsLaw.update(clientLaw, file_1, file_2, file_3, file_4).pipe(
+          map((data) => {
+            this.messageService.add({ severity: 'success', summary: `Клиент обновлен`, detail: 'Успешно!' });
+            return updateClientLawSuccessAction({ data: data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
+            return of(
+              updateClientLawFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

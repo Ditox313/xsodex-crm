@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { ClientLawStateInterface } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
-import { addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListResetAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchResetAction, clientsLawSearchSuccessAction, noMoreClientsLawListAction, noMoreClientsLawListFalseAction, noMoreClientsLawListTrueAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action';
+import { addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentReset, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListResetAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchResetAction, clientsLawSearchSuccessAction, noMoreClientsLawListAction, noMoreClientsLawListFalseAction, noMoreClientsLawListTrueAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action';
 
 
 
@@ -193,39 +193,39 @@ const clientsLawReducer = createReducer(
 
 
 
-  // on(
-  //   clientFizGetCurrent,
-  //   (state): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    clientLawGetCurrent,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   clientFizGetCurrentSuccessAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //     currentClientFiz: action.data
-  //   })
-  // ),
-  // on(
-  //   clientFizGetCurrentFailureAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   clientFizGetCurrentReset,
-  //   (state): ClientFizStateInterface => ({
-  //     ...state,
-  //     currentClientFiz: null
-  //   })
-  // ),
+  on(
+    clientLawGetCurrentSuccessAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentClientLaw: action.data
+    })
+  ),
+  on(
+    clientLawGetCurrentFailureAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    clientLawGetCurrentReset,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      currentClientLaw: null
+    })
+  ),
 
 
 

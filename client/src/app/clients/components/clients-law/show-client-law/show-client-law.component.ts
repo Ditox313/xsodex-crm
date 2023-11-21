@@ -4,16 +4,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { clientFizGetCurrent, clientFizGetCurrentReset, clientsFizListResetAction, updateClientFizAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
-import { getCurrentClientFizSelector, isLoadingSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
-import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
+import { clientLawGetCurrent, clientLawGetCurrentReset, updateClientLawAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
+import { getCurrentClientLawSelector, isLoadingSelector } from 'src/app/clients/store/selectors/clientslaw/selectorsClientsLaw';
+import { ClientLaw } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 
 @Component({
-  selector: 'app-show-client-fiz',
-  templateUrl: './show-client-fiz.component.html',
-  styleUrls: ['./show-client-fiz.component.css']
+  selector: 'app-show-client-law',
+  templateUrl: './show-client-law.component.html',
+  styleUrls: ['./show-client-law.component.css']
 })
-export class ShowClientFizComponent {
+export class ShowClientLawComponent {
   form!: FormGroup;
   uploadFile_1!: File
   uploadFile_2!: File
@@ -28,18 +28,18 @@ export class ShowClientFizComponent {
   @ViewChild('upload_3') upload_3!: ElementRef;
   @ViewChild('upload_4') upload_4!: ElementRef;
   isLoadingSelector$!: Observable<boolean | null>
-  currentClientFizSelector!: Observable<ClientFiz | null | undefined>
-  currentClientFizSub$!: Subscription
-  currentClientFiz!: ClientFiz | null | undefined
+  currentClientLawSelector!: Observable<ClientLaw | null | undefined>
+  currentClientLawSub$!: Subscription
+  currentClientLaw!: ClientLaw | null | undefined
   getParamsSub$!: Subscription
   title: string = ''
   edit: boolean = false
-  clientFizId!: string
+  clientLawId!: string
   resident!: string
 
   constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute,) { }
 
-    ngOnInit(): void {
+  ngOnInit(): void {
     this.getParams()
     this.initForm()
     this.initValues()
@@ -50,43 +50,43 @@ export class ShowClientFizComponent {
     if (this.getParamsSub$) {
       this.getParamsSub$.unsubscribe()
     }
-    if (this.currentClientFizSub$) {
-      this.currentClientFizSub$.unsubscribe()
+    if (this.currentClientLawSub$) {
+      this.currentClientLawSub$.unsubscribe()
     }
 
-    //Отчищаем состояние currentClientFiz
-    this.store.dispatch(clientFizGetCurrentReset());
+    //Отчищаем состояние currentClientLaw
+    this.store.dispatch(clientLawGetCurrentReset());
   }
 
 
   getParams() {
     this.getParamsSub$ = this.rote.params.subscribe((params: any) => {
-      this.clientFizId = params['id'];
+      this.clientLawId = params['id'];
     });
   }
 
   initForm() {
     this.form = new FormGroup({
-      fio: new FormControl('', [Validators.required]),
-      date_birth: new FormControl('', [Validators.required]),
-      passport_seria_number: new FormControl('', [Validators.required]),
-      passport_date: new FormControl('', [Validators.required]),
-      passport_who_take: new FormControl('', [Validators.required]),
-      code_podrazdeleniya: new FormControl('', [Validators.required]),
-      passport_register: new FormControl('', [Validators.required]),
-      passport_address_fact: new FormControl(''),
-      prava_seria_number: new FormControl('', [Validators.required]),
-      prava_date: new FormControl('', [Validators.required]),
+      name: new FormControl('', [Validators.required]),
+      short_name: new FormControl('', [Validators.required]),
+      inn: new FormControl('', [Validators.required]),
+      kpp: new FormControl('', [Validators.required]),
+      ogrn: new FormControl('',),
+      ogrn_ip: new FormControl('',),
+      svidetelstvo_ip: new FormControl('',),
+      law_address: new FormControl('', [Validators.required]),
+      fact_address: new FormControl('', [Validators.required]),
+      mail_address: new FormControl('', [Validators.required]),
+      boss_role: new FormControl('', [Validators.required]),
+      boss_fio: new FormControl('', [Validators.required]),
+      osnovanie_boss_role: new FormControl('', [Validators.required]),
       phone_1: new FormControl('', [Validators.required]),
-      phone_2_dop_name: new FormControl(''),
-      phone_2_dop_number: new FormControl(''),
-      phone_3_dop_name: new FormControl(''),
-      phone_3_dop_number: new FormControl(''),
-      phone_4_dop_name: new FormControl(''),
-      phone_4_dop_number: new FormControl(''),
-      phone_5_dop_name: new FormControl(''),
-      phone_5_dop_number: new FormControl(''),
-      resident: new FormControl(''),
+      phone_2: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required]),
+      rc_number: new FormControl('', [Validators.required]),
+      kor_rc_number: new FormControl('', [Validators.required]),
+      bik_number: new FormControl('', [Validators.required]),
+      name_bank: new FormControl('', [Validators.required]),
     });
 
     this.form.disable();
@@ -95,18 +95,18 @@ export class ShowClientFizComponent {
 
   initValues() {
     //Отправляем запрос на получение текущего физического лица
-    this.store.dispatch(clientFizGetCurrent({ id: this.clientFizId }));
+    this.store.dispatch(clientLawGetCurrent({ id: this.clientLawId }));
 
-    this.currentClientFizSelector = this.store.pipe(select(getCurrentClientFizSelector))
-    this.currentClientFizSub$ = this.currentClientFizSelector.subscribe({
-      next: (currentClientFiz) => {
-        this.currentClientFiz = currentClientFiz
+    this.currentClientLawSelector = this.store.pipe(select(getCurrentClientLawSelector))
+    this.currentClientLawSub$ = this.currentClientLawSelector.subscribe({
+      next: (currentClientLaw) => {
+        this.currentClientLaw = currentClientLaw
 
-        if (currentClientFiz) {
-          this.title = `Просмотр клиента ${currentClientFiz.surname} ${currentClientFiz.name}`
-          this.pathValueClient(currentClientFiz)
+        if (currentClientLaw) {
+          this.title = `Просмотр клиента ${currentClientLaw.short_name} ${currentClientLaw.name}`
+          this.pathValueClient(currentClientLaw)
         }
-      
+
       }
     })
 
@@ -227,92 +227,85 @@ export class ShowClientFizComponent {
 
 
   // Переключаем состояние edit 
-  initEdit()
-  {
+  initEdit() {
     this.edit = !this.edit
 
-    if (this.edit === true)
-    {
+    if (this.edit === true) {
       this.form.enable()
     }
-    else
-    {
+    else {
       this.form.disable()
     }
   }
 
 
-  pathValueClient(ClientFiz: ClientFiz) {
+  pathValueClient(clientsLaw: ClientLaw) {
     this.form.patchValue({
-      fio: ClientFiz.surname + ' ' + ClientFiz.name + ' ' + ClientFiz.lastname,
-      passport_seria_number: ClientFiz.passport_seria + '-' + ClientFiz.passport_number,
-      passport_date: ClientFiz.passport_date,
-      date_birth: ClientFiz.date_birth,
-      passport_who_take: ClientFiz.passport_who_take,
-      code_podrazdeleniya: ClientFiz.code_podrazdeleniya,
-      passport_register: ClientFiz.passport_register,
-      passport_address_fact: ClientFiz.passport_address_fact,
-      prava_seria_number: ClientFiz.prava_seria + '-' + ClientFiz.prava_number,
-      prava_date: ClientFiz.prava_date,
-      phone_1: ClientFiz.phone_1,
-      phone_2_dop_name: ClientFiz.phone_2_dop_name,
-      phone_2_dop_number: ClientFiz.phone_2_dop_number,
-      phone_3_dop_name: ClientFiz.phone_3_dop_name,
-      phone_3_dop_number: ClientFiz.phone_3_dop_number,
-      phone_4_dop_name: ClientFiz.phone_4_dop_name,
-      phone_4_dop_number: ClientFiz.phone_4_dop_number,
-      phone_5_dop_name: ClientFiz.phone_5_dop_name,
-      phone_5_dop_number: ClientFiz.phone_5_dop_number,
-      resident: ClientFiz.resident === 'true' ? true : false
+      name: clientsLaw.name,
+      short_name: clientsLaw.short_name,
+      inn: clientsLaw.inn,
+      kpp: clientsLaw.kpp,
+      ogrn: clientsLaw.ogrn,
+      ogrn_ip: clientsLaw.ogrn_ip,
+      svidetelstvo_ip: clientsLaw.svidetelstvo_ip,
+      law_address: clientsLaw.law_address,
+      fact_address: clientsLaw.fact_address,
+      mail_address: clientsLaw.mail_address,
+      boss_role: clientsLaw.boss_role,
+      boss_fio: clientsLaw.boss_surname + ' ' + clientsLaw.boss_name + ' ' + clientsLaw.boss_lastname,
+      osnovanie_boss_role: clientsLaw.osnovanie_boss_role,
+      phone_1: clientsLaw.phone_1,
+      phone_2: clientsLaw.phone_2,
+      email: clientsLaw.email,
+      rc_number: clientsLaw.rc_number,
+      kor_rc_number: clientsLaw.kor_rc_number,
+      bik_number: clientsLaw.bik_number,
+      name_bank: clientsLaw.name_bank,
     });
 
-    this.file_1 = ClientFiz.file_1
-    this.file_2 = ClientFiz.file_2
-    this.file_3 = ClientFiz.file_3
-    this.file_4 = ClientFiz.file_4
+    this.file_1 = clientsLaw.file_1
+    this.file_2 = clientsLaw.file_2
+    this.file_3 = clientsLaw.file_3
+    this.file_4 = clientsLaw.file_4
 
-    
+
   }
 
 
 
   onSubmit() {
 
-    let fio = this.form.value.fio.split(' ');
-    let passport_seria_number = this.form.value.passport_seria_number.split('-');
-    let prava_seria_number = this.form.value.prava_seria_number.split('-');
-    this.resident = this.form.value.resident ? 'true' : 'false'
+
+    let boss_fio = this.form.value.boss_fio.split(' ');
 
 
-    const clientFiz: ClientFiz = {
-      _id: this.currentClientFiz?._id,
-      name: fio[1],
-      surname: fio[0],
-      lastname: fio[2],
-      date_birth: this.form.value.date_birth,
-      passport_seria: passport_seria_number[0],
-      passport_number: passport_seria_number[1],
-      passport_date: this.form.value.passport_date,
-      passport_who_take: this.form.value.passport_who_take,
-      code_podrazdeleniya: this.form.value.code_podrazdeleniya,
-      passport_register: this.form.value.passport_register,
-      passport_address_fact: this.form.value.passport_register,
-      prava_seria: prava_seria_number[0],
-      prava_number: prava_seria_number[1],
-      prava_date: this.form.value.prava_date,
-      resident: this.resident,
+    const clientLaw: ClientLaw = {
+      _id: this.currentClientLaw?._id,
+      name: this.form.value.name,
+      short_name: this.form.value.short_name,
+      inn: this.form.value.inn,
+      kpp: this.form.value.kpp,
+      ogrn: this.form.value.ogrn,
+      ogrn_ip: this.form.value.ogrn_ip,
+      svidetelstvo_ip: this.form.value.svidetelstvo_ip,
+      law_address: this.form.value.law_address,
+      fact_address: this.form.value.fact_address,
+      mail_address: this.form.value.mail_address,
+      boss_role: this.form.value.boss_role,
+      boss_name: boss_fio[1],
+      boss_surname: boss_fio[0],
+      boss_lastname: boss_fio[2],
+      osnovanie_boss_role: this.form.value.osnovanie_boss_role,
       phone_1: this.form.value.phone_1,
-      phone_2_dop_name: this.form.value.phone_2_dop_name,
-      phone_2_dop_number: this.form.value.phone_2_dop_number,
-      phone_3_dop_name: this.form.value.phone_3_dop_name,
-      phone_3_dop_number: this.form.value.phone_3_dop_number,
-      phone_4_dop_name: this.form.value.phone_4_dop_name,
-      phone_4_dop_number: this.form.value.phone_4_dop_number,
-      phone_5_dop_name: this.form.value.phone_5_dop_name,
-      phone_5_dop_number: this.form.value.phone_5_dop_number,
+      phone_2: this.form.value.phone_2,
+      email: this.form.value.email,
+      rc_number: this.form.value.rc_number,
+      kor_rc_number: this.form.value.kor_rc_number,
+      bik_number: this.form.value.bik_number,
+      name_bank: this.form.value.name_bank,
     };
 
 
-    this.store.dispatch(updateClientFizAction({ clientFiz: clientFiz, file_1: this.uploadFile_1, file_2: this.uploadFile_2, file_3: this.uploadFile_3, file_4: this.uploadFile_4 }))
+    this.store.dispatch(updateClientLawAction({ clientLaw: clientLaw, file_1: this.uploadFile_1, file_2: this.uploadFile_2, file_3: this.uploadFile_3, file_4: this.uploadFile_4 }))
   }
 }

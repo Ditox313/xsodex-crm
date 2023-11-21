@@ -124,30 +124,27 @@ export const updateStateClientsLawFailureAction = createAction(
 
 
 
-// Get ClientFiz Current
-// export const clientFizGetCurrent = createAction(
-//   ActionTypes.CLIENT_FIZ_GET_CURRENT,
-//   props<{ id: string }>()
-// );
+// Get ClientLaw Current
+export const clientLawGetCurrent = createAction(
+  ActionTypes.CLIENT_LAW_GET_CURRENT,
+  props<{ id: string }>()
+);
 
 
-// export const clientFizGetCurrentSuccessAction = createAction(
-//   ActionTypes.CLIENT_FIZ_GET_CURRENT_SUCCES,
-//   props<{ data: ClientFiz }>()
-// );
+export const clientLawGetCurrentSuccessAction = createAction(
+  ActionTypes.CLIENT_LAW_GET_CURRENT_SUCCES,
+  props<{ data: ClientLaw }>()
+);
 
 
-// export const clientFizGetCurrentFailureAction = createAction(
-//   ActionTypes.CLIENT_FIZ_GET_CURRENT_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const clientLawGetCurrentFailureAction = createAction(
+  ActionTypes.CLIENT_LAW_GET_CURRENT_FAILURE,
+  props<{ errors: any }>()
+);
 
-// export const clientFizGetCurrentReset = createAction(
-//   ActionTypes.CLIENT_FIZ_GET_CURRENT_RESET,
-// );
-
-
-
+export const clientLawGetCurrentReset = createAction(
+  ActionTypes.CLIENT_LAW_GET_CURRENT_RESET,
+);
 
 
 
@@ -155,25 +152,28 @@ export const updateStateClientsLawFailureAction = createAction(
 
 
 
-// Update ClientFiz
-// export const updateClientFizAction = createAction(
-//   ActionTypes.UPDATE_CLIENT_FIZ,
-//   props<{ clientFiz: ClientFiz, file_1?: File, file_2?: File, file_3?: File, file_4?: File }>()
-// )
-
-
-// export const updateClientFizSuccessAction = createAction(
-//   ActionTypes.UPDATE_CLIENT_FIZ_SUCCESS,
-//   props<{ data: ClientFiz }>()
-// );
 
 
 
+// Update ClientLaw
+export const updateClientLawAction = createAction(
+  ActionTypes.UPDATE_CLIENT_LAW,
+  props<{ clientLaw: ClientLaw, file_1?: File, file_2?: File, file_3?: File, file_4?: File }>()
+)
 
-// export const updateClientFizFailureAction = createAction(
-//   ActionTypes.UPDATE_CLIENT_FIZ_FAILURE,
-//   props<{ errors: any }>()
-// )
+
+export const updateClientLawSuccessAction = createAction(
+  ActionTypes.UPDATE_CLIENT_LAW_SUCCESS,
+  props<{ data: ClientLaw }>()
+);
+
+
+
+
+export const updateClientLawFailureAction = createAction(
+  ActionTypes.UPDATE_CLIENT_LAW_FAILURE,
+  props<{ errors: any }>()
+)
 
 
 

@@ -216,9 +216,6 @@ export class AddClientLawComponent {
       name_bank: this.form.value.name_bank,
     };
 
-    console.log(clientLaw);
-    
-
     
     this.store.dispatch(addClientLawAction({ clientLaw: clientLaw, file_1: this.uploadFile_1, file_2: this.uploadFile_2, file_3: this.uploadFile_3, file_4: this.uploadFile_4 }))
   }
