@@ -40,7 +40,7 @@ router.delete('/clientLawDogovor-remove/:id', passport.authenticate('jwt', { ses
 
 
 // Роут на получение договор по Id
-// router.get('/delete-dogovor/:id', passport.authenticate('jwt', { session: false }), controller.getDogovorById);
+router.get('/get-dogovor/:id', passport.authenticate('jwt', { session: false }), controller.getDogovorById);
 
 
 // Роут на поиск

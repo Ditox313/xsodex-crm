@@ -169,7 +169,7 @@ export class ClientsFizService {
 
   // Получаем договор по id
   getDogovorById(id: string): Observable<Dogovor> {
-    return this.http.get<Dogovor>(`/api/clientsFiz/delete-dogovor/${id}`);
+    return this.http.get<Dogovor>(`/api/clientsFiz/get-dogovor/${id}`);
   }
 
 

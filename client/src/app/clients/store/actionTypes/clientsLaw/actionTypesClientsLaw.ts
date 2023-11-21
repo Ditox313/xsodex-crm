@@ -38,7 +38,7 @@ export enum ActionTypes {
   CLIENT_LAW_DOGOVOR_GET_CURRENT = '[ClientsLaw] Get clientLaw dogovor  current',
   CLIENT_LAW_DOGOVOR_GET_CURRENT_SUCCES = '[ClientsLaw] Get clientLaw dogovor current succes',
   CLIENT_LAW_DOGOVOR_GET_CURRENT_FAILURE = '[ClientsLaw] Get clientLaw dogovor current failure',
-  CLIENT_FLAW_DOGOVOR_GET_CURRENT_RESET = '[ClientsLaw] Get clientLaw dogovor current reset',
+  CLIENT_LAW_DOGOVOR_GET_CURRENT_RESET = '[ClientsLaw] Get clientLaw dogovor current reset',
   CLIENTS_LAW_SEARCH = '[ClientsLaw] search clientLaw ',
   CLIENTS_LAW_SEARCH_SUCCES = '[ClientsLaw] search clientLaw succes',
   CLIENTS_LAW_SEARCH_FAILURE = '[ClientsLaw] search clientLaw failure',

@@ -288,14 +288,14 @@ module.exports.remove_dogovor = async function (req, res) {
 
 
 // Контроллер для getById
-// module.exports.getDogovorById = async function (req, res) {
-//     try {
-//         const currentDogovor = await Dogovor.findById(req.params.id); //Ищем категорию по id из переданных параметров
-//         res.status(200).json(currentDogovor);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+module.exports.getDogovorById = async function (req, res) {
+    try {
+        const currentDogovor = await Dogovor.findById(req.params.id); //Ищем категорию по id из переданных параметров
+        res.status(200).json(currentDogovor);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 

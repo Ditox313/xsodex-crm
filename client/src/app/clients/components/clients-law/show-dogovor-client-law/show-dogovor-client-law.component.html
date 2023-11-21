@@ -1,0 +1,15 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
+
+
+
+<div class="show-dogovor-clientLaw" *ngIf="currentDogovorClientLaw">
+    <form>
+
+        <div [innerHTML]="currentDogovorClientLaw.content" id="content" #content></div>
+
+
+        <button type="submit" class="submit" (click)="generatePDF()"><i class="pi pi-download"></i> Скачать</button>
+    </form>
+</div>

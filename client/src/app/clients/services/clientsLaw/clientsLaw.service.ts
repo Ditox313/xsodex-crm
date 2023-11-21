@@ -166,9 +166,9 @@ export class ClientsLawService {
   }
 
   // Получаем договор по id
-  // getDogovorById(id: string): Observable<Dogovor> {
-  //   return this.http.get<Dogovor>(`/api/clientsFiz/delete-dogovor/${id}`);
-  // }
+  getDogovorById(id: string): Observable<Dogovor> {
+    return this.http.get<Dogovor>(`/api/clientsFiz/get-dogovor/${id}`);
+  }
 
 
   // Поиск

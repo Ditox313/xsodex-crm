@@ -1,12 +1,9 @@
-import { DatePipe } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { clientFizDogovorGetCurrent, clientFizGetCurrentReset } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
-import { getCurrentDogovorClientFizSelector, isLoadingSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
-import { Dogovor } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
-
+import { Dogovor } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
+import { DatePipe } from '@angular/common';
+import { Store, select } from '@ngrx/store';
+import { ActivatedRoute } from '@angular/router';
 
 // Для корректной работы необходимо установить отдельный пакет типов для каждой библиотеки(см ошибку) и в tsconfig в compilerOptions 
 // добавить "allowSyntheticDefaultImports": true,
@@ -14,18 +11,19 @@ import * as pdfMake from "pdfmake/build/pdfmake";
 import * as  pdfFonts from "pdfmake/build/vfs_fonts";
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 import htmlToPdfmake from "html-to-pdfmake"
-
+import { getCurrentDogovorClientLawSelector, isLoadingSelector } from 'src/app/clients/store/selectors/clientslaw/selectorsClientsLaw';
+import { clientLawDogovorGetCurrent, clientLawGetCurrentReset } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
 
 @Component({
-  selector: 'app-show-dogovor-client-fiz',
-  templateUrl: './show-dogovor-client-fiz.component.html',
-  styleUrls: ['./show-dogovor-client-fiz.component.css']
+  selector: 'app-show-dogovor-client-law',
+  templateUrl: './show-dogovor-client-law.component.html',
+  styleUrls: ['./show-dogovor-client-law.component.css']
 })
-export class ShowDogovorClientFizComponent {
+export class ShowDogovorClientLawComponent {
   isLoadingSelector$!: Observable<boolean | null>
-  currentDogovorClientFizSelector!: Observable<Dogovor | null | undefined>
-  currentDogovorClientFizSub$!: Subscription
-  currentDogovorClientFiz!: Dogovor | null | undefined
+  currentDogovorClientLawSelector!: Observable<Dogovor | null | undefined>
+  currentDogovorClientLawSub$!: Subscription
+  currentDogovorClientLaw!: Dogovor | null | undefined
   getParamsSub$!: Subscription
   title: string = ''
   dogovorId = '';
@@ -44,12 +42,12 @@ export class ShowDogovorClientFizComponent {
     if (this.getParamsSub$) {
       this.getParamsSub$.unsubscribe()
     }
-    if (this.currentDogovorClientFizSub$) {
-      this.currentDogovorClientFizSub$.unsubscribe()
+    if (this.currentDogovorClientLawSub$) {
+      this.currentDogovorClientLawSub$.unsubscribe()
     }
 
-    //Отчищаем состояние currentClientFiz
-    this.store.dispatch(clientFizGetCurrentReset());
+    //Отчищаем состояние currentClientLaw
+    this.store.dispatch(clientLawGetCurrentReset());
   }
 
   getParams() {
@@ -63,15 +61,15 @@ export class ShowDogovorClientFizComponent {
     // Получаем селектор loader
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
 
-    //Отправляем запрос на получение текущего логовора
-    this.store.dispatch(clientFizDogovorGetCurrent({ id: this.dogovorId }));
+    //Отправляем запрос на получение текущего договора
+    this.store.dispatch(clientLawDogovorGetCurrent({ id: this.dogovorId }));
 
-    this.currentDogovorClientFizSelector = this.store.pipe(select(getCurrentDogovorClientFizSelector))
-    this.currentDogovorClientFizSub$ = this.currentDogovorClientFizSelector.subscribe({
-      next: (currentDogovorClientFiz) => {
-        this.currentDogovorClientFiz = currentDogovorClientFiz
+    this.currentDogovorClientLawSelector = this.store.pipe(select(getCurrentDogovorClientLawSelector))
+    this.currentDogovorClientLawSub$ = this.currentDogovorClientLawSelector.subscribe({
+      next: (currentDogovorClientLaw) => {
+        this.currentDogovorClientLaw = currentDogovorClientLaw
 
-        if (currentDogovorClientFiz) {
+        if (currentDogovorClientLaw) {
           this.title = `Просмотр договора`
         }
 
@@ -86,7 +84,7 @@ export class ShowDogovorClientFizComponent {
   generatePDF() {
     var html = htmlToPdfmake(this.content.nativeElement.innerHTML);
 
-    if (this.currentDogovorClientFiz) {
+    if (this.currentDogovorClientLaw) {
       let docDefinition = {
         content: [html],
       };

@@ -268,27 +268,27 @@ export const clientLawDogovorDeleteFailureAction = createAction(
 
 
 
-// Get ClientFiz Dogovor Current
-// export const clientFizDogovorGetCurrent = createAction(
-//   ActionTypes.CLIENT_FIZ_DOGOVOR_GET_CURRENT,
-//   props<{ id: string }>()
-// );
+// Get ClientLaw Dogovor Current
+export const clientLawDogovorGetCurrent = createAction(
+  ActionTypes.CLIENT_LAW_DOGOVOR_GET_CURRENT,
+  props<{ id: string }>()
+);
 
 
-// export const clientFizDogovorGetCurrentSuccessAction = createAction(
-//   ActionTypes.CLIENT_FIZ_DOGOVOR_GET_CURRENT_SUCCES,
-//   props<{ data: Dogovor }>()
-// );
+export const clientLawDogovorGetCurrentSuccessAction = createAction(
+  ActionTypes.CLIENT_LAW_DOGOVOR_GET_CURRENT_SUCCES,
+  props<{ data: Dogovor }>()
+);
 
 
-// export const clientFizDogovorGetCurrentFailureAction = createAction(
-//   ActionTypes.CLIENT_FIZ_DOGOVOR_GET_CURRENT_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const clientLawDogovorGetCurrentFailureAction = createAction(
+  ActionTypes.CLIENT_LAW_DOGOVOR_GET_CURRENT_FAILURE,
+  props<{ errors: any }>()
+);
 
-// export const clientFizDogovorGetCurrentReset = createAction(
-//   ActionTypes.CLIENT_FIZ_DOGOVOR_GET_CURRENT_RESET,
-// );
+export const clientLawDogovorGetCurrentReset = createAction(
+  ActionTypes.CLIENT_LAW_DOGOVOR_GET_CURRENT_RESET,
+);
 
 
 
