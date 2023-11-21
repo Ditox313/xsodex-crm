@@ -1,6 +1,6 @@
 import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
-import { ClientLaw, ClientsLawParamsFetch } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
+import { ClientLaw, ClientsLawParamsFetch, Dogovor } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 import { ActionTypes } from '../../actionTypes/clientsLaw/actionTypesClientsLaw';
 
 
@@ -180,20 +180,20 @@ export const updateClientLawFailureAction = createAction(
 
 
 // Создать договор
-// export const addClientFizDogovorAction = createAction(
-//   ActionTypes.ADD_CLIENT_FIZ_DOGOVOR,
-//   props<{ dogovor: Dogovor }>()
-// );
+export const addClientLawDogovorAction = createAction(
+  ActionTypes.ADD_CLIENT_LAW_DOGOVOR,
+  props<{ dogovor: Dogovor }>()
+);
 
-// export const addClientFizDogovorSuccessAction = createAction(
-//   ActionTypes.ADD_CLIENT_FIZ_DOGOVOR_SUCCESS,
-// );
+export const addClientLawDogovorSuccessAction = createAction(
+  ActionTypes.ADD_CLIENT_LAW_DOGOVOR_SUCCESS,
+);
 
 
-// export const addClientFizDogovorFailureAction = createAction(
-//   ActionTypes.ADD_CLIENT_FIZ_DOGOVOR_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const addClientLawDogovorFailureAction = createAction(
+  ActionTypes.ADD_CLIENT_LAW_DOGOVOR_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 

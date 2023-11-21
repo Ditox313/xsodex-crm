@@ -27,7 +27,7 @@ router.patch('/update/:id', passport.authenticate('jwt', { session: false }), up
 
 
 // Роут на create dogovor
-// router.post('/create_dogovor', passport.authenticate('jwt', { session: false }), controller.create_dogovor);
+router.post('/create_dogovor', passport.authenticate('jwt', { session: false }), controller.create_dogovor);
 
 
 

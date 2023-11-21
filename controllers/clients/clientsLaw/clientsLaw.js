@@ -1,5 +1,5 @@
 const ClientLaw = require('../../../models/clients/clientsLaw/ClientLaw.js');
-// const Dogovor = require('../../../models/clients/clientsFiz/Dogovor.js');
+const Dogovor = require('../../../models/clients/clientsFiz/Dogovor.js');
 const errorHandler = require('../../../Utils/errorHendler.js');
 const fs = require('fs');
 const path = require('path');
@@ -217,33 +217,33 @@ module.exports.update = async function (req, res) {
 
 
 // Контроллер для create
-// module.exports.create_dogovor = async function (req, res) {
-//     try {
+module.exports.create_dogovor = async function (req, res) {
+    try {
 
-//         // Что бы у нас не было нескольких активных договоров.Перед слоздание каждого договора мы на всех договорах этого клиента ставим стаус неактивный
-//         const updated = req.body
-//         const dogovorsUpdateState = await Dogovor.updateMany(
-//             { client: updated.client },
-//             { state: 'no_active' }
-//         );
-
-
-//         const dogovor = await new Dogovor({
-//             date_start: req.body.date_start,
-//             dogovor_number: req.body.dogovor_number,
-//             date_end: req.body.date_end,
-//             client: req.body.client,
-//             administrator: req.body.administrator,
-//             content: req.body.content,
-//             state: req.body.state,
-//         }).save();
+        // Что бы у нас не было нескольких активных договоров.Перед слоздание каждого договора мы на всех договорах этого клиента ставим стаус неактивный
+        const updated = req.body
+        const dogovorsUpdateState = await Dogovor.updateMany(
+            { client: updated.client },
+            { state: 'no_active' }
+        );
 
 
-//         res.status(201).json(dogovor);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+        const dogovor = await new Dogovor({
+            date_start: req.body.date_start,
+            dogovor_number: req.body.dogovor_number,
+            date_end: req.body.date_end,
+            client: req.body.client,
+            administrator: req.body.administrator,
+            content: req.body.content,
+            state: req.body.state,
+        }).save();
+
+
+        res.status(201).json(dogovor);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 

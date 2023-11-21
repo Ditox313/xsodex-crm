@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { ClientLaw } from '../../types/clientsLaw/clientsLaw.interfaces';
+import { ClientLaw, Dogovor } from '../../types/clientsLaw/clientsLaw.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -144,9 +144,9 @@ export class ClientsLawService {
 
 
   // Создаем договор
-  // create_dogovor(dogovor: Dogovor): Observable<Dogovor> {
-  //   return this.http.post<Dogovor>(`/api/clientsFiz/create_dogovor`, dogovor);
-  // }
+  create_dogovor(dogovor: Dogovor): Observable<Dogovor> {
+    return this.http.post<Dogovor>(`/api/clientsLaw/create_dogovor`, dogovor);
+  }
 
 
 

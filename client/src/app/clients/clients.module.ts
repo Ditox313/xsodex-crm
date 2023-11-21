@@ -35,6 +35,8 @@ import { reducerLaw } from './store/reducers/clientsLaw/reducersClientsLaw';
 import { ClientsLawEffect } from './store/effects/effectsClientsLaw/clientsLaw.effect';
 import { ClientsLawService } from './services/clientsLaw/clientsLaw.service';
 import { ShowClientLawComponent } from './components/clients-law/show-client-law/show-client-law.component';
+import { ListDogovorsClientsLawComponent } from './components/clients-law/list-dogovors-clients-law/list-dogovors-clients-law.component';
+import { AddDogovorClientLawComponent } from './components/clients-law/add-dogovor-client-law/add-dogovor-client-law.component';
 
 
 
@@ -49,7 +51,9 @@ import { ShowClientLawComponent } from './components/clients-law/show-client-law
     ShowDogovorClientFizComponent,
     ListClientsLawComponent,
     AddClientLawComponent,
-    ShowClientLawComponent
+    ShowClientLawComponent,
+    ListDogovorsClientsLawComponent,
+    AddDogovorClientLawComponent
   ],
   imports: [
     CommonModule,

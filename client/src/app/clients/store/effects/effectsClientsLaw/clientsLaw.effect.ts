@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsLawService } from 'src/app/clients/services/clientsLaw/clientsLaw.service'
-import { addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreClientsLawListAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
+import { addClientLawAction, addClientLawDogovorAction, addClientLawDogovorFailureAction, addClientLawDogovorSuccessAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreClientsLawListAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
 
 
 
@@ -174,25 +174,25 @@ export class ClientsLawEffect {
 
 
   // Создание договора
-  // addClientFizDogovor$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(addClientFizDogovorAction),
-  //     switchMap(({ dogovor }) => {
-  //       return this.clientsFiz.create_dogovor(dogovor).pipe(
-  //         map((dogovor) => {
-  //           this.messageService.add({ severity: 'success', summary: `Договор создан`, detail: 'Успешно!' });
-  //           this.router.navigate([`/list-dogovors-clients-fiz/${dogovor.client}`]);
-  //           return addClientFizDogovorSuccessAction();
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             addClientFizDogovorFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  addClientLawDogovor$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addClientLawDogovorAction),
+      switchMap(({ dogovor }) => {
+        return this.clientsLaw.create_dogovor(dogovor).pipe(
+          map((dogovor) => {
+            this.messageService.add({ severity: 'success', summary: `Договор создан`, detail: 'Успешно!' });
+            this.router.navigate([`/list-dogovors-clients-law/${dogovor.client}`]);
+            return addClientLawDogovorSuccessAction();
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              addClientLawDogovorFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

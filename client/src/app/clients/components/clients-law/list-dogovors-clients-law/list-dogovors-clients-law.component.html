@@ -1,0 +1,45 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector | async"></loader>
+
+
+<div class="clientLawListDogovors" *ngIf="clientLawListDogovors">
+    <p-table [value]="clientLawListDogovors" styleClass="p-datatable-gridlines list_table"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="add_new" [routerLink]="['/add-dogovor-client-law', clientLawId]">
+                <p-button icon="pi pi-plus"></p-button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Номер договора</th>
+                <th>Дата начала</th>
+                <th>Дата окончания</th>
+                <th>Статус</th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-clientLawDogovor>
+            <tr [routerLink]="['/show-dogovor-client-law', clientLawDogovor._id]">
+                <td>{{clientLawDogovor.dogovor_number}}</td>
+                <td>{{clientLawDogovor.date_start}}</td>
+                <td>{{clientLawDogovor.date_end}}</td>
+                <td *ngIf="clientLawDogovor.state === 'active'">Активный</td>
+                <td *ngIf="clientLawDogovor.state !== 'active'">Истек</td>
+                <td style="cursor: pointer; text-align: center;"
+                    (click)="onDeleteClientLawDogovor($event, clientLawDogovor)"><i class="pi pi-trash"></i></td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <div *ngIf="clientLawListDogovors.length === 0" class="noMoreClientLawListDogovors" style="margin-top: 30px;">
+        <h2>Нет договоров...</h2>
+    </div>
+
+    <div class="btn">
+        <p-button label="Загрузить еще..." *ngIf="!(noMoreClientLawListDogovors | async)"
+            (click)="loadmore()"></p-button>
+    </div>
+</div>

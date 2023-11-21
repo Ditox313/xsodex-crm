@@ -1,0 +1,136 @@
+.add-dogovor-clientLaw {
+    padding: 0 20px;
+}
+
+
+.add-dogovor-clientLaw form>div {
+    margin-bottom: 40px;
+}
+
+
+
+
+
+
+label {
+    font-size: 13px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+
+
+.add_clientLaw_inputs fieldset {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.errorValidate {
+    display: inline-block;
+    color: #fff;
+    padding-left: 0px;
+    color: #FF2400;
+    text-align: left;
+    font-size: 12px;
+    margin-right: 10px;
+    position: absolute;
+    top: 16px;
+}
+
+
+.dn {
+    display: none;
+}
+
+select {
+    color: #495057;
+    background: #ffffff;
+    padding: 0.75rem 0.75rem;
+    border: 1px solid #ced4da;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 6px;
+    margin-right: 15px;
+    margin-top: 15px;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 16px;
+    cursor: pointer;
+    width: 200px;
+}
+
+input {
+    color: #495057;
+    background: #ffffff;
+    padding: 11px;
+    border: 1px solid #ced4da;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 6px;
+    margin-right: 15px;
+    margin-top: 15px;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 16px;
+    cursor: pointer;
+    width: 200px;
+    height: 47px;
+}
+
+p-inputMask {
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+p-togglebutton {
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+/* p-togglebutton > div
+{
+    height: 45px !important;
+} */
+
+input::-webkit-datetime-edit-day-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-year-field:focus {
+    background-color: transparent;
+    color: #495057;
+    outline: none;
+}
+
+
+fieldset {
+    margin-bottom: 30px;
+}
+
+
+
+
+
+button {
+    color: #ffffff;
+    background: #3B82F6;
+    border: 1px solid #3B82F6;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: default !important;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.submit {
+    margin-top: 10px;
+}
