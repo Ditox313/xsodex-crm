@@ -1,6 +1,6 @@
 import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
-import { ClientLaw } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
+import { ClientLaw, ClientsLawParamsFetch } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 import { ActionTypes } from '../../actionTypes/clientsLaw/actionTypesClientsLaw';
 
 
@@ -29,94 +29,94 @@ export const addClientLawFailureAction = createAction(
 
 
 
-// ClientsFiz List
-// export const clientsFizListAction = createAction(
-//   ActionTypes.CLIENTS_FIZ_LIST,
-//   props<{ params: ClientsFizParamsFetch }>()
-// );
+// ClientsLaw List
+export const clientsLawListAction = createAction(
+  ActionTypes.CLIENTS_LAW_LIST,
+  props<{ params: ClientsLawParamsFetch }>()
+);
 
 
-// export const clientsFizListSuccessAction = createAction(
-//   ActionTypes.CLIENTS_FIZ_LIST_SUCCES,
-//   props<{ data: ClientFiz[] }>()
-// );
+export const clientsLawListSuccessAction = createAction(
+  ActionTypes.CLIENTS_LAW_LIST_SUCCES,
+  props<{ data: ClientLaw[] }>()
+);
 
 
-// export const clientsFizListFailureAction = createAction(
-//   ActionTypes.CLIENTS_FIZ_LIST_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const clientsLawListFailureAction = createAction(
+  ActionTypes.CLIENTS_LAW_LIST_FAILURE,
+  props<{ errors: any }>()
+);
 
 
-// export const clientsFizListResetAction = createAction(
-//   ActionTypes.CLIENTS_FIZ_LIST_RESET,
-// );
-
-
-
-
-
-// No more ClientsFiz List
-
-// export const noMoreClientsFizListAction = createAction(
-//   ActionTypes.NO_MORE_CLIENTS_FIZ_LIST,
-//   props<{ data: boolean }>()
-// );
-
-// export const noMoreClientsFizListFalseAction = createAction(
-//   ActionTypes.NO_MORE_CLIENTS_FIZ_LIST_FALSE,
-// );
-
-// export const noMoreClientsFizListTrueAction = createAction(
-//   ActionTypes.NO_MORE_CLIENTS_FIZ_LIST_TRUE,
-// );
+export const clientsLawListResetAction = createAction(
+  ActionTypes.CLIENTS_LAW_LIST_RESET,
+);
 
 
 
 
 
+// No more ClientsLaw List
 
-// ClientFiz delete
-// export const clientFizDeleteAction = createAction(
-//   ActionTypes.CLIENT_FIZ_DELETE,
-//   props<{ id: string | undefined }>()
-// );
+export const noMoreClientsLawListAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_LAW_LIST,
+  props<{ data: boolean }>()
+);
 
+export const noMoreClientsLawListFalseAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_LAW_LIST_FALSE,
+);
 
-// export const clientFizDeleteSuccessAction = createAction(
-//   ActionTypes.CLIENT_FIZ_DELETE_SUCCES,
-//   props<{ data: string }>()
-// );
-
-
-// export const clientFizDeleteFailureAction = createAction(
-//   ActionTypes.CLIENT_FIZ_DELETE_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const noMoreClientsLawListTrueAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_LAW_LIST_TRUE,
+);
 
 
 
 
 
 
+// ClientLaw delete
+export const clientLawDeleteAction = createAction(
+  ActionTypes.CLIENT_LAW_DELETE,
+  props<{ id: string | undefined }>()
+);
 
 
-// Update State ClientsFiz
-// export const updateStateClientsFizAction = createAction(
-//   ActionTypes.UPDATE_STATE_CLIENTS_FIZ,
-// );
+export const clientLawDeleteSuccessAction = createAction(
+  ActionTypes.CLIENT_LAW_DELETE_SUCCES,
+  props<{ data: string }>()
+);
 
 
-// export const updateStateClientsFizSuccessAction = createAction(
-//   ActionTypes.UPDATE_STATE_CLIENTS_FIZ_SUCCES,
-//   props<{ data: AppStateInterface }>()
-// );
+export const clientLawDeleteFailureAction = createAction(
+  ActionTypes.CLIENT_LAW_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
 
 
-// export const updateStateClientsFizFailureAction = createAction(
-//   ActionTypes.UPDATE_STATE_CLIENTS_FIZ_FAILURE,
-//   props<{ errors: any }>()
-// );
+
+
+
+
+
+
+// Update State ClientsLaw
+export const updateStateClientsLawAction = createAction(
+  ActionTypes.UPDATE_STATE_CLIENTS_LAW,
+);
+
+
+export const updateStateClientsLawSuccessAction = createAction(
+  ActionTypes.UPDATE_STATE_CLIENTS_LAW_SUCCES,
+  props<{ data: AppStateInterface }>()
+);
+
+
+export const updateStateClientsLawFailureAction = createAction(
+  ActionTypes.UPDATE_STATE_CLIENTS_LAW_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 
@@ -296,24 +296,24 @@ export const addClientLawFailureAction = createAction(
 
 
 // Поиск
-// export const clientsFizSearchAction = createAction(
-//   ActionTypes.CLIENTS_SEARCH,
-//   props<{ data: any }>()
-// );
+export const clientsLawSearchAction = createAction(
+  ActionTypes.CLIENTS_LAW_SEARCH,
+  props<{ data: any }>()
+);
 
 
-// export const clientsFizSearchSuccessAction = createAction(
-//   ActionTypes.CLIENTS_SEARCH_SUCCES,
-//   props<{ data: ClientFiz[] }>()
-// );
+export const clientsLawSearchSuccessAction = createAction(
+  ActionTypes.CLIENTS_LAW_SEARCH_SUCCES,
+  props<{ data: ClientLaw[] }>()
+);
 
 
-// export const clientsFizSearchFailureAction = createAction(
-//   ActionTypes.CLIENTS_SEARCH_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const clientsLawSearchFailureAction = createAction(
+  ActionTypes.CLIENTS_LAW_SEARCH_FAILURE,
+  props<{ errors: any }>()
+);
 
 
-// export const clientsFizSearchResetAction = createAction(
-//   ActionTypes.CLIENTS_SEARCH_RESET,
-// );
+export const clientsLawSearchResetAction = createAction(
+  ActionTypes.CLIENTS_LAW_SEARCH_RESET,
+);

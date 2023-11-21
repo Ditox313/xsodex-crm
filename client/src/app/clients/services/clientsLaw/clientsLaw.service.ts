@@ -63,13 +63,13 @@ export class ClientsLawService {
   }
 
   // Получаем список всех клиентов
-  // getAllClientsFiz(params: any = {}): Observable<ClientFiz[]> {
-  //   return this.http.get<ClientFiz[]>('/api/clientsFiz/clientsFiz-list', {
-  //     params: new HttpParams({
-  //       fromObject: params.params.params
-  //     })
-  //   });
-  // }
+  getAllClientsLaw(params: any = {}): Observable<ClientLaw[]> {
+    return this.http.get<ClientLaw[]>('/api/clientsLaw/clientsLaw-list', {
+      params: new HttpParams({
+        fromObject: params.params.params
+      })
+    });
+  }
 
 
   // getById(id: string): Observable<ClientFiz> {
@@ -136,10 +136,12 @@ export class ClientsLawService {
   //  }
 
 
-  // Удаление физлица
-  // delete(id: any): Observable<any> {
-  //   return this.http.delete<any>(`/api/clientsFiz/clientFiz-remove/${id}`);
-  // }
+  // Удаление юрлица
+  delete(id: any): Observable<any> {
+    console.log(`/api/clientsLaw/clientLaw-remove/${id}`);
+  
+    return this.http.delete<any>(`/api/clientsLaw/clientLaw-remove/${id}`);
+  }
 
 
 
@@ -172,7 +174,7 @@ export class ClientsLawService {
 
 
   // Поиск
-  // search(searchData: any): Observable<ClientFiz[]> {
-  //   return this.http.post<ClientFiz[]>('/api/clientsFiz/search-client', searchData)
-  // }
+  search(searchData: any): Observable<ClientLaw[]> {
+    return this.http.post<ClientLaw[]>('/api/clientsLaw/search-client', searchData)
+  }
 }

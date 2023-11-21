@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { ClientLawStateInterface } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
-import { addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action';
+import { addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListResetAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchResetAction, clientsLawSearchSuccessAction, noMoreClientsLawListAction, noMoreClientsLawListFalseAction, noMoreClientsLawListTrueAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action';
 
 
 
@@ -63,99 +63,63 @@ const clientsLawReducer = createReducer(
 
 
 
-  // on(
-  //   clientsFizListAction,
-  //   (state): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    clientsLawListAction,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   clientsFizListSuccessAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     clientsFizList: state.clientsFizList ? [...state.clientsFizList, ...action.data] : action.data,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //   })
-  // ),
-  // on(
-  //   clientsFizListFailureAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   clientsFizListResetAction,
-  //   (state): ClientFizStateInterface => ({
-  //     ...state,
-  //     clientsFizList: null,
-  //   })
-  // ),
-  // on(
-  //   noMoreClientsFizListAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     noMoreClientsFizList: action.data,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMoreClientsFizListFalseAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     noMoreClientsFizList: false,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMoreClientsFizListTrueAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     noMoreClientsFizList: true,
-  //     isLoading: false,
-  //   })
-  // ),
-
-
-
-
-
-
-
-
-  // on(
-  //   clientFizDeleteAction,
-  //   (state): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
-
-  // on(
-  //   clientFizDeleteSuccessAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //     currentClientFiz: null,
-  //     clientsFizList: state.clientsFizList ? state.clientsFizList.filter((item: { _id: string; }) => item._id !== action.data) : state.clientsFizList,
-  //   })
-  // ),
-  // on(
-  //   clientFizDeleteFailureAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //     currentClientFiz: null,
-  //   })
-  // ),
+  on(
+    clientsLawListSuccessAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      clientsLawList: state.clientsLawList ? [...state.clientsLawList, ...action.data] : action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    clientsLawListFailureAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    clientsLawListResetAction,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      clientsLawList: null,
+    })
+  ),
+  on(
+    noMoreClientsLawListAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      noMoreClientsLawList: action.data,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreClientsLawListFalseAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      noMoreClientsLawList: false,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreClientsLawListTrueAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      noMoreClientsLawList: true,
+      isLoading: false,
+    })
+  ),
 
 
 
@@ -164,28 +128,64 @@ const clientsLawReducer = createReducer(
 
 
 
-  // on(
-  //   updateStateClientsFizSuccessAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     isLoading: action.data.partners.isLoading,
-  //     validationErrors: action.data.clientsFiz.validationErrors,
-  //     clientsFizList: action.data.clientsFiz.clientsFizList ,
-  //     noMoreClientsFizList: action.data.clientsFiz.noMoreClientsFizList,
-  //     noMoreClientsFizDogovorsList: action.data.clientsFiz.noMoreClientsFizDogovorsList,
-  //     currentClientFiz: action.data.clientsFiz.currentClientFiz,
-  //     dogovorsList: action.data.clientsFiz.dogovorsList,
-  //     currentDogovorClientFiz: action.data.clientsFiz.currentDogovorClientFiz,
-  //     searchList: action.data.clientsFiz.searchList
-  //   }),
-  // ),
-  // on(
-  //   updateStateClientsFizFailureAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //   })
-  // ),
+  on(
+    clientLawDeleteAction,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    clientLawDeleteSuccessAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentClientLaw: null,
+      clientsLawList: state.clientsLawList ? state.clientsLawList.filter((item: { _id: string; }) => item._id !== action.data) : state.clientsLawList,
+    })
+  ),
+  on(
+    clientLawDeleteFailureAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+      currentClientLaw: null,
+    })
+  ),
+
+
+
+
+
+
+
+
+  on(
+    updateStateClientsLawSuccessAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      isLoading: action.data.partners.isLoading,
+      validationErrors: action.data.clientsLaw.validationErrors,
+      clientsLawList: action.data.clientsLaw.clientsLawList ,
+      noMoreClientsLawList: action.data.clientsLaw.noMoreClientsLawList,
+      noMoreClientsLawDogovorsList: action.data.clientsLaw.noMoreClientsLawDogovorsList,
+      currentClientLaw: action.data.clientsLaw.currentClientLaw,
+      dogovorsList: action.data.clientsLaw.dogovorsList,
+      currentDogovorClientLaw: action.data.clientsLaw.currentDogovorClientLaw,
+      searchList: action.data.clientsLaw.searchList
+    }),
+  ),
+  on(
+    updateStateClientsLawFailureAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+    })
+  ),
 
 
 
@@ -372,39 +372,39 @@ const clientsLawReducer = createReducer(
 
 
 
-  // on(
-  //   clientsFizSearchAction,
-  //   (state): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    clientsLawSearchAction,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   clientsFizSearchSuccessAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     searchList: action.data,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //   })
-  // ),
-  // on(
-  //   clientsFizSearchFailureAction,
-  //   (state, action): ClientFizStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   clientsFizSearchResetAction,
-  //   (state): ClientFizStateInterface => ({
-  //     ...state,
-  //     searchList: null,
-  //   })
-  // ),
+  on(
+    clientsLawSearchSuccessAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      searchList: action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    clientsLawSearchFailureAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    clientsLawSearchResetAction,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      searchList: null,
+    })
+  ),
 
 
 

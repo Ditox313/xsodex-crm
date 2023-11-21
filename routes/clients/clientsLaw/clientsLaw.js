@@ -10,12 +10,12 @@ const upload = require('../../../middleware/upload-clientsLaw-docs.js');
 router.post('/create', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }, { name: 'file_3' }, { name: 'file_4' }]), controller.create);
 
 
-// Роут на Получение всех физических лиц
-// router.get('/clientsLaw-list', passport.authenticate('jwt', { session: false }), controller.getAllClientsFiz);
+// Роут на Получение всех юридичексих лиц
+router.get('/clientsLaw-list', passport.authenticate('jwt', { session: false }), controller.getAllClientsLaw);
 
 
-//Роут на удаление физического лица
-// router.delete('/clientLaw-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
+//Роут на удаление юридического лица
+router.delete('/clientLaw-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 
 
 // Роут на получение физического лица по Id
@@ -44,7 +44,7 @@ router.post('/create', passport.authenticate('jwt', { session: false }), upload.
 
 
 // Роут на поиск
-// router.post('/search-client', passport.authenticate('jwt', { session: false }), controller.search);
+router.post('/search-client', passport.authenticate('jwt', { session: false }), controller.search);
 
 
 module.exports = router;

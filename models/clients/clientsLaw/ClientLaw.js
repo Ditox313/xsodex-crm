@@ -179,7 +179,7 @@ const clientLawSchema = new Schema({
     },
 
     /// Документ №2
-    file_1: {
+    file_2: {
         type: String,
         default: '',
         required: false,

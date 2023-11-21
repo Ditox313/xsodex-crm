@@ -27,20 +27,22 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th>ФИО</th>
+                <th>Организация</th>
+                <th>Руководитель</th>
                 <th>Телефон</th>
                 <th></th>
             </tr>
         </ng-template>
 
-        <!-- <ng-template pTemplate="body" let-clientLaw>
+        <ng-template pTemplate="body" let-clientLaw>
             <tr [routerLink]="['/show-client-law',clientLaw._id]">
-                <td><strong>{{clientFiz.surname}} {{clientFiz.name}} {{clientFiz.lastname}}</strong></td>
-                <td>{{clientFiz.phone_1}}</td>
-                <td style="cursor: pointer; text-align: center;" (click)="onDeleteClientLaw($event, clientFiz)"><i
+                <td><strong>{{clientLaw.short_name}} {{clientLaw.name}}</strong></td>
+                <td>{{clientLaw.boss_surname}} {{clientLaw.boss_name}} {{clientLaw.boss_lastname}}</td>
+                <td>{{clientLaw.phone_1}}</td>
+                <td style="cursor: pointer; text-align: center;" (click)="onDeleteClientLaw($event, clientLaw)"><i
                         class="pi pi-trash"></i></td>
             </tr>
-        </ng-template> -->
+        </ng-template>
     </p-table>
 
     <p-table *ngIf="hasQuery && clientsLawSearch" [value]="clientsLawSearch" styleClass="p-datatable-gridlines list_table"
@@ -54,20 +56,22 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th>ФИО</th>
+                <th>Организация</th>
+                <th>Руководитель</th>
                 <th>Телефон</th>
                 <th></th>
             </tr>
         </ng-template>
     
-        <!-- <ng-template pTemplate="body" let-clientFiz>
-            <tr [routerLink]="['/show-client-fiz',clientFiz._id]">
-                <td><strong>{{clientFiz.surname}} {{clientFiz.name}} {{clientFiz.lastname}}</strong></td>
-                <td>{{clientFiz.phone_1}}</td>
-                <td style="cursor: pointer; text-align: center;" (click)="onDeleteClientFiz($event, clientFiz)"><i
+        <ng-template pTemplate="body" let-clientLaw>
+            <tr [routerLink]="['/show-client-fiz',clientLaw._id]">
+                <td><strong>{{clientLaw.short_name}} {{clientLaw.name}}</strong></td>
+                <td>{{clientLaw.boss_surname}} {{clientLaw.boss_name}} {{clientLaw.boss_lastname}}</td>
+                <td>{{clientLaw.phone_1}}</td>
+                <td style="cursor: pointer; text-align: center;" (click)="onDeleteClientLaw($event, clientLaw)"><i
                         class="pi pi-trash"></i></td>
             </tr>
-        </ng-template> -->
+        </ng-template>
     </p-table>
 
     <div *ngIf="clientsLawList.length === 0" class="noMoreClientsLawList">

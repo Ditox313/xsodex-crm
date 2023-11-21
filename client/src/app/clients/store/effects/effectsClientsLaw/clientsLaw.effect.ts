@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsLawService } from 'src/app/clients/services/clientsLaw/clientsLaw.service'
-import { addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
+import { addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreClientsLawListAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
 
 
 
@@ -30,7 +30,7 @@ export class ClientsLawEffect {
       ofType(addClientLawAction), 
       switchMap(({ clientLaw, file_1, file_2, file_3, file_4 }) => {
         return this.clientsLaw.create(clientLaw, file_1, file_2, file_3, file_4).pipe(
-          map((clientFiz) => {
+          map((clientLaw) => {
             this.messageService.add({ severity: 'success', summary: `Клиент создан`, detail: 'Успешно!' });
             this.router.navigate(['/list-clients-law']);
             return addClientLawSuccessAction({ clientLaw: clientLaw }); 
@@ -49,52 +49,52 @@ export class ClientsLawEffect {
 
 
 
-  // Получение всех физических лиц
-  // clientsFizList$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(clientsFizListAction),
-  //     concatMap((params) => {
-  //       return this.clientsFiz.getAllClientsFiz({ params }).pipe(
-  //         concatMap((clientsFizList) => {
-  //           if (clientsFizList.length === 0) {
-  //             return of(noMoreClientsFizListAction({ data: true }));
-  //           }
-  //           return of(clientsFizListSuccessAction({ data: clientsFizList }));
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             clientsFizListFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Получение всех юридичексих лиц
+  clientsLawList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientsLawListAction),
+      concatMap((params) => {
+        return this.clientsLaw.getAllClientsLaw({ params }).pipe(
+          concatMap((clientsLawList) => {
+            if (clientsLawList.length === 0) {
+              return of(noMoreClientsLawListAction({ data: true }));
+            }
+            return of(clientsLawListSuccessAction({ data: clientsLawList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              clientsLawListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
 
 
-  // Удаление физичексого лица
-  // clientFizDelete$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(clientFizDeleteAction),
-  //     switchMap((id) => {
-  //       return this.clientsFiz.delete(id.id).pipe(
-  //         map((id) => {
-  //           this.messageService.add({ severity: 'success', summary: `Клиент удален`, detail: 'Успешно!' });
-  //           return clientFizDeleteSuccessAction({ data: id });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `Ошибка удаления клиента`, detail: 'Попробуйте позже!' });
-  //           return of(
-  //             clientFizDeleteFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Удаление юридического лица
+  clientLawDelete$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientLawDeleteAction),
+      switchMap((id) => {
+        return this.clientsLaw.delete(id.id).pipe(
+          map((id) => {
+            this.messageService.add({ severity: 'success', summary: `Клиент удален`, detail: 'Успешно!' });
+            return clientLawDeleteSuccessAction({ data: id });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления клиента`, detail: 'Попробуйте позже!' });
+            return of(
+              clientLawDeleteFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
@@ -278,23 +278,23 @@ export class ClientsLawEffect {
 
 
   // Поиск
-  // clientsFizSearch$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(clientsFizSearchAction),
-  //     concatMap((searchData) => {
-  //       return this.clientsFiz.search({ searchData }).pipe(
-  //         concatMap((clientsFizList) => {
-  //           return of(clientsFizSearchSuccessAction({ data: clientsFizList }));
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             clientsFizSearchFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  clientsLawSearch$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientsLawSearchAction),
+      concatMap((searchData) => {
+        return this.clientsLaw.search({ searchData }).pipe(
+          concatMap((clientsFizList) => {
+            return of(clientsLawSearchSuccessAction({ data: clientsFizList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              clientsLawSearchFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

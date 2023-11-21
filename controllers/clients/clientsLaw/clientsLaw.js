@@ -53,74 +53,77 @@ module.exports.create = async function (req, res) {
 
 
 
-// module.exports.getAllClientsFiz = async function (req, res) {
-//     try {
+module.exports.getAllClientsLaw = async function (req, res) {
+    try {
 
-//         const clientsFizList = await ClientFiz.find({}).sort({ date: -1 })
-//             .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
-//             .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+        const clientsLawList = await ClientLaw.find({}).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
 
-//         // Возвращаем пользователю позиции 
-//         res.status(200).json(clientsFizList);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+        // Возвращаем пользователю позиции 
+        res.status(200).json(clientsLawList);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 
 
 
 // Контроллер для remove
-// module.exports.remove = async function (req, res) {
-//     try {
+module.exports.remove = async function (req, res) {
+    try {
 
-//         const clientFiz = await ClientFiz.findOne({ _id: req.params.id });
-//         // Удаляем все договоры клиента при удалении
-//         const dogovors = await Dogovor.deleteMany({ client: req.params.id });
+        const clientLaw = await ClientLaw.findOne({ _id: req.params.id });
+        // Удаляем все договоры клиента при удалении
+        // const dogovors = await Dogovor.deleteMany({ client: req.params.id });
 
-//         fs.unlink(clientFiz.file_1, (err) => {
-//             if (err) {
-//                 console.error(err);
-//                 return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-//             }
-//         });
+        fs.unlink(clientLaw.file_1, (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+            }
+        });
 
-//         fs.unlink(clientFiz.file_2, (err) => {
-//             if (err) {
-//                 console.error(err);
-//                 return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-//             }
-//         });
+        fs.unlink(clientLaw.file_2, (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+            }
+        });
 
-//         fs.unlink(clientFiz.file_3, (err) => {
-//             if (err) {
-//                 console.error(err);
-//                 return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-//             }
-//         });
+        fs.unlink(clientLaw.file_3, (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+            }
+        });
 
-//         fs.unlink(clientFiz.file_4, (err) => {
-//             if (err) {
-//                 console.error(err);
-//                 return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-//             }
-//         });
-
-
-//         // Удаляем партнера
-//         const result = await ClientFiz.deleteOne({ _id: req.params.id });
-//         if (result.deletedCount === 1) {
-//             res.status(200).json(req.params.id);
-//         } else {
-//             return error
-//         }
+        fs.unlink(clientLaw.file_4, (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+            }
+        });
 
 
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+        // Удаляем клиента
+        const result = await ClientLaw.deleteOne({ _id: req.params.id });
+
+        if (result.deletedCount === 1) {
+            res.status(200).json(req.params.id);
+        } 
+        else
+        {
+            res.status(200).json(req.params.id);
+        }
+
+
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 
@@ -312,15 +315,15 @@ module.exports.create = async function (req, res) {
 
 
 // Контроллер на поиск
-// module.exports.search = async function (req, res) {
-//     try {
+module.exports.search = async function (req, res) {
+    try {
 
-//         search = await ClientFiz.find({ surname: { $regex: new RegExp('^' + req.body.searchData.data + '.*', 'i') } }).exec();
-//         search = search.slice(0, 10);
+        search = await ClientLaw.find({ name: { $regex: new RegExp('^' + req.body.searchData.data + '.*', 'i') } }).exec();
+        search = search.slice(0, 10);
 
-//         res.status(200).json(search);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
+        res.status(200).json(search);
+    } catch (e) {
+        errorHandler(res, e);
+    }
 
-// };
+};
