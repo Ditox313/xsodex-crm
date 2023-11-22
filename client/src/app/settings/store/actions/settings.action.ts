@@ -1,22 +1,22 @@
 import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { ActionTypes } from '../actionTypes';
-import { Setting } from '../../types/settings.interfaces';
+import { SettingAvtopark } from '../../types/settings.interfaces';
 
 
 // Add partner
-export const addSettingAction = createAction(
-  ActionTypes.ADD_SETTING,
-  props<{ setting: Setting}>()
+export const addSettingAvtoparkAction = createAction(
+  ActionTypes.ADD_SETTING_AVTOPARK,
+  props<{ setting: SettingAvtopark}>()
 );
 
-export const addSettingSuccessAction = createAction(
-  ActionTypes.ADD_SETTING_SUCCESS,
+export const addSettingAvtoparkSuccessAction = createAction(
+  ActionTypes.ADD_SETTING_AVTOPARK_SUCCESS,
 );
 
 
-export const addSettingFailureAction = createAction(
-  ActionTypes.ADD_SETTING_FAILURE,
+export const addSettingAvtoparkFailureAction = createAction(
+  ActionTypes.ADD_SETTING_AVTOPARK_FAILURE,
   props<{ errors: any }>()
 );
 

@@ -1,7 +1,7 @@
 export enum ActionTypes {
-  ADD_SETTING = '[Settings] Add setting',
-  ADD_SETTING_SUCCESS = '[Settings] Add setting success',
-  ADD_SETTING_FAILURE = '[Settings] Add setting failure',
+  ADD_SETTING_AVTOPARK = '[Settings] Add setting avtopark',
+  ADD_SETTING_AVTOPARK_SUCCESS = '[Settings] Add setting avtopark success',
+  ADD_SETTING_AVTOPARK_FAILURE = '[Settings] Add setting avtopark failure',
   SETTINGS_LIST = '[Settings] Settings List',
   SETTINGS_LIST_SUCCES = '[Settings] Settings List succes',
   SETTINGS_LIST_FAILURE = '[Settings] Settings List failure',

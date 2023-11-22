@@ -3,6 +3,7 @@ import { Route } from "src/app/shared/types/interfaces";
 import { AppLayoutComponent } from "src/app/shared/modules/layouts/components/app-layout/app-layout.component";
 import { AuthGuard } from "../../shared/guards/auth.guard";
 import { ListSettingsComponent } from "../components/list-settings/list-settings.component";
+import { AddSettingAvtoparkComponent } from "../components/add-setting-avtopark/add-setting-avtopark.component";
 
 
 
@@ -14,10 +15,10 @@ export function getRoutes(): Route[] {
             component: AppLayoutComponent,
             canActivate: [AuthGuard], 
             children: [
-                // {
-                //     path: 'add-partner',
-                //     component: AddPartnerComponent,
-                // },
+                {
+                    path: 'add-setting-avtopark',
+                    component: AddSettingAvtoparkComponent,
+                },
                 {
                     path: 'list-settings',
                     component: ListSettingsComponent,

@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { SettingsStateInterface } from '../types/settings.interfaces';
-import { addSettingAction, addSettingFailureAction, addSettingSuccessAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from './actions/settings.action';
+import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from './actions/settings.action';
 
 
 
@@ -23,7 +23,7 @@ const initialState: SettingsStateInterface = {
 const settingsReducer = createReducer(
   initialState,
   on(
-    addSettingAction,
+    addSettingAvtoparkAction,
     (state): SettingsStateInterface => ({
       ...state,
       validationErrors: null,
@@ -32,7 +32,7 @@ const settingsReducer = createReducer(
   ),
 
   on(
-    addSettingSuccessAction,
+    addSettingAvtoparkSuccessAction,
     (state, action): SettingsStateInterface => ({
       ...state,
       validationErrors: null,
@@ -40,7 +40,7 @@ const settingsReducer = createReducer(
     })
   ),
   on(
-    addSettingFailureAction,
+    addSettingAvtoparkFailureAction,
     (state, action): SettingsStateInterface => ({
       ...state,
       validationErrors: action.errors,

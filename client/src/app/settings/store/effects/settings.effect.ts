@@ -5,8 +5,8 @@ import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
-import { addSettingAction, addSettingFailureAction, addSettingSuccessAction } from '../actions/settings.action'
 import { SettingsService } from '../../services/settings.service'
+import { addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction } from '../actions/settings.action'
 
 
 
@@ -26,17 +26,17 @@ export class SettingsEffect {
   // Создание настройки
   addSetting$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(addSettingAction), 
+      ofType(addSettingAvtoparkAction), 
       switchMap(({ setting }) => {
-        return this.settings.create(setting).pipe(
+        return this.settings.create_setting_avtopark(setting).pipe(
           map((setting) => {
-            this.messageService.add({ severity: 'success', summary: `Настройка создана`, detail: 'Успешно!' });
+            this.messageService.add({ severity: 'success', summary: `Настройки для автопарка создана`, detail: 'Успешно!' });
             this.router.navigate(['/list-settings']);
-            return addSettingSuccessAction(); 
+            return addSettingAvtoparkSuccessAction(); 
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
-              addSettingFailureAction({ errors: errorResponse.error.errors })
+              addSettingAvtoparkFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

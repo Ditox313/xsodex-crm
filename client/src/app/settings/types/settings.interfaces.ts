@@ -1,8 +1,12 @@
 
 
 //Интерфейс для партнера
-export interface Setting {
-    [key: string]: unknown,
+export interface SettingAvtopark {
+    share_avto: Object,
+    input_avto: Object,
+    washing_avto: Object,
+    additionally_avto: Object,
+    title?: string
 }
 
 

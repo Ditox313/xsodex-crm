@@ -22,11 +22,13 @@ import { StoreModule } from '@ngrx/store';
 import { getRoutes } from './routes/settings.route';
 import { EffectsModule } from '@ngrx/effects';
 import { SettingsEffect } from './store/effects/settings.effect';
+import { AddSettingAvtoparkComponent } from './components/add-setting-avtopark/add-setting-avtopark.component';
 
 
 @NgModule({
   declarations: [
-    ListSettingsComponent
+    ListSettingsComponent,
+    AddSettingAvtoparkComponent,
   ],
   imports: [
     CommonModule,

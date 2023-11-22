@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { Setting, SettingsParamsFetch } from '../../types/settings.interfaces';
+import { SettingsParamsFetch } from '../../types/settings.interfaces';
 import { Store, select } from '@ngrx/store';
 import { isLoadingSelector } from '../../store/selectors';
 
@@ -16,9 +16,9 @@ export class ListSettingsComponent {
   title: string = 'Настройки'
   isLoadingSelector!: Observable<boolean | null>
   noMoreSettingsList!: Observable<boolean | null>
-  settingsListSelector!: Observable<Setting[] | null | undefined>
+  settingsListSelector!: Observable<any[] | null | undefined>
   settingsListSub$!: Subscription
-  settingsList: Setting[] | null | undefined = [];
+  settingsList: any[] | null | undefined = [];
 
 
   constructor(private store: Store) { }
@@ -93,7 +93,7 @@ export class ListSettingsComponent {
 
 
   // Удаление партнера
-  onDeleteSetting(event: Event, partner: Setting) {
+  onDeleteSetting(event: Event, setting: any) {
     event.stopPropagation();
     const dicision = window.confirm(`Удалить Настройку?`);
 
