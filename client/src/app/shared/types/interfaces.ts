@@ -4,6 +4,7 @@ import { CarsStateInterface } from "src/app/cars/types/cars.interfaces";
 import { ClientFizStateInterface } from "src/app/clients/types/clientsFiz/clientsFiz.interfaces";
 import { ClientLawStateInterface } from "src/app/clients/types/clientsLaw/clientsLaw.interfaces";
 import { PartnersStateInterface } from "src/app/partners/types/partners.interfaces";
+import { SettingsStateInterface } from "src/app/settings/types/settings.interfaces";
 import { SmenaStateInterface } from "src/app/smena/types/smena.interfaces";
 
 // Интерфейс для Route
@@ -24,6 +25,7 @@ export interface AppStateInterface {
     partners: PartnersStateInterface,
     clientsFiz: ClientFizStateInterface
     clientsLaw: ClientLawStateInterface
+    settings: SettingsStateInterface
 }
 
 

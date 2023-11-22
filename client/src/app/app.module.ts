@@ -15,6 +15,7 @@ import { SmenaModule } from './smena/smena.module';
 import { CarsModule } from './cars/cars.module';
 import { PartnersModule } from './partners/partners.module';
 import { ClientsModule } from './clients/clients.module';
+import { SettingsModule } from './settings/settings.module';
 
 
 
@@ -30,6 +31,7 @@ import { ClientsModule } from './clients/clients.module';
     CarsModule,
     PartnersModule,
     ClientsModule,
+    SettingsModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule ,

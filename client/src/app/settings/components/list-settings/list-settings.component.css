@@ -1,0 +1,17 @@
+.settings {
+    padding: 0 20px;
+}
+
+.btn {
+    margin-top: 20px;
+}
+
+.noMoreSettingsList {
+    margin-top: 20px;
+}
+
+td {
+    cursor: pointer;
+    padding-bottom: 15px !important;
+    padding-top: 15px !important;
+}

@@ -7,6 +7,7 @@ import { updateStateCarsAction } from 'src/app/cars/store/actions/cars.action';
 import { updateStateClientsFizAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 import { updateStateClientsLawAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
 import { updateStatePartnersAction } from 'src/app/partners/store/actions/partners.action';
+import { updateStateSettingsAction } from 'src/app/settings/store/actions/settings.action';
 import { isOpenedSmenaAction, updateStateSmenaAction } from 'src/app/smena/store/actions/smena.action';
 
 @Component({
@@ -37,12 +38,17 @@ export class AppLayoutComponent implements OnInit {
     {
       url: '/list-partners',
       name: 'Партнеры',
-      icon: 'pi-users'
+      icon: 'pi-user-edit'
+    },
+    {
+      url: '/list-settings',
+      name: 'Настройки',
+      icon: 'pi-cog'
     },
     {
       url: '/account-settings-page',
-      name: 'Настройки',
-      icon: 'pi-cog'
+      name: 'Аккаунт',
+      icon: 'pi-sign-in'
     },
   ];
 
@@ -94,6 +100,9 @@ export class AppLayoutComponent implements OnInit {
 
          // Обновляем состояние clientsLaw
          this.store.dispatch(updateStateClientsLawAction())
+
+         // Обновляем состояние Settings
+         this.store.dispatch(updateStateSettingsAction())
 
 
 
