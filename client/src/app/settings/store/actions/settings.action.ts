@@ -1,7 +1,7 @@
 import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { ActionTypes } from '../actionTypes';
-import { SettingAvtopark } from '../../types/settings.interfaces';
+import { SettingAvtopark, SettingsParamsFetch } from '../../types/settings.interfaces';
 
 
 // Add partner
@@ -27,70 +27,70 @@ export const addSettingAvtoparkFailureAction = createAction(
 
 
 
-// Partners List
-// export const partnersListAction = createAction(
-//   ActionTypes.PARTNERS_LIST,
-//   props<{ params?: PartnersParamsFetch  }>()
-// );
+// Settings avtopark List
+export const settingsAvtoparkListAction = createAction(
+  ActionTypes.SETTINGS_AVTOPARK_LIST,
+  props<{ params?: SettingsParamsFetch  }>()
+);
 
 
-// export const partnersListSuccessAction = createAction(
-//   ActionTypes.PARTNERS_LIST_SUCCES,
-//   props<{ data: Partner[] }>()
-// );
+export const settingsAvtoparkListSuccessAction = createAction(
+  ActionTypes.SETTINGS_AVTOPARK_LIST_SUCCES,
+  props<{ data: SettingAvtopark[] }>()
+);
 
 
-// export const partnersListFailureAction = createAction(
-//   ActionTypes.PARTNERS_LIST_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const settingsAvtoparkListFailureAction = createAction(
+  ActionTypes.SETTINGS_AVTOPARK_LIST_FAILURE,
+  props<{ errors: any }>()
+);
 
 
-// export const partnersListResetAction = createAction(
-//   ActionTypes.PARTNERS_LIST_RESET,
-// );
-
-
-
-
-
-// No more Partners List
-
-// export const noMorePartnersListAction = createAction(
-//   ActionTypes.NO_MORE_PARTNERS_LIST,
-//   props<{ data: boolean }>()
-// );
-
-// export const noMorePartnersListFalseAction = createAction(
-//   ActionTypes.NO_MORE_PARTNERS_LIST_FALSE,
-// );
-
-// export const noMorePartnersListTrueAction = createAction(
-//   ActionTypes.NO_MORE_PARTNERS_LIST_TRUE,
-// );
+export const settingsAvtoparkListResetAction = createAction(
+  ActionTypes.SETTINGS_AVTOPARK_LIST_RESET,
+);
 
 
 
 
 
+// No more Settings avtopark List
 
-// Partner delete
-// export const partnerDeleteAction = createAction(
-//   ActionTypes.PARTNER_DELETE,
-//   props<{ id: string | undefined }>()
-// );
+export const noMoreSettingsAvtoparkListAction = createAction(
+  ActionTypes.NO_MORE_SETTINGS_AVTOPARK_LIST,
+  props<{ data: boolean }>()
+);
+
+export const noMoreSettingsAvtoparkListFalseAction = createAction(
+  ActionTypes.NO_MORE_SETTINGS_AVTOPARK_LIST_FALSE,
+);
+
+export const noMoreSettingsAvtoparkListTrueAction = createAction(
+  ActionTypes.NO_MORE_SETTINGS_AVTOPARK_LIST_TRUE,
+);
 
 
-// export const partnerDeleteSuccessAction = createAction(
-//   ActionTypes.PARTNER_DELETE_SUCCES,
-//   props<{ data: string }>()
-// );
 
 
-// export const partnerDeleteFailureAction = createAction(
-//   ActionTypes.PARTNER_DELETE_FAILURE,
-//   props<{ errors: any }>()
-// );
+
+
+// Setting avtopark delete
+export const settingAvtoparkDeleteAction = createAction(
+  ActionTypes.SETTING_AVTOPARK_DELETE,
+  props<{ id: string | undefined }>()
+);
+
+
+export const settingAvtoparkDeleteSuccessAction = createAction(
+  ActionTypes.SETTING_AVTOPARK_DELETE_SUCCES,
+  props<{ data: string }>()
+);
+
+
+export const settingAvtoparkDeleteFailureAction = createAction(
+  ActionTypes.SETTING_AVTOPARK_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 

@@ -15,14 +15,14 @@ export class SettingsService {
     return this.http.post<SettingAvtopark>(`/api/settings/create_setting_avtopark`, settings);
   }
 
-  // Получаем список всех партнеров
-  // getAllPartners(params: any = {}): Observable<Partner[]> {
-  //   return this.http.get<Partner[]>('/api/partners/partners-list', {
-  //     params: new HttpParams({
-  //       fromObject: params.params.params
-  //     })
-  //   });
-  // }
+  // Получаем список всех настроек автопарка
+  getAllSettingsAvtopark(params: any = {}): Observable<SettingAvtopark[]> {
+    return this.http.get<SettingAvtopark[]>('/api/settings/settings-avtopark-list', {
+      params: new HttpParams({
+        fromObject: params.params.params
+      })
+    });
+  }
 
 
 
@@ -71,8 +71,8 @@ export class SettingsService {
   //  }
 
 
-  // Удаление
-  // delete(id: any): Observable<any> {
-  //   return this.http.delete<any>(`/api/partners/partner-remove/${id}`);
-  // }
+  // Удаление настроек автопарка
+  deleteSettingAvtark(id: any): Observable<any> {
+    return this.http.delete<any>(`/api/settings/setting-avtopark-remove/${id}`);
+  }
 }

@@ -13,21 +13,21 @@ export const isLoadingSelector = createSelector(
     (state: SettingsStateInterface) => state.isLoading
 )
 
-export const partnersListSelector = createSelector(
+export const settingsAvtoparkListSelector = createSelector(
     settingsFeatureSelector,
-    (state: SettingsStateInterface) => state.settingsList
+    (state: SettingsStateInterface) => state.settingsAvtoparkList
 )
 
 
-export const noMorePartnersList = createSelector(
+export const noMoreSettingsAvtoparkList = createSelector(
     settingsFeatureSelector,
-    (state: SettingsStateInterface) => state.noMoreSettingsList
+    (state: SettingsStateInterface) => state.noMoreSettingsAvtoparkList
 )
 
 
-export const getCurrentPartnerSelector = createSelector(
+export const getCurrentSettingAvtoparkSelector = createSelector(
     settingsFeatureSelector,
-    (state: SettingsStateInterface) => state.currentSetting
+    (state: SettingsStateInterface) => state.currentSettingAvtopark
 )
 
 

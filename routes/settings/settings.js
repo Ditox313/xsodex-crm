@@ -10,16 +10,16 @@ const upload = require('../../middleware/upload-partner-docs.js');
 router.post('/create_setting_avtopark', passport.authenticate('jwt', { session: false }), controller.create_setting_avtopark);
 
 
-// Роут на Получение всех партнеров
-// router.get('/partners-list', passport.authenticate('jwt', { session: false }), controller.getAllPartners);
+// Роут на Получение всех настроект автопарка
+router.get('/settings-avtopark-list', passport.authenticate('jwt', { session: false }), controller.getAllSettingsAvtopark);
 
 
 // Роут на Получение всех партнеров без параметров
 // router.get('/partners-list-no-params', passport.authenticate('jwt', { session: false }), controller.getAllPartnersNoParams);
 
 
-//Роут на удаление партнера
-// router.delete('/partner-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
+//Роут на удаление настройки автопарка
+router.delete('/setting-avtopark-remove/:id', passport.authenticate('jwt', { session: false }), controller.removeSettingAvtopark);
 
 
 // Роут на получение партнера по Id

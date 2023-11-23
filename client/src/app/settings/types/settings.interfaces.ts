@@ -15,9 +15,9 @@ export interface SettingAvtopark {
 export interface SettingsStateInterface {
     isLoading: boolean,
     validationErrors?: any,
-    settingsList?: any[] | null | undefined | any,
-    noMoreSettingsList: boolean
-    currentSetting: any | null | undefined | any,
+    settingsAvtoparkList?: SettingAvtopark[] | null | undefined | any,
+    noMoreSettingsAvtoparkList: boolean
+    currentSettingAvtopark: SettingAvtopark | null | undefined | any,
 }
 
 

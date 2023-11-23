@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { SettingsParamsFetch } from '../../types/settings.interfaces';
+import { SettingAvtopark, SettingsParamsFetch } from '../../types/settings.interfaces';
 import { Store, select } from '@ngrx/store';
-import { isLoadingSelector } from '../../store/selectors';
+import { isLoadingSelector, noMoreSettingsAvtoparkList, settingsAvtoparkListSelector } from '../../store/selectors';
+import { noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, settingAvtoparkDeleteAction, settingsAvtoparkListAction, settingsAvtoparkListResetAction } from '../../store/actions/settings.action';
 
 @Component({
   selector: 'app-list-settings',
@@ -15,90 +16,90 @@ export class ListSettingsComponent {
   limit: number = this.STEP;
   title: string = 'Настройки'
   isLoadingSelector!: Observable<boolean | null>
-  noMoreSettingsList!: Observable<boolean | null>
-  settingsListSelector!: Observable<any[] | null | undefined>
-  settingsListSub$!: Subscription
-  settingsList: any[] | null | undefined = [];
+  noMoreSettingsAvtoparkList!: Observable<boolean | null>
+  settingsAvtoparkListSelector!: Observable<SettingAvtopark[] | null | undefined>
+  settingsAvtoparkListSub$!: Subscription
+  settingsAvtoparkList: SettingAvtopark[] | null | undefined = [];
 
 
   constructor(private store: Store) { }
   ngOnInit(): void {
     this.initValues();
-    this.getPartnersList();
+    this.getSettingsAvtoparkList();
   }
 
   ngOnDestroy(): void {
-    if (this.settingsListSub$) {
-      this.settingsListSub$.unsubscribe();
+    if (this.settingsAvtoparkListSub$) {
+      this.settingsAvtoparkListSub$.unsubscribe();
     }
 
-    // Отчищаем состояние partnersList если не хотим сохранять список авто  в состояние
-    // this.store.dispatch(partnersListResetAction());
+    // Отчищаем состояние settingsAvtoparkList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsAvtoparkListResetAction());
   }
 
   initValues() {
-    // Отчищаем состояние перед запросом на получение списка авто
-    // this.store.dispatch(partnersListResetAction());
+    // Отчищаем состояние settingsAvtoparkList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsAvtoparkListResetAction());
 
 
     // Получаем селектор loader
     this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))
 
 
-    // Получаем селектор noMorePartnersList
-    // this.noMorePartnersList = this.store.pipe(select(noMorePartnersList))
+    // Получаем селектор noMoresettingsAvtoparkList
+    this.noMoreSettingsAvtoparkList = this.store.pipe(select(noMoreSettingsAvtoparkList))
 
 
 
 
-    // Получаем селектор на получение списка партнеров и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
+    // Получаем селектор на получение списка settingsAvtoparkList и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
     // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
-    // this.partnersListSelector = this.store.pipe(select(partnersListSelector))
-    // this.partnersListSub$ = this.partnersListSelector.subscribe({
-    //   next: (partnersList) => {
-    //     if (partnersList) {
-    //       this.partnersList = partnersList;
+    this.settingsAvtoparkListSelector = this.store.pipe(select(settingsAvtoparkListSelector))
+    this.settingsAvtoparkListSub$ = this.settingsAvtoparkListSelector.subscribe({
+      next: (settingsAvtoparkList) => {
+        if (settingsAvtoparkList) {
+          this.settingsAvtoparkList = settingsAvtoparkList;
 
 
-    //       if (this.partnersList.length >= this.STEP) {
-    //         // Изменяем значение noMorePartnersList в состоянии на false что бы открыть кнопку загрузить ещё
-    //         this.store.dispatch(noMorePartnersListFalseAction());
-    //       }
-    //       else {
-    //         // Изменяем значение noMorePartnersList в состоянии на true что бы скрыть кнопку загрузить ещё
-    //         this.store.dispatch(noMorePartnersListTrueAction());
-    //       }
-    //     }
-    //   }
-    // });
+          if (this.settingsAvtoparkList.length >= this.STEP) {
+            // Изменяем значение settingsAvtoparkList в состоянии на false что бы открыть кнопку загрузить ещё
+            this.store.dispatch(noMoreSettingsAvtoparkListFalseAction());
+          }
+          else {
+            // Изменяем значение settingsAvtoparkList в состоянии на true что бы скрыть кнопку загрузить ещё
+            this.store.dispatch(noMoreSettingsAvtoparkListTrueAction());
+          }
+        }
+      }
+    });
   }
 
 
-  getPartnersList() {
+  getSettingsAvtoparkList() {
     const params: SettingsParamsFetch = {
       offset: this.offset,
       limit: this.limit,
     };
 
     // Отправляем запрос на получения списка партнеров
-    // this.store.dispatch(partnersListAction({ params: params }));
+    this.store.dispatch(settingsAvtoparkListAction({ params: params }));
   }
 
 
   // Подгружаем партнеров
   loadmore() {
     this.offset += this.STEP;
-    this.getPartnersList();
+    this.getSettingsAvtoparkList();
   }
 
 
   // Удаление партнера
-  onDeleteSetting(event: Event, setting: any) {
+  onDeleteSettingsAvtopark(event: Event, setting: any) {
     event.stopPropagation();
-    const dicision = window.confirm(`Удалить Настройку?`);
+    const dicision = window.confirm(`Удалить Настройки автопарка?`);
 
     if (dicision) {
-      // this.store.dispatch(partnerDeleteAction({ id: partner._id }))
+      this.store.dispatch(settingAvtoparkDeleteAction({ id: setting._id }))
     }
   }
 }

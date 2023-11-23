@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { SettingsStateInterface } from '../types/settings.interfaces';
-import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from './actions/settings.action';
+import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, noMoreSettingsAvtoparkListAction, noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListResetAction, settingsAvtoparkListSuccessAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from './actions/settings.action';
 
 
 
@@ -11,9 +11,9 @@ import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvt
 const initialState: SettingsStateInterface = {
   isLoading: false,
   validationErrors: null,
-  settingsList: null,
-  noMoreSettingsList: true,
-  currentSetting: null
+  settingsAvtoparkList: null,
+  noMoreSettingsAvtoparkList: true,
+  currentSettingAvtopark: null
 };
 
 
@@ -57,63 +57,63 @@ const settingsReducer = createReducer(
 
 
 
-  // on(
-  //   partnersListAction,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    settingsAvtoparkListAction,
+    (state): SettingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   partnersListSuccessAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     partnersList: state.partnersList ? [...state.partnersList, ...action.data] : action.data,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //   })
-  // ),
-  // on(
-  //   partnersListFailureAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   partnersListResetAction,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     partnersList: null,
-  //   })
-  // ),
-  // on(
-  //   noMorePartnersListAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     noMorePartnersList: action.data,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMorePartnersListFalseAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     noMorePartnersList: false,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMorePartnersListTrueAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     noMorePartnersList: true,
-  //     isLoading: false,
-  //   })
-  // ),
+  on(
+    settingsAvtoparkListSuccessAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      settingsAvtoparkList: state.settingsAvtoparkList ? [...state.settingsAvtoparkList, ...action.data] : action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    settingsAvtoparkListFailureAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    settingsAvtoparkListResetAction,
+    (state): SettingsStateInterface => ({
+      ...state,
+      settingsAvtoparkList: null,
+    })
+  ),
+  on(
+    noMoreSettingsAvtoparkListAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      noMoreSettingsAvtoparkList: action.data,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreSettingsAvtoparkListFalseAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      noMoreSettingsAvtoparkList: false,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreSettingsAvtoparkListTrueAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      noMoreSettingsAvtoparkList: true,
+      isLoading: false,
+    })
+  ),
 
 
 
@@ -163,34 +163,34 @@ const settingsReducer = createReducer(
 
 
 
-  // on(
-  //   partnerDeleteAction,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    settingAvtoparkDeleteAction,
+    (state): SettingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   partnerDeleteSuccessAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //     currentPartner: null,
-  //     partnersList: state.partnersList ? state.partnersList.filter((item: { _id: string; }) => item._id !== action.data) : state.partnersList,
-  //   })
-  // ),
-  // on(
-  //   partnerDeleteFailureAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //     currentPartner: null,
-  //   })
-  // ),
+  on(
+    settingAvtoparkDeleteSuccessAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentSettingAvtopark: null,
+      settingsAvtoparkList: state.settingsAvtoparkList ? state.settingsAvtoparkList.filter((item: { _id: string; }) => item._id !== action.data) : state.settingsAvtoparkList,
+    })
+  ),
+  on(
+    settingAvtoparkDeleteFailureAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+      currentSettingAvtopark: null,
+    })
+  ),
 
 
 
@@ -205,9 +205,9 @@ const settingsReducer = createReducer(
       ...state,
       isLoading: action.data.settings.isLoading,
       validationErrors: action.data.settings.validationErrors,
-      settingsList: action.data.settings.settingsList ,
-      noMoreSettingsList: action.data.settings.noMoreSettingsList,
-      currentSetting: action.data.settings.currentSetting
+      settingsAvtoparkList: action.data.settings.settingsAvtoparkList ,
+      noMoreSettingsAvtoparkList: action.data.settings.noMoreSettingsAvtoparkList,
+      currentSettingAvtopark: action.data.settings.currentSettingAvtopark
     }),
   ),
   on(

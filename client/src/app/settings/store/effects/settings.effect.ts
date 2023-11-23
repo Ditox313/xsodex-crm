@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { SettingsService } from '../../services/settings.service'
-import { addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction } from '../actions/settings.action'
+import { addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, noMoreSettingsAvtoparkListAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListSuccessAction } from '../actions/settings.action'
 
 
 
@@ -48,52 +48,52 @@ export class SettingsEffect {
 
 
 
-  // Получение всех партнеров
-  // partnersList$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(partnersListAction),
-  //     concatMap((params) => {
-  //       return this.partners.getAllPartners({ params }).pipe(
-  //         concatMap((partnersList) => {
-  //           if (partnersList.length === 0) {
-  //             return of(noMorePartnersListAction({ data: true }));
-  //           }
-  //           return of(partnersListSuccessAction({ data: partnersList }));
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             partnersListFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Получение списка настрокт автопарка
+  settingsAvtoparkList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(settingsAvtoparkListAction),
+      concatMap((params) => {
+        return this.settings.getAllSettingsAvtopark({ params }).pipe(
+          concatMap((settingsAvtoparkList) => {
+            if (settingsAvtoparkList.length === 0) {
+              return of(noMoreSettingsAvtoparkListAction({ data: true }));
+            }
+            return of(settingsAvtoparkListSuccessAction({ data: settingsAvtoparkList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              settingsAvtoparkListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
 
 
-  // Удаление партнера
-  // carDelete$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(partnerDeleteAction),
-  //     switchMap((id) => {
-  //       return this.partners.delete(id.id).pipe(
-  //         map((id) => {
-  //           this.messageService.add({ severity: 'success', summary: `Партнер удален`, detail: 'Успешно!' });
-  //           return partnerDeleteSuccessAction({ data: id });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `Ошибка удаления партнера`, detail: 'Попробуйте позже!' });
-  //           return of(
-  //             partnerDeleteFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Удаление настроек автопарка
+  carDelete$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(settingAvtoparkDeleteAction),
+      switchMap((id) => {
+        return this.settings.deleteSettingAvtark(id.id).pipe(
+          map((id) => {
+            this.messageService.add({ severity: 'success', summary: `Настройки автопарка удален`, detail: 'Успешно!' });
+            return settingAvtoparkDeleteSuccessAction({ data: id });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления настроект автопарка`, detail: 'Попробуйте позже!' });
+            return of(
+              settingAvtoparkDeleteFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
