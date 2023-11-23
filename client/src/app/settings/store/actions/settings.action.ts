@@ -122,27 +122,27 @@ export const updateStateSettingsFailureAction = createAction(
 
 
 
-// Get Partners Current
-// export const partnerGetCurrent = createAction(
-//   ActionTypes.PARTNER_GET_CURRENT,
-//   props<{ id: string }>()
-// );
+// Get SettingsAvtopark Current
+export const settingsAvtoparkGetCurrent = createAction(
+  ActionTypes.SETTINGS_AVTOPARK_GET_CURRENT,
+  props<{ id: string }>()
+);
 
 
-// export const partnerGetCurrentSuccessAction = createAction(
-//   ActionTypes.PARTNER_GET_CURRENT_SUCCES,
-//   props<{ data: Partner }>()
-// );
+export const settingsAvtoparkGetCurrentSuccessAction = createAction(
+  ActionTypes.SETTINGS_AVTOPARK_GET_CURRENT_SUCCES,
+  props<{ data: SettingAvtopark }>()
+);
 
 
-// export const partnerGetCurrentFailureAction = createAction(
-//   ActionTypes.PARTNER_GET_CURRENT_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const settingsAvtoparkGetCurrentFailureAction = createAction(
+  ActionTypes.SETTINGS_AVTOPARK_GET_CURRENT_FAILURE,
+  props<{ errors: any }>()
+);
 
-// export const partnerGetCurrentReset = createAction(
-//   ActionTypes.PARTNER_GET_CURRENT_FAILURE,
-// );
+export const settingsAvtoparkGetCurrentReset = createAction(
+  ActionTypes.SETTINGS_AVTOPARK_GET_CURRENT_RESET,
+);
 
 
 
@@ -154,48 +154,26 @@ export const updateStateSettingsFailureAction = createAction(
 
 
 // Update Partner
-// export const updatePartnerAction = createAction(
-//   ActionTypes.UPDATE_PARTNER,
-//   props<{ partner: Partner, file_1?: File, file_2?: File }>()
-// )
+export const updateSettingsAvtoparkAction = createAction(
+  ActionTypes.UPDATE_SETTINS_AVTOPARK,
+  props<{ settingAvtopark: SettingAvtopark}>()
+)
 
 
-// export const updatePartnerSuccessAction = createAction(
-//   ActionTypes.UPDATE_PARTNER_SUCCESS,
-//   props<{ data: Partner }>()
-// );
-
-
-
-
-// export const updatePartnerFailureAction = createAction(
-//   ActionTypes.UPDATE_PARTNER_FAILURE,
-//   props<{ errors: any }>()
-// )
+export const updateSettingsAvtoparkSuccessAction = createAction(
+  ActionTypes.UPDATE_SETTINS_AVTOPARK_SUCCESS,
+  props<{ data: SettingAvtopark }>()
+);
 
 
 
 
+export const updateSettingsAvtoparkFailureAction = createAction(
+  ActionTypes.UPDATE_SSETTINS_AVTOPARK_FAILURE,
+  props<{ errors: any }>()
+)
 
 
-// Partners List no params
-// export const partnersListNoParamsAction = createAction(
-//   ActionTypes.PARTNERS_LIST_NO_PARAMS,
-// );
 
 
-// export const partnersListNoParamsSuccessAction = createAction(
-//   ActionTypes.PARTNERS_LIST_NO_PARAMS_SUCCES,
-//   props<{ data: Partner[] }>()
-// );
 
-
-// export const partnersListNoParamsFailureAction = createAction(
-//   ActionTypes.PARTNERS_LIST_NO_PARAMS_FAILURE,
-//   props<{ errors: any }>()
-// );
-
-
-// export const partnersListNoParamsResetAction = createAction(
-//   ActionTypes.PARTNERS_LIST_NO_PARAMS_RESET,
-// );

@@ -84,15 +84,15 @@ module.exports.removeSettingAvtopark = async function (req, res) {
 
 
 
-// Контроллер для getById
-// module.exports.getById = async function (req, res) {
-//     try {
-//         const car = await Partner.findById(req.params.id); //Ищем категорию по id из переданных параметров
-//         res.status(200).json(car);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+// Контроллер для getByIdSettingsAvtopark
+module.exports.getByIdSettingsAvtopark = async function (req, res) {
+    try {
+        const settingsAvtopark = await SettingsFvtopark.findById(req.params.id); //Ищем категорию по id из переданных параметров
+        res.status(200).json(settingsAvtopark);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 
@@ -101,52 +101,21 @@ module.exports.removeSettingAvtopark = async function (req, res) {
 
 
 // Контроллер для update
-// module.exports.update = async function (req, res) {
-//     try {
+module.exports.updateSettingsAvtopark = async function (req, res) {
+    try {
 
-//         const updated = req.body;
+        const updated = req.body;
+        // Находим и обновляем позицию. 
+        const settingsAvtoparkUpdate = await SettingsFvtopark.findOneAndUpdate({ _id: updated._id }, //Ищем по id
+            { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
+            { new: true } //обновит позицию и верет нам уже обновленную
+        );
 
-
-
-//         // Если объект file есть,то заполняем параметр путем фала
-//         if (req.files.file_1) {
-//             // Находим нужный автомобиль и удаляем аватарку автомобиля
-//             const partner = await Partner.findOne({ _id: req.body._id });
-//             fs.unlink(partner.file_1, (err) => {
-//                 if (err) {
-//                     return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-//                 }
-//             });
-
-//             updated.file_1 = req.files.file_1[0] ? req.files.file_1[0].path : '';
-//         }
-
-//         // Если объект file есть,то заполняем параметр путем фала
-//         if (req.files.file_2) {
-//             // Находим нужный автомобиль и удаляем аватарку автомобиля
-//             const partner = await Partner.findOne({ _id: req.body._id });
-//             fs.unlink(partner.file_2, (err) => {
-//                 if (err) {
-//                     return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-//                 }
-//             });
-
-//             updated.file_2 = req.files.file_2[0] ? req.files.file_2[0].path : '';
-//         }
-
-
-
-//         // Находим и обновляем позицию. 
-//         const partnerUpdate = await Partner.findOneAndUpdate({ _id: updated._id }, //Ищем по id
-//             { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
-//             { new: true } //обновит позицию и верет нам уже обновленную
-//         );
-
-//         // Возвращаем пользователю обновленную позицию 
-//         res.status(200).json(partnerUpdate);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+        // Возвращаем пользователю обновленную позицию 
+        res.status(200).json(settingsAvtoparkUpdate);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 

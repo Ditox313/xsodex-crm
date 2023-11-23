@@ -22,12 +22,12 @@ router.get('/settings-avtopark-list', passport.authenticate('jwt', { session: fa
 router.delete('/setting-avtopark-remove/:id', passport.authenticate('jwt', { session: false }), controller.removeSettingAvtopark);
 
 
-// Роут на получение партнера по Id
-// router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
+// Роут на получение настройки автопарка по Id
+router.get('/get-settings-avtopark/:id', passport.authenticate('jwt', { session: false }), controller.getByIdSettingsAvtopark);
 
 
-// Роут на update
-// router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.update);
+// Роут на обновление настроек автопарка
+router.patch('/update-settings-avtopark/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.updateSettingsAvtopark);
 
 
 

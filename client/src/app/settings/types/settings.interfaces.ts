@@ -2,6 +2,7 @@
 
 //Интерфейс для партнера
 export interface SettingAvtopark {
+    _id? : string,
     share_avto: Object,
     input_avto: Object,
     washing_avto: Object,

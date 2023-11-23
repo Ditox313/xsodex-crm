@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { SettingsStateInterface } from '../types/settings.interfaces';
-import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, noMoreSettingsAvtoparkListAction, noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListResetAction, settingsAvtoparkListSuccessAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from './actions/settings.action';
+import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, noMoreSettingsAvtoparkListAction, noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentReset, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListResetAction, settingsAvtoparkListSuccessAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from './actions/settings.action';
 
 
 
@@ -122,40 +122,6 @@ const settingsReducer = createReducer(
 
 
 
-  // on(
-  //   partnersListNoParamsAction,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
-
-  // on(
-  //   partnersListNoParamsSuccessAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     partnersList: action.data,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //   })
-  // ),
-  // on(
-  //   partnersListNoParamsFailureAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   partnersListNoParamsResetAction,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     partnersList: null,
-  //   })
-  // ),
-
 
 
 
@@ -224,39 +190,39 @@ const settingsReducer = createReducer(
 
 
 
-  // on(
-  //   partnerGetCurrent,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    settingsAvtoparkGetCurrent,
+    (state): SettingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   partnerGetCurrentSuccessAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //     currentPartner: action.data
-  //   })
-  // ),
-  // on(
-  //   partnerGetCurrentFailureAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   partnerGetCurrentReset,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     currentPartner: null
-  //   })
-  // ),
+  on(
+    settingsAvtoparkGetCurrentSuccessAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentSettingAvtopark: action.data
+    })
+  ),
+  on(
+    settingsAvtoparkGetCurrentFailureAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    settingsAvtoparkGetCurrentReset,
+    (state): SettingsStateInterface => ({
+      ...state,
+      currentSettingAvtopark: null
+    })
+  ),
 
 );
 

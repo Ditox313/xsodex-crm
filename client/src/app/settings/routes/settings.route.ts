@@ -4,6 +4,7 @@ import { AppLayoutComponent } from "src/app/shared/modules/layouts/components/ap
 import { AuthGuard } from "../../shared/guards/auth.guard";
 import { ListSettingsComponent } from "../components/list-settings/list-settings.component";
 import { AddSettingAvtoparkComponent } from "../components/add-setting-avtopark/add-setting-avtopark.component";
+import { ShowSettingsAvtoparkComponent } from "../components/show-settings-avtopark/show-settings-avtopark.component";
 
 
 
@@ -23,10 +24,10 @@ export function getRoutes(): Route[] {
                     path: 'list-settings',
                     component: ListSettingsComponent,
                 },
-                // {
-                //     path: 'show-partner/:id', 
-                //     component: ShowPartnerComponent,
-                // },
+                {
+                    path: 'show-settings-avtopark/:id', 
+                    component: ShowSettingsAvtoparkComponent,
+                },
             ],
         },
 

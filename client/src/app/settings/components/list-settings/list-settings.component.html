@@ -19,7 +19,7 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-settingAvtopark>
-            <tr [routerLink]="['/show-setting',settingAvtopark._id]">
+            <tr [routerLink]="['/show-settings-avtopark',settingAvtopark._id]">
                 <td>{{settingAvtopark.title}}</td>
                 <td style="cursor: pointer; text-align: center;" (click)="onDeleteSettingsAvtopark($event, settingAvtopark)"><i
                         class="pi pi-trash"></i></td>

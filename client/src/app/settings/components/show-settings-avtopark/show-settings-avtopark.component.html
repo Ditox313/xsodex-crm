@@ -1,0 +1,147 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
+
+
+
+<div class="show-settings-avtopark">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+            <div class="show_setting_avtopark_inputs">
+                <div class="xs_account_box">
+                    <h2>Настройки подачи автомобиля</h2>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Аэропорт:</label>
+                        <input pInputText id="airport_price" formControlName="airport_price" placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['airport_price'].invalid && form.controls['airport_price'].touched}" />
+                    </fieldset>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Ж/д вокзал:</label>
+                        <input pInputText id="railway_price" formControlName="railway_price" placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['railway_price'].invalid && form.controls['railway_price'].touched}" />
+                    </fieldset>
+            
+                    <fieldset>
+                        <label htmlFor="fio">ТЦ Кристалл:</label>
+                        <input pInputText id="kristal_tc_price" formControlName="kristal_tc_price" placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['kristal_tc_price'].invalid && form.controls['kristal_tc_price'].touched}" />
+                    </fieldset>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Тц Сити Молл:</label>
+                        <input pInputText id="sitymol_tc_price" formControlName="sitymol_tc_price" placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['sitymol_tc_price'].invalid && form.controls['sitymol_tc_price'].touched}" />
+                    </fieldset>
+                </div>
+            
+            
+                <div class="xs_account_box">
+                    <h2>Настройки приема автомобиля</h2>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Аэропорт:</label>
+                        <input pInputText id="airport_price_input" formControlName="airport_price_input"
+                            placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['airport_price_input'].invalid && form.controls['airport_price_input'].touched}" />
+                    </fieldset>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Ж/д вокзал:</label>
+                        <input pInputText id="railway_price_input" formControlName="railway_price_input"
+                            placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['railway_price_input'].invalid && form.controls['railway_price_input'].touched}" />
+                    </fieldset>
+            
+                    <fieldset>
+                        <label htmlFor="fio">ТЦ Кристалл:</label>
+                        <input pInputText id="kristal_tc_price_input" formControlName="kristal_tc_price_input"
+                            placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['kristal_tc_price_input'].invalid && form.controls['kristal_tc_price_input'].touched}" />
+                    </fieldset>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Тц Сити Молл:</label>
+                        <input pInputText id="sitymol_tc_price_input" formControlName="sitymol_tc_price_input"
+                            placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['sitymol_tc_price_input'].invalid && form.controls['sitymol_tc_price_input'].touched}" />
+                    </fieldset>
+                </div>
+            
+            
+            
+                <div class="xs_account_box">
+                    <h2>Настройки стоимости мойки</h2>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Мойка комфорт:</label>
+                        <input pInputText id="moyka_komfort" formControlName="moyka_komfort" placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['moyka_komfort'].invalid && form.controls['moyka_komfort'].touched}" />
+                    </fieldset>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Мойка бизнес:</label>
+                        <input pInputText id="moyka_business" formControlName="moyka_business" placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['moyka_business'].invalid && form.controls['moyka_business'].touched}" />
+                    </fieldset>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Мойка премиум:</label>
+                        <input pInputText id="moyka_premium" formControlName="moyka_premium" placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['moyka_premium'].invalid && form.controls['moyka_premium'].touched}" />
+                    </fieldset>
+                </div>
+            
+            
+            
+                <div class="xs_account_box">
+                    <h2>Настройки доп.услуг</h2>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Детское кресло:</label>
+                        <input pInputText id="additionally_det_kreslo" formControlName="additionally_det_kreslo"
+                            placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['additionally_det_kreslo'].invalid && form.controls['additionally_det_kreslo'].touched}" />
+                    </fieldset>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Бустер:</label>
+                        <input pInputText id="additionally_buster" formControlName="additionally_buster"
+                            placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['additionally_buster'].invalid && form.controls['additionally_buster'].touched}" />
+                    </fieldset>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Видеорегистратор:</label>
+                        <input pInputText id="additionally_videoregister" formControlName="additionally_videoregister"
+                            placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['additionally_videoregister'].invalid && form.controls['additionally_videoregister'].touched}" />
+                    </fieldset>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Зарядное устройство:</label>
+                        <input pInputText id="additionally_battery_charger" formControlName="additionally_battery_charger"
+                            placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['additionally_battery_charger'].invalid && form.controls['additionally_battery_charger'].touched}" />
+                    </fieldset>
+            
+                    <fieldset>
+                        <label htmlFor="fio">Антирадар:</label>
+                        <input pInputText id="additionally_antiradar" formControlName="additionally_antiradar"
+                            placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['additionally_antiradar'].invalid && form.controls['additionally_antiradar'].touched}" />
+                    </fieldset>
+                </div>
+            
+            
+            </div>
+        </div>
+
+        <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+    </form>
+
+    <div class="edit" (click)="initEdit()" [ngClass]="{edit_active: edit}">
+        <p-button icon="pi pi-pencil" styleClass="p-button-sm"></p-button>
+    </div>
+</div>

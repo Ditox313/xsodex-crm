@@ -25,54 +25,20 @@ export class SettingsService {
   }
 
 
-
-  // Получаем список всех партнеров без параметров
-  // getAllPartnersNoParams(): Observable<Partner[]> {
-  //   return this.http.get<Partner[]>('/api/partners/partners-list-no-params');
-  // }
-
-
-  // getById(id: string): Observable<Partner> {
-  //   return this.http.get<Partner>(`/api/partners/${id}`);
-  // }
+  getByIdSettingsAvtopark(id: string): Observable<SettingAvtopark> {
+    return this.http.get<SettingAvtopark>(`/api/settings/get-settings-avtopark/${id}`);
+  }
 
 
 
-  // update(partner: Partner,
-  //     file_1?: File,
-  //     file_2?: File): Observable<Partner> {
-  //     const fd = new FormData();
-      
-  //     fd.append('name', partner.name);
-  //     fd.append('surname', partner.surname);
-  //     fd.append('lastname', partner.lastname);
-  //     fd.append('passport_seria', partner.passport_seria);
-  //     fd.append('passport_number', partner.passport_number);
-  //     fd.append('passport_date', partner.passport_date);
-  //     fd.append('passport_who_take', partner.passport_who_take);
-  //     fd.append('code_podrazdeleniya', partner.code_podrazdeleniya);
-  //     fd.append('passport_register', partner.passport_register);
-  //     fd.append('phone_1', partner.phone_1);
-  //     fd.append('phone_2', partner.phone_2);
+  updateSettingsAvtopark(settingAvtopark: SettingAvtopark): Observable<SettingAvtopark> {
+    return this.http.patch<SettingAvtopark>(`/api/settings/update-settings-avtopark/${settingAvtopark._id}`, settingAvtopark);
+   }
 
-  //     if (file_1) {
-  //       fd.append('file_1', file_1, file_1.name);
-  //     }
-
-  //     if (file_2) {
-  //       fd.append('file_2', file_2, file_2.name);
-  //     }
-
-  //     if (partner._id) {
-  //       fd.append('_id', partner._id);
-  //     }
-
-  //     return this.http.patch<Partner>(`/api/partners/update/${partner._id}`, fd);
-  //  }
 
 
   // Удаление настроек автопарка
-  deleteSettingAvtark(id: any): Observable<any> {
+  deleteSettingAvtopark(id: any): Observable<any> {
     return this.http.delete<any>(`/api/settings/setting-avtopark-remove/${id}`);
   }
 }
