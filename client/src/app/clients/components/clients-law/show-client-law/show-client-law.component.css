@@ -192,3 +192,9 @@ button:disabled {
     top: -20px;
     right: 20px;
 }
+
+
+.upload_btns {
+    display: flex;
+    align-items: center;
+}
