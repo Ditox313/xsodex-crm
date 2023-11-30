@@ -127,3 +127,13 @@ button:disabled {
 }
 
 
+.add_booking_content
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.add_booking_content > div
+{
+    width: 46%;
+}

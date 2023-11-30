@@ -31,7 +31,7 @@ export const addCarFailureAction = createAction(
 // Cars List
 export const carsListAction = createAction(
   ActionTypes.CARS_LIST,
-  props<{ params: CarsParamsFetch }>()
+  props<{ params: CarsParamsFetch | {} }>()
 );
 
 

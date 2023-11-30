@@ -87,7 +87,7 @@ export class ListCarsComponent implements OnInit, OnDestroy {
       limit: this.limit,
     };
 
-    // Отправляем запрос на получения списка смен
+    // Отправляем запрос на получения списка автомобилей
     this.store.dispatch(carsListAction({ params: params }));
   }
 
