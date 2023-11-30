@@ -17,10 +17,11 @@ import { getRoutes } from './routes/bookings.route';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { ListBookinhsComponent } from './components/list-bookinhs/list-bookinhs.component';
-// import { StoreModule } from '@ngrx/store';
-// import { EffectsModule } from '@ngrx/effects';
-// import { reducers } from './store/reducers';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers } from './store/reducers';
 import { BookingsService } from './services/bookings.service';
+import { BookingsEffect } from './store/effects/bookings.effect';
 
 
 
@@ -45,8 +46,8 @@ import { BookingsService } from './services/bookings.service';
     TabViewModule,
     TreeSelectModule,
     InputMaskModule,
-    // StoreModule.forFeature('partners', reducers),
-    // EffectsModule.forFeature([PartnersEffect]),
+    StoreModule.forFeature('bookings', reducers),
+    EffectsModule.forFeature([BookingsEffect]),
   ],
   providers: [MessageService, DatePipe, BookingsService]
 })

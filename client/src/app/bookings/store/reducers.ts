@@ -1,118 +1,53 @@
 import {createReducer, on, Action} from '@ngrx/store'
-import { PartnersStateInterface } from '../types/partners.interfaces';
-import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, noMorePartnersListFalseAction, noMorePartnersListTrueAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnerGetCurrent, partnerGetCurrentFailureAction, partnerGetCurrentReset, partnerGetCurrentSuccessAction, partnersListAction, partnersListFailureAction, partnersListNoParamsAction, partnersListNoParamsFailureAction, partnersListNoParamsResetAction, partnersListNoParamsSuccessAction, partnersListResetAction, partnersListSuccessAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from './actions/partners.action';
+import { BookingsStateInterface } from '../types/bookings.interfaces';
+import { bookingsListAction, bookingsListFailureAction, bookingsListResetAction, bookingsListSuccessAction, noMoreBookingsListAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from './actions/bookings.action';
 
 
 
 
 
 // Инициализируем состояние
-const initialState: PartnersStateInterface = {
+const initialState: BookingsStateInterface = {
   isLoading: false,
   validationErrors: null,
-  partnersList: null,
-  noMorePartnersList: true,
-  currentPartner: null
+  bookingsList: null,
+  noMoreBookingsList: true,
+  currentBooking: null
 };
 
 
 
 
 // Создаем редьюсер
-const partnersReducer = createReducer(
+const bookingsReducer = createReducer(
   initialState,
-  on(
-    addPartnerAction,
-    (state): PartnersStateInterface => ({
-      ...state,
-      validationErrors: null,
-      isLoading: true,
-    })
-  ),
+  // on(
+  //   addPartnerAction,
+  //   (state): PartnersStateInterface => ({
+  //     ...state,
+  //     validationErrors: null,
+  //     isLoading: true,
+  //   })
+  // ),
 
-  on(
-    addPartnerSuccessAction,
-    (state, action): PartnersStateInterface => ({
-      ...state,
-      validationErrors: null,
-      isLoading: false,
-    })
-  ),
-  on(
-    addPartnerFailureAction,
-    (state, action): PartnersStateInterface => ({
-      ...state,
-      validationErrors: action.errors,
-      isLoading: false,
-    })
-  ),
-
-
+  // on(
+  //   addPartnerSuccessAction,
+  //   (state, action): PartnersStateInterface => ({
+  //     ...state,
+  //     validationErrors: null,
+  //     isLoading: false,
+  //   })
+  // ),
+  // on(
+  //   addPartnerFailureAction,
+  //   (state, action): PartnersStateInterface => ({
+  //     ...state,
+  //     validationErrors: action.errors,
+  //     isLoading: false,
+  //   })
+  // ),
 
 
-
-
-
-
-
-
-  on(
-    partnersListAction,
-    (state): PartnersStateInterface => ({
-      ...state,
-      validationErrors: null,
-      isLoading: true
-    })
-  ),
-
-  on(
-    partnersListSuccessAction,
-    (state, action): PartnersStateInterface => ({
-      ...state,
-      partnersList: state.partnersList ? [...state.partnersList, ...action.data] : action.data,
-      isLoading: false,
-      validationErrors: null,
-    })
-  ),
-  on(
-    partnersListFailureAction,
-    (state, action): PartnersStateInterface => ({
-      ...state,
-      validationErrors: action.errors,
-      isLoading: false,
-    })
-  ),
-  on(
-    partnersListResetAction,
-    (state): PartnersStateInterface => ({
-      ...state,
-      partnersList: null,
-    })
-  ),
-  on(
-    noMorePartnersListAction,
-    (state, action): PartnersStateInterface => ({
-      ...state,
-      noMorePartnersList: action.data,
-      isLoading: false,
-    })
-  ),
-  on(
-    noMorePartnersListFalseAction,
-    (state, action): PartnersStateInterface => ({
-      ...state,
-      noMorePartnersList: false,
-      isLoading: false,
-    })
-  ),
-  on(
-    noMorePartnersListTrueAction,
-    (state, action): PartnersStateInterface => ({
-      ...state,
-      noMorePartnersList: true,
-      isLoading: false,
-    })
-  ),
 
 
 
@@ -122,8 +57,8 @@ const partnersReducer = createReducer(
 
 
   on(
-    partnersListNoParamsAction,
-    (state): PartnersStateInterface => ({
+    bookingsListAction,
+    (state): BookingsStateInterface => ({
       ...state,
       validationErrors: null,
       isLoading: true
@@ -131,63 +66,51 @@ const partnersReducer = createReducer(
   ),
 
   on(
-    partnersListNoParamsSuccessAction,
-    (state, action): PartnersStateInterface => ({
+    bookingsListSuccessAction,
+    (state, action): BookingsStateInterface => ({
       ...state,
-      partnersList: action.data,
+      bookingsList: state.bookingsList ? [...state.bookingsList, ...action.data] : action.data,
       isLoading: false,
       validationErrors: null,
     })
   ),
   on(
-    partnersListNoParamsFailureAction,
-    (state, action): PartnersStateInterface => ({
+    bookingsListFailureAction,
+    (state, action): BookingsStateInterface => ({
       ...state,
       validationErrors: action.errors,
       isLoading: false,
     })
   ),
   on(
-    partnersListNoParamsResetAction,
-    (state): PartnersStateInterface => ({
+    bookingsListResetAction,
+    (state): BookingsStateInterface => ({
       ...state,
-      partnersList: null,
+      bookingsList: null,
     })
   ),
-
-
-
-
-
-
-
-
   on(
-    partnerDeleteAction,
-    (state): PartnersStateInterface => ({
+    noMoreBookingsListAction,
+    (state, action): BookingsStateInterface => ({
       ...state,
-      validationErrors: null,
-      isLoading: true
-    })
-  ),
-
-  on(
-    partnerDeleteSuccessAction,
-    (state, action): PartnersStateInterface => ({
-      ...state,
+      noMoreBookingsList: action.data,
       isLoading: false,
-      validationErrors: null,
-      currentPartner: null,
-      partnersList: state.partnersList ? state.partnersList.filter((item: { _id: string; }) => item._id !== action.data) : state.partnersList,
     })
   ),
   on(
-    partnerDeleteFailureAction,
-    (state, action): PartnersStateInterface => ({
+    noMoreBookingsListFalseAction,
+    (state, action): BookingsStateInterface => ({
       ...state,
-      validationErrors: action.errors,
+      noMoreBookingsList: false,
       isLoading: false,
-      currentPartner: null,
+    })
+  ),
+  on(
+    noMoreBookingsListTrueAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      noMoreBookingsList: true,
+      isLoading: false,
     })
   ),
 
@@ -198,20 +121,97 @@ const partnersReducer = createReducer(
 
 
 
+  // on(
+  //   partnersListNoParamsAction,
+  //   (state): PartnersStateInterface => ({
+  //     ...state,
+  //     validationErrors: null,
+  //     isLoading: true
+  //   })
+  // ),
+
+  // on(
+  //   partnersListNoParamsSuccessAction,
+  //   (state, action): PartnersStateInterface => ({
+  //     ...state,
+  //     partnersList: action.data,
+  //     isLoading: false,
+  //     validationErrors: null,
+  //   })
+  // ),
+  // on(
+  //   partnersListNoParamsFailureAction,
+  //   (state, action): PartnersStateInterface => ({
+  //     ...state,
+  //     validationErrors: action.errors,
+  //     isLoading: false,
+  //   })
+  // ),
+  // on(
+  //   partnersListNoParamsResetAction,
+  //   (state): PartnersStateInterface => ({
+  //     ...state,
+  //     partnersList: null,
+  //   })
+  // ),
+
+
+
+
+
+
+
+
+  // on(
+  //   partnerDeleteAction,
+  //   (state): PartnersStateInterface => ({
+  //     ...state,
+  //     validationErrors: null,
+  //     isLoading: true
+  //   })
+  // ),
+
+  // on(
+  //   partnerDeleteSuccessAction,
+  //   (state, action): PartnersStateInterface => ({
+  //     ...state,
+  //     isLoading: false,
+  //     validationErrors: null,
+  //     currentPartner: null,
+  //     partnersList: state.partnersList ? state.partnersList.filter((item: { _id: string; }) => item._id !== action.data) : state.partnersList,
+  //   })
+  // ),
+  // on(
+  //   partnerDeleteFailureAction,
+  //   (state, action): PartnersStateInterface => ({
+  //     ...state,
+  //     validationErrors: action.errors,
+  //     isLoading: false,
+  //     currentPartner: null,
+  //   })
+  // ),
+
+
+
+
+
+
+
+
   on(
-    updateStatePartnersSuccessAction,
-    (state, action): PartnersStateInterface => ({
+    updateStateBookingsSuccessAction,
+    (state, action): BookingsStateInterface => ({
       ...state,
-      isLoading: action.data.partners.isLoading,
-      validationErrors: action.data.partners.validationErrors,
-      partnersList: action.data.partners.partnersList ,
-      noMorePartnersList: action.data.partners.noMorePartnersList,
-      currentPartner: action.data.partners.currentPartner
+      isLoading: action.data.bookings.isLoading,
+      validationErrors: action.data.bookings.validationErrors,
+      bookingsList: action.data.bookings.bookingsList ,
+      noMoreBookingsList: action.data.bookings.noMoreBookingsList,
+      currentBooking: action.data.bookings.currentBooking
     }),
   ),
   on(
-    updateStatePartnersFailureAction,
-    (state, action): PartnersStateInterface => ({
+    updateStateBookingsFailureAction,
+    (state, action): BookingsStateInterface => ({
       ...state,
       validationErrors: action.errors,
     })
@@ -223,39 +223,39 @@ const partnersReducer = createReducer(
 
 
 
-  on(
-    partnerGetCurrent,
-    (state): PartnersStateInterface => ({
-      ...state,
-      validationErrors: null,
-      isLoading: true
-    })
-  ),
+  // on(
+  //   partnerGetCurrent,
+  //   (state): PartnersStateInterface => ({
+  //     ...state,
+  //     validationErrors: null,
+  //     isLoading: true
+  //   })
+  // ),
 
-  on(
-    partnerGetCurrentSuccessAction,
-    (state, action): PartnersStateInterface => ({
-      ...state,
-      isLoading: false,
-      validationErrors: null,
-      currentPartner: action.data
-    })
-  ),
-  on(
-    partnerGetCurrentFailureAction,
-    (state, action): PartnersStateInterface => ({
-      ...state,
-      validationErrors: action.errors,
-      isLoading: false,
-    })
-  ),
-  on(
-    partnerGetCurrentReset,
-    (state): PartnersStateInterface => ({
-      ...state,
-      currentPartner: null
-    })
-  ),
+  // on(
+  //   partnerGetCurrentSuccessAction,
+  //   (state, action): PartnersStateInterface => ({
+  //     ...state,
+  //     isLoading: false,
+  //     validationErrors: null,
+  //     currentPartner: action.data
+  //   })
+  // ),
+  // on(
+  //   partnerGetCurrentFailureAction,
+  //   (state, action): PartnersStateInterface => ({
+  //     ...state,
+  //     validationErrors: action.errors,
+  //     isLoading: false,
+  //   })
+  // ),
+  // on(
+  //   partnerGetCurrentReset,
+  //   (state): PartnersStateInterface => ({
+  //     ...state,
+  //     currentPartner: null
+  //   })
+  // ),
 
 );
 
@@ -264,6 +264,6 @@ const partnersReducer = createReducer(
 
 
 // Экспортируем Reducer
-export function reducers(state: PartnersStateInterface, action: Action) {
-  return partnersReducer(state, action)
+export function reducers(state: BookingsStateInterface, action: Action) {
+  return bookingsReducer(state, action)
 }

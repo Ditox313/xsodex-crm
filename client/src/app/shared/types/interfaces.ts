@@ -1,5 +1,6 @@
 import { Type } from "@angular/core"
 import { AccountStateInterface } from "src/app/account/types/account.interfaces";
+import { BookingsStateInterface } from "src/app/bookings/types/bookings.interfaces";
 import { CarsStateInterface } from "src/app/cars/types/cars.interfaces";
 import { ClientFizStateInterface } from "src/app/clients/types/clientsFiz/clientsFiz.interfaces";
 import { ClientLawStateInterface } from "src/app/clients/types/clientsLaw/clientsLaw.interfaces";
@@ -25,7 +26,8 @@ export interface AppStateInterface {
     partners: PartnersStateInterface,
     clientsFiz: ClientFizStateInterface
     clientsLaw: ClientLawStateInterface
-    settings: SettingsStateInterface
+    settings: SettingsStateInterface,
+    bookings: BookingsStateInterface
 }
 
 

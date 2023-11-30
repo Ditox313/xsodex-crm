@@ -3,6 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { updateStateAction } from 'src/app/account/store/actions/account.action';
 import { isLoadingSelector, tokenSelector } from 'src/app/account/store/selectors';
+import { updateStateBookingsAction } from 'src/app/bookings/store/actions/bookings.action';
 import { updateStateCarsAction } from 'src/app/cars/store/actions/cars.action';
 import { updateStateClientsFizAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 import { updateStateClientsLawAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
@@ -108,6 +109,9 @@ export class AppLayoutComponent implements OnInit {
 
          // Обновляем состояние Settings
          this.store.dispatch(updateStateSettingsAction())
+
+         // Обновляем состояние Bookings
+         this.store.dispatch(updateStateBookingsAction())
 
 
 

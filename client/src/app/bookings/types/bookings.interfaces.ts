@@ -8,10 +8,10 @@ export interface Booking {
 
 
 // Интерфейс для state bookings
-export interface PartnersStateInterface {
+export interface BookingsStateInterface {
     isLoading: boolean,
     validationErrors?: any,
-    bookinhsList?: Booking[] | null | undefined | any,
+    bookingsList?: Booking[] | null | undefined | any,
     noMoreBookingsList: boolean
     currentBooking: Booking | null | undefined | any,
 }
