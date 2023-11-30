@@ -23,12 +23,17 @@ export class AppLayoutComponent implements OnInit {
     {
       url: '/list-smena',
       name: 'Смены',
-      icon: 'pi-file-import'
+      icon: 'pi-check-square'
     },
     {
       url: '/list-cars',
       name: 'Автопарк',
       icon: 'pi-car'
+    },
+    {
+      url: '/list-bookings',
+      name: 'Брони',
+      icon: 'pi-book'
     },
     {
       url: '/list-clients-fiz',

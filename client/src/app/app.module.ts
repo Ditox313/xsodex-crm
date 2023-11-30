@@ -16,6 +16,7 @@ import { CarsModule } from './cars/cars.module';
 import { PartnersModule } from './partners/partners.module';
 import { ClientsModule } from './clients/clients.module';
 import { SettingsModule } from './settings/settings.module';
+import { BookingsModule } from './bookings/booking.module';
 
 
 
@@ -29,12 +30,13 @@ import { SettingsModule } from './settings/settings.module';
     AccountModule,
     SmenaModule,
     CarsModule,
+    BookingsModule,
     PartnersModule,
     ClientsModule,
     SettingsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule ,
+    RouterModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
