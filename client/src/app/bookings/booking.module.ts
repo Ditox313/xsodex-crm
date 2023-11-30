@@ -22,12 +22,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './store/reducers';
 import { BookingsService } from './services/bookings.service';
 import { BookingsEffect } from './store/effects/bookings.effect';
+import { AddBookingComponent } from './components/add-booking/add-booking.component';
 
 
 
 @NgModule({
   declarations: [
-    ListBookinhsComponent
+    ListBookinhsComponent,
+    AddBookingComponent
   ],
   imports: [
     CommonModule,

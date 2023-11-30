@@ -5,6 +5,14 @@ export interface Booking {
     _id?: string
 }
 
+//Интерфейс для объекта данных брони 
+export interface BookingData {
+    booking_start: string,
+    booking_end: string,
+    booking_days: number,
+    dop_hours: number
+}
+
 
 
 // Интерфейс для state bookings

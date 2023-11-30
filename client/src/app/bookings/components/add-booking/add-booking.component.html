@@ -1,0 +1,59 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
+
+
+
+<div class="add-booking">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="add_booking_content">
+            <div>
+                <fieldset>
+                    <label htmlFor="booking_start">Дата начала брони</label>
+                    <input type="datetime-local" pInputText id="booking_start" formControlName="booking_start" placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_start'].invalid && form.controls['booking_start'].touched}" 
+                        (change)="checkedStartBookingDate($event)"/>
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['booking_start'].invalid && form.controls['booking_start'].touched">
+                        <p *ngIf="form.controls['booking_start'].errors && form.controls['booking_start'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <label htmlFor="booking_end">Дата окончания брони</label>
+                    <input type="datetime-local" pInputText id="booking_end" formControlName="booking_end" placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_end'].invalid && form.controls['booking_end'].touched}" 
+                        (change)="checkedEndBookingDate($event)"/>
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['booking_end'].invalid && form.controls['booking_end'].touched">
+                        <p *ngIf="form.controls['booking_end'].errors && form.controls['booking_end'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+                <!-- <fieldset>
+                    <label htmlFor="fio">ФИО</label>
+                    <input pInputText id="fio" formControlName="fio" placeholder="Введите ФИО"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['fio'].invalid && form.controls['fio'].touched}"
+                        style="width: 300px;" />
+
+
+                    <div class="errorValidate" *ngIf="form.controls['fio'].invalid && form.controls['fio'].touched">
+                        <p *ngIf="form.controls['fio'].errors && form.controls['fio'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset> -->
+            </div>
+
+            <div>2</div>
+        </div>
+
+        <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+    </form>
+</div>
