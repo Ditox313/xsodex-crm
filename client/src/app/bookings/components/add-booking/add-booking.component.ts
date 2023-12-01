@@ -46,7 +46,8 @@ export class AddBookingComponent {
     place_start: '',
     place_start_price: 0,
     place_end: '',
-    place_end_price: 0
+    place_end_price: 0,
+    custome_place_start: false,
   }
 
 
@@ -84,6 +85,9 @@ export class AddBookingComponent {
       custome_zalog_value: new FormControl(''),
       place_start: new FormControl(''),
       place_end: new FormControl(''),
+      custome_place_start: new FormControl(''),
+      custome_place_start_value: new FormControl(''),
+      custome_place_start_price: new FormControl(''),
       
       // client: new FormControl('', [Validators.required]),
       // place_start: new FormControl('Офис', [Validators.required]),
@@ -156,12 +160,6 @@ export class AddBookingComponent {
 
   // При выборе даты старта брони
   checkedStartBookingDate(e: any) {
-    // Включаем поле ввода даты окончания аренды
-    if (this.form.value.booking_start) {
-      this.form.controls['booking_end'].enable();
-    }
-
-
     // Получаем и устанавливаем  начало  аренды
     this.booking.booking_start = e.target.value
 
@@ -173,12 +171,6 @@ export class AddBookingComponent {
 
   // При выборе даты окончания брони
   checkedEndBookingDate(e: any) {
-    // Включаем поле автомобиль
-    if (this.form.value.booking_start) {
-      this.form.controls['car'].enable();
-    }
-
-
     // Получаем и устанавливаем  окончание  аренды
     this.booking.booking_end = e.target.value
 
@@ -190,11 +182,6 @@ export class AddBookingComponent {
 
   // При выборе автомобиля
   checkedCar(e: any) {
-    // Включаем поле тариф
-    if (this.form.value.booking_start) {
-      this.form.controls['tarif'].enable();
-    }
-
     // Получаем авто по переданному id
     if (this.carsList) {
       const actulaCar = this.carsList.filter(car => car._id === e);
@@ -209,12 +196,6 @@ export class AddBookingComponent {
 
   // При выборе тарифа
   checkedTarif(e: any) {
-    // Включаем поле произвольного залога
-    if (this.form.value.booking_start) {
-      this.form.controls['custome_zalog'].enable();
-    }
-
-
     if (e === 'Город') {
       this.booking.tarif = e
 
@@ -250,6 +231,7 @@ export class AddBookingComponent {
       this.booking.place_start = e
       this.booking.place_start_price = 0
     }
+    console.log(this.booking);
   }
 
 
@@ -279,6 +261,8 @@ export class AddBookingComponent {
       this.booking.place_end = e
       this.booking.place_end_price = 0
     }    
+
+    console.log(this.booking);
   }
 
 
@@ -322,10 +306,10 @@ export class AddBookingComponent {
 
   // Отключаем все инпуты кроме даты старта
   dasable_controls() {
-    this.form.controls['booking_end'].disable();
-    this.form.controls['car'].disable();
-    this.form.controls['tarif'].disable();
-    this.form.controls['custome_zalog'].disable();
+    // this.form.controls['booking_end'].disable();
+    // this.form.controls['car'].disable();
+    // this.form.controls['tarif'].disable();
+    // this.form.controls['custome_zalog'].disable();
     // this.form.controls['client'].disable();
     // this.form.controls['place_start'].disable();
     // this.form.controls['additional_services_chair'].disable();
@@ -367,7 +351,11 @@ export class AddBookingComponent {
   // Проверяем нажат кастомный залог
   customeZalogCheck() {
     // Задаем значение true или false кастомному залогу
-    this.booking.custome_zalog = Boolean(this.form.value.custome_zalog[0])
+    if (Boolean(this.form.value.custome_zalog))
+    {
+      this.booking.custome_zalog = Boolean(this.form.value.custome_zalog[0])
+    }
+    
 
     // Отчищаем поле значения при клике
     this.form.controls['custome_zalog_value'].reset();
@@ -377,8 +365,6 @@ export class AddBookingComponent {
     if (!this.booking.custome_zalog) {
       this.booking.zalog = Number(this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 2][1])
     }
-
-    console.log(this.booking);
   }
 
 
@@ -387,6 +373,42 @@ export class AddBookingComponent {
     this.booking.zalog = Number(e.target.value)
     console.log(this.booking);
   }
+
+
+
+  // Произвольное место подачи
+  customePlaceStartCheck()
+  {
+    // Задаем значение true или false кастомному месту подачи
+    if (Boolean(this.form.value.custome_place_start)) {
+      this.booking.custome_place_start = Boolean(this.form.value.custome_place_start[0])
+    }
+
+    // Отчищаем поле значения при клике
+    this.form.controls['custome_place_start_value'].reset();
+    this.form.controls['custome_place_start_price'].reset();
+    this.form.controls['place_start'].reset();
+    this.booking.place_start = ''
+    this.booking.place_start_price = 0
+
+ 
+
+    console.log(this.booking);
+  }
+
+
+  // Присваеваем значение кастомного места подачи
+  customePlaceStartValue(e: any) {
+    this.booking.place_start = e.target.value
+    console.log(this.booking);
+  }
+
+  customePlaceStartPrice(e: any) {
+    this.booking.place_start_price = Number(e.target.value)
+    console.log(this.booking);
+  }
+
+
 
 
 

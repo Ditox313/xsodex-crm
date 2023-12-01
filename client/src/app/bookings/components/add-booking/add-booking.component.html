@@ -132,6 +132,23 @@
                         display: inline-block; margin-top: 0;" (change)="customeZalogValue($event)">
                     </div>
                 </fieldset>
+
+                <fieldset>
+                    <label htmlFor="tarif">Произвольное место подачи</label>
+                    <div style="display: flex; height: 43px; margin-top: 5px;">
+                        <p-checkbox formControlName="custome_place_start" (click)="customePlaceStartCheck()" value="true"
+                            inputId="custome_place_start"></p-checkbox>
+                
+                        <input *ngIf="this.booking.custome_place_start" type="text" placeholder="Адрес"
+                            formControlName="custome_place_start_value" id="custome_place_start_value" style="margin-left: 15px;
+                                        display: inline-block; margin-top: 0;" (change)="customePlaceStartValue($event)">
+
+                        <input *ngIf="this.booking.custome_place_start" type="text" placeholder="Сумма"
+                            formControlName="custome_place_start_price" id="custome_place_start_price" style="margin-left: 15px;
+                                                                display: inline-block; margin-top: 0;"
+                            (change)="customePlaceStartPrice($event)">
+                    </div>
+                </fieldset>
             </div>
         </div>
 

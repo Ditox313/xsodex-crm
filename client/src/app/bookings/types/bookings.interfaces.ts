@@ -23,6 +23,7 @@ export interface BookingData {
     place_start_price: number,
     place_end: string,
     place_end_price: number,
+    custome_place_start: boolean,
 }
 
 
