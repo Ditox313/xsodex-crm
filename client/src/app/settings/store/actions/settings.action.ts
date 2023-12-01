@@ -30,7 +30,7 @@ export const addSettingAvtoparkFailureAction = createAction(
 // Settings avtopark List
 export const settingsAvtoparkListAction = createAction(
   ActionTypes.SETTINGS_AVTOPARK_LIST,
-  props<{ params?: SettingsParamsFetch  }>()
+  props<{ params?: SettingsParamsFetch  | {}}>()
 );
 
 

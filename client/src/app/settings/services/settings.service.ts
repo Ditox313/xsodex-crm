@@ -10,7 +10,7 @@ import { SettingAvtopark } from '../types/settings.interfaces';
 export class SettingsService {
   constructor(private http: HttpClient) {}
 
-  // Создаем нового партнера
+
   create_setting_avtopark(settings: SettingAvtopark,): Observable<SettingAvtopark> {
     return this.http.post<SettingAvtopark>(`/api/settings/create_setting_avtopark`, settings);
   }

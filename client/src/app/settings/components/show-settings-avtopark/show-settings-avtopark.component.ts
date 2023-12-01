@@ -6,7 +6,7 @@ import { getCurrentSettingAvtoparkSelector, isLoadingSelector } from '../../stor
 import { Store, select } from '@ngrx/store';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { settingsAvtoparkGetCurrent, updateSettingsAvtoparkAction } from '../../store/actions/settings.action';
+import { settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentReset, updateSettingsAvtoparkAction } from '../../store/actions/settings.action';
 
 @Component({
   selector: 'app-show-settings-avtopark',
@@ -43,8 +43,8 @@ export class ShowSettingsAvtoparkComponent {
       this.currentSettingsAvtoparkSub$.unsubscribe()
     }
 
-    //Отчищаем состояние currentCar
-    // this.store.dispatch(partnerGetCurrentReset());
+    //Отчищаем состояние 
+    this.store.dispatch(settingsAvtoparkGetCurrentReset());
 
   }
 
@@ -80,10 +80,10 @@ export class ShowSettingsAvtoparkComponent {
 
 
   initValues() {
-    //Отчищаем состояние currentCar
-    // this.store.dispatch(partnerGetCurrentReset());
+    //Отчищаем состояние 
+    this.store.dispatch(settingsAvtoparkGetCurrentReset());
 
-    //Отправляем запрос на получение текущего партнера
+    
     this.store.dispatch(settingsAvtoparkGetCurrent({ id: this.settingsAvtoprokatId }));
 
     this.currentSettingsAvtoparkSelector = this.store.pipe(select(getCurrentSettingAvtoparkSelector))

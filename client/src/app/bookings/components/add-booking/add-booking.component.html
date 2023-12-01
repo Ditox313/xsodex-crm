@@ -75,10 +75,42 @@
                     </div>
                 </fieldset>
 
+
+                <fieldset>
+                    <label htmlFor="place_start">Место выдачи</label>
+                    <select id="place_start" formControlName="place_start"
+                        [ngClass]="{'invalid': form.controls['place_start'].invalid && form.controls['place_start'].touched}"
+                        (ngModelChange)="placeStart($event)">
+                        <option value="" disabled selected>Выбрать ↷</option>
+                        <option value="Офис">Офис</option>
+                        <option value="Аэропорт">Аэропорт</option>
+                        <option value="Ж/д вокзал">Ж/д вокзал</option>
+                        <option value="ТЦ Кристалл">ТЦ Кристалл</option>
+                        <option value="Тц Сити Молл">Тц Сити Молл</option>
+                    </select>
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['place_start'].invalid && form.controls['place_start'].touched">
+                        <p *ngIf="form.controls['place_start'].errors && form.controls['place_start'].errors['required']">
+                            Заполните поле
+                        </p>
+                    </div>
+                </fieldset>
+
                 
             </div>
 
-            <div>2</div>
+            <div>
+                <fieldset>
+                    <label htmlFor="tarif">Произвольный залог</label>
+                    <div style="display: flex; height: 43px; margin-top: 5px;">
+                        <p-checkbox formControlName="custome_zalog" (click)="customeZalogCheck()" value="true" inputId="custome_zalog"></p-checkbox>
+
+                        <input *ngIf="this.booking.custome_zalog" type="text" placeholder="Введите сумму" formControlName="custome_zalog_value" id="custome_zalog_value" style="margin-left: 15px;
+                        display: inline-block; margin-top: 0;" (change)="customeZalogValue($event)">
+                    </div>
+                </fieldset>
+            </div>
         </div>
 
         <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>

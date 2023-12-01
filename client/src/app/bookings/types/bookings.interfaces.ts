@@ -16,7 +16,12 @@ export interface BookingData {
     car: Car | null,
     tarif: string,
     tarif_price: number,
-    arenda: number
+    arenda: number,
+    zalog: number,
+    custome_zalog: boolean,
+    place_start: string,
+    place_start_price: number,
+
 }
 
 

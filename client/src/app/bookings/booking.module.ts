@@ -23,6 +23,7 @@ import { reducers } from './store/reducers';
 import { BookingsService } from './services/bookings.service';
 import { BookingsEffect } from './store/effects/bookings.effect';
 import { AddBookingComponent } from './components/add-booking/add-booking.component';
+import { CheckboxModule } from 'primeng/checkbox';
 
 
 
@@ -48,6 +49,7 @@ import { AddBookingComponent } from './components/add-booking/add-booking.compon
     TabViewModule,
     TreeSelectModule,
     InputMaskModule,
+    CheckboxModule,
     StoreModule.forFeature('bookings', reducers),
     EffectsModule.forFeature([BookingsEffect]),
   ],
