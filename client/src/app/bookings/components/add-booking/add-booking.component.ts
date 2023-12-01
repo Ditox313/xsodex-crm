@@ -48,6 +48,7 @@ export class AddBookingComponent {
     place_end: '',
     place_end_price: 0,
     custome_place_start: false,
+    custome_place_end: false,
   }
 
 
@@ -88,7 +89,9 @@ export class AddBookingComponent {
       custome_place_start: new FormControl(''),
       custome_place_start_value: new FormControl(''),
       custome_place_start_price: new FormControl(''),
-      
+      custome_place_end: new FormControl(''),
+      custome_place_end_value: new FormControl(''),
+      custome_place_end_price: new FormControl(''),
       // client: new FormControl('', [Validators.required]),
       // place_start: new FormControl('Офис', [Validators.required]),
       // place_end: new FormControl('Офис', [Validators.required]),
@@ -405,6 +408,41 @@ export class AddBookingComponent {
 
   customePlaceStartPrice(e: any) {
     this.booking.place_start_price = Number(e.target.value)
+    console.log(this.booking);
+  }
+
+
+
+
+
+  // Произвольное место приема
+  customePlaceEndCheck() {
+    // Задаем значение true или false кастомному месту приема
+    if (Boolean(this.form.value.custome_place_end)) {
+      this.booking.custome_place_end = Boolean(this.form.value.custome_place_end[0])
+    }
+
+    // Отчищаем поле значения при клике
+    this.form.controls['custome_place_end_value'].reset();
+    this.form.controls['custome_place_end_price'].reset();
+    this.form.controls['place_end'].reset();
+    this.booking.place_end = ''
+    this.booking.place_end_price = 0
+
+
+
+    console.log(this.booking);
+  }
+
+
+  // Присваеваем значение кастомного места подачи
+  customePlaceEndValue(e: any) {
+    this.booking.place_end = e.target.value
+    console.log(this.booking);
+  }
+
+  customePlaceEndPrice(e: any) {
+    this.booking.place_end_price = Number(e.target.value)
     console.log(this.booking);
   }
 

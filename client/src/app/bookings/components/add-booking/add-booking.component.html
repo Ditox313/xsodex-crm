@@ -124,7 +124,7 @@
 
             <div>
                 <fieldset>
-                    <label htmlFor="tarif">Произвольный залог</label>
+                    <label htmlFor="om">Произвольный залог</label>
                     <div style="display: flex; height: 43px; margin-top: 5px;">
                         <p-checkbox formControlName="custome_zalog" (click)="customeZalogCheck()" value="true" inputId="custome_zalog"></p-checkbox>
 
@@ -134,7 +134,7 @@
                 </fieldset>
 
                 <fieldset>
-                    <label htmlFor="tarif">Произвольное место подачи</label>
+                    <label htmlFor="custome_place_start">Произвольное место подачи</label>
                     <div style="display: flex; height: 43px; margin-top: 5px;">
                         <p-checkbox formControlName="custome_place_start" (click)="customePlaceStartCheck()" value="true"
                             inputId="custome_place_start"></p-checkbox>
@@ -147,6 +147,24 @@
                             formControlName="custome_place_start_price" id="custome_place_start_price" style="margin-left: 15px;
                                                                 display: inline-block; margin-top: 0;"
                             (change)="customePlaceStartPrice($event)">
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <label htmlFor="custome_place_end">Произвольное место приема</label>
+                    <div style="display: flex; height: 43px; margin-top: 5px;">
+                        <p-checkbox formControlName="custome_place_end" (click)="customePlaceEndCheck()" value="true"
+                            inputId="custome_place_end"></p-checkbox>
+                
+                        <input *ngIf="this.booking.custome_place_end" type="text" placeholder="Адрес"
+                            formControlName="custome_place_end_value" id="custome_place_end_value" style="margin-left: 15px;
+                                                        display: inline-block; margin-top: 0;"
+                            (change)="customePlaceEndValue($event)">
+                
+                        <input *ngIf="this.booking.custome_place_end" type="text" placeholder="Сумма"
+                            formControlName="custome_place_end_price" id="custome_place_end_price" style="margin-left: 15px;
+                                                                                display: inline-block; margin-top: 0;"
+                            (change)="customePlaceEndPrice($event)">
                     </div>
                 </fieldset>
             </div>
