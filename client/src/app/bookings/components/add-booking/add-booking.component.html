@@ -97,6 +97,28 @@
                     </div>
                 </fieldset>
 
+
+                <fieldset>
+                    <label htmlFor="place_end">Место приема</label>
+                    <select id="place_end" formControlName="place_end"
+                        [ngClass]="{'invalid': form.controls['place_end'].invalid && form.controls['place_end'].touched}"
+                        (ngModelChange)="placeEnd($event)">
+                        <option value="" disabled selected>Выбрать ↷</option>
+                        <option value="Офис">Офис</option>
+                        <option value="Аэропорт">Аэропорт</option>
+                        <option value="Ж/д вокзал">Ж/д вокзал</option>
+                        <option value="ТЦ Кристалл">ТЦ Кристалл</option>
+                        <option value="Тц Сити Молл">Тц Сити Молл</option>
+                    </select>
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['place_end'].invalid && form.controls['place_end'].touched">
+                        <p *ngIf="form.controls['place_end'].errors && form.controls['place_end'].errors['required']">
+                            Заполните поле
+                        </p>
+                    </div>
+                </fieldset>
+
                 
             </div>
 

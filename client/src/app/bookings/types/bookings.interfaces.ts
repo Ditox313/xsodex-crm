@@ -21,7 +21,8 @@ export interface BookingData {
     custome_zalog: boolean,
     place_start: string,
     place_start_price: number,
-
+    place_end: string,
+    place_end_price: number,
 }
 
 

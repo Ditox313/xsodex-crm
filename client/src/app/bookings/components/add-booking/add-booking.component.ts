@@ -44,7 +44,9 @@ export class AddBookingComponent {
     zalog: 0,
     custome_zalog: false,
     place_start: '',
-    place_start_price: 0
+    place_start_price: 0,
+    place_end: '',
+    place_end_price: 0
   }
 
 
@@ -81,6 +83,7 @@ export class AddBookingComponent {
       custome_zalog: new FormControl(''),
       custome_zalog_value: new FormControl(''),
       place_start: new FormControl(''),
+      place_end: new FormControl(''),
       
       // client: new FormControl('', [Validators.required]),
       // place_start: new FormControl('Офис', [Validators.required]),
@@ -247,6 +250,35 @@ export class AddBookingComponent {
       this.booking.place_start = e
       this.booking.place_start_price = 0
     }
+  }
+
+
+
+
+  // При выборе места приема
+  placeEnd(e: any) {
+    if (e === 'Аэропорт') {
+      this.booking.place_end = e
+      this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.airport_price_input)
+    }
+    else if (e === 'Ж/д вокзал') {
+      this.booking.place_end = e
+      this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.railway_price_input)
+
+    }
+    else if (e === 'ТЦ Кристалл') {
+      this.booking.place_end = e
+      this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.kristal_tc_price_input)
+
+    }
+    else if (e === 'Тц Сити Молл') {
+      this.booking.place_end = e
+      this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.sitymol_tc_price_input)
+    }
+    else if (e === 'Офис') {
+      this.booking.place_end = e
+      this.booking.place_end_price = 0
+    }    
   }
 
 
