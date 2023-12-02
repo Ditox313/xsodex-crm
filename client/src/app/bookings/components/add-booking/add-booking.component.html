@@ -10,9 +10,10 @@
             <div>
                 <fieldset>
                     <label htmlFor="booking_start">Дата начала брони</label>
-                    <input type="datetime-local" pInputText id="booking_start" formControlName="booking_start" placeholder="Введите значение"
-                        [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_start'].invalid && form.controls['booking_start'].touched}" 
-                        (change)="checkedStartBookingDate($event)"/>
+                    <input type="datetime-local" pInputText id="booking_start" formControlName="booking_start"
+                        placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_start'].invalid && form.controls['booking_start'].touched}"
+                        (change)="checkedStartBookingDate($event)" />
                 
                 
                     <div class="errorValidate" *ngIf="form.controls['booking_start'].invalid && form.controls['booking_start'].touched">
@@ -21,12 +22,13 @@
                         </p>
                     </div>
                 </fieldset>
-
+                
                 <fieldset>
                     <label htmlFor="booking_end">Дата окончания брони</label>
-                    <input type="datetime-local" pInputText id="booking_end" formControlName="booking_end" placeholder="Введите значение"
-                        [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_end'].invalid && form.controls['booking_end'].touched}" 
-                        (change)="checkedEndBookingDate($event)"/>
+                    <input type="datetime-local" pInputText id="booking_end" formControlName="booking_end"
+                        placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_end'].invalid && form.controls['booking_end'].touched}"
+                        (change)="checkedEndBookingDate($event)" />
                 
                 
                     <div class="errorValidate" *ngIf="form.controls['booking_end'].invalid && form.controls['booking_end'].touched">
@@ -36,10 +38,12 @@
                     </div>
                 </fieldset>
 
+
+
                 <fieldset>
                     <label htmlFor="car">Автомобиль</label>
                     <select id="car" formControlName="car"
-                        [ngClass]="{'invalid': form.controls['car'].invalid && form.controls['car'].touched}" 
+                        [ngClass]="{'invalid': form.controls['car'].invalid && form.controls['car'].touched}"
                         (ngModelChange)="checkedCar($event)">
                         <option value="" disabled selected>Выбрать ↷</option>
                         <option value="{{car._id}}" *ngFor="let car of carsList">
@@ -53,6 +57,8 @@
                         </p>
                     </div>
                 </fieldset>
+
+
 
 
                 <fieldset>
@@ -74,7 +80,6 @@
                         </p>
                     </div>
                 </fieldset>
-
 
                 <fieldset>
                     <label htmlFor="place_start">Место выдачи</label>
@@ -116,6 +121,51 @@
                         <p *ngIf="form.controls['place_end'].errors && form.controls['place_end'].errors['required']">
                             Заполните поле
                         </p>
+                    </div>
+                </fieldset>
+
+
+                <fieldset *ngIf="this.form.value.tarif === 'Смешанный'" style="width: 80%;">
+                    <div class="mixed_tarif">
+                        <div class="checkboxs_row" style="display: flex; justify-content: space-between;">
+                            <div>
+                                <label style="margin-bottom: 0;">
+                                    <div style="margin-bottom: 7px; font-size: 11px;">Город</div>
+                                    <!-- <p-checkbox formControlName="tarif_mixed_gorod" value="true" inputId="tarif_mixed_gorod"></p-checkbox> -->
+                                </label>
+                
+                                <label>
+                                    <input type="number" placeholder="..."  formControlName="tarif_mixed_gorod_days" style="width: 90px;"
+                                    (ngModelChange)="tarifMixedGorodDays($event)">
+                                </label>
+                            </div>
+                
+                
+                            <div>
+                                <label>
+                                    <div style="margin-bottom: 7px; font-size: 11px;">Межгород</div>
+                                    <!-- <p-checkbox formControlName="tarif_mixed_mezjgorod" value="true" inputId="tarif_mixed_mezjgorod"></p-checkbox> -->
+                                </label>
+                
+                                <label>
+                                    <input type="number" placeholder="..." formControlName="tarif_mixed_mezjgorod_days"  style="width: 90px;"
+                                    (ngModelChange)="tarifMixedMejgorodDays($event)">
+                                </label>
+                            </div>
+                
+                
+                            <div>
+                                <label>
+                                    <div style="margin-bottom: 7px; font-size: 11px;"> Россия</div>
+                                    <!-- <p-checkbox formControlName="tarif_mixed_russia" value="true" inputId="tarif_mixed_russia"></p-checkbox> -->
+                                </label>
+                
+                                <label>
+                                    <input type="number" placeholder="..." formControlName="tarif_mixed_russia_days"  style="width: 90px;"
+                                    (ngModelChange)="tarifMixedRussiaDays($event)">
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
 

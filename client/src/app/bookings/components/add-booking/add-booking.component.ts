@@ -10,7 +10,7 @@ import { carsListSelector } from 'src/app/cars/store/selectors';
 import { carsListAction, carsListResetAction } from 'src/app/cars/store/actions/cars.action';
 import { SettingAvtopark } from 'src/app/settings/types/settings.interfaces';
 import { settingsAvtoparkListSelector } from 'src/app/settings/store/selectors';
-import { settingsAvtoparkListAction } from 'src/app/settings/store/actions/settings.action';
+import { settingsAvtoparkListAction, settingsAvtoparkListResetAction } from 'src/app/settings/store/actions/settings.action';
 
 @Component({
   selector: 'app-add-booking',
@@ -34,12 +34,16 @@ export class AddBookingComponent {
   booking: BookingData = {
     booking_start: '',
     booking_end: '',
-    booking_days: 0,
-    dop_hours: 0,
-    dop_hours_price: 0,
+    // booking_days: 0,
+    // dop_hours: 0,
+    // dop_hours_price: 0,
     car: null,
-    tarif: '',
-    tarif_price: 0,
+    tarif: [
+      { name: 'Город', status: 'no_active', tarif_price: 0, booking_days: 0, dop_hours: 0, dop_hours_price: 0 },
+      { name: 'Межгород', status: 'no_active', tarif_price: 0, booking_days: 0, dop_hours: 0, dop_hours_price: 0 },
+      { name: 'Россия', status: 'no_active', tarif_price: 0, booking_days: 0, dop_hours: 0, dop_hours_price: 0 }
+    ],
+    // tarif_price: 0,
     arenda: 0,
     zalog: 0,
     custome_zalog: false,
@@ -74,6 +78,9 @@ export class AddBookingComponent {
     // Отчищаем состояние carsList
     this.store.dispatch(carsListResetAction());
 
+    // Отчищаем состояние settingsAvtoparkList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsAvtoparkListResetAction());
+
   }
 
   initForm() {
@@ -92,9 +99,10 @@ export class AddBookingComponent {
       custome_place_end: new FormControl(''),
       custome_place_end_value: new FormControl(''),
       custome_place_end_price: new FormControl(''),
+      tarif_mixed_gorod_days: new FormControl(0),
+      tarif_mixed_mezjgorod_days: new FormControl(0),
+      tarif_mixed_russia_days: new FormControl(0),
       // client: new FormControl('', [Validators.required]),
-      // place_start: new FormControl('Офис', [Validators.required]),
-      // place_end: new FormControl('Офис', [Validators.required]),
 
       // comment: new FormControl(''),
 
@@ -113,17 +121,15 @@ export class AddBookingComponent {
       // isCustomePlaceStartControlclick: new FormControl(''),
       // isCustomePlaceInputControlclick: new FormControl(''),
       // isCustomeZalogControlclick: new FormControl(''),
-      // tarif_mixed_gorod: new FormControl(''),
-      // tarif_mixed_gorod_days: new FormControl(''),
-      // tarif_mixed_mezjgorod: new FormControl(''),
-      // tarif_mixed_mezjgorod_days: new FormControl(''),
-      // tarif_mixed_russia: new FormControl(''),
-      // tarif_mixed_russia_days: new FormControl(''),
+     
     });
   }
 
   initValues() {
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
+
+    // Отчищаем состояние settingsAvtoparkList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsAvtoparkListResetAction());
 
     // Отправляем запрос на получения списка автомобилей
     this.store.dispatch(carsListResetAction());
@@ -151,24 +157,16 @@ export class AddBookingComponent {
         if (settingsAvtoparkList) {
           this.settingsAvtoparkList = settingsAvtoparkList;
           this.settingAvnoprokat = settingsAvtoparkList[0]
-          console.log(this.settingAvnoprokat);
-          
         }
       }
     });
-
   }
-
 
 
   // При выборе даты старта брони
   checkedStartBookingDate(e: any) {
-    // Получаем и устанавливаем  начало  аренды
+    // // Получаем и устанавливаем  начало  аренды
     this.booking.booking_start = e.target.value
-
-
-    this.isBookingdays()
-
   }
 
 
@@ -176,10 +174,9 @@ export class AddBookingComponent {
   checkedEndBookingDate(e: any) {
     // Получаем и устанавливаем  окончание  аренды
     this.booking.booking_end = e.target.value
-
-
-    this.isBookingdays()
   }
+
+
 
 
 
@@ -189,84 +186,34 @@ export class AddBookingComponent {
     if (this.carsList) {
       const actulaCar = this.carsList.filter(car => car._id === e);
       this.booking.car = actulaCar[0]
-      this.booking.zalog = Number(actulaCar[0].tarif_gorod[this.booking.car?.tarif_gorod.length - 2][1])
+
     }
 
     console.log(this.booking);
-
   }
+
 
 
   // При выборе тарифа
   checkedTarif(e: any) {
     if (e === 'Город') {
-      this.booking.tarif = e
-
       this.tarifGorod()
     }
+    else if (e === 'Межгород')
+    {
+      this.tarifMejGorod()
+    }
+    else if (e === 'Россия')
+    {
+      this.tarifRussia()
+    }
+    else if (e === 'Смешанный')
+    {
+      this.tarifMixed()
+    }
   }
 
 
-
-
-  // При выборе места подачи
-  placeStart(e: any)
-  {
-    if (e === 'Аэропорт') {
-      this.booking.place_start = e
-      this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.airport_price) 
-    }
-    else if (e === 'Ж/д вокзал') {
-      this.booking.place_start = e
-      this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.railway_price) 
-
-    }
-    else if (e === 'ТЦ Кристалл') {
-      this.booking.place_start = e
-      this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.kristal_tc_price) 
-
-    }
-    else if (e === 'Тц Сити Молл') {
-      this.booking.place_start = e
-      this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.sitymol_tc_price) 
-    }
-    else if (e === 'Офис') {
-      this.booking.place_start = e
-      this.booking.place_start_price = 0
-    }
-    console.log(this.booking);
-  }
-
-
-
-
-  // При выборе места приема
-  placeEnd(e: any) {
-    if (e === 'Аэропорт') {
-      this.booking.place_end = e
-      this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.airport_price_input)
-    }
-    else if (e === 'Ж/д вокзал') {
-      this.booking.place_end = e
-      this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.railway_price_input)
-
-    }
-    else if (e === 'ТЦ Кристалл') {
-      this.booking.place_end = e
-      this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.kristal_tc_price_input)
-
-    }
-    else if (e === 'Тц Сити Молл') {
-      this.booking.place_end = e
-      this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.sitymol_tc_price_input)
-    }
-    else if (e === 'Офис') {
-      this.booking.place_end = e
-      this.booking.place_end_price = 0
-    }    
-
-    console.log(this.booking);
-  }
 
 
   // Запускаем рассчет кол-ва дней и доп часов
@@ -275,12 +222,7 @@ export class AddBookingComponent {
     const booking_start: any = new Date(this.booking.booking_start);
     const booking_end: any = new Date(this.booking.booking_end);
 
-    this.booking.booking_days = Math.round((booking_end - booking_start) / (1000 * 60 * 60 * 24));
-
-    this.isDopHour()
-
-
-    return this.booking.booking_days
+    return Math.round((booking_end - booking_start) / (1000 * 60 * 60 * 24));
   }
 
 
@@ -296,14 +238,451 @@ export class AddBookingComponent {
 
     // Если есть доп часы(booking_days не целое)
     if (!Number.isInteger(booking_days)) {
-      this.booking.dop_hours = Math.floor(((booking_end - booking_start) / (1000 * 60 * 60)) % 24);
-      return this.booking.dop_hours
+      return Math.floor(((booking_end - booking_start) / (1000 * 60 * 60)) % 24);
     }
     else {
-      this.booking.dop_hours = 0
       return 0
     }
   }
+
+
+
+
+
+  // Считаем тариф город
+  tarifGorod() {
+    this.booking.tarif[0].status = 'active'
+    this.booking.tarif[1].status = 'no_active'
+    this.booking.tarif[2].status = 'no_active'
+    this.booking.tarif[1].booking_days = 0
+    this.booking.tarif[2].booking_days = 0
+    this.booking.tarif[1].dop_hours = 0
+    this.booking.tarif[2].dop_hours = 0
+    this.booking.tarif[1].dop_hours_price = 0
+    this.booking.tarif[2].dop_hours_price = 0
+    this.booking.tarif[1].tarif_price = 0
+    this.booking.tarif[2].tarif_price = 0
+
+    this.form.patchValue({
+      custome_zalog: ['false']
+    })
+    this.booking.custome_zalog = false
+
+
+
+    this.booking.zalog = Number(this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 2][1])
+    this.booking.tarif[0].booking_days = this.isBookingdays()
+    this.booking.tarif[0].dop_hours = this.isDopHour()
+
+
+
+
+    this.booking.car?.tarif_gorod.forEach((period: any) => {
+      let interval = period[0].split('-')
+      if (this.booking.tarif[0].booking_days >= interval[0] && this.booking.tarif[0].booking_days <= interval[1]) {
+        this.booking.arenda = this.booking.tarif[0].booking_days * Number(period[1]) + (this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1] * this.booking.tarif[0].dop_hours)
+        this.booking.tarif[0].tarif_price = Number(period[1])
+        this.booking.tarif[0].dop_hours_price = Number(this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1])
+        console.log(this.booking);
+      }
+
+      if (this.booking.tarif[0].booking_days >= interval[0] && interval[1] === '00') {
+        this.booking.arenda = this.booking.tarif[0].booking_days * Number(period[1]) + (this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1] * this.booking.tarif[0].dop_hours)
+        this.booking.tarif[0].tarif_price = Number(period[1])
+        this.booking.tarif[0].dop_hours_price = Number(this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1])
+        console.log(this.booking);
+      }
+    });
+  }
+
+  // Считаем тариф межгород
+  tarifMejGorod() {
+    this.booking.tarif[0].status = 'no_active'
+    this.booking.tarif[1].status = 'active'
+    this.booking.tarif[2].status = 'no_active'
+
+    this.booking.tarif[0].booking_days = 0
+    this.booking.tarif[2].booking_days = 0
+
+    this.booking.tarif[0].dop_hours = 0
+    this.booking.tarif[2].dop_hours = 0
+
+    this.booking.tarif[0].dop_hours_price = 0
+    this.booking.tarif[2].dop_hours_price = 0
+
+    this.booking.tarif[0].tarif_price = 0
+    this.booking.tarif[2].tarif_price = 0
+
+
+
+    this.form.patchValue({
+      custome_zalog: ['false']
+    })
+    this.booking.custome_zalog = false
+
+
+
+    this.booking.zalog = Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 2][1])
+    this.booking.tarif[1].booking_days = this.isBookingdays()
+    this.booking.tarif[1].dop_hours = this.isDopHour()
+
+
+
+
+    this.booking.car?.tarif_mejgorod.forEach((period: any) => {
+      let interval = period[0].split('-')
+      if (this.booking.tarif[1].booking_days >= interval[0] && this.booking.tarif[1].booking_days <= interval[1]) {
+        this.booking.arenda = this.booking.tarif[1].booking_days * Number(period[1]) + (this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1] * this.booking.tarif[1].dop_hours)
+        this.booking.tarif[1].tarif_price = Number(period[1])
+        this.booking.tarif[1].dop_hours_price = Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1])
+        console.log(this.booking);
+      }
+
+      if (this.booking.tarif[1].booking_days >= interval[0] && interval[1] === '00') {
+        this.booking.arenda = this.booking.tarif[1].booking_days * Number(period[1]) + (this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1] * this.booking.tarif[1].dop_hours)
+        this.booking.tarif[1].tarif_price = Number(period[1])
+        this.booking.tarif[1].dop_hours_price = Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1])
+        console.log(this.booking);
+      }
+    });
+  }
+
+
+  // Считаем тариф Россия
+  tarifRussia() {
+    this.booking.tarif[0].status = 'no_active'
+    this.booking.tarif[1].status = 'no_active'
+    this.booking.tarif[2].status = 'active'
+
+    this.booking.tarif[0].booking_days = 0
+    this.booking.tarif[1].booking_days = 0
+
+    this.booking.tarif[0].dop_hours = 0
+    this.booking.tarif[1].dop_hours = 0
+
+    this.booking.tarif[0].dop_hours_price = 0
+    this.booking.tarif[1].dop_hours_price = 0
+
+    this.booking.tarif[0].tarif_price = 0
+    this.booking.tarif[1].tarif_price = 0
+
+
+
+    this.form.patchValue({
+      custome_zalog: ['false']
+    })
+    this.booking.custome_zalog = false
+
+
+
+    this.booking.zalog = Number(this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 2][1])
+    this.booking.tarif[2].booking_days = this.isBookingdays()
+    this.booking.tarif[2].dop_hours = this.isDopHour()
+
+
+
+
+    this.booking.car?.tarif_russia.forEach((period: any) => {
+      let interval = period[0].split('-')
+      if (this.booking.tarif[2].booking_days >= interval[0] && this.booking.tarif[2].booking_days <= interval[1]) {
+        this.booking.arenda = this.booking.tarif[2].booking_days * Number(period[1]) + (this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 1][1] * this.booking.tarif[2].dop_hours)
+        this.booking.tarif[2].tarif_price = Number(period[1])
+        this.booking.tarif[2].dop_hours_price = Number(this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 1][1])
+        console.log(this.booking);
+      }
+
+      if (this.booking.tarif[2].booking_days >= interval[0] && interval[1] === '00') {
+        this.booking.arenda = this.booking.tarif[2].booking_days * Number(period[1]) + (this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 1][1] * this.booking.tarif[2].dop_hours)
+        this.booking.tarif[2].tarif_price = Number(period[1])
+        this.booking.tarif[2].dop_hours_price = Number(this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 1][1])
+        console.log(this.booking);
+      }
+    });
+  }
+
+
+
+
+  // Считаем смешанный тариф
+  tarifMixed()
+  {
+    this.booking.tarif[0].status = 'no_active'
+    this.booking.tarif[1].status = 'no_active'
+    this.booking.tarif[2].status = 'no_active'
+
+    this.booking.tarif[0].booking_days = 0
+    this.booking.tarif[1].booking_days = 0
+    this.booking.tarif[2].booking_days = 0
+
+    this.booking.tarif[0].dop_hours = 0
+    this.booking.tarif[1].dop_hours = 0
+    this.booking.tarif[2].dop_hours = 0
+
+    this.booking.tarif[0].dop_hours_price = 0
+    this.booking.tarif[1].dop_hours_price = 0
+    this.booking.tarif[2].dop_hours_price = 0
+
+    this.booking.tarif[0].tarif_price = 0
+    this.booking.tarif[1].tarif_price = 0
+    this.booking.tarif[2].tarif_price = 0
+
+    this.booking.arenda = 0
+    this.booking.zalog = 0
+   
+
+    this.form.patchValue({
+      custome_zalog: ['true'],
+      tarif_mixed_gorod_days: 0,
+      tarif_mixed_mezjgorod_days: 0,
+      tarif_mixed_russia_days: 0,
+      custome_zalog_value: 0
+    })
+    this.booking.custome_zalog = true
+
+
+    console.log(this.booking);
+  }
+
+
+
+  // При выборе кол-ва дней смешанного тарифа - город
+  tarifMixedGorodDays(e: any)
+  {
+    this.booking.tarif[0].booking_days = e | 0
+
+    if (e !== 0 && e !== null) 
+    {
+      this.booking.tarif[0].status = 'active'
+    }
+    else
+    {
+      this.booking.tarif[0].status = 'no_active'
+    }
+
+
+    this.booking.car?.tarif_gorod.forEach((period: any) => {
+      let interval = period[0].split('-')
+      if (this.booking.tarif[0].booking_days >= interval[0] && this.booking.tarif[0].booking_days <= interval[1]) {
+        this.booking.arenda += this.booking.tarif[0].booking_days * Number(period[1]) + (this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1] * this.booking.tarif[0].dop_hours)
+        this.booking.tarif[0].tarif_price = Number(period[1])
+        this.booking.tarif[0].dop_hours_price = Number(this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1])
+        console.log(this.booking);
+      }
+
+      if (this.booking.tarif[0].booking_days >= interval[0] && interval[1] === '00') {
+        this.booking.arenda = this.booking.tarif[0].booking_days * Number(period[1]) + (this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1] * this.booking.tarif[0].dop_hours)
+        this.booking.tarif[0].tarif_price = Number(period[1])
+        this.booking.tarif[0].dop_hours_price = Number(this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1])
+        console.log(this.booking);
+      }
+    });
+
+    console.log(this.booking);
+  }
+
+
+  // При выборе кол-ва дней смешанного тарифа - межгород
+  tarifMixedMejgorodDays(e: any) {
+    this.booking.tarif[1].booking_days = e | 0
+
+    if (e !== 0 && e !== null) {
+      this.booking.tarif[1].status = 'active'
+    }
+    else {
+      this.booking.tarif[1].status = 'no_active'
+    }
+
+
+
+    this.booking.car?.tarif_mejgorod.forEach((period: any) => {
+      let interval = period[0].split('-')
+      if (this.booking.tarif[1].booking_days >= interval[0] && this.booking.tarif[1].booking_days <= interval[1]) {
+        this.booking.arenda += this.booking.tarif[1].booking_days * Number(period[1]) + (this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1] * this.booking.tarif[1].dop_hours)
+        this.booking.tarif[1].tarif_price = Number(period[1])
+        this.booking.tarif[1].dop_hours_price = Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1])
+        console.log(this.booking);
+      }
+
+      if (this.booking.tarif[1].booking_days >= interval[0] && interval[1] === '00') {
+        this.booking.arenda = this.booking.tarif[1].booking_days * Number(period[1]) + (this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1] * this.booking.tarif[1].dop_hours)
+        this.booking.tarif[1].tarif_price = Number(period[1])
+        this.booking.tarif[1].dop_hours_price = Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1])
+        console.log(this.booking);
+      }
+    });
+
+
+    console.log(this.booking);
+  }
+
+
+
+  // При выборе кол-ва дней смешанного тарифа - Россия
+  tarifMixedRussiaDays(e: any) {
+    this.booking.tarif[2].booking_days = e | 0
+
+    if (e !== 0 && e !== null) {
+      this.booking.tarif[2].status = 'active'
+    }
+    else {
+      this.booking.tarif[2].status = 'no_active'
+    }
+
+
+
+    this.booking.car?.tarif_russia.forEach((period: any) => {
+      let interval = period[0].split('-')
+      if (this.booking.tarif[2].booking_days >= interval[0] && this.booking.tarif[2].booking_days <= interval[1]) {
+        this.booking.arenda += this.booking.tarif[2].booking_days * Number(period[1]) + (this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 1][1] * this.booking.tarif[2].dop_hours)
+        this.booking.tarif[2].tarif_price = Number(period[1])
+        this.booking.tarif[2].dop_hours_price = Number(this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 1][1])
+        console.log(this.booking);
+      }
+
+      if (this.booking.tarif[2].booking_days >= interval[0] && interval[1] === '00') {
+        this.booking.arenda = this.booking.tarif[2].booking_days * Number(period[1]) + (this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 1][1] * this.booking.tarif[2].dop_hours)
+        this.booking.tarif[2].tarif_price = Number(period[1])
+        this.booking.tarif[2].dop_hours_price = Number(this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 1][1])
+        console.log(this.booking);
+      }
+    });
+
+
+    console.log(this.booking);
+  }
+
+
+
+
+
+
+
+
+  // Проверяем нажат кастомный залог
+  customeZalogCheck() {
+    // Задаем значение true или false кастомному залогу
+    if (Boolean(this.form.value.custome_zalog))
+    {
+      this.booking.custome_zalog = Boolean(this.form.value.custome_zalog[0])
+      console.log(this.form.value.custome_zalog);
+      
+    }
+
+
+    // Отчищаем поле значения при клике
+    this.form.controls['custome_zalog_value'].reset();
+
+
+    // Если кастомный залог false то ставим залог по умолчанию в соответствии с тарифом
+    if (!this.booking.custome_zalog) {
+      if(this.booking.tarif[0].status === 'active')
+      {
+        this.booking.zalog = Number(this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 2][1])
+      }
+      else if (this.booking.tarif[1].status === 'active')
+      {
+        this.booking.zalog = Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 2][1])
+      }
+      else if (this.booking.tarif[2].status === 'active')
+      {
+        this.booking.zalog = Number(this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 2][1])
+      }
+      
+    }
+
+    console.log(this.booking);
+  }
+
+
+  // Присваеваем значение кастомного залога
+  customeZalogValue(e: any) {
+    this.booking.zalog = Number(e.target.value)
+    
+    
+    console.log(this.booking);
+  }
+
+  
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+  // При выборе места подачи
+  placeStart(e: any)
+  {
+    // if (e === 'Аэропорт') {
+    //   this.booking.place_start = e
+    //   this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.airport_price) 
+    // }
+    // else if (e === 'Ж/д вокзал') {
+    //   this.booking.place_start = e
+    //   this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.railway_price) 
+
+    // }
+    // else if (e === 'ТЦ Кристалл') {
+    //   this.booking.place_start = e
+    //   this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.kristal_tc_price) 
+
+    // }
+    // else if (e === 'Тц Сити Молл') {
+    //   this.booking.place_start = e
+    //   this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.sitymol_tc_price) 
+    // }
+    // else if (e === 'Офис') {
+    //   this.booking.place_start = e
+    //   this.booking.place_start_price = 0
+    // }
+    // console.log(this.booking);
+  }
+
+
+
+
+  // При выборе места приема
+  placeEnd(e: any) {
+    // if (e === 'Аэропорт') {
+    //   this.booking.place_end = e
+    //   this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.airport_price_input)
+    // }
+    // else if (e === 'Ж/д вокзал') {
+    //   this.booking.place_end = e
+    //   this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.railway_price_input)
+
+    // }
+    // else if (e === 'ТЦ Кристалл') {
+    //   this.booking.place_end = e
+    //   this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.kristal_tc_price_input)
+
+    // }
+    // else if (e === 'Тц Сити Молл') {
+    //   this.booking.place_end = e
+    //   this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.sitymol_tc_price_input)
+    // }
+    // else if (e === 'Офис') {
+    //   this.booking.place_end = e
+    //   this.booking.place_end_price = 0
+    // }    
+
+    // console.log(this.booking);
+  }
+
+
+
+
+
+ 
 
 
 
@@ -328,87 +707,36 @@ export class AddBookingComponent {
 
 
 
-  // Считаем тариф город
-  tarifGorod() {
-    this.booking.car?.tarif_gorod.forEach((period: any) => {
-      let interval = period[0].split('-')
-      if (this.booking.booking_days >= interval[0] && this.booking.booking_days <= interval[1]) {
-        this.booking.arenda = this.booking.booking_days * Number(period[1]) + (this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1] * this.booking.dop_hours)
-        this.booking.tarif_price = Number(period[1])
-        this.booking.dop_hours_price = Number(this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1]) * this.booking.dop_hours
-        console.log(this.booking);
-      }
-
-      if (this.booking.booking_days >= interval[0] && interval[1] === '00') {
-        this.booking.arenda = this.booking.booking_days * Number(period[1]) + (this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1] * this.booking.dop_hours)
-        this.booking.tarif_price = Number(period[1])
-        this.booking.dop_hours_price = Number(this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1]) * this.booking.dop_hours
-        console.log(this.booking);
-      }
-    });
-  }
-
-
-
-
-  // Проверяем нажат кастомный залог
-  customeZalogCheck() {
-    // Задаем значение true или false кастомному залогу
-    if (Boolean(this.form.value.custome_zalog))
-    {
-      this.booking.custome_zalog = Boolean(this.form.value.custome_zalog[0])
-    }
-    
-
-    // Отчищаем поле значения при клике
-    this.form.controls['custome_zalog_value'].reset();
-
-
-    // Если кастомный залог false то ставим залог по умолчанию в соответствии с тарифом
-    if (!this.booking.custome_zalog) {
-      this.booking.zalog = Number(this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 2][1])
-    }
-  }
-
-
-  // Присваеваем значение кастомного залога
-  customeZalogValue(e: any) {
-    this.booking.zalog = Number(e.target.value)
-    console.log(this.booking);
-  }
-
-
-
   // Произвольное место подачи
   customePlaceStartCheck()
   {
-    // Задаем значение true или false кастомному месту подачи
-    if (Boolean(this.form.value.custome_place_start)) {
-      this.booking.custome_place_start = Boolean(this.form.value.custome_place_start[0])
-    }
+    // // Задаем значение true или false кастомному месту подачи
+    // if (Boolean(this.form.value.custome_place_start)) {
+    //   this.booking.custome_place_start = Boolean(this.form.value.custome_place_start[0])
+    // }
 
-    // Отчищаем поле значения при клике
-    this.form.controls['custome_place_start_value'].reset();
-    this.form.controls['custome_place_start_price'].reset();
-    this.form.controls['place_start'].reset();
-    this.booking.place_start = ''
-    this.booking.place_start_price = 0
+    // // Отчищаем поле значения при клике
+    // this.form.controls['custome_place_start_value'].reset();
+    // this.form.controls['custome_place_start_price'].reset();
+    // this.form.controls['place_start'].reset();
+    // this.booking.place_start = ''
+    // this.booking.place_start_price = 0
 
  
 
-    console.log(this.booking);
+    // console.log(this.booking);
   }
 
 
   // Присваеваем значение кастомного места подачи
   customePlaceStartValue(e: any) {
-    this.booking.place_start = e.target.value
-    console.log(this.booking);
+    // this.booking.place_start = e.target.value
+    // console.log(this.booking);
   }
 
   customePlaceStartPrice(e: any) {
-    this.booking.place_start_price = Number(e.target.value)
-    console.log(this.booking);
+    // this.booking.place_start_price = Number(e.target.value)
+    // console.log(this.booking);
   }
 
 
@@ -417,33 +745,33 @@ export class AddBookingComponent {
 
   // Произвольное место приема
   customePlaceEndCheck() {
-    // Задаем значение true или false кастомному месту приема
-    if (Boolean(this.form.value.custome_place_end)) {
-      this.booking.custome_place_end = Boolean(this.form.value.custome_place_end[0])
-    }
+    // // Задаем значение true или false кастомному месту приема
+    // if (Boolean(this.form.value.custome_place_end)) {
+    //   this.booking.custome_place_end = Boolean(this.form.value.custome_place_end[0])
+    // }
 
-    // Отчищаем поле значения при клике
-    this.form.controls['custome_place_end_value'].reset();
-    this.form.controls['custome_place_end_price'].reset();
-    this.form.controls['place_end'].reset();
-    this.booking.place_end = ''
-    this.booking.place_end_price = 0
+    // // Отчищаем поле значения при клике
+    // this.form.controls['custome_place_end_value'].reset();
+    // this.form.controls['custome_place_end_price'].reset();
+    // this.form.controls['place_end'].reset();
+    // this.booking.place_end = ''
+    // this.booking.place_end_price = 0
 
 
 
-    console.log(this.booking);
+    // console.log(this.booking);
   }
 
 
   // Присваеваем значение кастомного места подачи
   customePlaceEndValue(e: any) {
-    this.booking.place_end = e.target.value
-    console.log(this.booking);
+    // this.booking.place_end = e.target.value
+    // console.log(this.booking);
   }
 
   customePlaceEndPrice(e: any) {
-    this.booking.place_end_price = Number(e.target.value)
-    console.log(this.booking);
+    // this.booking.place_end_price = Number(e.target.value)
+    // console.log(this.booking);
   }
 
 
