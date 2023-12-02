@@ -131,10 +131,9 @@
                             <div>
                                 <label style="margin-bottom: 0;">
                                     <div style="margin-bottom: 7px; font-size: 11px;">Город</div>
-                                    <!-- <p-checkbox formControlName="tarif_mixed_gorod" value="true" inputId="tarif_mixed_gorod"></p-checkbox> -->
                                 </label>
                 
-                                <label>
+                                <label >
                                     <input type="number" placeholder="..."  formControlName="tarif_mixed_gorod_days" style="width: 90px;"
                                     (ngModelChange)="tarifMixedGorodDays($event)">
                                 </label>
@@ -144,7 +143,6 @@
                             <div>
                                 <label>
                                     <div style="margin-bottom: 7px; font-size: 11px;">Межгород</div>
-                                    <!-- <p-checkbox formControlName="tarif_mixed_mezjgorod" value="true" inputId="tarif_mixed_mezjgorod"></p-checkbox> -->
                                 </label>
                 
                                 <label>
@@ -157,7 +155,6 @@
                             <div>
                                 <label>
                                     <div style="margin-bottom: 7px; font-size: 11px;"> Россия</div>
-                                    <!-- <p-checkbox formControlName="tarif_mixed_russia" value="true" inputId="tarif_mixed_russia"></p-checkbox> -->
                                 </label>
                 
                                 <label>
@@ -165,6 +162,10 @@
                                     (ngModelChange)="tarifMixedRussiaDays($event)">
                                 </label>
                             </div>
+                        </div>
+
+                        <div *ngIf="errorValidTarifMixedDays" class="errorValidTarifMixedDays">
+                            Кол-во дней выбранных тарифов превышает общее кол-во дней брони
                         </div>
                     </div>
                 </fieldset>

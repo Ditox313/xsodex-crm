@@ -10,12 +10,8 @@ export interface Booking {
 export interface BookingData {
     booking_start: string,
     booking_end: string,
-    // booking_days: number,
-    // dop_hours: number,
-    // dop_hours_price: number,
     car: Car | null,
     tarif: Array<any>,
-    // tarif_price: number,
     arenda: number,
     zalog: number,
     custome_zalog: boolean,

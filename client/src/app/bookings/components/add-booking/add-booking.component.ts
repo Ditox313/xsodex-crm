@@ -24,6 +24,7 @@ export class AddBookingComponent {
   carsListSelector!: Observable<Car[] | null | undefined>
   carsListSub$!: Subscription
   carsList: Car[] | null | undefined = [];
+  errorValidTarifMixedDays: boolean = false;
 
   settingsAvtoparkListSelector!: Observable<SettingAvtopark[] | null | undefined>
   settingsAvtoparkListSub$!: Subscription
@@ -34,16 +35,12 @@ export class AddBookingComponent {
   booking: BookingData = {
     booking_start: '',
     booking_end: '',
-    // booking_days: 0,
-    // dop_hours: 0,
-    // dop_hours_price: 0,
     car: null,
     tarif: [
       { name: 'Город', status: 'no_active', tarif_price: 0, booking_days: 0, dop_hours: 0, dop_hours_price: 0 },
       { name: 'Межгород', status: 'no_active', tarif_price: 0, booking_days: 0, dop_hours: 0, dop_hours_price: 0 },
       { name: 'Россия', status: 'no_active', tarif_price: 0, booking_days: 0, dop_hours: 0, dop_hours_price: 0 }
     ],
-    // tarif_price: 0,
     arenda: 0,
     zalog: 0,
     custome_zalog: false,
@@ -450,12 +447,22 @@ export class AddBookingComponent {
   {
     this.booking.tarif[0].booking_days = e | 0
 
-    if (e !== 0 && e !== null) 
-    {
-      this.booking.tarif[0].status = 'active'
+
+    if (this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days > this.isBookingdays()) {
+      this.form.patchValue({
+        tarif_mixed_gorod_days: 0
+      })
+      this.errorValidTarifMixedDays = true
     }
     else
     {
+      this.errorValidTarifMixedDays = false
+    }
+
+    if (e !== 0 && e !== null) {
+      this.booking.tarif[0].status = 'active'
+    }
+    else {
       this.booking.tarif[0].status = 'no_active'
     }
 
@@ -484,6 +491,17 @@ export class AddBookingComponent {
   // При выборе кол-ва дней смешанного тарифа - межгород
   tarifMixedMejgorodDays(e: any) {
     this.booking.tarif[1].booking_days = e | 0
+
+    if (this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days > this.isBookingdays()) {
+      this.form.patchValue({
+        tarif_mixed_mezjgorod_days: 0
+      })
+
+      this.errorValidTarifMixedDays =  true
+    } 
+    else {
+      this.errorValidTarifMixedDays = false
+    }
 
     if (e !== 0 && e !== null) {
       this.booking.tarif[1].status = 'active'
@@ -520,6 +538,17 @@ export class AddBookingComponent {
   // При выборе кол-ва дней смешанного тарифа - Россия
   tarifMixedRussiaDays(e: any) {
     this.booking.tarif[2].booking_days = e | 0
+
+    if (this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days > this.isBookingdays()) {
+      this.form.patchValue({
+        tarif_mixed_russia_days: 0
+      })
+
+      this.errorValidTarifMixedDays = true
+    }
+    else {
+      this.errorValidTarifMixedDays = false
+    }
 
     if (e !== 0 && e !== null) {
       this.booking.tarif[2].status = 'active'
