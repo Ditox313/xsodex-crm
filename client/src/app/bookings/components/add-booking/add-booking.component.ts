@@ -50,6 +50,14 @@ export class AddBookingComponent {
     place_end_price: 0,
     custome_place_start: false,
     custome_place_end: false,
+    additional_services: [
+      { name: 'additionally_det_kreslo', status: false, price: 0},
+      { name: 'additionally_buster', status: false, price: 0},
+      { name: 'additionally_videoregister', status: false, price: 0},
+      { name: 'additionally_battery_charger', status: false, price: 0},
+      { name: 'additionally_antiradar', status: false, price: 0},
+      { name: 'moyka', price: 0},
+    ]
   }
 
 
@@ -99,27 +107,52 @@ export class AddBookingComponent {
       tarif_mixed_gorod_days: new FormControl(0),
       tarif_mixed_mezjgorod_days: new FormControl(0),
       tarif_mixed_russia_days: new FormControl(0),
-      // client: new FormControl('', [Validators.required]),
-
-      // comment: new FormControl(''),
-
-      // isCustomePlaceStartControl: new FormControl(''),
-      // isCustomePlaceStartControlPrice: new FormControl(''),
-      // isCustomePlaceInputControl: new FormControl(''),
-      // isCustomePlaceInputControlPrice: new FormControl(''),
-      // search_fiz: new FormControl(''),
-      // search_law: new FormControl(''),
-      // additional_services_chair: new FormControl(''),
-      // additional_services_buster: new FormControl(''),
-      // additional_services_videoregister: new FormControl(''),
-      // additional_services_battery_charger: new FormControl(''),
-      // additional_services_antiradar: new FormControl(''),
-      // additional_services_moyka: new FormControl(''),
-      // isCustomePlaceStartControlclick: new FormControl(''),
-      // isCustomePlaceInputControlclick: new FormControl(''),
-      // isCustomeZalogControlclick: new FormControl(''),
-     
+      additionally_det_kreslo: new FormControl(false),
+      additionally_buster: new FormControl(false),
+      additionally_videoregister: new FormControl(false),
+      additionally_battery_charger: new FormControl(false),
+      additionally_antiradar: new FormControl(false),
+      moyka: new FormControl(false),
+      client: new FormControl('', [Validators.required]),
+      comment: new FormControl('',)
     });
+  }
+
+  additionally_det_kreslo()
+  {
+    this.booking.additional_services[0].status = !this.booking.additional_services[0].status  
+    console.log(this.booking);
+      
+  }
+
+  additionally_buster()
+  {
+    this.booking.additional_services[1].status = !this.booking.additional_services[1].status
+    console.log(this.booking);
+  }
+
+  additionally_videoregister()
+  {
+    this.booking.additional_services[2].status = !this.booking.additional_services[2].status
+    console.log(this.booking);
+  }
+
+  additionally_battery_charger()
+  {
+    this.booking.additional_services[3].status = !this.booking.additional_services[3].status
+    console.log(this.booking);
+  }
+
+  additionally_antiradar()
+  {
+    this.booking.additional_services[4].status = !this.booking.additional_services[4].status
+    console.log(this.booking);
+  }
+
+  additionally_moyka()
+  {
+    this.booking.additional_services[5].status = !this.booking.additional_services[5].status
+    console.log(this.booking);
   }
 
   initValues() {
@@ -183,6 +216,22 @@ export class AddBookingComponent {
     if (this.carsList) {
       const actulaCar = this.carsList.filter(car => car._id === e);
       this.booking.car = actulaCar[0]
+
+      // Устанавливает настройки доп услуг
+      this.booking.additional_services[0].price = Number(this.settingAvnoprokat.additionally_avto.det_kreslo)
+      this.booking.additional_services[1].price = Number(this.settingAvnoprokat.additionally_avto.buster)
+      this.booking.additional_services[2].price = Number(this.settingAvnoprokat.additionally_avto.videoregister)
+      this.booking.additional_services[3].price = Number(this.settingAvnoprokat.additionally_avto.battery_charger)
+      this.booking.additional_services[4].price = Number(this.settingAvnoprokat.additionally_avto.antiradar)
+      if (this.booking.car?.category === 'Бизнес') {
+        this.booking.additional_services[5].price = Number(this.settingAvnoprokat.washing_avto.business)
+      }
+      else if (this.booking.car?.category === 'Комфорт') {
+        this.booking.additional_services[5].price = Number(this.settingAvnoprokat.washing_avto.komfort)
+      }
+      else if (this.booking.car?.category === 'Премиум') {
+        this.booking.additional_services[5].price = Number(this.settingAvnoprokat.washing_avto.premium)
+      }
 
     }
 
@@ -644,7 +693,6 @@ export class AddBookingComponent {
   customeZalogValue(e: any) {
     this.booking.zalog = Number(e.target.value)
     
-    
     console.log(this.booking);
   }
 
@@ -668,29 +716,29 @@ export class AddBookingComponent {
   // При выборе места подачи
   placeStart(e: any)
   {
-    // if (e === 'Аэропорт') {
-    //   this.booking.place_start = e
-    //   this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.airport_price) 
-    // }
-    // else if (e === 'Ж/д вокзал') {
-    //   this.booking.place_start = e
-    //   this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.railway_price) 
+    if (e === 'Аэропорт') {
+      this.booking.place_start = e
+      this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.airport_price) 
+    }
+    else if (e === 'Ж/д вокзал') {
+      this.booking.place_start = e
+      this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.railway_price) 
 
-    // }
-    // else if (e === 'ТЦ Кристалл') {
-    //   this.booking.place_start = e
-    //   this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.kristal_tc_price) 
+    }
+    else if (e === 'ТЦ Кристалл') {
+      this.booking.place_start = e
+      this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.kristal_tc_price) 
 
-    // }
-    // else if (e === 'Тц Сити Молл') {
-    //   this.booking.place_start = e
-    //   this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.sitymol_tc_price) 
-    // }
-    // else if (e === 'Офис') {
-    //   this.booking.place_start = e
-    //   this.booking.place_start_price = 0
-    // }
-    // console.log(this.booking);
+    }
+    else if (e === 'Тц Сити Молл') {
+      this.booking.place_start = e
+      this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.sitymol_tc_price) 
+    }
+    else if (e === 'Офис') {
+      this.booking.place_start = e
+      this.booking.place_start_price = 0
+    }
+    console.log(this.booking);
   }
 
 
@@ -698,30 +746,30 @@ export class AddBookingComponent {
 
   // При выборе места приема
   placeEnd(e: any) {
-    // if (e === 'Аэропорт') {
-    //   this.booking.place_end = e
-    //   this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.airport_price_input)
-    // }
-    // else if (e === 'Ж/д вокзал') {
-    //   this.booking.place_end = e
-    //   this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.railway_price_input)
+    if (e === 'Аэропорт') {
+      this.booking.place_end = e
+      this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.airport_price_input)
+    }
+    else if (e === 'Ж/д вокзал') {
+      this.booking.place_end = e
+      this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.railway_price_input)
 
-    // }
-    // else if (e === 'ТЦ Кристалл') {
-    //   this.booking.place_end = e
-    //   this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.kristal_tc_price_input)
+    }
+    else if (e === 'ТЦ Кристалл') {
+      this.booking.place_end = e
+      this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.kristal_tc_price_input)
 
-    // }
-    // else if (e === 'Тц Сити Молл') {
-    //   this.booking.place_end = e
-    //   this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.sitymol_tc_price_input)
-    // }
-    // else if (e === 'Офис') {
-    //   this.booking.place_end = e
-    //   this.booking.place_end_price = 0
-    // }    
+    }
+    else if (e === 'Тц Сити Молл') {
+      this.booking.place_end = e
+      this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.sitymol_tc_price_input)
+    }
+    else if (e === 'Офис') {
+      this.booking.place_end = e
+      this.booking.place_end_price = 0
+    }    
 
-    // console.log(this.booking);
+    console.log(this.booking);
   }
 
 
@@ -756,33 +804,32 @@ export class AddBookingComponent {
   // Произвольное место подачи
   customePlaceStartCheck()
   {
-    // // Задаем значение true или false кастомному месту подачи
-    // if (Boolean(this.form.value.custome_place_start)) {
-    //   this.booking.custome_place_start = Boolean(this.form.value.custome_place_start[0])
-    // }
+    // Задаем значение true или false кастомному месту подачи
+    this.booking.custome_place_start = !this.booking.custome_place_start
+    
 
-    // // Отчищаем поле значения при клике
-    // this.form.controls['custome_place_start_value'].reset();
-    // this.form.controls['custome_place_start_price'].reset();
-    // this.form.controls['place_start'].reset();
-    // this.booking.place_start = ''
-    // this.booking.place_start_price = 0
+    // Отчищаем поле значения при клике
+    this.form.controls['custome_place_start_value'].reset();
+    this.form.controls['custome_place_start_price'].reset();
+    this.form.controls['place_start'].reset();
+    this.booking.place_start = ''
+    this.booking.place_start_price = 0
 
  
 
-    // console.log(this.booking);
+    console.log(this.booking);
   }
 
 
   // Присваеваем значение кастомного места подачи
   customePlaceStartValue(e: any) {
-    // this.booking.place_start = e.target.value
-    // console.log(this.booking);
+    this.booking.place_start = e.target.value
+    console.log(this.booking);
   }
 
   customePlaceStartPrice(e: any) {
-    // this.booking.place_start_price = Number(e.target.value)
-    // console.log(this.booking);
+    this.booking.place_start_price = Number(e.target.value)
+    console.log(this.booking);
   }
 
 
@@ -791,33 +838,31 @@ export class AddBookingComponent {
 
   // Произвольное место приема
   customePlaceEndCheck() {
-    // // Задаем значение true или false кастомному месту приема
-    // if (Boolean(this.form.value.custome_place_end)) {
-    //   this.booking.custome_place_end = Boolean(this.form.value.custome_place_end[0])
-    // }
+    // Задаем значение true или false кастомному месту приема
+    this.booking.custome_place_end = !this.booking.custome_place_end
 
-    // // Отчищаем поле значения при клике
-    // this.form.controls['custome_place_end_value'].reset();
-    // this.form.controls['custome_place_end_price'].reset();
-    // this.form.controls['place_end'].reset();
-    // this.booking.place_end = ''
-    // this.booking.place_end_price = 0
+    // Отчищаем поле значения при клике
+    this.form.controls['custome_place_end_value'].reset();
+    this.form.controls['custome_place_end_price'].reset();
+    this.form.controls['place_end'].reset();
+    this.booking.place_end = ''
+    this.booking.place_end_price = 0
 
 
 
-    // console.log(this.booking);
+    console.log(this.booking);
   }
 
 
   // Присваеваем значение кастомного места подачи
   customePlaceEndValue(e: any) {
-    // this.booking.place_end = e.target.value
-    // console.log(this.booking);
+    this.booking.place_end = e.target.value
+    console.log(this.booking);
   }
 
   customePlaceEndPrice(e: any) {
-    // this.booking.place_end_price = Number(e.target.value)
-    // console.log(this.booking);
+    this.booking.place_end_price = Number(e.target.value)
+    console.log(this.booking);
   }
 
 
