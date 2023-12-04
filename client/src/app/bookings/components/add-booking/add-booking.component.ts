@@ -448,6 +448,7 @@ export class AddBookingComponent {
     this.booking.tarif[0].booking_days = e | 0
 
 
+
     if (this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days > this.isBookingdays()) {
       this.form.patchValue({
         tarif_mixed_gorod_days: 0
@@ -459,12 +460,17 @@ export class AddBookingComponent {
       this.errorValidTarifMixedDays = false
     }
 
+
+
+
     if (e !== 0 && e !== null) {
       this.booking.tarif[0].status = 'active'
     }
     else {
       this.booking.tarif[0].status = 'no_active'
     }
+
+
 
 
     this.booking.car?.tarif_gorod.forEach((period: any) => {
@@ -477,7 +483,7 @@ export class AddBookingComponent {
       }
 
       if (this.booking.tarif[0].booking_days >= interval[0] && interval[1] === '00') {
-        this.booking.arenda = this.booking.tarif[0].booking_days * Number(period[1]) + (this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1] * this.booking.tarif[0].dop_hours)
+        this.booking.arenda += this.booking.tarif[0].booking_days * Number(period[1]) + (this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1] * this.booking.tarif[0].dop_hours)
         this.booking.tarif[0].tarif_price = Number(period[1])
         this.booking.tarif[0].dop_hours_price = Number(this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 1][1])
         console.log(this.booking);
@@ -492,6 +498,8 @@ export class AddBookingComponent {
   tarifMixedMejgorodDays(e: any) {
     this.booking.tarif[1].booking_days = e | 0
 
+
+
     if (this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days > this.isBookingdays()) {
       this.form.patchValue({
         tarif_mixed_mezjgorod_days: 0
@@ -503,12 +511,17 @@ export class AddBookingComponent {
       this.errorValidTarifMixedDays = false
     }
 
+
+
+
     if (e !== 0 && e !== null) {
       this.booking.tarif[1].status = 'active'
     }
     else {
       this.booking.tarif[1].status = 'no_active'
     }
+
+    
 
 
 
@@ -522,7 +535,7 @@ export class AddBookingComponent {
       }
 
       if (this.booking.tarif[1].booking_days >= interval[0] && interval[1] === '00') {
-        this.booking.arenda = this.booking.tarif[1].booking_days * Number(period[1]) + (this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1] * this.booking.tarif[1].dop_hours)
+        this.booking.arenda += this.booking.tarif[1].booking_days * Number(period[1]) + (this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1] * this.booking.tarif[1].dop_hours)
         this.booking.tarif[1].tarif_price = Number(period[1])
         this.booking.tarif[1].dop_hours_price = Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1])
         console.log(this.booking);
@@ -539,6 +552,8 @@ export class AddBookingComponent {
   tarifMixedRussiaDays(e: any) {
     this.booking.tarif[2].booking_days = e | 0
 
+
+
     if (this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days > this.isBookingdays()) {
       this.form.patchValue({
         tarif_mixed_russia_days: 0
@@ -550,12 +565,18 @@ export class AddBookingComponent {
       this.errorValidTarifMixedDays = false
     }
 
+
+
+
     if (e !== 0 && e !== null) {
       this.booking.tarif[2].status = 'active'
     }
     else {
       this.booking.tarif[2].status = 'no_active'
     }
+
+
+
 
 
 
@@ -569,7 +590,7 @@ export class AddBookingComponent {
       }
 
       if (this.booking.tarif[2].booking_days >= interval[0] && interval[1] === '00') {
-        this.booking.arenda = this.booking.tarif[2].booking_days * Number(period[1]) + (this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 1][1] * this.booking.tarif[2].dop_hours)
+        this.booking.arenda += this.booking.tarif[2].booking_days * Number(period[1]) + (this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 1][1] * this.booking.tarif[2].dop_hours)
         this.booking.tarif[2].tarif_price = Number(period[1])
         this.booking.tarif[2].dop_hours_price = Number(this.booking.car?.tarif_russia[this.booking.car?.tarif_russia.length - 1][1])
         console.log(this.booking);
@@ -590,12 +611,8 @@ export class AddBookingComponent {
   // Проверяем нажат кастомный залог
   customeZalogCheck() {
     // Задаем значение true или false кастомному залогу
-    if (Boolean(this.form.value.custome_zalog))
-    {
-      this.booking.custome_zalog = Boolean(this.form.value.custome_zalog[0])
-      console.log(this.form.value.custome_zalog);
-      
-    }
+    this.booking.custome_zalog = !this.booking.custome_zalog
+    console.log(this.booking.custome_zalog);
 
 
     // Отчищаем поле значения при клике
