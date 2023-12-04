@@ -11,6 +11,7 @@ import { carsListAction, carsListResetAction } from 'src/app/cars/store/actions/
 import { SettingAvtopark } from 'src/app/settings/types/settings.interfaces';
 import { settingsAvtoparkListSelector } from 'src/app/settings/store/selectors';
 import { settingsAvtoparkListAction, settingsAvtoparkListResetAction } from 'src/app/settings/store/actions/settings.action';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-booking',
@@ -63,7 +64,7 @@ export class AddBookingComponent {
 
 
 
-  constructor(public datePipe: DatePipe, private store: Store,) { }
+  constructor(public datePipe: DatePipe, private store: Store, private messageService: MessageService,) { }
 
 
   ngOnInit(): void {
@@ -694,20 +695,22 @@ export class AddBookingComponent {
     if (e === 'Аэропорт') {
       this.booking.place_start = e
       this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.airport_price) 
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_start_price } руб`, detail: 'Успешно!' });
     }
     else if (e === 'Ж/д вокзал') {
       this.booking.place_start = e
       this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.railway_price) 
-
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_start_price} руб`, detail: 'Успешно!' });
     }
     else if (e === 'ТЦ Кристалл') {
       this.booking.place_start = e
       this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.kristal_tc_price) 
-
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_start_price} руб`, detail: 'Успешно!' });
     }
     else if (e === 'Тц Сити Молл') {
       this.booking.place_start = e
       this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.sitymol_tc_price) 
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_start_price} руб`, detail: 'Успешно!' });
     }
     else if (e === 'Офис') {
       this.booking.place_start = e
@@ -724,20 +727,22 @@ export class AddBookingComponent {
     if (e === 'Аэропорт') {
       this.booking.place_end = e
       this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.airport_price_input)
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_end_price} руб`, detail: 'Успешно!' });
     }
     else if (e === 'Ж/д вокзал') {
       this.booking.place_end = e
       this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.railway_price_input)
-
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_end_price} руб`, detail: 'Успешно!' });
     }
     else if (e === 'ТЦ Кристалл') {
       this.booking.place_end = e
       this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.kristal_tc_price_input)
-
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_end_price} руб`, detail: 'Успешно!' });
     }
     else if (e === 'Тц Сити Молл') {
       this.booking.place_end = e
       this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.sitymol_tc_price_input)
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_end_price} руб`, detail: 'Успешно!' });
     }
     else if (e === 'Офис') {
       this.booking.place_end = e
@@ -852,10 +857,12 @@ export class AddBookingComponent {
     if (this.booking.additional_services[0].status)
     {
       this.booking.additional_services_price += this.booking.additional_services[0].price
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.additional_services[0].price} руб`, detail: 'Успешно!' });
     }
     else
     {
       this.booking.additional_services_price -= this.booking.additional_services[0].price
+      this.messageService.add({ severity: 'success', summary: `- ${this.booking.additional_services[0].price} руб`, detail: 'Успешно!' });
     }
     
     
@@ -869,10 +876,12 @@ export class AddBookingComponent {
     if (this.booking.additional_services[1].status)
     {
       this.booking.additional_services_price += this.booking.additional_services[1].price
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.additional_services[1].price} руб`, detail: 'Успешно!' });
     }
     else
     {
       this.booking.additional_services_price -= this.booking.additional_services[1].price
+      this.messageService.add({ severity: 'success', summary: `- ${this.booking.additional_services[1].price} руб`, detail: 'Успешно!' });
     }
     
     console.log(this.booking);
@@ -883,9 +892,11 @@ export class AddBookingComponent {
 
     if (this.booking.additional_services[2].status) {
       this.booking.additional_services_price += this.booking.additional_services[2].price
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.additional_services[2].price} руб`, detail: 'Успешно!' });
     }
     else {
       this.booking.additional_services_price -= this.booking.additional_services[2].price
+      this.messageService.add({ severity: 'success', summary: `- ${this.booking.additional_services[2].price} руб`, detail: 'Успешно!' });
     }
 
     
@@ -898,10 +909,12 @@ export class AddBookingComponent {
     if (this.booking.additional_services[3].status)
     {
       this.booking.additional_services_price += this.booking.additional_services[3].price
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.additional_services[3].price} руб`, detail: 'Успешно!' });
     }
     else
     {
       this.booking.additional_services_price -= this.booking.additional_services[3].price
+      this.messageService.add({ severity: 'success', summary: `- ${this.booking.additional_services[3].price} руб`, detail: 'Успешно!' });
     }
     console.log(this.booking);
   }
@@ -912,10 +925,12 @@ export class AddBookingComponent {
     if (this.booking.additional_services[4].status)
     {
       this.booking.additional_services_price += this.booking.additional_services[4].price
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.additional_services[4].price} руб`, detail: 'Успешно!' });
     }
     else
     {
       this.booking.additional_services_price -= this.booking.additional_services[4].price
+      this.messageService.add({ severity: 'success', summary: `- ${this.booking.additional_services[4].price} руб`, detail: 'Успешно!' });
     }
     
     console.log(this.booking);
@@ -927,10 +942,12 @@ export class AddBookingComponent {
     if (this.booking.additional_services[5].status)
     {
       this.booking.additional_services_price += this.booking.additional_services[5].price
+      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.additional_services[5].price} руб`, detail: 'Успешно!' });
     }
     else
     {
       this.booking.additional_services_price -= this.booking.additional_services[5].price
+      this.messageService.add({ severity: 'success', summary: `- ${this.booking.additional_services[5].price} руб`, detail: 'Успешно!' });
     }
     
     console.log(this.booking);
