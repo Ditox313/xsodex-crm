@@ -57,7 +57,8 @@ export class AddBookingComponent {
       { name: 'additionally_battery_charger', status: false, price: 0},
       { name: 'additionally_antiradar', status: false, price: 0},
       { name: 'moyka', price: 0},
-    ]
+    ],
+    additional_services_price: 0
   }
 
 
@@ -118,42 +119,6 @@ export class AddBookingComponent {
     });
   }
 
-  additionally_det_kreslo()
-  {
-    this.booking.additional_services[0].status = !this.booking.additional_services[0].status  
-    console.log(this.booking);
-      
-  }
-
-  additionally_buster()
-  {
-    this.booking.additional_services[1].status = !this.booking.additional_services[1].status
-    console.log(this.booking);
-  }
-
-  additionally_videoregister()
-  {
-    this.booking.additional_services[2].status = !this.booking.additional_services[2].status
-    console.log(this.booking);
-  }
-
-  additionally_battery_charger()
-  {
-    this.booking.additional_services[3].status = !this.booking.additional_services[3].status
-    console.log(this.booking);
-  }
-
-  additionally_antiradar()
-  {
-    this.booking.additional_services[4].status = !this.booking.additional_services[4].status
-    console.log(this.booking);
-  }
-
-  additionally_moyka()
-  {
-    this.booking.additional_services[5].status = !this.booking.additional_services[5].status
-    console.log(this.booking);
-  }
 
   initValues() {
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
@@ -197,6 +162,17 @@ export class AddBookingComponent {
   checkedStartBookingDate(e: any) {
     // // Получаем и устанавливаем  начало  аренды
     this.booking.booking_start = e.target.value
+
+
+    if (this.booking.tarif[0].status === 'active') {
+      this.tarifGorod()
+    }
+    else if (this.booking.tarif[1].status === 'active') {
+      this.tarifMejGorod()
+    }
+    else if (this.booking.tarif[2].status === 'active') {
+      this.tarifRussia()
+    }
   }
 
 
@@ -204,6 +180,16 @@ export class AddBookingComponent {
   checkedEndBookingDate(e: any) {
     // Получаем и устанавливаем  окончание  аренды
     this.booking.booking_end = e.target.value
+
+    if (this.booking.tarif[0].status === 'active') {
+      this.tarifGorod()
+    }
+    else if (this.booking.tarif[1].status === 'active') {
+      this.tarifMejGorod()
+    }
+    else if (this.booking.tarif[2].status === 'active') {
+      this.tarifRussia()
+    }
   }
 
 
@@ -696,22 +682,11 @@ export class AddBookingComponent {
     console.log(this.booking);
   }
 
+
+
+
+
   
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
 
   // При выборе места подачи
   placeStart(e: any)
@@ -865,6 +840,103 @@ export class AddBookingComponent {
     console.log(this.booking);
   }
 
+
+
+
+
+
+  // Дополнительнеы услуги
+  additionally_det_kreslo() {
+    this.booking.additional_services[0].status = !this.booking.additional_services[0].status
+
+    if (this.booking.additional_services[0].status)
+    {
+      this.booking.additional_services_price += this.booking.additional_services[0].price
+    }
+    else
+    {
+      this.booking.additional_services_price -= this.booking.additional_services[0].price
+    }
+    
+    
+    console.log(this.booking);
+    
+  }
+
+  additionally_buster() {
+    this.booking.additional_services[1].status = !this.booking.additional_services[1].status
+
+    if (this.booking.additional_services[1].status)
+    {
+      this.booking.additional_services_price += this.booking.additional_services[1].price
+    }
+    else
+    {
+      this.booking.additional_services_price -= this.booking.additional_services[1].price
+    }
+    
+    console.log(this.booking);
+  }
+
+  additionally_videoregister() {
+    this.booking.additional_services[2].status = !this.booking.additional_services[2].status
+
+    if (this.booking.additional_services[2].status) {
+      this.booking.additional_services_price += this.booking.additional_services[2].price
+    }
+    else {
+      this.booking.additional_services_price -= this.booking.additional_services[2].price
+    }
+
+    
+    console.log(this.booking);
+  }
+
+  additionally_battery_charger() {
+    this.booking.additional_services[3].status = !this.booking.additional_services[3].status
+
+    if (this.booking.additional_services[3].status)
+    {
+      this.booking.additional_services_price += this.booking.additional_services[3].price
+    }
+    else
+    {
+      this.booking.additional_services_price -= this.booking.additional_services[3].price
+    }
+    console.log(this.booking);
+  }
+
+  additionally_antiradar() {
+    this.booking.additional_services[4].status = !this.booking.additional_services[4].status
+
+    if (this.booking.additional_services[4].status)
+    {
+      this.booking.additional_services_price += this.booking.additional_services[4].price
+    }
+    else
+    {
+      this.booking.additional_services_price -= this.booking.additional_services[4].price
+    }
+    
+    console.log(this.booking);
+  }
+
+  additionally_moyka() {
+    this.booking.additional_services[5].status = !this.booking.additional_services[5].status
+
+    if (this.booking.additional_services[5].status)
+    {
+      this.booking.additional_services_price += this.booking.additional_services[5].price
+    }
+    else
+    {
+      this.booking.additional_services_price -= this.booking.additional_services[5].price
+    }
+    
+    console.log(this.booking);
+  }
+
+ 
 
 
 

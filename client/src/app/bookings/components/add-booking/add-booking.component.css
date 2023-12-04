@@ -185,6 +185,7 @@ h4
 .dop_service > div > div
 {
     margin-right: 45px;
+    
 }
 
 .dop_service > div > div:last-child
@@ -195,7 +196,18 @@ h4
 .dop_service>div>div label
 {
     display: inline-block;
-    margin-left: 15px;
     line-height: 22px;
     margin-bottom: 0;
+    cursor: pointer;
 }
+
+.calc
+{
+    margin-top: 50px;
+    font-size: 21px;
+    background-color: #3B82F6;
+    color: #fff;
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 4px;
+} 

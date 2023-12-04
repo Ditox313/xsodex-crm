@@ -125,9 +125,9 @@
                 </fieldset>
 
 
-                <fieldset *ngIf="this.form.value.tarif === 'Смешанный'" style="width: 80%;">
+                <fieldset *ngIf="this.form.value.tarif === 'Смешанный'" style="width: 84%;">
                     <div class="mixed_tarif">
-                        <div class="checkboxs_row" style="display: flex; justify-content: space-between;">
+                        <div class="checkboxs_row" style="display: flex;">
                             <div>
                                 <label style="margin-bottom: 0;">
                                     <div style="margin-bottom: 7px; font-size: 11px;">Город</div>
@@ -177,7 +177,7 @@
             </div>
 
             <div>
-                <fieldset style="display: inline-block; margin-right: 30px;">
+                <fieldset style="display: inline-block; margin-right: 30px; ">
                     <label htmlFor="om">Произвольный залог</label>
                     <div style="display: flex; height: 43px; margin-top: 5px;">
                         <p-checkbox formControlName="custome_zalog" (click)="customeZalogCheck()" value="true" inputId="custome_zalog"></p-checkbox>
@@ -227,41 +227,69 @@
                     <h4>Дополнительная информация:</h4>
 
                     <div style="display: flex;"> 
-                        <div>
-                            <p-checkbox formControlName="additionally_det_kreslo" value="false" (click)="additionally_det_kreslo()"
-                                inputId="additionally_det_kreslo"></p-checkbox>
-                            <label htmlFor="additionally_det_kreslo">Детское кресло</label>
+                        <div (click)="additionally_det_kreslo()">
+                            <label htmlFor="additionally_det_kreslo">
+                                <p-checkbox formControlName="additionally_det_kreslo" value="false" inputId="additionally_det_kreslo"></p-checkbox>
+                                 <span style="margin-left: 10px;">Детское кресло</span>
+                            </label>
                         </div>
                         
                         <div>
-                            <p-checkbox formControlName="additionally_buster" value="false" (click)="additionally_buster()"
-                                inputId="additionally_buster"></p-checkbox>
-                            <label htmlFor="additionally_buster">Бустер</label>
+                            <label htmlFor="additionally_buster">
+                                <p-checkbox formControlName="additionally_buster" value="false" (click)="additionally_buster()"
+                                    inputId="additionally_buster"></p-checkbox>
+                                <span style="margin-left: 10px;">Бустер</span>
+                            </label>
                         </div>
                         
                         <div>
-                            <p-checkbox formControlName="additionally_videoregister" value="false" (click)="additionally_videoregister()"
-                                inputId="additionally_videoregister"></p-checkbox>
-                            <label htmlFor="additionally_buster">Видеорегистратор</label>
+                            <label htmlFor="additionally_buster">
+                                <p-checkbox formControlName="additionally_videoregister" value="false" (click)="additionally_videoregister()"
+                                    inputId="additionally_videoregister"></p-checkbox>
+                                <span style="margin-left: 10px;">Видеорегистратор</span>
+                            </label>
                         </div>
                         
                         <div>
-                            <p-checkbox formControlName="additionally_battery_charger" value="false" (click)="additionally_battery_charger()"
-                                inputId="additionally_battery_charger"></p-checkbox>
-                            <label htmlFor="additionally_battery_charger">Зарядное устройство</label>
+                            <label htmlFor="additionally_battery_charger">
+                                <p-checkbox formControlName="additionally_battery_charger" value="false" (click)="additionally_battery_charger()"
+                                    inputId="additionally_battery_charger"></p-checkbox>
+                                <span style="margin-left: 10px;">Зарядное устройство</span>
+                            </label>
                         </div>
                         
                         <div>
-                            <p-checkbox formControlName="additionally_antiradar" value="false" (click)="additionally_antiradar()"
-                                inputId="additionally_antiradar"></p-checkbox>
-                            <label htmlFor="additionally_antiradar">Антирадар</label>
+                            <label htmlFor="additionally_antiradar">
+                                <p-checkbox formControlName="additionally_antiradar" value="false" (click)="additionally_antiradar()"
+                                    inputId="additionally_antiradar"></p-checkbox>
+                                <span style="margin-left: 10px;">Антирадар</span>
+                            </label>
                         </div>
                         
                         <div>
-                            <p-checkbox formControlName="moyka" value="false" (click)="additionally_moyka()" inputId="moyka"></p-checkbox>
-                            <label htmlFor="additionally_antiradar">Мойка</label>
+                            <label htmlFor="additionally_antiradar">
+                                <p-checkbox formControlName="moyka" value="false" (click)="additionally_moyka()" inputId="moyka"></p-checkbox>
+                                <span style="margin-left: 10px;">Мойка</span>
+                            </label>
                         </div>
                     </div>
+                </div>
+
+                <div class="calc">
+                    Аренда {{this.booking.arenda}} + 
+                    Доп.часы {{(this.booking.tarif[0].dop_hours * this.booking.tarif[0].dop_hours_price) +
+                    (this.booking.tarif[1].dop_hours * this.booking.tarif[1].dop_hours_price) +
+                    (this.booking.tarif[2].dop_hours * this.booking.tarif[2].dop_hours_price)}} + 
+
+                    Залог {{this.booking.zalog}} +
+                    Подача авто {{this.booking.place_start_price}} +
+                    Прием авто {{this.booking.place_end_price}} +
+                    Доп.услуги {{this.booking.additional_services_price}} =
+
+                    Итого: {{this.booking.arenda + this.booking.zalog + this.booking.place_start_price +this.booking.place_end_price + 
+                    this.booking.additional_services_price + (this.booking.tarif[0].dop_hours * this.booking.tarif[0].dop_hours_price) +
+                    (this.booking.tarif[1].dop_hours * this.booking.tarif[1].dop_hours_price) +
+                    (this.booking.tarif[2].dop_hours * this.booking.tarif[2].dop_hours_price)}} руб
                 </div>
             </div>
         </div>

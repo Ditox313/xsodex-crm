@@ -21,7 +21,8 @@ export interface BookingData {
     place_end_price: number,
     custome_place_start: boolean,
     custome_place_end: boolean,
-    additional_services: Array<any>
+    additional_services: Array<any>,
+    additional_services_price: number
 }
 
 
