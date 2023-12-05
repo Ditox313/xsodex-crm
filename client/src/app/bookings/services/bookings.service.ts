@@ -16,14 +16,20 @@ export class BookingsService {
   }
 
 
-  // Получаем список всех партнеров
-  // getAllPartners(params: any = {}): Observable<Partner[]> {
-  //   return this.http.get<Partner[]>('/api/partners/partners-list', {
-  //     params: new HttpParams({
-  //       fromObject: params.params.params
-  //     })
-  //   });
-  // }
+  // Получаем список всех броней
+  getAllBookings(params: any = {}): Observable<Booking[]> {
+    return this.http.get<Booking[]>('/api/bookings/bookings-list', {
+      params: new HttpParams({
+        fromObject: params.params.params
+      })
+    });
+  }
+
+
+  // Удаление
+  delete(id: any): Observable<any> {
+    return this.http.delete<any>(`/api/bookings/booking-remove/${id}`);
+  }
 
 
 
@@ -72,8 +78,5 @@ export class BookingsService {
   //  }
 
 
-  // Удаление
-  // delete(id: any): Observable<any> {
-  //   return this.http.delete<any>(`/api/partners/partner-remove/${id}`);
-  // }
+ 
 }

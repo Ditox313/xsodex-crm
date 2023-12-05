@@ -10,16 +10,17 @@ const passport = require('passport');
 router.post('/create', passport.authenticate('jwt', { session: false }), controller.create);
 
 
-// Роут на Получение всех партнеров
-// router.get('/partners-list', passport.authenticate('jwt', { session: false }), controller.getAllPartners);
+// Роут на Получение всех броней
+router.get('/bookings-list', passport.authenticate('jwt', { session: false }), controller.getAllBookings);
+
+
+//Роут на удаление брони
+router.delete('/booking-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 
 
 // Роут на Получение всех партнеров без параметров
 // router.get('/partners-list-no-params', passport.authenticate('jwt', { session: false }), controller.getAllPartnersNoParams);
 
-
-//Роут на удаление партнера
-// router.delete('/partner-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 
 
 // Роут на получение партнера по Id

@@ -62,7 +62,7 @@ export class AccountEffect {
       this.actions$.pipe(
         ofType(loginSuccessAction),
         tap(() => {
-          this.router.navigate(['/account-settings-page']);
+          this.router.navigate(['/list-smena']);
         })
       ),
     { dispatch: false }

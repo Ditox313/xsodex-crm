@@ -16,7 +16,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { getRoutes } from './routes/bookings.route';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
-import { ListBookinhsComponent } from './components/list-bookinhs/list-bookinhs.component';
+import { ListBookingsComponent } from './components/list-bookings/list-bookings.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './store/reducers';
@@ -29,7 +29,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [
-    ListBookinhsComponent,
+    ListBookingsComponent,
     AddBookingComponent
   ],
   imports: [

@@ -13,16 +13,16 @@ export const isLoadingSelector = createSelector(
     (state: BookingsStateInterface) => state.isLoading
 )
 
-// export const partnersListSelector = createSelector(
-//     partnersFeatureSelector,
-//     (state: PartnersStateInterface) => state.partnersList
-// )
+export const bookingsListSelector = createSelector(
+    bookingsFeatureSelector,
+    (state: BookingsStateInterface) => state.bookingsList
+)
 
 
-// export const noMorePartnersList = createSelector(
-//     partnersFeatureSelector,
-//     (state: PartnersStateInterface) => state.noMorePartnersList
-// )
+export const noMoreBookingsList = createSelector(
+    bookingsFeatureSelector,
+    (state: BookingsStateInterface) => state.noMoreBookingsList
+)
 
 
 // export const getCurrentPartnerSelector = createSelector(

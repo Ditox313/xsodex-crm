@@ -171,6 +171,8 @@ export class AddBookingComponent {
     this.currentSmemaSub$ = this.currentSmemaSelector.subscribe({
       next: (currentSmena) => {
         this.currentSmema = currentSmena
+        console.log(this.currentSmema);
+        
       }
     })
   }
@@ -1003,34 +1005,23 @@ export class AddBookingComponent {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   onSubmit() {
 
     const booking: Booking = {
       booking_start: this.booking.booking_start,
       booking_end: this.booking.booking_end,
       booking_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days,
-      car: this.booking.car?._id,
+      car: {
+        _id: this.booking.car?._id,
+        marka: this.booking.car?.marka,
+        model: this.booking.car?.model,
+        number: this.booking.car?.number,
+        category: this.booking.car?.category,
+      },
       tarif: this.booking.tarif,
       tarifCheked: this.booking.tarifCheked,
       zalog: this.booking.zalog,
-      client: '12345',
+      client: {},
       place_start: this.booking.place_start,
       place_start_price: this.booking.place_start_price,
       place_end: this.booking.place_end,

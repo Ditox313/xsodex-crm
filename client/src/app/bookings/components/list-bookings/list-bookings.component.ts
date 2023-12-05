@@ -2,14 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Booking, BookingsParamsFetch } from '../../types/bookings.interfaces';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { isLoadingSelector } from '../../store/selectors';
+import { bookingsListSelector, isLoadingSelector, noMoreBookingsList } from '../../store/selectors';
+import { bookingDeleteAction, bookingsListAction, bookingsListResetAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction } from '../../store/actions/bookings.action';
 
 @Component({
-  selector: 'app-list-bookinhs',
-  templateUrl: './list-bookinhs.component.html',
-  styleUrls: ['./list-bookinhs.component.css']
+  selector: 'app-list-bookings',
+  templateUrl: './list-bookings.component.html',
+  styleUrls: ['./list-bookings.component.css']
 })
-export class ListBookinhsComponent implements OnInit, OnDestroy {
+export class ListBookingsComponent implements OnInit, OnDestroy {
   STEP = 2;
   offset: number = 0;
   limit: number = this.STEP;
@@ -32,13 +33,13 @@ export class ListBookinhsComponent implements OnInit, OnDestroy {
       this.bookingsListSub$.unsubscribe();
     }
 
-    // Отчищаем состояние partnersList если не хотим сохранять список авто  в состояние
-    // this.store.dispatch(partnersListResetAction());
+    // Отчищаем состояние 
+    this.store.dispatch(bookingsListResetAction());
   }
 
   initValues() {
-    // Отчищаем состояние перед запросом на получение списка авто
-    // this.store.dispatch(partnersListResetAction());
+    // Отчищаем состояние 
+    this.store.dispatch(bookingsListResetAction());
 
 
     // Получаем селектор loader
@@ -46,31 +47,31 @@ export class ListBookinhsComponent implements OnInit, OnDestroy {
 
 
     // Получаем селектор noMorePartnersList
-    // this.noMorePartnersList = this.store.pipe(select(noMorePartnersList))
+    this.noMoreBookingsList = this.store.pipe(select(noMoreBookingsList))
 
 
 
 
     // Получаем селектор на получение списка партнеров и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
     // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
-    // this.partnersListSelector = this.store.pipe(select(partnersListSelector))
-    // this.partnersListSub$ = this.partnersListSelector.subscribe({
-    //   next: (partnersList) => {
-    //     if (partnersList) {
-    //       this.partnersList = partnersList;
+    this.bookingsListSelector = this.store.pipe(select(bookingsListSelector))
+    this.bookingsListSub$ = this.bookingsListSelector.subscribe({
+      next: (bookingsList) => {
+        if (bookingsList) {
+          this.bookingsList = bookingsList;
 
 
-    //       if (this.partnersList.length >= this.STEP) {
-    //         // Изменяем значение noMorePartnersList в состоянии на false что бы открыть кнопку загрузить ещё
-    //         this.store.dispatch(noMorePartnersListFalseAction());
-    //       }
-    //       else {
-    //         // Изменяем значение noMorePartnersList в состоянии на true что бы скрыть кнопку загрузить ещё
-    //         this.store.dispatch(noMorePartnersListTrueAction());
-    //       }
-    //     }
-    //   }
-    // });
+          if (this.bookingsList.length >= this.STEP) {
+            // Изменяем значение noMoreBookingsList в состоянии на false что бы открыть кнопку загрузить ещё
+            this.store.dispatch(noMoreBookingsListFalseAction());
+          }
+          else {
+            // Изменяем значение noMoreBookingsList в состоянии на true что бы скрыть кнопку загрузить ещё
+            this.store.dispatch(noMoreBookingsListTrueAction());
+          }
+        }
+      }
+    });
   }
 
 
@@ -80,8 +81,8 @@ export class ListBookinhsComponent implements OnInit, OnDestroy {
       limit: this.limit,
     };
 
-    // Отправляем запрос на получения списка партнеров
-    // this.store.dispatch(partnersListAction({ params: params }));
+    // Отправляем запрос на получения списка броней
+    this.store.dispatch(bookingsListAction({ params: params }));
   }
 
 
@@ -97,8 +98,8 @@ export class ListBookinhsComponent implements OnInit, OnDestroy {
     event.stopPropagation();
     const dicision = window.confirm(`Удалить Бронь?`);
 
-    // if (dicision) {
-    //   this.store.dispatch(partnerDeleteAction({ id: partner._id }))
-    // }
+    if (dicision) {
+      this.store.dispatch(bookingDeleteAction({ id: booking._id }))
+    }
   }
 }

@@ -74,32 +74,32 @@ export const noMoreBookingsListTrueAction = createAction(
 
 
 
-// Partner delete
-// export const partnerDeleteAction = createAction(
-//   ActionTypes.PARTNER_DELETE,
-//   props<{ id: string | undefined }>()
-// );
+// Booking delete
+export const bookingDeleteAction = createAction(
+  ActionTypes.BOOKING_DELETE,
+  props<{ id: string | undefined }>()
+);
 
 
-// export const partnerDeleteSuccessAction = createAction(
-//   ActionTypes.PARTNER_DELETE_SUCCES,
-//   props<{ data: string }>()
-// );
+export const bookingDeleteSuccessAction = createAction(
+  ActionTypes.BOOKING_DELETE_SUCCES,
+  props<{ data: string }>()
+);
 
 
-// export const partnerDeleteFailureAction = createAction(
-//   ActionTypes.PARTNER_DELETE_FAILURE,
-//   props<{ errors: any }>()
-// );
-
-
-
+export const bookingDeleteFailureAction = createAction(
+  ActionTypes.BOOKING_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 
 
 
-// Update State Cars
+
+
+
+// Update State Bookings
 export const updateStateBookingsAction = createAction(
   ActionTypes.UPDATE_STATE_BOOKINGS,
 );

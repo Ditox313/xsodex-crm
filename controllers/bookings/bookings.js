@@ -61,19 +61,19 @@ module.exports.create = async function (req, res) {
 
 
 
-// module.exports.getAllPartners = async function (req, res) {
-//     try {
+module.exports.getAllBookings = async function (req, res) {
+    try {
 
-//         const partnersList = await Partner.find({}).sort({ date: -1 })
-//             .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
-//             .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+        const bookingsList = await Booking.find({}).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
 
-//         // Возвращаем пользователю позиции 
-//         res.status(200).json(partnersList);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+        // Возвращаем пользователю позиции 
+        res.status(200).json(bookingsList);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 
@@ -95,38 +95,21 @@ module.exports.create = async function (req, res) {
 
 
 // Контроллер для remove
-// module.exports.remove = async function (req, res) {
-//     try {
-
-//         const partner = await Partner.findOne({ _id: req.params.id });
-//         fs.unlink(partner.file_1, (err) => {
-//             if (err) {
-//                 console.error(err);
-//                 return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-//             }
-//         });
-
-//         fs.unlink(partner.file_2, (err) => {
-//             if (err) {
-//                 console.error(err);
-//                 return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-//             }
-//         });
+module.exports.remove = async function (req, res) {
+    try {
+        // Удаляем бронь
+        const result = await Booking.deleteOne({ _id: req.params.id });
+        if (result.deletedCount === 1) {
+            res.status(200).json(req.params.id);
+        } else {
+            return error
+        }
 
 
-//         // Удаляем партнера
-//         const result = await Partner.deleteOne({ _id: req.params.id });
-//         if (result.deletedCount === 1) {
-//             res.status(200).json(req.params.id);
-//         } else {
-//             return error
-//         }
-
-
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 

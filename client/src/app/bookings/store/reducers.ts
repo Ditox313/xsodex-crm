@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { BookingsStateInterface } from '../types/bookings.interfaces';
-import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListResetAction, bookingsListSuccessAction, noMoreBookingsListAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from './actions/bookings.action';
+import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListResetAction, bookingsListSuccessAction, noMoreBookingsListAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from './actions/bookings.action';
 
 
 
@@ -162,34 +162,32 @@ const bookingsReducer = createReducer(
 
 
 
-  // on(
-  //   partnerDeleteAction,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    bookingDeleteAction,
+    (state): BookingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   partnerDeleteSuccessAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //     currentPartner: null,
-  //     partnersList: state.partnersList ? state.partnersList.filter((item: { _id: string; }) => item._id !== action.data) : state.partnersList,
-  //   })
-  // ),
-  // on(
-  //   partnerDeleteFailureAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //     currentPartner: null,
-  //   })
-  // ),
+  on(
+    bookingDeleteSuccessAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      bookingsList: state.bookingsList ? state.bookingsList.filter((item: { _id: string; }) => item._id !== action.data) : state.bookingsList,
+    })
+  ),
+  on(
+    bookingDeleteFailureAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
 
 
 

@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { BookingsService } from '../../services/bookings.service'
-import { addBookingAction, addBookingFailureAction, addBookingSuccessAction } from '../actions/bookings.action'
+import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, noMoreBookingsListAction } from '../actions/bookings.action'
 
 
 
@@ -49,52 +49,52 @@ export class BookingsEffect {
 
 
 
-  // // Получение всех партнеров
-  // partnersList$ = createEffect(() =>
-  // //   this.actions$.pipe(
-  // //     ofType(partnersListAction),
-  // //     concatMap((params) => {
-  // //       return this.partners.getAllPartners({ params }).pipe(
-  // //         concatMap((partnersList) => {
-  // //           if (partnersList.length === 0) {
-  // //             return of(noMorePartnersListAction({ data: true }));
-  // //           }
-  // //           return of(partnersListSuccessAction({ data: partnersList }));
-  // //         }),
-  // //         catchError((errorResponse: HttpErrorResponse) => {
-  // //           return of(
-  // //             partnersListFailureAction({ errors: errorResponse.error.errors })
-  // //           );
-  // //         })
-  // //       );
-  // //     })
-  // //   )
-  // // );
+  // Получение всех броней
+  bookingsList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(bookingsListAction),
+      concatMap((params) => {
+        return this.bookings.getAllBookings({ params }).pipe(
+          concatMap((bookingsList) => {
+            if (bookingsList.length === 0) {
+              return of(noMoreBookingsListAction({ data: true }));
+            }
+            return of(bookingsListSuccessAction({ data: bookingsList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              bookingsListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
 
 
-  // Удаление партнера
-  // carDelete$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(partnerDeleteAction),
-  //     switchMap((id) => {
-  //       return this.partners.delete(id.id).pipe(
-  //         map((id) => {
-  //           this.messageService.add({ severity: 'success', summary: `Партнер удален`, detail: 'Успешно!' });
-  //           return partnerDeleteSuccessAction({ data: id });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `Ошибка удаления партнера`, detail: 'Попробуйте позже!' });
-  //           return of(
-  //             partnerDeleteFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Удаление брони
+  bookingDelete$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(bookingDeleteAction),
+      switchMap((id) => {
+        return this.bookings.delete(id.id).pipe(
+          map((id) => {
+            this.messageService.add({ severity: 'success', summary: `Партнер удален`, detail: 'Успешно!' });
+            return bookingDeleteSuccessAction({ data: id });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления партнера`, detail: 'Попробуйте позже!' });
+            return of(
+              bookingDeleteFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

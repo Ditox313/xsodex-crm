@@ -13,18 +13,34 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th>ФИО</th>
-                <th>Телефон №1</th>
-                <th>Телефон №2</th>
+                <th>№</th>
+                <th>Создана</th>
+                <th>Статус</th>
+                <th>Автомобиль</th>
+                <th>Клиент</th>
+                <th>Начало</th>
+                <th>Конец</th>
+                <th>Суток</th>
+                <th>Выдача</th>
+                <th>Прием</th>
                 <th></th>
             </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-booking>
             <tr [routerLink]="['/show-booking',booking._id]">
-                <!-- <td><strong>{{partner.surname}} {{partner.name}} {{partner.lastname}}</strong></td>
-                <td>{{partner.phone_1}}</td>
-                <td>{{partner.phone_2}}</td> -->
+                <td><strong>{{booking.order}}</strong></td>
+                <td>{{booking.date | date : 'dd.MM.yyyy HH:mm'}}</td>
+                <td>{{booking.status}}</td>
+                <td>{{booking.car.marka}} {{booking.car.model}}({{booking.car.number}})</td>
+                <td>{{booking.client}}</td>
+                <td>{{booking.booking_start | date : 'dd.MM.yyyy HH:mm'}}</td>
+                <td>{{booking.booking_end | date : 'dd.MM.yyyy HH:mm'}}</td>
+                <td>{{booking.booking_days}}</td>
+                <td>{{booking.place_start}}</td>
+                <td>{{booking.place_end}}</td>
+                
+            
                 <td style="cursor: pointer; text-align: center;" (click)="onDeleteBooking($event, booking)"><i
                         class="pi pi-trash"></i></td>
             </tr>
@@ -32,7 +48,7 @@
     </p-table>
 
     <div *ngIf="bookingsList.length === 0" class="noMoreBookingsList">
-        <h2>Нет партнеров...</h2>
+        <h2>Нет броней...</h2>
     </div>
 
     <div class="btn">

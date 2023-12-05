@@ -2,7 +2,7 @@
 import { Route } from "src/app/shared/types/interfaces";
 import { AppLayoutComponent } from "src/app/shared/modules/layouts/components/app-layout/app-layout.component";
 import { AuthGuard } from "../../shared/guards/auth.guard";
-import { ListBookinhsComponent } from "../components/list-bookinhs/list-bookinhs.component";
+import { ListBookingsComponent } from "../components/list-bookings/list-bookings.component";
 import { AddBookingComponent } from "../components/add-booking/add-booking.component";
 
 
@@ -21,7 +21,7 @@ export function getRoutes(): Route[] {
                 },
                 {
                     path: 'list-bookings',
-                    component: ListBookinhsComponent,
+                    component: ListBookingsComponent,
                 },
                 // {
                 //     path: 'show-partner/:id', 

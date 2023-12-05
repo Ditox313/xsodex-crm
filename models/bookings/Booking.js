@@ -33,7 +33,7 @@ const bookingSchema = new Schema({
 
 
     car: {
-        type: String,
+        type: Object,
         default: '',
         required: true,
     },
@@ -61,7 +61,7 @@ const bookingSchema = new Schema({
 
 
     client: {
-        type: String,
+        type: Object,
         default: '',
         required: true,
     },
@@ -161,7 +161,7 @@ const bookingSchema = new Schema({
     comment: {
         type: String,
         default: '',
-        required: true,
+        required: false,
     },
 
 
