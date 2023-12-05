@@ -244,10 +244,10 @@
                         <h4>Дополнительная информация:</h4>
 
                         <div style="display: flex;">
-                            <div (click)="additionally_det_kreslo()">
+                            <div >
                                 <label htmlFor="additionally_det_kreslo">
                                     <p-checkbox formControlName="additionally_det_kreslo" value="false"
-                                        inputId="additionally_det_kreslo"></p-checkbox>
+                                        inputId="additionally_det_kreslo" (click)="additionally_det_kreslo()"></p-checkbox>
                                     <span style="margin-left: 10px;">Детское кресло</span>
                                 </label>
                             </div>
@@ -304,37 +304,120 @@
                     <h4>Рассчеты</h4>
                     <div style="margin-bottom: 30px;">
                         <div>
-                            <span>Дней аренды:</span> <span>0</span>
+                            <span>Дней аренды:</span> 
+                            <span class="booking_info_element">
+                                {{this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days}} д
+                            </span>
                         </div>
+
                         <div>
-                            <span>Цена аренды:</span> <span>0</span>
+                            <span>Цена аренды:</span>
+                            <span class="booking_info_element">
+                                {{this.booking.arenda}} руб
+                            </span>
                         </div>
-                        <div>
-                            <span>Доп.часы:</span> <span>0</span>
+
+                        <div  *ngIf="this.booking.car !== null"> 
+                            <span>Автомобиль:</span>
+                            <span class="booking_info_element">
+                                {{this.booking.car.marka}} {{this.booking.car.model}}({{this.booking.car.number}})
+                            </span>
                         </div>
-                        <div>
-                            <span>Цена доп.часов:</span> <span>0</span>
+                        
+                        <div  *ngIf="this.booking.tarifCheked !== ''">
+                            <span>Тариф:</span>
+                            <span class="booking_info_element">
+                                {{this.booking.tarifCheked}}
+                            </span>
                         </div>
-                        <div>
-                            <span>Автомобиль:</span> <span>БМВ</span>
+
+                        <div *ngIf="this.booking.tarifCheked !== ''">
+                            <span>Цена тарифа(за 1д):</span> 
+                            <span *ngIf="this.booking.tarifCheked ==='Город'" class="booking_info_element">
+                               {{this.booking.tarif[0].tarif_price}} руб 
+                            </span>
+                            <span *ngIf="this.booking.tarifCheked ==='Межгород'" class="booking_info_element">
+                               {{this.booking.tarif[1].tarif_price}} руб 
+                            </span>
+                            <span *ngIf="this.booking.tarifCheked ==='Россия'" class="booking_info_element">
+                               {{this.booking.tarif[2].tarif_price}} руб
+                            </span>
+                            <span *ngIf="this.booking.tarifCheked ==='Смешанный'" class="booking_info_element">
+                                Гор - {{this.booking.tarif[0].tarif_price}} р, Меж - {{this.booking.tarif[1].tarif_price}} р, Рос - {{this.booking.tarif[2].tarif_price}} р,
+                            </span>
                         </div>
-                        <div>
-                            <span>Тариф:</span> <span>Город</span>
+
+                        <div *ngIf="this.booking.tarifCheked !== '' && this.booking.tarifCheked  !== 'Смешанный'">
+                            <span>Доп.часы:</span> 
+                            <span class="booking_info_element">
+                                {{this.booking.tarif[0].dop_hours + this.booking.tarif[1].dop_hours + this.booking.tarif[2].dop_hours}}
+                            </span>
                         </div>
-                        <div>
-                            <span>Цена тарифа:</span> <span>100 руб</span>
+
+                        <div *ngIf="this.booking.tarif[0].dop_hours > 0 || this.booking.tarif[1].dop_hours > 0 && this.booking.tarif[2].dop_hours > 0">
+                            <span>Цена за доп.час(1ч):</span> 
+                            <span *ngIf="this.booking.tarifCheked ==='Город'" class="booking_info_element">
+                                {{this.booking.tarif[0].dop_hours_price}} руб
+                            </span>
+                            <span *ngIf="this.booking.tarifCheked ==='Межгород'" class="booking_info_element">
+                                {{this.booking.tarif[1].dop_hours_price}} руб
+                            </span>
+                            <span *ngIf="this.booking.tarifCheked ==='Россия'" class="booking_info_element">
+                                {{this.booking.tarif[2].dop_hours_price}} руб
+                            </span>
+                            <span *ngIf="this.booking.tarifCheked ==='Смешанный'" class="booking_info_element">
+                                0
+                            </span>
                         </div>
-                        <div>
-                            <span>Место падачи:</span> <span>Офис</span>
+
+                        <div *ngIf="this.booking.place_start !== ''">
+                            <span>Место падачи:</span> 
+                            <span class="booking_info_element">{{this.booking.place_start}} - {{this.booking.place_start_price}} руб</span>
                         </div>
-                        <div>
-                            <span>Место приема:</span> <span>Офис</span>
+
+                        <div *ngIf="this.booking.place_end !== ''"> 
+                            <span>Место приема:</span> 
+                            <span class="booking_info_element">{{this.booking.place_end}} - {{this.booking.place_end_price}} руб</span>
                         </div>
+
                         <div>
-                            <span>Залог:</span> <span>100 руб</span>
+                            <span>Залог:</span> 
+                            <span class="booking_info_element">
+                                {{this.booking.zalog}} руб
+                            </span>
+                        </div>
+
+                        <div *ngIf="this.booking.additional_services[0].status || this.booking.additional_services[1].status || this.booking.additional_services[2].status 
+                        || this.booking.additional_services[3].status || this.booking.additional_services[4].status || this.booking.additional_services[5].status">
+                            <span>Доп.услуги:</span>
+                            <span class="booking_info_element" *ngIf="this.booking.additional_services[0].status === true">Детское кресло - {{this.booking.additional_services[0].price}} руб</span><br>
+                            <span class="booking_info_element" *ngIf="this.booking.additional_services[1].status === true">Бустер - {{this.booking.additional_services[1].price}} руб</span><br>
+                            <span class="booking_info_element" *ngIf="this.booking.additional_services[2].status === true">Видеорегистратор - {{this.booking.additional_services[2].price}} руб</span><br>
+                            <span class="booking_info_element" *ngIf="this.booking.additional_services[3].status === true">Зарядное устройство - {{this.booking.additional_services[3].price}} руб</span><br>
+                            <span class="booking_info_element" *ngIf="this.booking.additional_services[4].status === true">Антирадар - {{this.booking.additional_services[4].price}} руб</span><br>
+                            <span class="booking_info_element" *ngIf="this.booking.additional_services[5].status === true">Мойка - {{this.booking.additional_services[5].price}} руб</span>
+                        </div>
+
+                        <div>
+                            <span>Итого:</span>
+                            <span class="booking_info_element_summ">
+                                {{this.booking.arenda + 
+
+
+                                this.booking.zalog +
+
+                                this.booking.place_start_price +
+
+                                this.booking.place_end_price +
+
+                                this.booking.additional_services_price}} руб
+                            </span>
                         </div>
                     </div>
-                    Аренда {{this.booking.arenda}} +
+
+
+
+                    <!-- Аренда {{this.booking.arenda}} +
                     Доп.часы {{(this.booking.tarif[0].dop_hours * this.booking.tarif[0].dop_hours_price) +
                     (this.booking.tarif[1].dop_hours * this.booking.tarif[1].dop_hours_price) +
                     (this.booking.tarif[2].dop_hours * this.booking.tarif[2].dop_hours_price)}} +
@@ -349,7 +432,7 @@
                     this.booking.additional_services_price + (this.booking.tarif[0].dop_hours *
                     this.booking.tarif[0].dop_hours_price) +
                     (this.booking.tarif[1].dop_hours * this.booking.tarif[1].dop_hours_price) +
-                    (this.booking.tarif[2].dop_hours * this.booking.tarif[2].dop_hours_price)}} руб
+                    (this.booking.tarif[2].dop_hours * this.booking.tarif[2].dop_hours_price)}} руб -->
                 </div>
             </div>
         </div>

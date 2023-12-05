@@ -42,6 +42,7 @@ export class AddBookingComponent {
       { name: 'Межгород', status: 'no_active', tarif_price: 0, booking_days: 0, dop_hours: 0, dop_hours_price: 0 },
       { name: 'Россия', status: 'no_active', tarif_price: 0, booking_days: 0, dop_hours: 0, dop_hours_price: 0 }
     ],
+    tarifCheked: '',
     arenda: 0,
     zalog: 0,
     custome_zalog: false,
@@ -230,20 +231,30 @@ export class AddBookingComponent {
   // При выборе тарифа
   checkedTarif(e: any) {
     if (e === 'Город') {
+      this.booking.tarifCheked = e
       this.tarifGorod()
     }
     else if (e === 'Межгород')
     {
+      this.booking.tarifCheked = e
       this.tarifMejGorod()
     }
     else if (e === 'Россия')
     {
+      this.booking.tarifCheked = e
       this.tarifRussia()
     }
     else if (e === 'Смешанный')
     {
+      this.booking.tarifCheked = e
+      this.booking.tarif[0].dop_hours = 0
+      this.booking.tarif[1].dop_hours = 0
+      this.booking.tarif[2].dop_hours = 0
       this.tarifMixed()
     }
+
+    console.log(this.booking);
+    
   }
 
 

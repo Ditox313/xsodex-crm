@@ -215,9 +215,34 @@ h4
     display: inline-block;
     padding: 10px 15px;
     border-radius: 4px;
+    width: 100%;
+    
 } 
 
 .group_2
 {
     margin-top: 25px;
+}
+
+.booking_info_element
+{
+    display: inline-block;
+    background-color: #fff;
+    padding: 2px 4px;
+    margin-left: 5px;
+    color: #3B82F6;
+}
+
+.booking_info_element_summ
+{
+    display: inline-block;
+    background-color: #fff;
+    padding: 2px 4px;
+    margin-left: 5px;
+    color: #3B82F6;
+}
+
+.calc>div>div
+{
+    margin-bottom: 5px;
 }
