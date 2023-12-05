@@ -12,6 +12,9 @@ import { SettingAvtopark } from 'src/app/settings/types/settings.interfaces';
 import { settingsAvtoparkListSelector } from 'src/app/settings/store/selectors';
 import { settingsAvtoparkListAction, settingsAvtoparkListResetAction } from 'src/app/settings/store/actions/settings.action';
 import { MessageService } from 'primeng/api';
+import { Smena } from 'src/app/smena/types/smena.interfaces';
+import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
+import { addBookingAction } from '../../store/actions/bookings.action';
 
 @Component({
   selector: 'app-add-booking',
@@ -31,6 +34,10 @@ export class AddBookingComponent {
   settingsAvtoparkListSub$!: Subscription
   settingsAvtoparkList: SettingAvtopark[]  | null | undefined = [];
   settingAvnoprokat: any
+
+  currentSmemaSelector!: Observable<Smena | null | undefined>
+  currentSmemaSub$!: Subscription
+  currentSmema!: Smena | null | undefined
 
 
   booking: BookingData = {
@@ -116,7 +123,7 @@ export class AddBookingComponent {
       additionally_battery_charger: new FormControl(false),
       additionally_antiradar: new FormControl(false),
       moyka: new FormControl(false),
-      client: new FormControl('', [Validators.required]),
+      // client: new FormControl('', [Validators.required]),
       comment: new FormControl('',)
     });
   }
@@ -157,6 +164,15 @@ export class AddBookingComponent {
         }
       }
     });
+
+
+    // Отправляем запрос на получение текущей смены
+    this.currentSmemaSelector = this.store.pipe(select(isOpenedSmenaSelector))
+    this.currentSmemaSub$ = this.currentSmemaSelector.subscribe({
+      next: (currentSmena) => {
+        this.currentSmema = currentSmena
+      }
+    })
   }
 
 
@@ -175,6 +191,8 @@ export class AddBookingComponent {
     else if (this.booking.tarif[2].status === 'active') {
       this.tarifRussia()
     }
+
+    this.form.controls['booking_end'].enable();
   }
 
 
@@ -192,6 +210,8 @@ export class AddBookingComponent {
     else if (this.booking.tarif[2].status === 'active') {
       this.tarifRussia()
     }
+
+    this.form.controls['car'].enable();
   }
 
 
@@ -222,6 +242,9 @@ export class AddBookingComponent {
       }
 
     }
+
+    this.form.controls['tarif'].enable();
+    
 
     console.log(this.booking);
   }
@@ -254,6 +277,18 @@ export class AddBookingComponent {
     }
 
     console.log(this.booking);
+
+
+    this.form.controls['custome_zalog'].enable();
+    // this.form.controls['client'].enable();
+    this.form.controls['place_start'].enable();
+    this.form.controls['place_end'].enable();
+    this.form.controls['additionally_det_kreslo'].enable();
+    this.form.controls['additionally_buster'].enable();
+    this.form.controls['additionally_videoregister'].enable();
+    this.form.controls['additionally_battery_charger'].enable();
+    this.form.controls['additionally_antiradar'].enable();
+    this.form.controls['moyka'].enable();
     
   }
 
@@ -773,20 +808,19 @@ export class AddBookingComponent {
 
   // Отключаем все инпуты кроме даты старта
   dasable_controls() {
-    // this.form.controls['booking_end'].disable();
-    // this.form.controls['car'].disable();
-    // this.form.controls['tarif'].disable();
-    // this.form.controls['custome_zalog'].disable();
+    this.form.controls['booking_end'].disable();
+    this.form.controls['car'].disable();
+    this.form.controls['tarif'].disable();
+    this.form.controls['custome_zalog'].disable();
     // this.form.controls['client'].disable();
-    // this.form.controls['place_start'].disable();
-    // this.form.controls['additional_services_chair'].disable();
-    // this.form.controls['additional_services_buster'].disable();
-    // this.form.controls['additional_services_videoregister'].disable();
-    // this.form.controls['additional_services_battery_charger'].disable();
-    // this.form.controls['additional_services_antiradar'].disable();
-    // this.form.controls['additional_services_moyka'].disable();
-    // this.form.controls['isCustomePlaceStartControlclick'].disable();
-    // this.form.controls['isCustomeZalogControlclick'].disable();
+    this.form.controls['place_start'].disable();
+    this.form.controls['place_end'].disable();
+    this.form.controls['additionally_det_kreslo'].disable();
+    this.form.controls['additionally_buster'].disable();
+    this.form.controls['additionally_videoregister'].disable();
+    this.form.controls['additionally_battery_charger'].disable();
+    this.form.controls['additionally_antiradar'].disable();
+    this.form.controls['moyka'].disable();
   }
 
 
@@ -987,5 +1021,38 @@ export class AddBookingComponent {
 
 
   onSubmit() {
+
+    const booking: Booking = {
+      booking_start: this.booking.booking_start,
+      booking_end: this.booking.booking_end,
+      booking_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days,
+      car: this.booking.car?._id,
+      tarif: this.booking.tarif,
+      tarifCheked: this.booking.tarifCheked,
+      zalog: this.booking.zalog,
+      client: '12345',
+      place_start: this.booking.place_start,
+      place_start_price: this.booking.place_start_price,
+      place_end: this.booking.place_end,
+      place_end_price: this.booking.place_end_price,
+      arenda: this.booking.arenda,
+      custome_place_start: this.booking.custome_place_start,
+      custome_place_end: this.booking.custome_place_end,
+      custome_zalog: this.booking.custome_zalog,
+      additional_services: this.booking.additional_services,
+      additional_services_price: this.booking.additional_services_price,
+      smenaId: this.currentSmema?._id,
+      summaFull: this.booking.arenda + this.booking.zalog + this.booking.place_start_price + this.booking.place_end_price + this.booking.additional_services_price,
+      paidCount: 0,
+      comment: this.form.value.comment,
+      status: 'В ожидании',
+      sale: 0,
+      userId: this.currentSmema?.userId,
+    }
+
+    this.store.dispatch(addBookingAction({ booking: booking }))
+
+    console.log(booking);
+    
   }
 }

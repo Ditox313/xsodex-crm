@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { BookingsService } from '../../services/bookings.service'
+import { addBookingAction, addBookingFailureAction, addBookingSuccessAction } from '../actions/bookings.action'
 
 
 
@@ -23,26 +24,26 @@ export class BookingsEffect {
   ) {}
 
 
-  // Создание партнера
-  // addPartner$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(addPartnerAction), 
-  //     switchMap(({ partner, file_1, file_2 }) => {
-  //       return this.partners.create(partner, file_1, file_2).pipe(
-  //         map((partner) => {
-  //           this.messageService.add({ severity: 'success', summary: `Партнер создан`, detail: 'Успешно!' });
-  //           this.router.navigate(['/list-partners']);
-  //           return addPartnerSuccessAction({ partner: partner }); 
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             addPartnerFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Создание брони
+  addBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addBookingAction), 
+      switchMap(({ booking }) => {
+        return this.bookings.create(booking).pipe(
+          map((booking) => {
+            this.messageService.add({ severity: 'success', summary: `Бронь создана`, detail: 'Успешно!' });
+            this.router.navigate(['/list-bookings']);
+            return addBookingSuccessAction(); 
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              addBookingFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

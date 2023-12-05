@@ -1,7 +1,7 @@
 export enum ActionTypes {
-  // ADD_PARTNER = '[Partners] Add partner',
-  // ADD_PARTNER_SUCCESS = '[Partners] Add partner success',
-  // ADD_PARTNER_FAILURE = '[Partners] Add partner failure',
+  ADD_BOOKING = '[Bookings] Add booking',
+  ADD_BOOKING_SUCCESS = '[Bookings] Add booking success',
+  ADD_BOOKING_FAILURE = '[Bookings] Add booking failure',
   BOOKINGS_LIST = '[Bookings] Bookings List',
   BOOKINGS_LIST_SUCCES = '[Bookings] Bookings List succes',
   BOOKINGS_LIST_FAILURE = '[Bookings] Bookings List failure',

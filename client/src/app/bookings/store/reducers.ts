@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { BookingsStateInterface } from '../types/bookings.interfaces';
-import { bookingsListAction, bookingsListFailureAction, bookingsListResetAction, bookingsListSuccessAction, noMoreBookingsListAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from './actions/bookings.action';
+import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListResetAction, bookingsListSuccessAction, noMoreBookingsListAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from './actions/bookings.action';
 
 
 
@@ -21,31 +21,31 @@ const initialState: BookingsStateInterface = {
 // Создаем редьюсер
 const bookingsReducer = createReducer(
   initialState,
-  // on(
-  //   addPartnerAction,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true,
-  //   })
-  // ),
+  on(
+    addBookingAction,
+    (state): BookingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true,
+    })
+  ),
 
-  // on(
-  //   addPartnerSuccessAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   addPartnerFailureAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
+  on(
+    addBookingSuccessAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: false,
+    })
+  ),
+  on(
+    addBookingFailureAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
 
 
 

@@ -3,7 +3,34 @@ import { Car } from "src/app/cars/types/cars.interfaces"
 
 //Интерфейс для брони
 export interface Booking {
-    _id?: string
+    _id?: string,
+    booking_start: string,
+    booking_end: string,
+    booking_days: Number,
+    car: string | undefined,
+    tarif: Object,
+    tarifCheked: string,
+    zalog: Number,
+    client: string,
+    place_start: string,
+    place_start_price: Number,
+    place_end: string,
+    place_end_price: Number,
+    arenda: Number,
+    custome_place_start: boolean,
+    custome_place_end: boolean,
+    custome_zalog: boolean,
+    additional_services: Object,
+    additional_services_price: number,
+    smenaId: string | undefined,
+    summaFull: number,
+    paidCount: number,
+    comment: string,
+    status: string,
+    sale: Number,
+    userId: string | undefined,
+    order?: Number,
+    date?: string
 }
 
 //Интерфейс для объекта данных брони 

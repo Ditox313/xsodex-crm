@@ -4,22 +4,21 @@ import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { Booking, BookingsParamsFetch } from '../../types/bookings.interfaces';
 
 
-// Add partner
-// export const addPartnerAction = createAction(
-//   ActionTypes.ADD_PARTNER,
-//   props<{ partner: Partner, file_1?: File, file_2?: File }>()
-// );
+// Add booking
+export const addBookingAction = createAction(
+  ActionTypes.ADD_BOOKING,
+  props<{ booking: Booking }>()
+);
 
-// export const addPartnerSuccessAction = createAction(
-//   ActionTypes.ADD_PARTNER_SUCCESS,
-//   props<{ partner: Partner }>()
-// );
+export const addBookingSuccessAction = createAction(
+  ActionTypes.ADD_BOOKING_SUCCESS,
+);
 
 
-// export const addPartnerFailureAction = createAction(
-//   ActionTypes.ADD_PARTNER_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const addBookingFailureAction = createAction(
+  ActionTypes.ADD_BOOKING_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 
