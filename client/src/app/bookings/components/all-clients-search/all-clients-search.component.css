@@ -1,0 +1,64 @@
+.clientsFizList {
+    padding: 0 20px;
+}
+
+.btn {
+    margin-top: 20px;
+}
+
+.noMoreClientsFizList {
+    margin-top: 20px;
+}
+
+td {
+    cursor: pointer;
+    padding-bottom: 15px !important;
+    padding-top: 15px !important;
+}
+
+.top_line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.top_line input {
+    outline: none;
+    padding: 13px 35px 13px 20px;
+    border: none;
+    background-color: #3B82F6;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.top_line input::placeholder {
+    outline: none;
+    padding: 15px 5px;
+    border: none;
+    background-color: #3B82F6;
+    border-radius: 3px;
+    color: #fff;
+}
+
+
+.top_line span {
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.top_line span:last-child {
+    margin-right: 0px;
+}
+
+
+
+.top_line .active {
+    padding-bottom: 5px;
+    border-bottom: 2px solid #3B82F6;
+    font-weight: 600;
+}
+
+.top_line span:not(.active) {
+    cursor: pointer;
+}

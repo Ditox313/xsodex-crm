@@ -62,6 +62,10 @@ export interface BookingsStateInterface {
     bookingsList?: Booking[] | null | undefined | any,
     noMoreBookingsList: boolean
     currentBooking: Booking | null | undefined | any,
+    clients?: any[] | null | undefined | any,
+    currentClient: any,
+    noMoreClientsList: boolean,
+    searchList: any[] | null
 }
 
 

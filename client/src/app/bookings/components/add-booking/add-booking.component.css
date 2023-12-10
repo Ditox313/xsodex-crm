@@ -102,7 +102,26 @@ textarea {
     width: 300px;
     height: 45px;
 }
-
+.client_input
+{
+    color: #495057;
+    background: #ffffff;
+    padding: 11px;
+    border: 1px solid #ced4da;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 6px;
+    margin-right: 15px;
+    margin-top: 15px;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 16px;
+    cursor: pointer;
+    width: 300px;
+    height: 45px;
+}
 p-inputMask {
     margin-right: 15px;
     margin-top: 15px;
@@ -245,4 +264,11 @@ h4
 .calc>div>div
 {
     margin-bottom: 5px;
+}
+
+.client i
+{
+    font-size: 22px;
+    cursor: pointer;
+    margin-top: 26px;
 }

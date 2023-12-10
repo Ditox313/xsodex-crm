@@ -74,6 +74,50 @@ export const noMoreBookingsListTrueAction = createAction(
 
 
 
+
+
+// Clients for search booking
+export const clientsForSearchListAction = createAction(
+  ActionTypes.CLIENTS_FOR_SEARCH,
+  props<{ params?: BookingsParamsFetch }>()
+);
+
+
+export const clientsForSearchListSuccessAction = createAction(
+  ActionTypes.CLIENTS_FOR_SEARCH_LIST_SUCCES,
+  props<{ data: any[] }>()
+);
+
+
+export const clientsForSearchListFailureAction = createAction(
+  ActionTypes.CLIENTS_FOR_SEARCH_LIST_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const clientsForSearchListResetAction = createAction(
+  ActionTypes.CLIENTS_FOR_SEARCH_LIST_RESET,
+);
+
+
+export const noMoreClientsForSearchListAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_FOR_SEARCH_LIST,
+  props<{ data: boolean }>()
+);
+
+export const noMoreClientsForSearchListFalseAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_FOR_SEARCH_LIST_FALSE,
+);
+
+export const noMoreClientsForSearchListTrueAction = createAction(
+  ActionTypes.NO_MORE_CLIENTS_FOR_SEARCH_LIST_TRUE,
+);
+
+
+
+
+
+
 // Booking delete
 export const bookingDeleteAction = createAction(
   ActionTypes.BOOKING_DELETE,
@@ -117,6 +161,47 @@ export const updateStateBookingsFailureAction = createAction(
 );
 
 
+
+
+
+
+
+
+// Поиск
+export const clientsSearchAction = createAction(
+  ActionTypes.CLIENTS_SEARCH,
+  props<{ data: any }>()
+);
+
+
+export const clientsSearchSuccessAction = createAction(
+  ActionTypes.CLIENTS_SEARCH_SUCCES,
+  props<{ data: any[] }>()
+);
+
+
+export const clientsSearchFailureAction = createAction(
+  ActionTypes.CLIENTS_SEARCH_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const clientsSearchResetAction = createAction(
+  ActionTypes.CLIENTS_SEARCH_RESET,
+);
+
+
+
+
+
+// Выбор клиента для брони
+export const changeCleintForBookingAction = createAction(
+  ActionTypes.CHANGE_CLIENT_FOR_BOOKING,
+  props<{ client: any }>()
+);
+export const changeCleintForBookingResetAction = createAction(
+  ActionTypes.CHANGE_CLIENT_FOR_BOOKING_RESET,
+);
 
 
 

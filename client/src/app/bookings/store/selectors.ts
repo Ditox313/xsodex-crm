@@ -18,11 +18,30 @@ export const bookingsListSelector = createSelector(
     (state: BookingsStateInterface) => state.bookingsList
 )
 
+export const clientsForSearchListSelector = createSelector(
+    bookingsFeatureSelector,
+    (state: BookingsStateInterface) => state.clients
+)
+
 
 export const noMoreBookingsList = createSelector(
     bookingsFeatureSelector,
     (state: BookingsStateInterface) => state.noMoreBookingsList
 )
+
+
+export const noMoreClientsList = createSelector(
+    bookingsFeatureSelector,
+    (state: BookingsStateInterface) => state.noMoreClientsList
+)
+
+
+
+export const clientsSearchSelector = createSelector(
+    bookingsFeatureSelector,
+    (state: BookingsStateInterface) => state.searchList
+)
+
 
 
 // export const getCurrentPartnerSelector = createSelector(

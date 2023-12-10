@@ -24,13 +24,16 @@ import { BookingsService } from './services/bookings.service';
 import { BookingsEffect } from './store/effects/bookings.effect';
 import { AddBookingComponent } from './components/add-booking/add-booking.component';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
+import { AllClientsSearchComponent } from './components/all-clients-search/all-clients-search.component';
 
 
 
 @NgModule({
   declarations: [
     ListBookingsComponent,
-    AddBookingComponent
+    AddBookingComponent,
+    AllClientsSearchComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     ButtonModule,
     InputTextModule,
     TableModule,
+    DialogModule,
     TabViewModule,
     TreeSelectModule,
     InputMaskModule,

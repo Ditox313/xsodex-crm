@@ -42,6 +42,7 @@ import { ShowDogovorClientLawComponent } from './components/clients-law/show-dog
 
 
 
+
 @NgModule({
   declarations: [
     AddClientFizComponent,
@@ -55,7 +56,7 @@ import { ShowDogovorClientLawComponent } from './components/clients-law/show-dog
     ShowClientLawComponent,
     ListDogovorsClientsLawComponent,
     AddDogovorClientLawComponent,
-    ShowDogovorClientLawComponent
+    ShowDogovorClientLawComponent,
   ],
   imports: [
     CommonModule,

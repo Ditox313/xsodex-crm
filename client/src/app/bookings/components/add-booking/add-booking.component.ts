@@ -29,6 +29,7 @@ export class AddBookingComponent {
   carsListSub$!: Subscription
   carsList: Car[] | null | undefined = [];
   errorValidTarifMixedDays: boolean = false;
+  isVisibleModalClient: boolean = false
 
   settingsAvtoparkListSelector!: Observable<SettingAvtopark[] | null | undefined>
   settingsAvtoparkListSub$!: Subscription
@@ -69,6 +70,7 @@ export class AddBookingComponent {
     ],
     additional_services_price: 0
   }
+
 
 
 
@@ -1000,6 +1002,13 @@ export class AddBookingComponent {
     console.log(this.booking);
   }
 
+
+
+
+  modalClientClick()
+  {
+    this.isVisibleModalClient = !this.isVisibleModalClient
+  }
  
 
 

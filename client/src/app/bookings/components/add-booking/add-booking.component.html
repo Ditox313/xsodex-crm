@@ -185,6 +185,18 @@
                         <label htmlFor="comment">Комментарий</label>
                         <textarea type="text" rows="1" cols="10" placeholder="Комментарий" formControlName="comment"></textarea>
                     </fieldset>
+
+                    <fieldset class="client" (click)="modalClientClick()" icon="pi pi-external-link" label="Show">
+                        <label htmlFor="#">Клиент</label>
+                        <div style="display: flex;">
+                            <span class="client_input">выбор клиента...</span>
+                            <i class="pi pi-plus"></i>
+                        </div>
+                    </fieldset>
+
+                    <p-dialog [(visible)]="isVisibleModalClient" [style]="{width: '80vw'}" [modal]="true" [maximizable]="true">
+                       <app-all-clients-search></app-all-clients-search>
+                    </p-dialog>
                 </div>
 
 

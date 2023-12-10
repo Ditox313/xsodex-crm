@@ -1,4 +1,7 @@
 const Booking = require('../../models/bookings/Booking.js');
+const ClientFiz = require('../../models/clients/clientsFiz/ClientFiz.js');
+const ClientLaw = require('../../models/clients/clientsLaw/ClientLaw.js');
+// const Dogovor = require('../../../models/clients/clientsFiz/Dogovor.js');
 const errorHandler = require('../../Utils/errorHendler.js');
 const fs = require('fs');
 const path = require('path');
@@ -74,6 +77,69 @@ module.exports.getAllBookings = async function (req, res) {
         errorHandler(res, e);
     }
 };
+
+
+
+
+
+
+module.exports.getAllClientsForSearch = async function (req, res) {
+    try {
+
+        const clientsFizList = await ClientFiz.find({}).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+        const clientsLawList = await ClientLaw.find({}).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+        const combinedArray = clientsFizList.concat(clientsLawList);
+
+        // Возвращаем пользователю позиции 
+        res.status(200).json(combinedArray);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
+
+// Контроллер на поиск
+module.exports.search = async function (req, res) {
+    try {
+        let searchResult = [];
+
+        // Поиск в таблице ClientFiz
+        let searchFiz = await ClientFiz.find({ surname: { $regex: new RegExp('^' + req.body.searchData.data + '.*', 'i') } }).exec();
+        searchFiz = searchFiz.slice(0, 10);
+
+        // Если результат поиска в таблице ClientFiz не пустой, добавляем его в общий результат
+        if (searchFiz.length > 0) {
+            searchResult = searchResult.concat(searchFiz);
+        } else {
+            // Если результат поиска в таблице ClientFiz пустой, выполняем поиск в таблице ClientLaw
+            let searchLaw = await ClientLaw.find({ name: { $regex: new RegExp('^' + req.body.searchData.data + '.*', 'i') } }).exec();
+            searchLaw = searchLaw.slice(0, 10);
+
+            // Добавляем результат поиска в таблице ClientLaw в общий результат
+            searchResult = searchResult.concat(searchLaw);
+        }
+
+
+
+        // search = await ClientLaw.find({ name: { $regex: new RegExp('^' + req.body.searchData.data + '.*', 'i') } }).exec();
+        // search = search.slice(0, 10);
+
+        res.status(200).json(searchResult);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+
+};
+
+
 
 
 

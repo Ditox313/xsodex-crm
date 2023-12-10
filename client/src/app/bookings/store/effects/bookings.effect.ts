@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { BookingsService } from '../../services/bookings.service'
-import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, noMoreBookingsListAction } from '../actions/bookings.action'
+import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction } from '../actions/bookings.action'
 
 
 
@@ -89,6 +89,58 @@ export class BookingsEffect {
             this.messageService.add({ severity: 'error', summary: `Ошибка удаления партнера`, detail: 'Попробуйте позже!' });
             return of(
               bookingDeleteFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+
+
+  // Получение всех клиентов для поиска
+  clientsForSearchList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientsForSearchListAction),
+      concatMap((params) => {
+        return this.bookings.getAllClientsForSearch({ params }).pipe(
+          concatMap((clientsList) => {
+            if (clientsList.length === 0) {
+              return of(noMoreClientsForSearchListAction({ data: true }));
+            }
+            return of(clientsForSearchListSuccessAction({ data: clientsList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              clientsForSearchListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+
+  // Поиск
+  clientsSearch$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(clientsSearchAction),
+      concatMap((searchData) => {
+        return this.bookings.search({ searchData }).pipe(
+          concatMap((clientsList) => {
+            return of(clientsSearchSuccessAction({ data: clientsList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              clientsSearchFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { BookingsStateInterface } from '../types/bookings.interfaces';
-import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListResetAction, bookingsListSuccessAction, noMoreBookingsListAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from './actions/bookings.action';
+import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListResetAction, bookingsListSuccessAction, changeCleintForBookingAction, changeCleintForBookingResetAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListResetAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchResetAction, clientsSearchSuccessAction, noMoreBookingsListAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction, noMoreClientsForSearchListAction, noMoreClientsForSearchListFalseAction, noMoreClientsForSearchListTrueAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from './actions/bookings.action';
 
 
 
@@ -12,7 +12,11 @@ const initialState: BookingsStateInterface = {
   validationErrors: null,
   bookingsList: null,
   noMoreBookingsList: true,
-  currentBooking: null
+  currentBooking: null,
+  currentClient: null,
+  clients: null,
+  noMoreClientsList: true,
+  searchList: null
 };
 
 
@@ -121,39 +125,68 @@ const bookingsReducer = createReducer(
 
 
 
-  // on(
-  //   partnersListNoParamsAction,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
 
-  // on(
-  //   partnersListNoParamsSuccessAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     partnersList: action.data,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //   })
-  // ),
-  // on(
-  //   partnersListNoParamsFailureAction,
-  //   (state, action): PartnersStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   partnersListNoParamsResetAction,
-  //   (state): PartnersStateInterface => ({
-  //     ...state,
-  //     partnersList: null,
-  //   })
-  // ),
+
+
+
+  on(
+    clientsForSearchListAction,
+    (state): BookingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    clientsForSearchListSuccessAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      clients: state.clients ? [...state.clients, ...action.data] : action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    clientsForSearchListFailureAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    clientsForSearchListResetAction,
+    (state): BookingsStateInterface => ({
+      ...state,
+      clients: null,
+    })
+  ),
+  on(
+    noMoreClientsForSearchListAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      noMoreClientsList: action.data,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreClientsForSearchListFalseAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      noMoreClientsList: false,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreClientsForSearchListTrueAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      noMoreClientsList: true,
+      isLoading: false,
+    })
+  ),
+
 
 
 
@@ -204,7 +237,10 @@ const bookingsReducer = createReducer(
       validationErrors: action.data.bookings.validationErrors,
       bookingsList: action.data.bookings.bookingsList ,
       noMoreBookingsList: action.data.bookings.noMoreBookingsList,
-      currentBooking: action.data.bookings.currentBooking
+      currentBooking: action.data.bookings.currentBooking,
+      currentClient: action.data.bookings.currentClient,
+      clients: action.data.bookings.clients,
+      searchList: action.data.bookings.searchList,
     }),
   ),
   on(
@@ -214,6 +250,72 @@ const bookingsReducer = createReducer(
       validationErrors: action.errors,
     })
   ),
+
+
+
+
+
+
+  on(
+    clientsSearchAction,
+    (state): BookingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    clientsSearchSuccessAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      searchList: action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    clientsSearchFailureAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    clientsSearchResetAction,
+    (state): BookingsStateInterface => ({
+      ...state,
+      searchList: null,
+    })
+  ),
+
+
+
+
+
+
+
+
+
+
+
+  on(
+    changeCleintForBookingAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      currentClient: action.client
+    })
+  ),
+
+  on(
+    changeCleintForBookingResetAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      currentClient: null
+    })
+  ),
+
 
 
 

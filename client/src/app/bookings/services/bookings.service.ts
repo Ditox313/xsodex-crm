@@ -33,6 +33,25 @@ export class BookingsService {
 
 
 
+
+  // Получаем список всех клиентов для поиска
+  getAllClientsForSearch(params: any = {}): Observable<any[]> {
+    return this.http.get<any[]>('/api/bookings/clients-for-search-booking', {
+      params: new HttpParams({
+        fromObject: params.params.params
+      })
+    });
+  }
+
+
+
+  // Поиск
+  search(searchData: any): Observable<any[]> {
+    return this.http.post<any[]>('/api/bookings/search-clients', searchData)
+  }
+
+
+
   // Получаем список всех партнеров без параметров
   // getAllPartnersNoParams(): Observable<Partner[]> {
   //   return this.http.get<Partner[]>('/api/partners/partners-list-no-params');

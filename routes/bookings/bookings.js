@@ -18,6 +18,14 @@ router.get('/bookings-list', passport.authenticate('jwt', { session: false }), c
 router.delete('/booking-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 
 
+// Роут на Получение списка клиентов для поиска
+router.get('/clients-for-search-booking', passport.authenticate('jwt', { session: false }), controller.getAllClientsForSearch);
+
+
+// Роут на поиск
+router.post('/search-clients', passport.authenticate('jwt', { session: false }), controller.search);
+
+
 // Роут на Получение всех партнеров без параметров
 // router.get('/partners-list-no-params', passport.authenticate('jwt', { session: false }), controller.getAllPartnersNoParams);
 

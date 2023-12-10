@@ -1,0 +1,78 @@
+
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector | async"></loader>
+
+
+<div class="clientsList" *ngIf="clientsList">
+    <div class="top_line">
+        <div>
+            <span class="active">Все клиенты</span>
+        </div>
+
+        <div>
+            <input type="text" (keyup)="search($event)" placeholder="Введите для поиска...">
+        </div>
+    </div>
+
+
+    <p-table *ngIf="!hasQuery" [value]="clientsList" styleClass="p-datatable-gridlines list_table"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="table_top">
+                <div class="add_new" [routerLink]="['/add-client-fiz']">
+                    <p-button icon="pi pi-plus"></p-button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-client>
+            <tr (click)="changeClient(client)">
+                <td><strong>{{client.surname}} {{client.name}} {{client.lastname}}</strong></td>
+                <td>{{client.phone_1}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-table *ngIf="hasQuery && clientsSearch" [value]="clientsSearch"
+        styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="table_top">
+                <div class="add_new" [routerLink]="['/add-client-fiz']">
+                    <p-button icon="pi pi-plus"></p-button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-client>
+            <tr >
+                <td><strong>{{client.surname}} {{client.name}} {{client.lastname}}</strong></td>
+                <td>{{client.phone_1}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <div *ngIf="clientsList.length === 0" class="noMoreClientsList">
+        <h2>Клиентов не найдено...</h2>
+    </div>
+
+    <div *ngIf="hasQuery && clientsSearch && clientsSearch.length === 0" class="noMoreClientsList">
+        <h2>Клиентов не найдено...</h2>
+    </div>
+
+    <div class="btn">
+        <p-button label="Загрузить еще..." *ngIf="!(noMoreClientsList | async) && !hasQuery"
+            (click)="loadmore()"></p-button>
+    </div>
+</div>
