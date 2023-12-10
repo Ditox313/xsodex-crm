@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { isLoadingSelector } from '../../store/selectors';
+import { currentClient, isLoadingSelector } from '../../store/selectors';
 import { Store, select } from '@ngrx/store';
 import { DatePipe } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -39,6 +39,11 @@ export class AddBookingComponent {
   currentSmemaSelector!: Observable<Smena | null | undefined>
   currentSmemaSub$!: Subscription
   currentSmema!: Smena | null | undefined
+
+
+  currentClientSelector!: Observable<any | null | undefined>
+  currentClientSub$!: Subscription
+  currentClient!: any | null | undefined
 
 
   booking: BookingData = {
@@ -90,6 +95,10 @@ export class AddBookingComponent {
 
     if (this.settingsAvtoparkListSub$) {
       this.settingsAvtoparkListSub$.unsubscribe();
+    }
+
+    if (this.currentClientSub$) {
+      this.currentClientSub$.unsubscribe();
     }
 
     // Отчищаем состояние carsList
@@ -175,6 +184,43 @@ export class AddBookingComponent {
         this.currentSmema = currentSmena
         console.log(this.currentSmema);
         
+      }
+    })
+
+
+
+    // Отправляем запрос на получение выбранного клиента
+    this.currentClientSelector = this.store.pipe(select(currentClient))
+    this.currentClientSub$ = this.currentClientSelector.subscribe({
+      next: (currentClient) => {
+        // Если получили физ лица то формирует объект нужного типа.если Юр лица то тоже формирует нужныйобъект
+        if (currentClient.surname)
+        {
+          this.currentClient = {
+            _id: currentClient._id,
+            name: currentClient.name,
+            surname: currentClient.surname,
+            lastname: currentClient.lastname,
+            phone_1: currentClient.phone_1,
+          }
+        }
+        else
+        {
+          this.currentClient = {
+            _id: currentClient._id,
+            name: currentClient.name,
+            short_name: currentClient.short_name,
+            lastname: currentClient.lastname,
+            phone_1: currentClient.phone_1,
+            phone_2: currentClient.phone_2,
+          }
+        }
+
+        // Закрываем модальное окно после выбора клиента
+        if (this.currentClient)
+        {
+          this.isVisibleModalClient = false
+        }
       }
     })
   }
@@ -1030,7 +1076,7 @@ export class AddBookingComponent {
       tarif: this.booking.tarif,
       tarifCheked: this.booking.tarifCheked,
       zalog: this.booking.zalog,
-      client: {},
+      client: this.currentClient,
       place_start: this.booking.place_start,
       place_start_price: this.booking.place_start_price,
       place_end: this.booking.place_end,

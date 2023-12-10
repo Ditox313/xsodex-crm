@@ -44,6 +44,13 @@ export const clientsSearchSelector = createSelector(
 
 
 
+export const currentClient = createSelector(
+    bookingsFeatureSelector,
+    (state: BookingsStateInterface) => state.currentClient
+)
+
+
+
 // export const getCurrentPartnerSelector = createSelector(
 //     partnersFeatureSelector,
 //     (state: PartnersStateInterface) => state.currentPartner

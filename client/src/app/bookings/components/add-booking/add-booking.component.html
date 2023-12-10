@@ -189,7 +189,9 @@
                     <fieldset class="client" (click)="modalClientClick()" icon="pi pi-external-link" label="Show">
                         <label htmlFor="#">Клиент</label>
                         <div style="display: flex;">
-                            <span class="client_input">выбор клиента...</span>
+                            <span class="client_input" *ngIf="!currentClient">Выбор клиента...</span>
+                            <span class="client_input" *ngIf="currentClient && currentClient.surname">{{currentClient.surname}} {{currentClient.name}} {{currentClient.lastname}}</span>
+                            <span class="client_input" *ngIf="currentClient && currentClient.short_name">{{currentClient.name}}</span>
                             <i class="pi pi-plus"></i>
                         </div>
                     </fieldset>

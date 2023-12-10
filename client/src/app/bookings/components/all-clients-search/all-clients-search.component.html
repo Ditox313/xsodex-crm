@@ -56,7 +56,7 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-client>
-            <tr >
+            <tr (click)="changeClient(client)">
                 <td><strong>{{client.surname}} {{client.name}} {{client.lastname}}</strong></td>
                 <td>{{client.phone_1}}</td>
             </tr>
