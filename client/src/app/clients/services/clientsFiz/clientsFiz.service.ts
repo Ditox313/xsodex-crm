@@ -20,6 +20,7 @@ export class ClientsFizService {
   ): Observable<ClientFiz> {
     const fd = new FormData();
     fd.append('name', clientFiz.name);
+    fd.append('type', clientFiz.type);
     fd.append('surname', clientFiz.surname);
     fd.append('lastname', clientFiz.lastname);
     fd.append('date_birth', clientFiz.date_birth);
@@ -88,6 +89,7 @@ export class ClientsFizService {
     const fd = new FormData();
       
     fd.append('name', clientFiz.name);
+    fd.append('type', clientFiz.type);
     fd.append('surname', clientFiz.surname);
     fd.append('lastname', clientFiz.lastname);
     fd.append('date_birth', clientFiz.date_birth);

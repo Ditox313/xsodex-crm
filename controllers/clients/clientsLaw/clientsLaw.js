@@ -12,6 +12,7 @@ module.exports.create = async function (req, res) {
     try {
         const clientLaw = await new ClientLaw({
             name: req.body.name,
+            type: req.body.type,
             short_name: req.body.short_name,
             inn: req.body.inn,
             kpp: req.body.kpp,

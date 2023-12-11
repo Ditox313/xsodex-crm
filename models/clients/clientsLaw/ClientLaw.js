@@ -5,6 +5,15 @@ const Schema = mongoose.Schema;
 // Создаем схему для таблицы clients
 
 const clientLawSchema = new Schema({
+
+    // Тип
+    type: {
+        type: String,
+        default: '',
+        required: true,
+    },
+
+
     // Имя
     name: {
         type: String,

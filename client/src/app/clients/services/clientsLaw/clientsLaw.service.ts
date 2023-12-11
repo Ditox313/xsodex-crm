@@ -19,7 +19,9 @@ export class ClientsLawService {
     file_4?: File
   ): Observable<ClientLaw> {
     const fd = new FormData();
+
     fd.append('name', clientLaw.name);
+    fd.append('type', clientLaw.type);
     fd.append('short_name', clientLaw.short_name);
     fd.append('inn', clientLaw.inn);
     fd.append('kpp', clientLaw.kpp);

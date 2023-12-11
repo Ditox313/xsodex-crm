@@ -3,6 +3,7 @@
 //Интерфейс для клиента Юр/лицо
 export interface ClientLaw {
     _id?: string,
+    type: string,
     name: string
     short_name: string
     inn: string

@@ -192,6 +192,7 @@ export class AddClientLawComponent {
     
 
     const clientLaw: ClientLaw = {
+      type: 'law',
       name: this.form.value.name,
       short_name: this.form.value.short_name,
       inn: this.form.value.inn,

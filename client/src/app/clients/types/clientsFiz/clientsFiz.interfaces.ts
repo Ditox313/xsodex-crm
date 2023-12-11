@@ -4,6 +4,7 @@
 //Интерфейс для клиента физ/лицо
 export interface ClientFiz {
     _id?: string,
+    type: string,
     name: string,
     surname: string,
     lastname: string,

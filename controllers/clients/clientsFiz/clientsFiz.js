@@ -12,6 +12,7 @@ module.exports.create = async function (req, res) {
     try {
         const clientFiz = await new ClientFiz({
             name: req.body.name,
+            type: req.body.type,
             surname: req.body.surname,
             lastname: req.body.lastname,
             date_birth: req.body.date_birth,

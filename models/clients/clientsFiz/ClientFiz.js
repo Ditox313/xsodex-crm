@@ -6,12 +6,23 @@ const Schema = mongoose.Schema;
 
 const clientFizSchema = new Schema({
 
+    // Тип
+    type: {
+        type: String,
+        default: '',
+        required: true,
+    },
+
+    
+
     // Имя
     name: {
         type: String,
         default: '',
         required: true,
     },
+
+    
 
     // Фамилия
     surname: {

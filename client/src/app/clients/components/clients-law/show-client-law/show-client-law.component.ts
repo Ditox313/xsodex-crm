@@ -281,6 +281,7 @@ export class ShowClientLawComponent {
 
     const clientLaw: ClientLaw = {
       _id: this.currentClientLaw?._id,
+      type: this.form.value.type,
       name: this.form.value.name,
       short_name: this.form.value.short_name,
       inn: this.form.value.inn,

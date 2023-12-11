@@ -199,6 +199,7 @@ export class AddClientFizComponent {
     
 
     const clientFiz: ClientFiz = {
+      type: 'fiz',
       name: fio[1],
       surname: fio[0],
       lastname: fio[2],
