@@ -14,6 +14,15 @@ const clientLawSchema = new Schema({
     },
 
 
+    // Есть ли активный договор
+    dogovor_active: {
+        type: String,
+        default: 'no_active',
+        required: true,
+    },
+
+
+
     // Имя
     name: {
         type: String,

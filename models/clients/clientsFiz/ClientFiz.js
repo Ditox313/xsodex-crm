@@ -104,6 +104,15 @@ const clientFizSchema = new Schema({
         required: true,
     },
 
+    // Есть ли активный договор
+    dogovor_active: {
+        type: String,
+        default: 'no_active',
+        required: true,
+    },
+
+  
+
 
     // Номер прав
     prava_number: {
@@ -240,6 +249,11 @@ const clientFizSchema = new Schema({
         type: Date,
         default: Date.now,
     },
+
+
+    
+
+    
 });
 
 

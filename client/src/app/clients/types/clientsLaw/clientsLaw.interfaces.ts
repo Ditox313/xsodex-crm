@@ -30,7 +30,8 @@ export interface ClientLaw {
     file_2?: string
     file_3?: string
     file_4?: string
-    date?: string
+    date?: string,
+    dogovor_active?: string
 }
 
 

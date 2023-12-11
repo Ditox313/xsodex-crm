@@ -228,6 +228,12 @@ module.exports.create_dogovor = async function (req, res) {
             { state: 'no_active' }
         );
 
+        // Находим клиента и обновляем статус договора
+        const clientFiz = await ClientLaw.findOneAndUpdate({ _id: updated.client }, //Ищем по id
+            { dogovor_active: 'active' },
+        );
+
+
 
         const dogovor = await new Dogovor({
             date_start: req.body.date_start,
@@ -272,6 +278,17 @@ module.exports.get_all_dogovorsById = async function (req, res) {
 // Контроллер для remove dogovor
 module.exports.remove_dogovor = async function (req, res) {
     try {
+
+        // Ищем договор.Вытаскиваем клиента и изменяем статус договора
+        const currentDogovor = await Dogovor.findById(req.params.id);
+        if (currentDogovor.state === 'active') {
+            // Находим клиента и обновляем статус договора
+            const clientFiz = await ClientLaw.findOneAndUpdate({ _id: currentDogovor.client }, //Ищем по id
+                { dogovor_active: 'no_active' },
+            );
+        }
+
+
         // Удаляем договор
         const result = await Dogovor.deleteOne({ _id: req.params.id });
         if (result.deletedCount === 1) {
