@@ -194,7 +194,7 @@ export class AddBookingComponent {
     this.currentClientSub$ = this.currentClientSelector.subscribe({
       next: (currentClient) => {
         // Если получили физ лица то формирует объект нужного типа.если Юр лица то тоже формирует нужныйобъект
-        if (currentClient.surname)
+        if (currentClient && currentClient.type === 'fiz')
         {
           this.currentClient = {
             _id: currentClient._id,
@@ -204,7 +204,7 @@ export class AddBookingComponent {
             phone_1: currentClient.phone_1,
           }
         }
-        else
+        else if (currentClient && currentClient.type === 'law')
         {
           this.currentClient = {
             _id: currentClient._id,

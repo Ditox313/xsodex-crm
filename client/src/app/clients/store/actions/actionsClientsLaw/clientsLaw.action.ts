@@ -24,6 +24,24 @@ export const addClientLawFailureAction = createAction(
 
 
 
+// Создать договор из брони
+export const addClientLawDogovorActionFromBooking = createAction(
+  ActionTypes.ADD_CLIENT_LAW_DOGOVOR_FROM_BOOKING,
+  props<{ dogovor: Dogovor }>()
+);
+
+export const addClientLawDogovorSuccessActionFromBooking = createAction(
+  ActionTypes.ADD_CLIENT_LAW_DOGOVOR_SUCCESS_FROM_BOOKING,
+);
+
+
+export const addClientLawDogovorFailureActionFromBooking = createAction(
+  ActionTypes.ADD_CLIENT_LAW_DOGOVOR_FAILURE_FROM_BOOKING,
+  props<{ errors: any }>()
+);
+
+
+
 
 
 

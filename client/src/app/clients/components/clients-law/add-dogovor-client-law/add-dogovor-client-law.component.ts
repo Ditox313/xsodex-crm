@@ -1,4 +1,4 @@
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { ClientLaw } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
@@ -15,7 +15,7 @@ import * as  pdfFonts from "pdfmake/build/vfs_fonts";
 import htmlToPdfmake from "html-to-pdfmake"
 import { getCurrentClientLawSelector, isLoadingSelector } from 'src/app/clients/store/selectors/clientslaw/selectorsClientsLaw';
 import { currentUserSelector } from 'src/app/account/store/selectors';
-import { addClientLawDogovorAction, clientLawGetCurrent } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
+import { addClientLawDogovorAction, addClientLawDogovorActionFromBooking, clientLawGetCurrent } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
 
 @Component({
   selector: 'app-add-dogovor-client-law',
@@ -23,6 +23,8 @@ import { addClientLawDogovorAction, clientLawGetCurrent } from 'src/app/clients/
   styleUrls: ['./add-dogovor-client-law.component.css']
 })
 export class AddDogovorClientLawComponent {
+  @Input() clientId: string = ''
+  @Output() resultDogovor = new EventEmitter<boolean>();
   title: string = ''
   isLoadingSelector$!: Observable<boolean | null>
   getParamsSub$!: Subscription
@@ -63,8 +65,15 @@ export class AddDogovorClientLawComponent {
 
   getParams() {
     this.getParamsSub$ = this.rote.params.subscribe((params: any) => {
-      this.clientLawId = params['id'];
+      if (this.clientId === '') {
+        this.clientLawId = params['id'];
+      }
+      else {
+        this.clientLawId = this.clientId;
+      }
+
     });
+    console.log(this.clientId);
   }
 
 
@@ -128,6 +137,15 @@ export class AddDogovorClientLawComponent {
       state: 'active'
     }
 
-    this.store.dispatch(addClientLawDogovorAction({ dogovor: dogovor }));
+    // Проверяем откуда мы создаем договор
+    if (this.clientId === '') {
+      this.store.dispatch(addClientLawDogovorAction({ dogovor: dogovor }));
+    }
+    else {
+      this.store.dispatch(addClientLawDogovorActionFromBooking({ dogovor: dogovor }));
+      this.resultDogovor.emit(true);
+    }
+
+    
   }
 }

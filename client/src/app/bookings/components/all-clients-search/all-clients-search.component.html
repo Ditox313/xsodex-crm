@@ -63,6 +63,16 @@
         </ng-template>
     </p-table>
 
+    <div class="dogovor_no_active" *ngIf="this.dogovor_active === 'no_active'">
+        Клиент не имеет активного договора
+        <span  (click)="modalClientClick()">Создать договор</span>
+
+        <p-dialog [(visible)]="isVisibleModalClient" [style]="{width: '80vw'}" [modal]="true">
+            <app-add-dogovor-client-fiz *ngIf="this.currentClient.type === 'fiz'"  [clientId]="this.currentClientId"  (resultDogovor)="resultDogovor($event)"></app-add-dogovor-client-fiz>
+            <app-add-dogovor-client-law *ngIf="this.currentClient.type === 'law'"  [clientId]="this.currentClientId"  (resultDogovor)="resultDogovor($event)"></app-add-dogovor-client-law>
+        </p-dialog>
+    </div>
+
     <div *ngIf="clientsList.length === 0" class="noMoreClientsList">
         <h2>Клиентов не найдено...</h2>
     </div>

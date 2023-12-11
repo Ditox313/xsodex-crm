@@ -62,3 +62,22 @@ td {
 .top_line span:not(.active) {
     cursor: pointer;
 }
+
+.dogovor_no_active
+{
+    background-color: #FF2400;
+    color: #fff;
+    padding: 10px 15px;
+    margin-top: 30px;
+    display: inline-block;
+}
+
+.dogovor_no_active span
+{
+    display: inline-block;
+    padding: 5px 10px;
+    color: black;
+    border-radius: 3px;
+    background-color: #fff;
+    cursor: pointer;
+}

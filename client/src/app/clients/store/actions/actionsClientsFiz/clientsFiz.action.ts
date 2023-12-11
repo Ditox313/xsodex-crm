@@ -199,6 +199,31 @@ export const addClientFizDogovorFailureAction = createAction(
 
 
 
+// Создать договор из брони
+export const addClientFizDogovorActionFromBooking = createAction(
+  ActionTypes.ADD_CLIENT_FIZ_DOGOVOR_FROM_BOOKING,
+  props<{ dogovor: Dogovor }>()
+);
+
+export const addClientFizDogovorSuccessActionFromBooking = createAction(
+  ActionTypes.ADD_CLIENT_FIZ_DOGOVOR_SUCCESS_FROM_BOOKING,
+);
+
+
+export const addClientFizDogovorFailureActionFromBooking = createAction(
+  ActionTypes.ADD_CLIENT_FIZ_DOGOVOR_FAILURE_FROM_BOOKING,
+  props<{ errors: any }>()
+);
+
+
+
+
+
+
+
+
+
+
 // ClientsFiz Dogovors List
 export const clientFizDogovorsListAction = createAction(
   ActionTypes.CLIENT_FIZ_DOGOVORS_LIST,

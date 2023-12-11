@@ -26,6 +26,7 @@ import { AddBookingComponent } from './components/add-booking/add-booking.compon
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { AllClientsSearchComponent } from './components/all-clients-search/all-clients-search.component';
+import { ClientsModule } from '../clients/clients.module';
 
 
 
@@ -48,6 +49,7 @@ import { AllClientsSearchComponent } from './components/all-clients-search/all-c
     LoaderModule,
     ButtonModule,
     InputTextModule,
+    ClientsModule,
     TableModule,
     DialogModule,
     TabViewModule,

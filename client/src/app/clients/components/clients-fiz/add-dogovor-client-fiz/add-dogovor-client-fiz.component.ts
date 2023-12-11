@@ -1,12 +1,12 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
-import { addClientFizDogovorAction, clientFizGetCurrent } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { addClientFizDogovorAction, addClientFizDogovorActionFromBooking, clientFizGetCurrent } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 import { getCurrentClientFizSelector, isLoadingSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
 import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
@@ -27,6 +27,9 @@ import htmlToPdfmake from "html-to-pdfmake"
   styleUrls: ['./add-dogovor-client-fiz.component.css']
 })
 export class AddDogovorClientFizComponent {
+  @Input() clientId: string = ''
+  @Output() resultDogovor = new EventEmitter<boolean>();
+  
   title: string = ''
   form!: FormGroup;
   isLoadingSelector$!: Observable<boolean | null>
@@ -53,6 +56,7 @@ export class AddDogovorClientFizComponent {
     this.getParams()
     this.initForm()
     this.initValues()
+    
   }
 
   ngOnDestroy(): void {
@@ -69,8 +73,18 @@ export class AddDogovorClientFizComponent {
 
   getParams() {
     this.getParamsSub$ = this.rote.params.subscribe((params: any) => {
-      this.clientFizId = params['id'];
+      if (this.clientId === '')
+      {
+        this.clientFizId = params['id'];
+      }
+      else
+      {
+        this.clientFizId = this.clientId;
+      }
+      
     });
+    console.log(this.clientId);
+    
   }
 
   initForm() {
@@ -128,6 +142,8 @@ export class AddDogovorClientFizComponent {
     
   } 
 
+
+
   // Создаем договор
   createDogovor() {
     const dogovor = {
@@ -140,6 +156,16 @@ export class AddDogovorClientFizComponent {
       state: 'active'
     }
 
-    this.store.dispatch(addClientFizDogovorAction({ dogovor: dogovor }));
+    // Проверяем откуда мы создаем договор
+    if (this.clientId === '')
+    {
+      this.store.dispatch(addClientFizDogovorAction({ dogovor: dogovor }));
+    }
+    else
+    {
+      this.store.dispatch(addClientFizDogovorActionFromBooking({ dogovor: dogovor }));
+      this.resultDogovor.emit(true);
+    }
+    
   }
 }

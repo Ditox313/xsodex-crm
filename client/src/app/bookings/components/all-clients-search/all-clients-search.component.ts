@@ -26,6 +26,10 @@ export class AllClientsSearchComponent {
   clientsSearch: any[] | null | undefined = [];
   searchResult: any[] = [];
   hasQuery: Boolean = false;
+  dogovor_active!: string;
+  currentClient!: any
+  currentClientId: string = ''
+  isVisibleModalClient: boolean = false
 
 
   constructor(private store: Store) { }
@@ -97,6 +101,22 @@ export class AllClientsSearchComponent {
   }
 
 
+  // Проверяем результат создания договора.Если договор создан то запускаем листинг клиентов еще раз
+  resultDogovor(result: any)
+  {
+    if (result)
+    {
+      this.dogovor_active = 'active'
+      this.store.dispatch(changeCleintForBookingAction({ client: this.currentClient }));
+      this.store.dispatch(clientsForSearchListResetAction());
+      this.store.dispatch(clientsSearchResetAction());
+      this.store.dispatch(changeCleintForBookingResetAction());
+      this.getClientsList()
+    }
+    
+  }
+
+
 
   loadmore() {
     this.offset += this.STEP;
@@ -106,8 +126,25 @@ export class AllClientsSearchComponent {
 
   changeClient(client: any)
   {
-    console.log(client);
-    this.store.dispatch(changeCleintForBookingAction({ client: client }));
+    this.currentClient = client
+    this.currentClientId = client._id
+    
+
+    // Проверяем статус договора
+    if (client.dogovor_active === 'no_active')
+    {
+      this.dogovor_active = 'no_active'
+    }
+    else
+    {
+      this.store.dispatch(changeCleintForBookingAction({ client: client }));
+    }
+    
+  }
+
+
+  modalClientClick() {
+    this.isVisibleModalClient = !this.isVisibleModalClient
   }
 
 

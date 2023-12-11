@@ -81,6 +81,7 @@ import { ShowDogovorClientLawComponent } from './components/clients-law/show-dog
     StoreModule.forFeature('clientsLaw', reducerLaw),
     EffectsModule.forFeature([ClientsFizEffect, ClientsLawEffect]),
   ],
+  exports: [AddDogovorClientFizComponent, AddDogovorClientLawComponent,],
   providers: [MessageService, DatePipe, ClientsFizService, ClientsLawService]
 })
 export class ClientsModule { }
