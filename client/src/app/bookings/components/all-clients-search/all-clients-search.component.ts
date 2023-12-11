@@ -12,7 +12,7 @@ import { changeCleintForBookingAction, changeCleintForBookingResetAction, client
   styleUrls: ['./all-clients-search.component.css']
 })
 export class AllClientsSearchComponent {
-  STEP = 1;
+  STEP = 2;
   offset: number = 0;
   limit: number = this.STEP;
   title: string = 'Клиенты - физические лица'
@@ -30,6 +30,7 @@ export class AllClientsSearchComponent {
   currentClient!: any
   currentClientId: string = ''
   isVisibleModalClient: boolean = false
+  isVisibleAddModalClient: boolean = false
 
 
   constructor(private store: Store) { }
@@ -118,6 +119,8 @@ export class AllClientsSearchComponent {
 
 
 
+
+
   loadmore() {
     this.offset += this.STEP;
     this.getClientsList();
@@ -142,10 +145,18 @@ export class AllClientsSearchComponent {
     
   }
 
-
+  // Модалка для создания договора
   modalClientClick() {
     this.isVisibleModalClient = !this.isVisibleModalClient
   }
+
+  // Модалка для создания клиента
+  modalAddClientClick()
+  {
+    this.isVisibleAddModalClient = !this.isVisibleAddModalClient
+  }
+
+
 
 
 

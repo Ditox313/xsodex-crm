@@ -112,7 +112,7 @@ textarea {
     -webkit-appearance: none;
     appearance: none;
     border-radius: 6px;
-    margin-right: 15px;
+    margin-right: 10px;
     margin-top: 15px;
     outline: none;
     box-sizing: border-box;
@@ -271,4 +271,5 @@ h4
     font-size: 22px;
     cursor: pointer;
     margin-top: 26px;
+    margin-right: 20px;
 }

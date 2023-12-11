@@ -17,13 +17,7 @@
 
     <p-table *ngIf="!hasQuery" [value]="clientsList" styleClass="p-datatable-gridlines list_table"
         [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="caption">
-            <div class="table_top">
-                <div class="add_new" [routerLink]="['/add-client-fiz']">
-                    <p-button icon="pi pi-plus"></p-button>
-                </div>
-            </div>
-        </ng-template>
+       
         <ng-template pTemplate="header">
             <tr>
                 <th></th>

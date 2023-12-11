@@ -1,9 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { isLoadingSelector } from 'src/app/account/store/selectors';
+import { changeCleintForBookingResetAction, clientsForSearchListResetAction, clientsSearchResetAction } from 'src/app/bookings/store/actions/bookings.action';
 import { addClientFizAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
@@ -40,6 +41,7 @@ export class AddClientFizComponent {
     this.initValues()
   }
 
+
   initForm() {
     this.form = new FormGroup({
       fio: new FormControl('', [Validators.required]),
@@ -67,6 +69,7 @@ export class AddClientFizComponent {
 
 
   initValues() {
+
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
   }
 
@@ -226,7 +229,11 @@ export class AddClientFizComponent {
       phone_5_dop_number: this.form.value.phone_5_dop_number,
     };
 
-    
+
+
     this.store.dispatch(addClientFizAction({ clientFiz: clientFiz, file_1: this.uploadFile_1, file_2: this.uploadFile_2, file_3: this.uploadFile_3, file_4: this.uploadFile_4 }))
+
+    
+    
   }
 }
