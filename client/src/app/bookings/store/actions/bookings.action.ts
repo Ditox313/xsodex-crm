@@ -207,27 +207,27 @@ export const changeCleintForBookingResetAction = createAction(
 
 
 
-// Get Partners Current
-// export const partnerGetCurrent = createAction(
-//   ActionTypes.PARTNER_GET_CURRENT,
-//   props<{ id: string }>()
-// );
+// Get Booking Current
+export const bookingGetCurrent = createAction(
+  ActionTypes.BOOKING_GET_CURRENT,
+  props<{ id: string }>()
+);
 
 
-// export const partnerGetCurrentSuccessAction = createAction(
-//   ActionTypes.PARTNER_GET_CURRENT_SUCCES,
-//   props<{ data: Partner }>()
-// );
+export const bookingGetCurrentSuccessAction = createAction(
+  ActionTypes.BOOKING_GET_CURRENT_SUCCES,
+  props<{ data: Booking }>()
+);
 
 
-// export const partnerGetCurrentFailureAction = createAction(
-//   ActionTypes.PARTNER_GET_CURRENT_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const bookingGetCurrentFailureAction = createAction(
+  ActionTypes.BOOKING_GET_CURRENT_FAILURE,
+  props<{ errors: any }>()
+);
 
-// export const partnerGetCurrentReset = createAction(
-//   ActionTypes.PARTNER_GET_CURRENT_FAILURE,
-// );
+export const bookingGetCurrentReset = createAction(
+  ActionTypes.BOOKING_GET_CURRENT_RESET,
+);
 
 
 

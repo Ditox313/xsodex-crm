@@ -27,6 +27,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { DialogModule } from 'primeng/dialog';
 import { AllClientsSearchComponent } from './components/all-clients-search/all-clients-search.component';
 import { ClientsModule } from '../clients/clients.module';
+import { ShowBookingComponent } from './components/show-booking/show-booking.component';
 
 
 
@@ -34,7 +35,8 @@ import { ClientsModule } from '../clients/clients.module';
   declarations: [
     ListBookingsComponent,
     AddBookingComponent,
-    AllClientsSearchComponent
+    AllClientsSearchComponent,
+    ShowBookingComponent
   ],
   imports: [
     CommonModule,

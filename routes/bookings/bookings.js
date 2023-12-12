@@ -26,13 +26,8 @@ router.get('/clients-for-search-booking', passport.authenticate('jwt', { session
 router.post('/search-clients', passport.authenticate('jwt', { session: false }), controller.search);
 
 
-// Роут на Получение всех партнеров без параметров
-// router.get('/partners-list-no-params', passport.authenticate('jwt', { session: false }), controller.getAllPartnersNoParams);
-
-
-
-// Роут на получение партнера по Id
-// router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
+// Роут на получение брони по Id
+router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
 
 
 // Роут на update

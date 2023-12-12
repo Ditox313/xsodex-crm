@@ -144,22 +144,6 @@ module.exports.search = async function (req, res) {
 
 
 
-// module.exports.getAllPartnersNoParams = async function (req, res) {
-//     try {
-
-//         const partnersList = await Partner.find({}).sort({ date: -1 })
-
-//         // Возвращаем пользователю позиции 
-//         res.status(200).json(partnersList);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
-
-
-
-
-
 // Контроллер для remove
 module.exports.remove = async function (req, res) {
     try {
@@ -181,14 +165,14 @@ module.exports.remove = async function (req, res) {
 
 
 // Контроллер для getById
-// module.exports.getById = async function (req, res) {
-//     try {
-//         const car = await Partner.findById(req.params.id); //Ищем категорию по id из переданных параметров
-//         res.status(200).json(car);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+module.exports.getById = async function (req, res) {
+    try {
+        const booking = await Booking.findById(req.params.id); //Ищем категорию по id из переданных параметров
+        res.status(200).json(booking);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 

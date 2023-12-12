@@ -51,16 +51,9 @@ export class BookingsService {
   }
 
 
-
-  // Получаем список всех партнеров без параметров
-  // getAllPartnersNoParams(): Observable<Partner[]> {
-  //   return this.http.get<Partner[]>('/api/partners/partners-list-no-params');
-  // }
-
-
-  // getById(id: string): Observable<Partner> {
-  //   return this.http.get<Partner>(`/api/partners/${id}`);
-  // }
+  getById(id: string): Observable<Booking> {
+    return this.http.get<Booking>(`/api/bookings/${id}`);
+  }
 
 
 

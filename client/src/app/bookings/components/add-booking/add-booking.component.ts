@@ -202,6 +202,7 @@ export class AddBookingComponent {
             surname: currentClient.surname,
             lastname: currentClient.lastname,
             phone_1: currentClient.phone_1,
+            type: currentClient.type
           }
         }
         else if (currentClient && currentClient.type === 'law')
@@ -213,6 +214,7 @@ export class AddBookingComponent {
             lastname: currentClient.lastname,
             phone_1: currentClient.phone_1,
             phone_2: currentClient.phone_2,
+            type: currentClient.type
           }
         }
 

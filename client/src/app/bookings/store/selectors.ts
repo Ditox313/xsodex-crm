@@ -51,10 +51,10 @@ export const currentClient = createSelector(
 
 
 
-// export const getCurrentPartnerSelector = createSelector(
-//     partnersFeatureSelector,
-//     (state: PartnersStateInterface) => state.currentPartner
-// )
+export const getCurrentBookingSelector = createSelector(
+    bookingsFeatureSelector,
+    (state: BookingsStateInterface) => state.currentBooking
+)
 
 
 

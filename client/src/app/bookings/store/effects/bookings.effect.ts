@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { BookingsService } from '../../services/bookings.service'
-import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction } from '../actions/bookings.action'
+import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction, updateStateBookingsAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from '../actions/bookings.action'
 
 
 
@@ -153,21 +153,21 @@ export class BookingsEffect {
 
 
   // Обновление состояния
-  // updateStatePartners$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(updateStatePartnersAction),
-  //       map(() => {
-  //         const savedState: any = localStorage.getItem('appState');
-  //         return updateStatePartnersSuccessAction({ data: JSON.parse(savedState) })
-  //       }),
-  //       catchError((errorResponse: HttpErrorResponse) => {
-  //         return of(
-  //           updateStatePartnersFailureAction({ errors: 'Ошибка обновления состояния' })
-  //         );
-  //       })
-  //     ),
-  // );
+  updateStateBookings$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(updateStateBookingsAction),
+        map(() => {
+          const savedState: any = localStorage.getItem('appState');
+          return updateStateBookingsSuccessAction({ data: JSON.parse(savedState) })
+        }),
+        catchError((errorResponse: HttpErrorResponse) => {
+          return of(
+            updateStateBookingsFailureAction({ errors: 'Ошибка обновления состояния' })
+          );
+        })
+      ),
+  );
 
 
 
@@ -175,24 +175,24 @@ export class BookingsEffect {
 
 
 
-  // Получение текущего партнера
-  // getPartnerCar$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(partnerGetCurrent),
-  //     switchMap((id) => {
-  //       return this.partners.getById(id.id).pipe(
-  //         map((car) => {
-  //           return partnerGetCurrentSuccessAction({ data: car });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             partnerGetCurrentFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  // Получение ттекущей брони
+  getCurrentBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(bookingGetCurrent),
+      switchMap((id) => {
+        return this.bookings.getById(id.id).pipe(
+          map((booking) => {
+            return bookingGetCurrentSuccessAction({ data: booking });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              bookingGetCurrentFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
