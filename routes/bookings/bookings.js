@@ -34,6 +34,11 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), controller.
 router.post('/create-pay', passport.authenticate('jwt', { session: false }), controller.create_pay);
 
 
+
+// Роут на Получение всех платежей для брони
+router.get('/pays/:id', passport.authenticate('jwt', { session: false }), controller.paysBooking);
+
+
 // Роут на update
 // router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.update);
 

@@ -238,7 +238,8 @@
                     </div>
 
                     <div class="part_3" [class.isPaidFalse]="(currentBooking.summaFull - currentBooking.paidCount) > 0"
-                        [class.isPaidOk]="(currentBooking.summaFull - currentBooking.paidCount) === 0">
+                        [class.isPaidOk]="(currentBooking.summaFull - currentBooking.paidCount) === 0"
+                        [class.isPaidOk2]="(currentBooking.summaFull - currentBooking.paidCount) < 0">
                         <div>
                             <span>Общая скидка: </span>
                             <span>{{currentBooking.sale}} руб</span>
@@ -257,11 +258,40 @@
                 </div>
             </div>
 
-            <div class="pays">
+            <div class="pays" *ngIf="paysList">
                 <h3>Платежи</h3>
 
                 <div class="pays_wrap">
-                    1
+                    <p-table [value]="paysList" styleClass="p-datatable-gridlines list_table">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Дата</th>
+                                <th>Сумма</th>
+                                <th>Вид оплаты</th>
+                                <th>Тип платежа</th>
+                            </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-pay>
+                            <tr *ngIf="pay.type !== 'Залог'">
+                                <td>{{pay.date | date : 'dd.MM.yyyy HH:mm'}}</td>
+                                <td>{{pay.pricePay}} руб</td>
+                                <td>{{pay.typeMoney}}</td>
+                                <td>{{pay.type}}</td>
+                            </tr>
+
+                            <tr *ngIf="pay.type === 'Залог'" style="background-color: #008000; color: #fff;">
+                                <td>{{pay.date | date : 'dd.MM.yyyy HH:mm'}}</td>
+                                <td>{{pay.pricePay}} руб</td>
+                                <td>{{pay.typeMoney}}</td>
+                                <td>{{pay.type}}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+
+                    <div *ngIf="paysList.length === 0" style="margin-top: 30px;">
+                        <h2>Нет платежей...</h2>
+                    </div>
                 </div>
             </div>
 
@@ -271,12 +301,15 @@
                 <div class="management_wrap">
                     <div class="management_btns">
                         <span class="btn_paid_false" *ngIf="(currentBooking.summaFull - currentBooking.paidCount) > 0"
-                            (click)="payBooking()">Оплатить {{currentBooking.summaFull - currentBooking.paidCount}} руб</span>
+                            (click)="payBooking()">Оплатить {{currentBooking.summaFull - currentBooking.paidCount}}
+                            руб</span>
 
                         <span class="btn_paid_ok"
                             *ngIf="(currentBooking.summaFull - currentBooking.paidCount) === 0">Оплачено</span>
 
-                            <span class="btn_paid_ok" (click)="payBooking()" *ngIf="currentBooking.paidCount > currentBooking.summaFull">Оплачено ({{currentBooking.summaFull - currentBooking.paidCount}} руб)</span>
+                        <span class="btn_paid_ok" (click)="payBooking()"
+                            *ngIf="currentBooking.paidCount > currentBooking.summaFull">Оплачено
+                            ({{currentBooking.summaFull - currentBooking.paidCount}} руб)</span>
                         <span class="btn_act_create">Сформировать акт</span>
                     </div>
                 </div>
@@ -297,9 +330,10 @@
                             <input pInputText id="arenda" formControlName="arenda" placeholder="Введите сумму"
                                 [ngClass]="{'ng-invalid ng-dirty': form.controls['arenda'].invalid && form.controls['arenda'].touched}"
                                 style="width: 150px;" />
-                        
-                        
-                            <div class="errorValidate" *ngIf="form.controls['arenda'].invalid && form.controls['arenda'].touched">
+
+
+                            <div class="errorValidate"
+                                *ngIf="form.controls['arenda'].invalid && form.controls['arenda'].touched">
                                 <p *ngIf="form.controls['arenda'].errors && form.controls['arenda'].errors['required']">
                                     Поле не должно быть пустым
                                 </p>
@@ -308,13 +342,16 @@
 
                         <fieldset>
                             <label htmlFor="place_start_price">Подача авто</label>
-                            <input pInputText id="place_start_price" formControlName="place_start_price" placeholder="Введите сумму"
+                            <input pInputText id="place_start_price" formControlName="place_start_price"
+                                placeholder="Введите сумму"
                                 [ngClass]="{'ng-invalid ng-dirty': form.controls['place_start_price'].invalid && form.controls['place_start_price'].touched}"
                                 style="width: 150px;" />
-                        
-                        
-                            <div class="errorValidate" *ngIf="form.controls['place_start_price'].invalid && form.controls['place_start_price'].touched">
-                                <p *ngIf="form.controls['place_start_price'].errors && form.controls['place_start_price'].errors['required']">
+
+
+                            <div class="errorValidate"
+                                *ngIf="form.controls['place_start_price'].invalid && form.controls['place_start_price'].touched">
+                                <p
+                                    *ngIf="form.controls['place_start_price'].errors && form.controls['place_start_price'].errors['required']">
                                     Поле не должно быть пустым
                                 </p>
                             </div>
@@ -322,14 +359,16 @@
 
                         <fieldset>
                             <label htmlFor="place_end_price">Прием авто</label>
-                            <input pInputText id="place_end_price" formControlName="place_end_price" placeholder="Введите сумму"
+                            <input pInputText id="place_end_price" formControlName="place_end_price"
+                                placeholder="Введите сумму"
                                 [ngClass]="{'ng-invalid ng-dirty': form.controls['place_end_price'].invalid && form.controls['place_end_price'].touched}"
                                 style="width: 150px;" />
-                        
-                        
+
+
                             <div class="errorValidate"
                                 *ngIf="form.controls['place_end_price'].invalid && form.controls['place_end_price'].touched">
-                                <p *ngIf="form.controls['place_end_price'].errors && form.controls['place_end_price'].errors['required']">
+                                <p
+                                    *ngIf="form.controls['place_end_price'].errors && form.controls['place_end_price'].errors['required']">
                                     Поле не должно быть пустым
                                 </p>
                             </div>
@@ -337,14 +376,16 @@
 
                         <fieldset>
                             <label htmlFor="additional_services_price">Доп.услуги</label>
-                            <input pInputText id="additional_services_price" formControlName="additional_services_price" placeholder="Введите сумму"
+                            <input pInputText id="additional_services_price" formControlName="additional_services_price"
+                                placeholder="Введите сумму"
                                 [ngClass]="{'ng-invalid ng-dirty': form.controls['additional_services_price'].invalid && form.controls['additional_services_price'].touched}"
                                 style="width: 150px;" />
-                        
-                        
+
+
                             <div class="errorValidate"
                                 *ngIf="form.controls['additional_services_price'].invalid && form.controls['additional_services_price'].touched">
-                                <p *ngIf="form.controls['additional_services_price'].errors && form.controls['additional_services_price'].errors['required']">
+                                <p
+                                    *ngIf="form.controls['additional_services_price'].errors && form.controls['additional_services_price'].errors['required']">
                                     Поле не должно быть пустым
                                 </p>
                             </div>
@@ -353,7 +394,8 @@
 
                         <fieldset>
                             <label htmlFor="typePayArenda">Тип оплаты услуг аренды</label>
-                            <select formControlName="typePayArenda" id="typePayArenda" (ngModelChange)="checkedTypeArenda($event)" style="width: 150px;">
+                            <select formControlName="typePayArenda" id="typePayArenda"
+                                (ngModelChange)="checkedTypeArenda($event)" style="width: 150px;">
                                 <option value="Наличные">Наличные</option>
                                 <option value="Терминал">Терминал</option>
                                 <option value="На карту">На карту</option>
@@ -368,9 +410,10 @@
                             <input pInputText id="zalog" formControlName="zalog" placeholder="Введите сумму"
                                 [ngClass]="{'ng-invalid ng-dirty': form.controls['zalog'].invalid && form.controls['zalog'].touched}"
                                 style="width: 150px;" />
-                        
-                        
-                            <div class="errorValidate" *ngIf="form.controls['zalog'].invalid && form.controls['zalog'].touched">
+
+
+                            <div class="errorValidate"
+                                *ngIf="form.controls['zalog'].invalid && form.controls['zalog'].touched">
                                 <p *ngIf="form.controls['zalog'].errors && form.controls['zalog'].errors['required']">
                                     Поле не должно быть пустым
                                 </p>
@@ -379,8 +422,8 @@
 
                         <fieldset>
                             <label htmlFor="typePayArenda">Тип оплаты залога</label>
-                            <select formControlName="typePayZalog" id="typePayZalog" (ngModelChange)="checkedTypeZalog($event)"
-                                style="width: 150px;">
+                            <select formControlName="typePayZalog" id="typePayZalog"
+                                (ngModelChange)="checkedTypeZalog($event)" style="width: 150px;">
                                 <option value="Наличные">Наличные</option>
                                 <option value="Терминал">Терминал</option>
                                 <option value="На карту">На карту</option>
@@ -389,7 +432,8 @@
                         </fieldset>
                     </div>
 
-                    <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Оплатить</button>
+                    <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i>
+                        Оплатить</button>
                 </div>
             </p-dialog>
         </div>

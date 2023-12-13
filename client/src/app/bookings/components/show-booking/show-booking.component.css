@@ -161,6 +161,11 @@ button:disabled {
     background-color: green;
 }
 
+.isPaidOk2
+{
+    background-color: green;
+}
+
 .isPaidFalse {
     background-color: #F74B4C;
 }
@@ -240,4 +245,10 @@ button:disabled {
     cursor: pointer;
     background-color: #FFA500;
     margin-left: 20px;
+}
+
+td
+{
+    font-size: 12px;
+    padding: 7px !important;
 }

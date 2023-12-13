@@ -65,7 +65,8 @@ export interface BookingsStateInterface {
     clients?: any[] | null | undefined | any,
     currentClient: any,
     noMoreClientsList: boolean,
-    searchList: any[] | null
+    searchList: any[] | null,
+    paysList?: Pay[] | null | undefined | any,
 }
 
 

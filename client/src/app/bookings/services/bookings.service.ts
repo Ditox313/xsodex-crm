@@ -58,7 +58,7 @@ export class BookingsService {
   
 
   // Создаем платеж
-  create_pay(pay_1: Pay, pay_2: Pay, pay_3: Pay, pay_4: Pay, pay_5: Pay): Observable<Booking> {
+  create_pay(pay_1: Pay, pay_2: Pay, pay_3: Pay, pay_4: Pay, pay_5: Pay): Observable<any> {
     
     const pays = {
       pay_1: pay_1,
@@ -67,7 +67,15 @@ export class BookingsService {
       pay_4: pay_4,
       pay_5: pay_5,
     }
-    return this.http.post<Booking>(`/api/bookings/create-pay`, pays);
+    return this.http.post<any>(`/api/bookings/create-pay`, pays);
+  }
+
+
+
+
+  // Получаем список всех платежей для брони
+  getAllPays(id: string | undefined): Observable<Pay[]> {
+    return this.http.get<Pay[]>(`/api/bookings/pays/${id}`);
   }
 
 

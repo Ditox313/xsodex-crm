@@ -242,7 +242,7 @@ export const bookingCreatePayAction = createAction(
 
 export const bookingCreatePaySuccessAction = createAction(
   ActionTypes.BOOKING_CREATE_PAY_SUCCES,
-  props<{ data: Booking }>()
+  props<{ data: any }>()
 );
 
 
@@ -252,6 +252,35 @@ export const bookingCreatePayFailureAction = createAction(
 );
 
 
+
+
+
+
+
+
+
+// Pays List
+export const paysListAction = createAction(
+  ActionTypes.PAYS_LIST,
+  props<{ id: string | undefined}>()
+);
+
+
+export const paysListSuccessAction = createAction(
+  ActionTypes.PAYS_LIST_SUCCES,
+  props<{ data: Pay[] }>()
+);
+
+
+export const paysListFailureAction = createAction(
+  ActionTypes.PAYS_LIST_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const paysListResetAction = createAction(
+  ActionTypes.PAYS_LIST_RESET,
+);
 
 
 

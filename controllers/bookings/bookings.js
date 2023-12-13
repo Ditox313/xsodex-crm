@@ -150,6 +150,13 @@ module.exports.remove = async function (req, res) {
     try {
         // Удаляем бронь
         const result = await Booking.deleteOne({ _id: req.params.id });
+
+        // Удаляем платежи
+        const paysList = await Pay.find({ bookingId: req.params.id })
+        paysList.forEach(async (pay) => {
+            await Pay.deleteOne({ _id: pay._id });
+        });
+
         if (result.deletedCount === 1) {
             res.status(200).json(req.params.id);
         } else {
@@ -255,12 +262,38 @@ module.exports.create_pay = async function (req, res) {
         const actualBookingForResponce = await Booking.findOne({ _id: req.body.pay_1.bookingId })
 
 
+        // Находим платежи по этой брони
+        const paysList = await Pay.find({ bookingId: actualBookingForResponce._id }).sort({ date: -1 })
 
-        res.status(201).json(actualBookingForResponce);
+
+
+        //Отправляем бронь и список платежей по ней.И вносим брони и платежи в состояние
+        res.status(201).json({
+            actualBooking: actualBookingForResponce,
+            paysList: paysList
+        });
     } catch (e) {
         errorHandler(res, e);
     }
 };
+
+
+
+
+
+// Получаем платежи для брони
+module.exports.paysBooking= async function (req, res) {
+    try {
+
+        const paysList = await Pay.find({bookingId: req.params.id }).sort({ date: -1 })
+
+        res.status(200).json(paysList);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
 
 
 

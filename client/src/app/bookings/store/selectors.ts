@@ -58,6 +58,11 @@ export const getCurrentBookingSelector = createSelector(
 
 
 
+export const paysListSelector = createSelector(
+    bookingsFeatureSelector,
+    (state: BookingsStateInterface) => state.paysList
+)
+
 
 
 
