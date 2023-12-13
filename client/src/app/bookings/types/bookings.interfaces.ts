@@ -76,3 +76,19 @@ export interface BookingsParamsFetch {
     offset: number | null,
     limit: number | null
 }
+
+
+
+
+
+//Интерфейс платежа
+export interface Pay {
+    _id?: string,
+    type: string,
+    pricePay: string,
+    typeMoney: string,
+    bookingId?: string,
+    smenaId?: string,
+    userId?: string,
+    date?: string,
+}

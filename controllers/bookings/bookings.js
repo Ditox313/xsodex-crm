@@ -1,6 +1,7 @@
 const Booking = require('../../models/bookings/Booking.js');
 const ClientFiz = require('../../models/clients/clientsFiz/ClientFiz.js');
 const ClientLaw = require('../../models/clients/clientsLaw/ClientLaw.js');
+const Pay = require('../../models/bookings/Pay.js');
 // const Dogovor = require('../../../models/clients/clientsFiz/Dogovor.js');
 const errorHandler = require('../../Utils/errorHendler.js');
 const fs = require('fs');
@@ -174,6 +175,92 @@ module.exports.getById = async function (req, res) {
     }
 };
 
+
+
+
+
+
+// Контроллер для create_pay
+module.exports.create_pay = async function (req, res) {
+    try {
+        if (+req.body.pay_1.pricePay !== 0) {
+            const pay_1 = await new Pay({
+                type: req.body.pay_1.type,
+                pricePay: req.body.pay_1.pricePay,
+                typeMoney: req.body.pay_1.typeMoney,
+                bookingId: req.body.pay_1.bookingId,
+                smenaId: req.body.pay_1.smenaId,
+                userId: req.user._id,
+            }).save();
+        }
+        if (+req.body.pay_2.pricePay !== 0)
+        {
+            const pay_2 = await new Pay({
+                type: req.body.pay_2.type,
+                pricePay: req.body.pay_2.pricePay,
+                typeMoney: req.body.pay_2.typeMoney,
+                bookingId: req.body.pay_2.bookingId,
+                smenaId: req.body.pay_2.smenaId,
+                userId: req.user._id,
+            }).save();
+        }
+        if (+req.body.pay_3.pricePay !== 0)
+        {
+            const pay_3 = await new Pay({
+                type: req.body.pay_3.type,
+                pricePay: req.body.pay_3.pricePay,
+                typeMoney: req.body.pay_3.typeMoney,
+                bookingId: req.body.pay_3.bookingId,
+                smenaId: req.body.pay_3.smenaId,
+                userId: req.user._id,
+            }).save();
+        }
+        if (+req.body.pay_4.pricePay !== 0)
+        {
+            const pay_4 = await new Pay({
+                type: req.body.pay_4.type,
+                pricePay: req.body.pay_4.pricePay,
+                typeMoney: req.body.pay_4.typeMoney,
+                bookingId: req.body.pay_4.bookingId,
+                smenaId: req.body.pay_4.smenaId,
+                userId: req.user._id,
+            }).save();
+        }
+        if (+req.body.pay_5.pricePay !== 0)
+        {
+            const pay_5 = await new Pay({
+                type: req.body.pay_5.type,
+                pricePay: req.body.pay_5.pricePay,
+                typeMoney: req.body.pay_5.typeMoney,
+                bookingId: req.body.pay_5.bookingId,
+                smenaId: req.body.pay_5.smenaId,
+                userId: req.user._id,
+            }).save();
+        }
+
+        // Изменяем значение оплаченной суммы
+        const summPays = (+req.body.pay_1.pricePay) + (+req.body.pay_2.pricePay) + (+req.body.pay_3.pricePay) + (+req.body.pay_4.pricePay) + (+req.body.pay_5.pricePay);
+        const actualBooking = await Booking.find({ _id: req.body.pay_1.bookingId })
+        const paidCountActualBooking = actualBooking[0].paidCount + (summPays);
+        const updated = { paidCount: paidCountActualBooking };
+
+        // Находим и обновляем позицию.
+        const bookingUpdate = await Booking.findOneAndUpdate({ _id: req.body.pay_1.bookingId }, //Ищем по id
+            { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
+            { new: true } //обновит позицию и верет нам уже обновленную
+        );
+
+
+        // Находим уже обновленную бронь и отдаем ее ответом
+        const actualBookingForResponce = await Booking.findOne({ _id: req.body.pay_1.bookingId })
+
+
+
+        res.status(201).json(actualBookingForResponce);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 

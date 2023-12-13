@@ -1,275 +1,397 @@
-<app-header-app-layout [title]="title"></app-header-app-layout>
-<p-toast></p-toast>
-<loader *ngIf="isLoadingSelector$ | async"></loader>
+<div style="overflow: hidden;">
+    <app-header-app-layout [title]="title"></app-header-app-layout>
+    <p-toast></p-toast>
+    <loader *ngIf="isLoadingSelector$ | async"></loader>
+
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="show-booking" *ngIf="currentBooking && currentUser">
+            <div class="info">
+                <div class="part_1">
+                    <h3>Информация</h3>
+
+                    <div>
+                        <span>Номер брони:</span>
+                        <span> №{{currentBooking.order}}</span>
+                    </div>
+
+                    <div>
+                        <span>Ответственный:</span>
+                        <span> {{currentUser.secondName}} {{currentUser.name}} {{currentUser.lastName}}</span>
+                    </div>
+
+                    <div>
+                        <span>Статус:</span>
+                        <span *ngIf="currentBooking.status === 'В ожидании'"
+                            style="display: inline-block; background-color: orange; padding: 3px 10px; color: #fff; border-radius: 3px;">
+                            {{currentBooking.status}}</span>
+                        <span *ngIf="currentBooking.status === 'В аренде'"
+                            style="display: inline-block; background-color: #194A9E; padding: 3px 10px; color: #fff; border-radius: 3px;">
+                            {{currentBooking.status}}</span>
+                        <span *ngIf="currentBooking.status === 'Закрыта'"
+                            style="display: inline-block; background-color: #F74B4C; padding: 3px 10px; color: #fff; border-radius: 3px;">
+                            {{currentBooking.status}}</span>
+                    </div>
+
+                    <div>
+                        <span>Создана:</span>
+                        <span> {{currentBooking.date | date : 'dd.MM.yyyy HH:mm'}}</span>
+                    </div>
+
+                    <div *ngIf="currentBooking.client.type === 'fiz'">
+                        <span>Клиент:</span>
+                        <span> {{currentBooking.client.surname}} {{currentBooking.client.name}}
+                            {{currentBooking.client.lastname}}</span>
+                    </div>
+                    <div *ngIf="currentBooking.client.type === 'law'">
+                        <span>Клиент:</span>
+                        <span> {{currentBooking.client.short_name}} {{currentBooking.client.name}}</span>
+                    </div>
+
+                    <div>
+                        <span>Телефон:</span>
+                        <span> №{{currentBooking.client.phone_1}}</span>
+                    </div>
+
+                    <div>
+                        <span>Автомобиль:</span>
+                        <span> {{currentBooking.car.marka}}
+                            {{currentBooking.car.model}}({{currentBooking.car.number}})</span>
+                    </div>
+
+                    <div>
+                        <span>Дата начала:</span>
+                        <span> {{currentBooking.booking_start | date : 'dd.MM.yyyy HH:mm'}}</span>
+                    </div>
+
+                    <div>
+                        <span>Дата окончания:</span>
+                        <span> {{currentBooking.booking_end | date : 'dd.MM.yyyy HH:mm'}}</span>
+                    </div>
+
+                    <div>
+                        <span>Тариф:</span>
+                        <span> {{currentBooking.tarifCheked}}</span>
+                    </div>
 
 
 
-<div class="show-booking" *ngIf="currentBooking && currentUser">
-    <div class="info">
-        <div class="part_1">
-            <h3>Информация</h3>
+                    <div *ngIf="currentBooking.tarifCheked === 'Город'">
+                        <span>Цена тарифа: </span>
+                        <span> {{currentBooking.tarif[0].tarif_price}} руб</span>
+                    </div>
 
-            <div>
-                <span>Номер брони:</span>
-                <span> №{{currentBooking.order}}</span>
-            </div>
+                    <div *ngIf="currentBooking.tarifCheked === 'Межгород'">
+                        <span>Цена тарифа:</span>
+                        <span> {{currentBooking.tarif[1].tarif_price}} руб</span>
+                    </div>
 
-            <div>
-                <span>Ответственный:</span>
-                <span> {{currentUser.secondName}} {{currentUser.name}} {{currentUser.lastName}}</span>
-            </div>
+                    <div *ngIf="currentBooking.tarifCheked === 'Россия'">
+                        <span>Цена тарифа:</span>
+                        <span> {{currentBooking.tarif[2].tarif_price}} руб</span>
+                    </div>
 
-            <div>
-                <span>Статус:</span>
-                <span *ngIf="currentBooking.status === 'В ожидании'"
-                    style="display: inline-block; background-color: orange; padding: 3px 10px; color: #fff; border-radius: 3px;">
-                    {{currentBooking.status}}</span>
-                <span *ngIf="currentBooking.status === 'В аренде'"
-                    style="display: inline-block; background-color: #194A9E; padding: 3px 10px; color: #fff; border-radius: 3px;">
-                    {{currentBooking.status}}</span>
-                <span *ngIf="currentBooking.status === 'Закрыта'"
-                    style="display: inline-block; background-color: #F74B4C; padding: 3px 10px; color: #fff; border-radius: 3px;">
-                    {{currentBooking.status}}</span>
-            </div>
-
-            <div>
-                <span>Создана:</span>
-                <span> {{currentBooking.date | date : 'dd.MM.yyyy HH:mm'}}</span>
-            </div>
-
-            <div *ngIf="currentBooking.client.type === 'fiz'">
-                <span>Клиент:</span>
-                <span> {{currentBooking.client.surname}} {{currentBooking.client.name}}
-                    {{currentBooking.client.lastname}}</span>
-            </div>
-            <div *ngIf="currentBooking.client.type === 'law'">
-                <span>Клиент:</span>
-                <span> {{currentBooking.client.short_name}} {{currentBooking.client.name}}</span>
-            </div>
-
-            <div>
-                <span>Телефон:</span>
-                <span> №{{currentBooking.client.phone_1}}</span>
-            </div>
-
-            <div>
-                <span>Автомобиль:</span>
-                <span> {{currentBooking.car.marka}} {{currentBooking.car.model}}({{currentBooking.car.number}})</span>
-            </div>
-
-            <div>
-                <span>Дата начала:</span>
-                <span> {{currentBooking.booking_start | date : 'dd.MM.yyyy HH:mm'}}</span>
-            </div>
-
-            <div>
-                <span>Дата окончания:</span>
-                <span> {{currentBooking.booking_end | date : 'dd.MM.yyyy HH:mm'}}</span>
-            </div>
-
-            <div>
-                <span>Тариф:</span>
-                <span> {{currentBooking.tarifCheked}}</span>
-            </div>
-
-
-
-            <div *ngIf="currentBooking.tarifCheked === 'Город'">
-                <span>Цена тарифа: </span>
-                <span> {{currentBooking.tarif[0].tarif_price}} руб</span>
-            </div>
-
-            <div *ngIf="currentBooking.tarifCheked === 'Межгород'">
-                <span>Цена тарифа:</span>
-                <span> {{currentBooking.tarif[1].tarif_price}} руб</span>
-            </div>
-
-            <div *ngIf="currentBooking.tarifCheked === 'Россия'">
-                <span>Цена тарифа:</span>
-                <span> {{currentBooking.tarif[2].tarif_price}} руб</span>
-            </div>
-
-            <div *ngIf="currentBooking.tarifCheked === 'Смешанный'" style="padding-left: 20px;">
-                <span style="font-weight: 500; font-size: 12px;"> Город: Суток- {{currentBooking.tarif[0].booking_days}}
-                    д; Цена
-                    тарифа- {{currentBooking.tarif[0].tarif_price}} руб; Аренда-
-                    {{currentBooking.tarif[0].booking_days*currentBooking.tarif[0].tarif_price}} руб</span><br>
-                <span style="font-weight: 500 ; font-size: 12px;"> Межгород: Суток-
-                    {{currentBooking.tarif[1].booking_days}} д; Цена
-                    тарифа- {{currentBooking.tarif[1].tarif_price}} руб; Аренда-
-                    {{currentBooking.tarif[1].booking_days*currentBooking.tarif[1].tarif_price}} руб</span><br>
-                <span style="font-weight: 500; font-size: 12px; "> Россия: Суток-
-                    {{currentBooking.tarif[2].booking_days}} д; Цена
-                    тарифа- {{currentBooking.tarif[2].tarif_price}} руб; Аренда-
-                    {{currentBooking.tarif[2].booking_days*currentBooking.tarif[2].tarif_price}} руб</span><br>
-            </div>
-
-
-
-
-
-            <div *ngIf="currentBooking.tarifCheked === 'Город'">
-                <span>Суток:</span>
-                <span> {{currentBooking.tarif[0].booking_days}} д</span>
-            </div>
-
-            <div *ngIf="currentBooking.tarifCheked === 'Межгород'">
-                <span>Суток:</span>
-                <span> {{currentBooking.tarif[1].booking_days}} д</span>
-            </div>
-
-            <div *ngIf="currentBooking.tarifCheked === 'Россия'">
-                <span>Суток:</span>
-                <span> {{currentBooking.tarif[2].booking_days}} д</span>
-            </div>
+                    <div *ngIf="currentBooking.tarifCheked === 'Смешанный'" style="padding-left: 20px;">
+                        <span style="font-weight: 500; font-size: 12px;"> Город: Суток-
+                            {{currentBooking.tarif[0].booking_days}}
+                            д; Цена
+                            тарифа- {{currentBooking.tarif[0].tarif_price}} руб; Аренда-
+                            {{currentBooking.tarif[0].booking_days*currentBooking.tarif[0].tarif_price}} руб</span><br>
+                        <span style="font-weight: 500 ; font-size: 12px;"> Межгород: Суток-
+                            {{currentBooking.tarif[1].booking_days}} д; Цена
+                            тарифа- {{currentBooking.tarif[1].tarif_price}} руб; Аренда-
+                            {{currentBooking.tarif[1].booking_days*currentBooking.tarif[1].tarif_price}} руб</span><br>
+                        <span style="font-weight: 500; font-size: 12px; "> Россия: Суток-
+                            {{currentBooking.tarif[2].booking_days}} д; Цена
+                            тарифа- {{currentBooking.tarif[2].tarif_price}} руб; Аренда-
+                            {{currentBooking.tarif[2].booking_days*currentBooking.tarif[2].tarif_price}} руб</span><br>
+                    </div>
 
 
 
 
-            <div *ngIf="currentBooking.tarifCheked === 'Город' && currentBooking.tarif[0].dop_hours > 0">
-                <span>Доп.часы:</span>
-                <span> {{currentBooking.tarif[0].dop_hours}} ч</span>
-            </div>
 
-            <div *ngIf="currentBooking.tarifCheked === 'Межгород' && currentBooking.tarif[1].dop_hours > 0">
-                <span>Доп.часы:</span>
-                <span> {{currentBooking.tarif[1].dop_hours}} ч</span>
-            </div>
+                    <div *ngIf="currentBooking.tarifCheked === 'Город'">
+                        <span>Суток:</span>
+                        <span> {{currentBooking.tarif[0].booking_days}} д</span>
+                    </div>
 
-            <div *ngIf="currentBooking.tarifCheked === 'Россия' && currentBooking.tarif[2].dop_hours > 0">
-                <span>Доп.часы:</span>
-                <span> {{currentBooking.tarif[2].dop_hours}} ч</span>
-            </div>
+                    <div *ngIf="currentBooking.tarifCheked === 'Межгород'">
+                        <span>Суток:</span>
+                        <span> {{currentBooking.tarif[1].booking_days}} д</span>
+                    </div>
 
-
-
-
-            <div *ngIf="currentBooking.tarifCheked === 'Город' && currentBooking.tarif[0].dop_hours > 0">
-                <span>Цена доп.часа: </span>
-                <span> {{currentBooking.tarif[0].dop_hours_price}} руб</span>
-            </div>
-
-            <div *ngIf="currentBooking.tarifCheked === 'Межгород' && currentBooking.tarif[1].dop_hours > 0">
-                <span>Цена доп.часа:</span>
-                <span> {{currentBooking.tarif[1].dop_hours_price}} руб</span>
-            </div>
-
-            <div *ngIf="currentBooking.tarifCheked === 'Россия' && currentBooking.tarif[2].dop_hours > 0">
-                <span>Цена доп.часа:</span>
-                <span> {{currentBooking.tarif[2].dop_hours_price}} руб</span>
-            </div>
+                    <div *ngIf="currentBooking.tarifCheked === 'Россия'">
+                        <span>Суток:</span>
+                        <span> {{currentBooking.tarif[2].booking_days}} д</span>
+                    </div>
 
 
-            <div>
-                <span>Выдача:</span>
-                <span> {{currentBooking.place_start}}</span>
-            </div>
-
-            <div>
-                <span>Прием:</span>
-                <span> {{currentBooking.place_end}}</span>
-            </div>
 
 
-            <div *ngIf="currentBooking.additional_services_price > 0">
-                <span>Доп.услуги:</span><br>
-                <div style="padding-left: 20px;">
-                    <span style="font-weight: 500; font-size: 12px;"
-                        *ngIf="currentBooking.additional_services[0].status">Детское
-                        кресло: {{currentBooking.additional_services[0].price}} руб</span><br>
-                    <span style="font-weight: 500; font-size: 12px;"
-                        *ngIf="currentBooking.additional_services[1].status">Бустер:
-                        {{currentBooking.additional_services[1].price}} руб</span><br>
-                    <span style="font-weight: 500; font-size: 12px;"
-                        *ngIf="currentBooking.additional_services[2].status">Видеорегистратор:
-                        {{currentBooking.additional_services[2].price}} руб</span><br>
-                    <span style="font-weight: 500; font-size: 12px;"
-                        *ngIf="currentBooking.additional_services[3].status">Зарядное
-                        устройство: {{currentBooking.additional_services[3].price}} руб</span><br>
-                    <span style="font-weight: 500; font-size: 12px;"
-                        *ngIf="currentBooking.additional_services[4].status">Антирадар:
-                        {{currentBooking.additional_services[4].price}} руб</span><br>
-                    <span style="font-weight: 500; font-size: 12px;"
-                        *ngIf="currentBooking.additional_services[5].status">Мойка:
-                        {{currentBooking.additional_services[5].price}} руб</span><br>
+                    <div *ngIf="currentBooking.tarifCheked === 'Город' && currentBooking.tarif[0].dop_hours > 0">
+                        <span>Доп.часы:</span>
+                        <span> {{currentBooking.tarif[0].dop_hours}} ч</span>
+                    </div>
+
+                    <div *ngIf="currentBooking.tarifCheked === 'Межгород' && currentBooking.tarif[1].dop_hours > 0">
+                        <span>Доп.часы:</span>
+                        <span> {{currentBooking.tarif[1].dop_hours}} ч</span>
+                    </div>
+
+                    <div *ngIf="currentBooking.tarifCheked === 'Россия' && currentBooking.tarif[2].dop_hours > 0">
+                        <span>Доп.часы:</span>
+                        <span> {{currentBooking.tarif[2].dop_hours}} ч</span>
+                    </div>
+
+
+
+
+                    <div *ngIf="currentBooking.tarifCheked === 'Город' && currentBooking.tarif[0].dop_hours > 0">
+                        <span>Цена доп.часа: </span>
+                        <span> {{currentBooking.tarif[0].dop_hours_price}} руб</span>
+                    </div>
+
+                    <div *ngIf="currentBooking.tarifCheked === 'Межгород' && currentBooking.tarif[1].dop_hours > 0">
+                        <span>Цена доп.часа:</span>
+                        <span> {{currentBooking.tarif[1].dop_hours_price}} руб</span>
+                    </div>
+
+                    <div *ngIf="currentBooking.tarifCheked === 'Россия' && currentBooking.tarif[2].dop_hours > 0">
+                        <span>Цена доп.часа:</span>
+                        <span> {{currentBooking.tarif[2].dop_hours_price}} руб</span>
+                    </div>
+
+
+                    <div>
+                        <span>Выдача:</span>
+                        <span> {{currentBooking.place_start}}</span>
+                    </div>
+
+                    <div>
+                        <span>Прием:</span>
+                        <span> {{currentBooking.place_end}}</span>
+                    </div>
+
+
+                    <div *ngIf="currentBooking.additional_services_price > 0">
+                        <span>Доп.услуги:</span><br>
+                        <div style="padding-left: 20px;">
+                            <span style="font-weight: 500; font-size: 12px;"
+                                *ngIf="currentBooking.additional_services[0].status">Детское
+                                кресло: {{currentBooking.additional_services[0].price}} руб</span><br>
+                            <span style="font-weight: 500; font-size: 12px;"
+                                *ngIf="currentBooking.additional_services[1].status">Бустер:
+                                {{currentBooking.additional_services[1].price}} руб</span><br>
+                            <span style="font-weight: 500; font-size: 12px;"
+                                *ngIf="currentBooking.additional_services[2].status">Видеорегистратор:
+                                {{currentBooking.additional_services[2].price}} руб</span><br>
+                            <span style="font-weight: 500; font-size: 12px;"
+                                *ngIf="currentBooking.additional_services[3].status">Зарядное
+                                устройство: {{currentBooking.additional_services[3].price}} руб</span><br>
+                            <span style="font-weight: 500; font-size: 12px;"
+                                *ngIf="currentBooking.additional_services[4].status">Антирадар:
+                                {{currentBooking.additional_services[4].price}} руб</span><br>
+                            <span style="font-weight: 500; font-size: 12px;"
+                                *ngIf="currentBooking.additional_services[5].status">Мойка:
+                                {{currentBooking.additional_services[5].price}} руб</span><br>
+                        </div>
+
+                    </div>
                 </div>
 
+                <div style="margin-top: auto;">
+                    <div class="part_2">
+                        <h3 style="color: #fff;">Рассчет</h3>
+
+                        <div>
+                            <span>Аренда: </span>
+                            <span>{{currentBooking.arenda}} руб</span>
+                        </div>
+
+                        <div>
+                            <span>Залог: </span>
+                            <span>{{currentBooking.zalog}} руб</span>
+                        </div>
+
+                        <div>
+                            <span>Подача авто: </span>
+                            <span>{{currentBooking.place_start_price}} руб</span>
+                        </div>
+
+                        <div>
+                            <span>Прием авто: </span>
+                            <span>{{currentBooking.place_end_price}} руб</span>
+                        </div>
+
+                        <div>
+                            <span>Доп.услуги: </span>
+                            <span>{{currentBooking.additional_services_price}} руб</span>
+                        </div>
+
+                        <div>
+                            <span>Итого: </span>
+                            <span>{{currentBooking.summaFull}} руб</span>
+                        </div>
+
+
+                    </div>
+
+                    <div class="part_3" [class.isPaidFalse]="(currentBooking.summaFull - currentBooking.paidCount) > 0"
+                        [class.isPaidOk]="(currentBooking.summaFull - currentBooking.paidCount) === 0">
+                        <div>
+                            <span>Общая скидка: </span>
+                            <span>{{currentBooking.sale}} руб</span>
+                        </div>
+
+                        <div>
+                            <span>Оплачено: </span>
+                            <span>{{currentBooking.paidCount}} руб</span>
+                        </div>
+
+                        <div>
+                            <span>Остаток: </span>
+                            <span>{{currentBooking.summaFull - currentBooking.paidCount}} руб</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pays">
+                <h3>Платежи</h3>
+
+                <div class="pays_wrap">
+                    1
+                </div>
+            </div>
+
+            <div class="management">
+                <h3>Управление</h3>
+
+                <div class="management_wrap">
+                    <div class="management_btns">
+                        <span class="btn_paid_false" *ngIf="(currentBooking.summaFull - currentBooking.paidCount) > 0"
+                            (click)="payBooking()">Оплатить {{currentBooking.summaFull - currentBooking.paidCount}} руб</span>
+
+                        <span class="btn_paid_ok"
+                            *ngIf="(currentBooking.summaFull - currentBooking.paidCount) === 0">Оплачено</span>
+
+                            <span class="btn_paid_ok" (click)="payBooking()" *ngIf="currentBooking.paidCount > currentBooking.summaFull">Оплачено ({{currentBooking.summaFull - currentBooking.paidCount}} руб)</span>
+                        <span class="btn_act_create">Сформировать акт</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div style="margin-top: auto;">
-            <div class="part_2">
-                <h3 style="color: #fff;">Рассчет</h3>
 
-                <div>
-                    <span>Аренда: </span>
-                    <span>{{currentBooking.arenda}} руб</span>
+
+
+        <div class="pay_booking" *ngIf="currentBooking">
+            <p-dialog [(visible)]="isVisibleModalPay" [style]="{width: '60vw'}" [modal]="true" [maximizable]="true">
+                <h3 style="margin-bottom: 50px;">Опдата брони № {{currentBooking.order}}</h3>
+
+                <div class="pay_content">
+                    <div>
+                        <fieldset>
+                            <label htmlFor="arenda">Аренда</label>
+                            <input pInputText id="arenda" formControlName="arenda" placeholder="Введите сумму"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['arenda'].invalid && form.controls['arenda'].touched}"
+                                style="width: 150px;" />
+                        
+                        
+                            <div class="errorValidate" *ngIf="form.controls['arenda'].invalid && form.controls['arenda'].touched">
+                                <p *ngIf="form.controls['arenda'].errors && form.controls['arenda'].errors['required']">
+                                    Поле не должно быть пустым
+                                </p>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <label htmlFor="place_start_price">Подача авто</label>
+                            <input pInputText id="place_start_price" formControlName="place_start_price" placeholder="Введите сумму"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['place_start_price'].invalid && form.controls['place_start_price'].touched}"
+                                style="width: 150px;" />
+                        
+                        
+                            <div class="errorValidate" *ngIf="form.controls['place_start_price'].invalid && form.controls['place_start_price'].touched">
+                                <p *ngIf="form.controls['place_start_price'].errors && form.controls['place_start_price'].errors['required']">
+                                    Поле не должно быть пустым
+                                </p>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <label htmlFor="place_end_price">Прием авто</label>
+                            <input pInputText id="place_end_price" formControlName="place_end_price" placeholder="Введите сумму"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['place_end_price'].invalid && form.controls['place_end_price'].touched}"
+                                style="width: 150px;" />
+                        
+                        
+                            <div class="errorValidate"
+                                *ngIf="form.controls['place_end_price'].invalid && form.controls['place_end_price'].touched">
+                                <p *ngIf="form.controls['place_end_price'].errors && form.controls['place_end_price'].errors['required']">
+                                    Поле не должно быть пустым
+                                </p>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <label htmlFor="additional_services_price">Доп.услуги</label>
+                            <input pInputText id="additional_services_price" formControlName="additional_services_price" placeholder="Введите сумму"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['additional_services_price'].invalid && form.controls['additional_services_price'].touched}"
+                                style="width: 150px;" />
+                        
+                        
+                            <div class="errorValidate"
+                                *ngIf="form.controls['additional_services_price'].invalid && form.controls['additional_services_price'].touched">
+                                <p *ngIf="form.controls['additional_services_price'].errors && form.controls['additional_services_price'].errors['required']">
+                                    Поле не должно быть пустым
+                                </p>
+                            </div>
+                        </fieldset>
+
+
+                        <fieldset>
+                            <label htmlFor="typePayArenda">Тип оплаты услуг аренды</label>
+                            <select formControlName="typePayArenda" id="typePayArenda" (ngModelChange)="checkedTypeArenda($event)" style="width: 150px;">
+                                <option value="Наличные">Наличные</option>
+                                <option value="Терминал">Терминал</option>
+                                <option value="На карту">На карту</option>
+                                <option value="р/с">р/с</option>
+                            </select>
+                        </fieldset>
+                    </div>
+
+                    <div>
+                        <fieldset>
+                            <label htmlFor="arenda">Залог</label>
+                            <input pInputText id="zalog" formControlName="zalog" placeholder="Введите сумму"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['zalog'].invalid && form.controls['zalog'].touched}"
+                                style="width: 150px;" />
+                        
+                        
+                            <div class="errorValidate" *ngIf="form.controls['zalog'].invalid && form.controls['zalog'].touched">
+                                <p *ngIf="form.controls['zalog'].errors && form.controls['zalog'].errors['required']">
+                                    Поле не должно быть пустым
+                                </p>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <label htmlFor="typePayArenda">Тип оплаты залога</label>
+                            <select formControlName="typePayZalog" id="typePayZalog" (ngModelChange)="checkedTypeZalog($event)"
+                                style="width: 150px;">
+                                <option value="Наличные">Наличные</option>
+                                <option value="Терминал">Терминал</option>
+                                <option value="На карту">На карту</option>
+                                <option value="р/с">р/с</option>
+                            </select>
+                        </fieldset>
+                    </div>
+
+                    <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Оплатить</button>
                 </div>
-
-                <div>
-                    <span>Залог: </span>
-                    <span>{{currentBooking.zalog}} руб</span>
-                </div>
-
-                <div>
-                    <span>Подача авто: </span>
-                    <span>{{currentBooking.place_start_price}} руб</span>
-                </div>
-
-                <div>
-                    <span>Прием авто: </span>
-                    <span>{{currentBooking.place_end_price}} руб</span>
-                </div>
-
-                <div>
-                    <span>Доп.услуги: </span>
-                    <span>{{currentBooking.additional_services_price}} руб</span>
-                </div>
-
-                <div>
-                    <span>Итого: </span>
-                    <span>{{currentBooking.summaFull}} руб</span>
-                </div>
-
-                
-            </div>
-
-            <div class="part_3"  [class.isPaidFalse]="(currentBooking.summaFull - currentBooking.paidCount) > 0" [class.isPaidOk]="(currentBooking.summaFull - currentBooking.paidCount) === 0">
-                <div>
-                    <span>Общая скидка: </span>
-                    <span>{{currentBooking.sale}} руб</span>
-                </div>
-
-                <div>
-                    <span>Оплачено: </span>
-                    <span>{{currentBooking.paidCount}} руб</span>
-                </div>
-
-                <div>
-                    <span>Остаток: </span>
-                    <span>{{currentBooking.summaFull - currentBooking.paidCount}} руб</span>
-                </div>
-            </div>
+            </p-dialog>
         </div>
-    </div>
-
-    <div class="pays">
-        <h3>Платежи</h3>
-
-        <div class="pays_wrap">
-            1
-        </div>
-    </div>
-
-    <div class="management">
-        <h3>Управление</h3>
-        
-        <div class="management_wrap">
-            <div class="management_btns">
-                <span class="btn_paid_false" *ngIf="(currentBooking.summaFull - currentBooking.paidCount) > 0">Оплатить</span>
-                <span class="btn_paid_ok"   *ngIf="(currentBooking.summaFull - currentBooking.paidCount) === 0">Оплачено</span>
-                <span class="btn_act_create">Сформировать акт</span>
-            </div>
-        </div>
-    </div>
+    </form>
 </div>

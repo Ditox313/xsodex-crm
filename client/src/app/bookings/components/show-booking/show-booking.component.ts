@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { Booking } from '../../types/bookings.interfaces';
+import { Booking, Pay } from '../../types/bookings.interfaces';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { getCurrentBookingSelector, isLoadingSelector } from '../../store/selectors';
-import { bookingGetCurrent } from '../../store/actions/bookings.action';
+import { bookingCreatePayAction, bookingGetCurrent, bookingGetCurrentReset } from '../../store/actions/bookings.action';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
 import { currentUserSelector } from 'src/app/account/store/selectors';
+import { Smena } from 'src/app/smena/types/smena.interfaces';
+import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
 
 @Component({
   selector: 'app-show-booking',
@@ -24,15 +26,22 @@ export class ShowBookingComponent {
   currentUserSelector!: Observable<UserResponceRegister | null | undefined>
   currentUserSub$!: Subscription
   currentUser!: UserResponceRegister | null | undefined
+  currentSmemaSelector!: Observable<Smena | null | undefined>
+  currentSmemaSub$!: Subscription
+  currentSmema!: Smena | null | undefined
   title: string = ''
   getParamsSub$!: Subscription
   bookingId!: string
+  isVisibleModalPay: boolean = false
+
+
 
 
 
   constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute,) { }
 
   ngOnInit(): void {
+    this.initForm()
     this.getParams()
     this.initValues()
   }
@@ -50,8 +59,8 @@ export class ShowBookingComponent {
       this.currentUserSub$.unsubscribe();
     }
 
-    //Отчищаем состояние currentCar
-    // this.store.dispatch(partnerGetCurrentReset());
+    //Отчищаем состояние 
+    this.store.dispatch(bookingGetCurrentReset());
 
   }
 
@@ -62,6 +71,18 @@ export class ShowBookingComponent {
     });
   }
 
+  initForm() {
+    this.form = new FormGroup({
+      arenda: new FormControl('0',),
+      typePayArenda: new FormControl('Наличные',),
+      zalog: new FormControl('0',),
+      typePayZalog: new FormControl('Наличные',),
+      place_start_price: new FormControl('0',),
+      place_end_price: new FormControl('0',),
+      additional_services_price: new FormControl('0',),
+    });
+  }
+
 
 
 
@@ -69,8 +90,8 @@ export class ShowBookingComponent {
 
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
 
-    //Отчищаем состояние currentCar
-    // this.store.dispatch(partnerGetCurrentReset());
+    //Отчищаем состояние 
+    this.store.dispatch(bookingGetCurrentReset());
 
     //Отправляем запрос на получение брони
     this.store.dispatch(bookingGetCurrent({ id: this.bookingId }));
@@ -84,7 +105,27 @@ export class ShowBookingComponent {
 
         if (currentBooking) {
           this.title = `Просмотр брони №${currentBooking.order}`
+
+          this.form.patchValue({
+            // typePayArenda: 'Наличные',
+            // typePayZalog: 'Наличные',
+            place_start_price: currentBooking.place_start_price,
+            place_end_price: currentBooking.place_end_price,
+            additional_services_price: currentBooking.additional_services_price,
+            zalog: currentBooking.zalog,
+            arenda: currentBooking.arenda,
+          })
         }
+      }
+    })
+    
+
+
+    // Получаем пользователя
+    this.currentSmemaSelector = this.store.pipe(select(isOpenedSmenaSelector))
+    this.currentSmemaSub$ = this.currentSmemaSelector.subscribe({
+      next: (currentSmena) => {
+        this.currentSmema = currentSmena
       }
     })
 
@@ -100,31 +141,99 @@ export class ShowBookingComponent {
    
   }
 
+  // Регулируем видимость формы оплаты
+  payBooking()
+  {
+    this.isVisibleModalPay = !this.isVisibleModalPay
+  }
+
+  // Выбираем тип оплаты аренды
+  checkedTypeArenda(e: any)
+  {
+    this.form.value.typePayArenda = e
+    console.log(this.form.value.typePayArenda);
+    
+  }
+
+  // Выбираем тип оплаты залога
+  checkedTypeZalog(e: any) {
+    this.form.value.typePayZalog = e
+    console.log(this.form.value.typePayZalog);
+  }
+
 
 
 
   onSubmit() {
 
-    let fio = this.form.value.fio.split(' ');
-    let passport_seria_number = this.form.value.passport_seria_number.split('-');
+    // Создаем платежи
+    const pay_1: Pay = {
+      type: 'Аренда',
+      pricePay: this.form.value.arenda || 0,
+      typeMoney: this.form.value.typePayArenda,
+      bookingId: this.bookingId,
+      smenaId: this.currentSmema?._id,
+      userId: this.currentUser?._id
+    };
 
 
-    // const partner: Partner = {
-    //   _id: this.currentPartner?._id,
-    //   name: fio[1],
-    //   surname: fio[0],
-    //   lastname: fio[2],
-    //   passport_seria: passport_seria_number[0],
-    //   passport_number: passport_seria_number[1],
-    //   passport_date: this.form.value.passport_date,
-    //   passport_who_take: this.form.value.passport_who_take,
-    //   code_podrazdeleniya: this.form.value.code_podrazdeleniya,
-    //   passport_register: this.form.value.passport_register,
-    //   phone_1: this.form.value.phone_1,
-    //   phone_2: this.form.value.phone_2,
-    // };
+  
+    const pay_2: Pay = {
+      type: 'Залог',
+      pricePay: this.form.value.zalog || 0,
+      typeMoney: this.form.value.typePayZalog,
+      bookingId: this.bookingId,
+      smenaId: this.currentSmema?._id,
+      userId: this.currentUser?._id
+    };
+
+    const pay_3: Pay = {
+      type: 'Подача авто',
+      pricePay: this.form.value.place_start_price || 0,
+      typeMoney: this.form.value.typePayArenda,
+      bookingId: this.bookingId,
+      smenaId: this.currentSmema?._id,
+      userId: this.currentUser?._id
+    };
 
 
-    // this.store.dispatch(updatePartnerAction({ partner: partner, file_1: this.uploadFile_1, file_2: this.uploadFile_2, }))
+    const pay_4: Pay = {
+      type: 'Доп.услуги',
+      pricePay: this.form.value.additional_services_price || 0,
+      typeMoney: this.form.value.typePayArenda,
+      bookingId: this.bookingId,
+      smenaId: this.currentSmema?._id,
+      userId: this.currentUser?._id
+    };
+
+
+    const pay_5: Pay = {
+      type: 'Прием авто',
+      pricePay: this.form.value.place_end_price || 0,
+      typeMoney: this.form.value.typePayArenda,
+      bookingId: this.bookingId,
+      smenaId: this.currentSmema?._id,
+      userId: this.currentUser?._id
+    };
+
+    this.store.dispatch(bookingCreatePayAction({ pay_1, pay_2, pay_3, pay_4, pay_5}))
+
+
+    // this.subCreatePay$ = this.pays.create(pay).pipe(
+    //   switchMap(res => this.pays.create(pay_2)),
+    //   switchMap(res => this.pays.create(pay_3)),
+    //   switchMap(res => this.pays.create(pay_4)),
+    //   switchMap(res => this.pays.create(pay_5)),
+    //   switchMap(res => this.bookings.update_after_booking_pay(this.actualBooking._id, pay)),
+    //   switchMap(res => this.bookings.update_after_booking_pay(this.actualBooking._id, pay_2)),
+    //   switchMap(res => this.bookings.update_after_booking_pay(this.actualBooking._id, pay_3)),
+    //   switchMap(res => this.bookings.update_after_booking_pay(this.actualBooking._id, pay_4)),
+    //   switchMap(res => this.bookings.update_after_booking_pay(this.actualBooking._id, pay_5)),
+    // ).subscribe((pay) => {
+    //   MaterialService.toast('Платеж создан');
+    //   this.router.navigate(['/view-booking', this.bookingId]);
+    // });
+
+    this.payBooking()
   }
 }

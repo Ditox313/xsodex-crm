@@ -55,7 +55,7 @@ select {
     outline: none;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif !important;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     width: 200px;
 }
@@ -119,7 +119,7 @@ button:disabled {
 }
 
 .submit {
-    margin-top: 10px;
+    margin-top: 30px;
 }
 
 
@@ -165,7 +165,7 @@ button:disabled {
     background-color: #F74B4C;
 }
 
-.show-booking h3
+ h3
 {
     font-size: 18px;
     text-transform: uppercase;
@@ -187,7 +187,10 @@ button:disabled {
 {
     margin-bottom: 5px;
 }
-
+::placeholder
+{
+    font-size: 14px !important;
+}
 
 .pays 
 {

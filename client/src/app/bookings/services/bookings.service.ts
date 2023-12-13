@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Booking } from '../types/bookings.interfaces';
+import { Booking, Pay } from '../types/bookings.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -50,9 +50,24 @@ export class BookingsService {
     return this.http.post<any[]>('/api/bookings/search-clients', searchData)
   }
 
-
+  // Находим бронь по id
   getById(id: string): Observable<Booking> {
     return this.http.get<Booking>(`/api/bookings/${id}`);
+  }
+
+  
+
+  // Создаем платеж
+  create_pay(pay_1: Pay, pay_2: Pay, pay_3: Pay, pay_4: Pay, pay_5: Pay): Observable<Booking> {
+    
+    const pays = {
+      pay_1: pay_1,
+      pay_2: pay_2,
+      pay_3: pay_3,
+      pay_4: pay_4,
+      pay_5: pay_5,
+    }
+    return this.http.post<Booking>(`/api/bookings/create-pay`, pays);
   }
 
 

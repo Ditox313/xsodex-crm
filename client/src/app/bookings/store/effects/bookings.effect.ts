@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { BookingsService } from '../../services/bookings.service'
-import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction, updateStateBookingsAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from '../actions/bookings.action'
+import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction, updateStateBookingsAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from '../actions/bookings.action'
 
 
 
@@ -187,6 +187,31 @@ export class BookingsEffect {
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               bookingGetCurrentFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+
+  // Проводим платеж
+  bookingPay$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(bookingCreatePayAction),
+      switchMap(({ pay_1, pay_2, pay_3, pay_4, pay_5 }) => {
+        return this.bookings.create_pay(pay_1, pay_2, pay_3, pay_4, pay_5).pipe(
+          map((booking) => {
+            this.messageService.add({ severity: 'success', summary: `Платеж провевен`, detail: 'Успешно!' });
+            return bookingCreatePaySuccessAction({ data: booking });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              bookingCreatePayFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

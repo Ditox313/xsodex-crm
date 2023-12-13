@@ -1,7 +1,7 @@
 import {createAction, props} from '@ngrx/store'
 import {ActionTypes} from 'src/app/bookings/store/actionTypes'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
-import { Booking, BookingsParamsFetch } from '../../types/bookings.interfaces';
+import { Booking, BookingsParamsFetch, Pay } from '../../types/bookings.interfaces';
 
 
 // Add booking
@@ -228,6 +228,29 @@ export const bookingGetCurrentFailureAction = createAction(
 export const bookingGetCurrentReset = createAction(
   ActionTypes.BOOKING_GET_CURRENT_RESET,
 );
+
+
+
+
+
+//Booking create pay
+export const bookingCreatePayAction = createAction(
+  ActionTypes.BOOKING_CREATE_PAY,
+  props<{ pay_1: Pay, pay_2: Pay, pay_3: Pay, pay_4: Pay, pay_5: Pay }>()
+);
+
+
+export const bookingCreatePaySuccessAction = createAction(
+  ActionTypes.BOOKING_CREATE_PAY_SUCCES,
+  props<{ data: Booking }>()
+);
+
+
+export const bookingCreatePayFailureAction = createAction(
+  ActionTypes.BOOKING_GET_CURRENT_FAILURE,
+  props<{ errors: any }>()
+);
+
 
 
 

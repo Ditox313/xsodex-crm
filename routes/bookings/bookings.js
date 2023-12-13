@@ -30,6 +30,10 @@ router.post('/search-clients', passport.authenticate('jwt', { session: false }),
 router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
 
 
+// Роут на создание платежа
+router.post('/create-pay', passport.authenticate('jwt', { session: false }), controller.create_pay);
+
+
 // Роут на update
 // router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.update);
 
