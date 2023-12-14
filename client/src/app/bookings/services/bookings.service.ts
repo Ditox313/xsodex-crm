@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Booking, Pay } from '../types/bookings.interfaces';
+import { Act, Booking, Pay } from '../types/bookings.interfaces';
 import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 import { ClientLaw } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 
@@ -87,6 +87,15 @@ export class BookingsService {
   // Получаем клиента для акта
   currentClientForAct(id: string | undefined): Observable<ClientFiz | ClientLaw> {
     return this.http.get<ClientFiz | ClientLaw>(`/api/bookings/current-client-for-booking/${id}`);
+  }
+
+
+
+
+
+  // Создаем акт для брони
+  addActBooking( act: Act): Observable<Act> {
+    return this.http.post<Act>(`/api/bookings/add-act-booking`, act);
   }
 
 

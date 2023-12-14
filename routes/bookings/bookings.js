@@ -44,6 +44,10 @@ router.get('/pays/:id', passport.authenticate('jwt', { session: false }), contro
 router.get('/current-client-for-booking/:id', passport.authenticate('jwt', { session: false }), controller.currentClientForAct);
 
 
+// Роут на создание акта для брони
+router.post('/add-act-booking', passport.authenticate('jwt', { session: false }), controller.addActBooking);
+
+
 // Роут на update
 // router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.update);
 

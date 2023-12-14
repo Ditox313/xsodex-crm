@@ -96,3 +96,20 @@ export interface Pay {
     userId?: string,
     date?: string,
 }
+
+
+
+
+
+
+//Интерфейс для акта брони
+export interface Act {
+    _id?: string,
+    date?: string,
+    act_number: string,
+    userId: string | undefined,
+    content: string,
+    clientId: string | undefined,
+    bookingId: string | undefined,
+    smenaId: string | undefined
+}

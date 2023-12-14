@@ -2,7 +2,7 @@ const Booking = require('../../models/bookings/Booking.js');
 const ClientFiz = require('../../models/clients/clientsFiz/ClientFiz.js');
 const ClientLaw = require('../../models/clients/clientsLaw/ClientLaw.js');
 const Pay = require('../../models/bookings/Pay.js');
-// const Dogovor = require('../../../models/clients/clientsFiz/Dogovor.js');
+const Act = require('../../models/bookings/Act.js');
 const errorHandler = require('../../Utils/errorHendler.js');
 const fs = require('fs');
 const path = require('path');
@@ -151,6 +151,12 @@ module.exports.remove = async function (req, res) {
         const paysList = await Pay.find({ bookingId: req.params.id })
         paysList.forEach(async (pay) => {
             await Pay.deleteOne({ _id: pay._id });
+        });
+
+        // Удаляем акты
+        const actsList = await Act.find({ bookingId: req.params.id })
+        actsList.forEach(async (act) => {
+            await Act.deleteOne({ _id: act._id });
         });
 
         if (result.deletedCount === 1) {
@@ -313,6 +319,28 @@ module.exports.currentClientForAct = async function (req, res) {
 
 
 
+
+
+
+// Контроллер для создания акта для брони
+module.exports.addActBooking = async function (req, res) {
+    try {
+
+        const act = await new Act({
+            act_number: req.body.act_number,
+            userId: req.body.userId,
+            content: req.body.content,
+            clientId: req.body.clientId,
+            bookingId: req.body.bookingId,
+            smenaId: req.body.smenaId
+        }).save();
+
+
+        res.status(201).json(act);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 

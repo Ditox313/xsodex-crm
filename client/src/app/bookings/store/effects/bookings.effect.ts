@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { BookingsService } from '../../services/bookings.service'
-import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, currentClientForActAction, currentClientForActFailureAction, currentClientForActSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction, paysListAction, paysListFailureAction, paysListSuccessAction, updateStateBookingsAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from '../actions/bookings.action'
+import { addActBookingAction, addActBookingFailureAction, addActBookingSuccessAction, addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, currentClientForActAction, currentClientForActFailureAction, currentClientForActSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction, paysListAction, paysListFailureAction, paysListSuccessAction, updateStateBookingsAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from '../actions/bookings.action'
 
 
 
@@ -269,6 +269,34 @@ export class BookingsEffect {
 
 
 
+
+
+
+
+
+
+  // Создание акт для брони
+  addActBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addActBookingAction),
+      switchMap(({act }) => {
+        return this.bookings.addActBooking( act).pipe(
+          map((act) => {
+            this.messageService.add({ severity: 'success', summary: `Акт создан`, detail: 'Успешно!' });
+            this.router.navigate(['/show-booking', act.bookingId]);
+            return addActBookingSuccessAction();
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              addActBookingFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
   
 
 
@@ -296,30 +324,6 @@ export class BookingsEffect {
   //     })
   //   )
   // );
-
-
-
-
-
-  // Получение всех партнеров без параметров
-  // partnersNoParamsList$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(partnersListNoParamsAction),
-  //     concatMap((params) => {
-  //       return this.partners.getAllPartnersNoParams().pipe(
-  //         concatMap((partnersList) => {
-  //           return of(partnersListNoParamsSuccessAction({ data: partnersList }));
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             partnersListNoParamsFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
-
 
 
 

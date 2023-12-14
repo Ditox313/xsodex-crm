@@ -3,7 +3,7 @@
 <loader *ngIf="isLoadingSelector$ | async"></loader>
 
 
-
+<form [formGroup]="form" (ngSubmit)="createAct()">
 <div class="add-act-booking" #content *ngIf="currentBooking && currentClient && currentCar && currentUser">
     <div>
         <strong> </strong>
@@ -1327,4 +1327,10 @@
 
         </tbody>
     </table>
+
+
+
+    <button type="submit" class="submit" [disabled]="form.invalid" (click)="generatePDF()"><i class="pi pi-check"></i>Сохранить</button>
 </div>
+
+</form>

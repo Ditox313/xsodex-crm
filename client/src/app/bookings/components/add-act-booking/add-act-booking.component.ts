@@ -5,9 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { currentClientForAct, getCurrentBookingSelector, isLoadingSelector } from '../../store/selectors';
-import { Booking } from '../../types/bookings.interfaces';
+import { Act, Booking } from '../../types/bookings.interfaces';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
-import { bookingGetCurrent, bookingGetCurrentReset, currentClientForActAction, currentClientForActResetAction } from '../../store/actions/bookings.action';
+import { addActBookingAction, bookingGetCurrent, bookingGetCurrentReset, currentClientForActAction, currentClientForActResetAction } from '../../store/actions/bookings.action';
 import { Smena } from 'src/app/smena/types/smena.interfaces';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
@@ -244,6 +244,18 @@ export class AddActBookingComponent {
 
 
 
+  // Генерируем PDF
+  generatePDF() {
+    var html = htmlToPdfmake(this.content.nativeElement.innerHTML);
+
+    let docDefinition = {
+      content: [html],
+      filename: 'Договор для брони'+ '.pdf'
+    };
+
+    pdfMake.createPdf(docDefinition).download();
+
+  } 
 
 
 
@@ -251,18 +263,20 @@ export class AddActBookingComponent {
 
 
 
-  onSubmit() {
 
-    // const pay_5: Pay = {
-    //   type: 'Прием авто',
-    //   pricePay: this.form.value.place_end_price || 0,
-    //   typeMoney: this.form.value.typePayArenda,
-    //   bookingId: this.bookingId,
-    //   smenaId: this.currentSmema?._id,
-    //   userId: this.currentUser?._id
-    // };
 
-    // this.store.dispatch(bookingCreatePayAction({ pay_1, pay_2, pay_3, pay_4, pay_5 }))
+  // Создаем договор
+  createAct() {
+    const act: Act = {
+      act_number: this.xs_actual_date + '/СТС-' + this.currentClient._id,
+      userId: this.currentUser?._id,
+      content: this.content.nativeElement.innerHTML,
+      clientId: this.currentClient._id,
+      bookingId: this.currentBooking?._id,
+      smenaId: this.currentSmema?._id
+    }
+
+    this.store.dispatch(addActBookingAction({ act: act }));
 
   }
 }
