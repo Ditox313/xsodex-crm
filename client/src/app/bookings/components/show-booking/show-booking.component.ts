@@ -62,6 +62,14 @@ export class ShowBookingComponent {
       this.currentUserSub$.unsubscribe();
     }
 
+    if (this.currentSmemaSub$) {
+      this.currentSmemaSub$.unsubscribe();
+    }
+
+    if (this.paysListSub$) {
+      this.paysListSub$.unsubscribe();
+    }
+
     //Отчищаем состояние 
     this.store.dispatch(bookingGetCurrentReset());
     this.store.dispatch(paysListResetAction());

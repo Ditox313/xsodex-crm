@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { BookingsService } from '../../services/bookings.service'
-import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction, paysListAction, paysListFailureAction, paysListSuccessAction, updateStateBookingsAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from '../actions/bookings.action'
+import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, currentClientForActAction, currentClientForActFailureAction, currentClientForActSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction, paysListAction, paysListFailureAction, paysListSuccessAction, updateStateBookingsAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from '../actions/bookings.action'
 
 
 
@@ -175,7 +175,7 @@ export class BookingsEffect {
 
 
 
-  // Получение ттекущей брони
+  // Получение текущей брони
   getCurrentBooking$ = createEffect(() =>
     this.actions$.pipe(
       ofType(bookingGetCurrent),
@@ -242,6 +242,31 @@ export class BookingsEffect {
       })
     )
   );
+
+
+
+
+
+
+  // Получение клиента для акта брони
+  currentClientForAct$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(currentClientForActAction),
+      switchMap((id) => {
+        return this.bookings.currentClientForAct(id.id).pipe(
+          map((client) => {
+            return currentClientForActSuccessAction({ data: client });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              currentClientForActFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
 
 
   

@@ -1,4 +1,6 @@
 import { Car } from "src/app/cars/types/cars.interfaces"
+import { ClientFiz } from "src/app/clients/types/clientsFiz/clientsFiz.interfaces"
+import { ClientLaw } from "src/app/clients/types/clientsLaw/clientsLaw.interfaces"
 
 
 //Интерфейс для брони
@@ -67,6 +69,7 @@ export interface BookingsStateInterface {
     noMoreClientsList: boolean,
     searchList: any[] | null,
     paysList?: Pay[] | null | undefined | any,
+    currentClientForAct: ClientFiz | ClientLaw | null | undefined
 }
 
 

@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Booking, Pay } from '../types/bookings.interfaces';
+import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
+import { ClientLaw } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -77,6 +79,16 @@ export class BookingsService {
   getAllPays(id: string | undefined): Observable<Pay[]> {
     return this.http.get<Pay[]>(`/api/bookings/pays/${id}`);
   }
+
+
+
+
+
+  // Получаем клиента для акта
+  currentClientForAct(id: string | undefined): Observable<ClientFiz | ClientLaw> {
+    return this.http.get<ClientFiz | ClientLaw>(`/api/bookings/current-client-for-booking/${id}`);
+  }
+
 
 
 

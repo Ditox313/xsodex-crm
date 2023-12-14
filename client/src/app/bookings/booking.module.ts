@@ -29,6 +29,7 @@ import { AllClientsSearchComponent } from './components/all-clients-search/all-c
 import { ClientsModule } from '../clients/clients.module';
 import { ShowBookingComponent } from './components/show-booking/show-booking.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { AddActBookingComponent } from './components/add-act-booking/add-act-booking.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { DropdownModule } from 'primeng/dropdown';
     AddBookingComponent,
     AllClientsSearchComponent,
     ShowBookingComponent,
+    AddActBookingComponent,
   ],
   imports: [
     CommonModule,

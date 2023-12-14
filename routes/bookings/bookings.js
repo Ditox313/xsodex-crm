@@ -39,6 +39,11 @@ router.post('/create-pay', passport.authenticate('jwt', { session: false }), con
 router.get('/pays/:id', passport.authenticate('jwt', { session: false }), controller.paysBooking);
 
 
+
+// Роут на получение клиента для акта
+router.get('/current-client-for-booking/:id', passport.authenticate('jwt', { session: false }), controller.currentClientForAct);
+
+
 // Роут на update
 // router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.update);
 

@@ -129,10 +129,6 @@ module.exports.search = async function (req, res) {
         }
 
 
-
-        // search = await ClientLaw.find({ name: { $regex: new RegExp('^' + req.body.searchData.data + '.*', 'i') } }).exec();
-        // search = search.slice(0, 10);
-
         res.status(200).json(searchResult);
     } catch (e) {
         errorHandler(res, e);
@@ -293,6 +289,26 @@ module.exports.paysBooking= async function (req, res) {
     }
 };
 
+
+
+
+
+
+// Контроллер для получения клиента для акта брони
+module.exports.currentClientForAct = async function (req, res) {
+    try {
+        const result = [];
+        let client = await ClientFiz.findOne({ _id: req.params.id });
+        if (!client) {
+            client = await ClientLaw.findOne({ _id: req.params.id });
+        }
+        result.push(client);
+
+        res.status(200).json(result[0]);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 

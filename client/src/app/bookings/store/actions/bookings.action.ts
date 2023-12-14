@@ -2,6 +2,8 @@ import {createAction, props} from '@ngrx/store'
 import {ActionTypes} from 'src/app/bookings/store/actionTypes'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { Booking, BookingsParamsFetch, Pay } from '../../types/bookings.interfaces';
+import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
+import { ClientLaw } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 
 
 // Add booking
@@ -281,6 +283,38 @@ export const paysListFailureAction = createAction(
 export const paysListResetAction = createAction(
   ActionTypes.PAYS_LIST_RESET,
 );
+
+
+
+
+
+
+
+
+
+// Current client for act
+export const currentClientForActAction = createAction(
+  ActionTypes.CURRENT_CLIENT_FOR_ACT,
+  props<{ id: string | undefined }>()
+);
+
+
+export const currentClientForActSuccessAction = createAction(
+  ActionTypes.CURRENT_CLIENT_FOR_ACT_SUCCES,
+  props<{ data: ClientFiz | ClientLaw }>()
+);
+
+
+export const currentClientForActFailureAction = createAction(
+  ActionTypes.CURRENT_CLIENT_FOR_ACT_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const currentClientForActResetAction = createAction(
+  ActionTypes.CURRENT_CLIENT_FOR_ACT_RESET,
+);
+
 
 
 

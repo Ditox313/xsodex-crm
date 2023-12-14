@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { BookingsStateInterface } from '../types/bookings.interfaces';
-import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentReset, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListResetAction, bookingsListSuccessAction, changeCleintForBookingAction, changeCleintForBookingResetAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListResetAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchResetAction, clientsSearchSuccessAction, noMoreBookingsListAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction, noMoreClientsForSearchListAction, noMoreClientsForSearchListFalseAction, noMoreClientsForSearchListTrueAction, paysListAction, paysListFailureAction, paysListResetAction, paysListSuccessAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from './actions/bookings.action';
+import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentReset, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListResetAction, bookingsListSuccessAction, changeCleintForBookingAction, changeCleintForBookingResetAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListResetAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchResetAction, clientsSearchSuccessAction, currentClientForActAction, currentClientForActFailureAction, currentClientForActResetAction, currentClientForActSuccessAction, noMoreBookingsListAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction, noMoreClientsForSearchListAction, noMoreClientsForSearchListFalseAction, noMoreClientsForSearchListTrueAction, paysListAction, paysListFailureAction, paysListResetAction, paysListSuccessAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from './actions/bookings.action';
 
 
 
@@ -17,7 +17,8 @@ const initialState: BookingsStateInterface = {
   clients: null,
   noMoreClientsList: true,
   searchList: null,
-  paysList: null
+  paysList: null,
+  currentClientForAct: null
 };
 
 
@@ -243,6 +244,7 @@ const bookingsReducer = createReducer(
       clients: action.data.bookings.clients,
       searchList: action.data.bookings.searchList,
       paysList: action.data.bookings.paysList,
+      currentClientForAct: action.data.bookings.currentClientForAct,
     }),
   ),
   on(
@@ -438,6 +440,47 @@ const bookingsReducer = createReducer(
     (state): BookingsStateInterface => ({
       ...state,
       paysList: null,
+    })
+  ),
+
+
+
+
+
+
+
+
+  on(
+    currentClientForActAction,
+    (state): BookingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    currentClientForActSuccessAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      currentClientForAct: action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    currentClientForActFailureAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    currentClientForActResetAction,
+    (state): BookingsStateInterface => ({
+      ...state,
+      currentClientForAct: null,
     })
   ),
 

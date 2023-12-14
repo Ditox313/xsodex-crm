@@ -65,4 +65,10 @@ export const paysListSelector = createSelector(
 
 
 
+export const currentClientForAct = createSelector(
+    bookingsFeatureSelector,
+    (state: BookingsStateInterface) => state.currentClientForAct
+)
+
+
 
