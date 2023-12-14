@@ -25,8 +25,11 @@ import * as  pdfFonts from "pdfmake/build/vfs_fonts";
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 import htmlToPdfmake from "html-to-pdfmake"
 import { Car } from 'src/app/cars/types/cars.interfaces';
-import { carGetCurrent } from 'src/app/cars/store/actions/cars.action';
+import { carGetCurrent, carGetCurrentReset } from 'src/app/cars/store/actions/cars.action';
 import { getCurrentCarSelector } from 'src/app/cars/store/selectors';
+import { SettingAvtopark } from 'src/app/settings/types/settings.interfaces';
+import { settingsAvtoparkListAction, settingsAvtoparkListResetAction } from 'src/app/settings/store/actions/settings.action';
+import { settingsAvtoparkListSelector } from 'src/app/settings/store/selectors';
 
 
 @Component({
@@ -54,12 +57,19 @@ export class AddActBookingComponent {
   
   currentClientSelector!: Observable<ClientFiz | ClientLaw | null | undefined>
   currentClientSub$!: Subscription
-  currentClient!: ClientFiz | ClientLaw | null | undefined
+  currentClient!: ClientFiz | ClientLaw | null | undefined | any
 
 
   currentCarSelector!: Observable<Car | null | undefined>
   currentCarSub$!: Subscription
   currentCar!: Car | null | undefined
+
+
+
+  settingsAvtoparkListSelector!: Observable<SettingAvtopark[] | null | undefined>
+  settingsAvtoparkListSub$!: Subscription
+  settingsAvtoparkList: SettingAvtopark[] | null | undefined = [];
+  settingAvnoprokat: any
 
   title: string = ''
   getParamsSub$!: Subscription
@@ -99,14 +109,17 @@ export class AddActBookingComponent {
       this.currentClientSub$.unsubscribe();
     }
 
-    if (this.currentCarSub$) {
-      this.currentCarSub$.unsubscribe();
+    
+    
+    if (this.settingsAvtoparkListSub$) {
+      this.settingsAvtoparkListSub$.unsubscribe();
     }
 
     //Отчищаем состояние 
     this.store.dispatch(bookingGetCurrentReset());
     this.store.dispatch(currentClientForActResetAction());
-
+    this.store.dispatch(carGetCurrentReset());
+    this.store.dispatch(settingsAvtoparkListResetAction());
   }
 
 
@@ -138,6 +151,8 @@ export class AddActBookingComponent {
     //Отчищаем состояние 
     this.store.dispatch(bookingGetCurrentReset());
     this.store.dispatch(currentClientForActResetAction());
+    this.store.dispatch(carGetCurrentReset());
+    this.store.dispatch(settingsAvtoparkListResetAction());
 
 
     //Отправляем запрос на получение текущей брони
@@ -204,12 +219,26 @@ export class AddActBookingComponent {
 
         if (currentCar)
         {
-          console.log('444', currentCar);  
-
           this.price_ocenka = convertNumberToWordsRu(currentCar.price_ocenka)
         }
       }
     })
+
+
+    // Получаем настройки автопарка
+    this.store.dispatch(settingsAvtoparkListAction({ params: {} }));
+    this.settingsAvtoparkListSelector = this.store.pipe(select(settingsAvtoparkListSelector))
+    this.settingsAvtoparkListSub$ = this.settingsAvtoparkListSelector.subscribe({
+      next: (settingsAvtoparkList) => {
+        if (settingsAvtoparkList) {
+          this.settingsAvtoparkList = settingsAvtoparkList;
+          this.settingAvnoprokat = settingsAvtoparkList[0]
+          console.log('666', this.settingAvnoprokat);
+          
+        }
+      }
+    });
+    
   }
 
 

@@ -164,8 +164,6 @@ export class AddBookingComponent {
 
     // Получаем настройки автопарка
     this.store.dispatch(settingsAvtoparkListAction({ params: {} }));
-
-
     this.settingsAvtoparkListSelector = this.store.pipe(select(settingsAvtoparkListSelector))
     this.settingsAvtoparkListSub$ = this.settingsAvtoparkListSelector.subscribe({
       next: (settingsAvtoparkList) => {

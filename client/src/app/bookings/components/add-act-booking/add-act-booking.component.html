@@ -126,82 +126,28 @@
                                 </div>
                             </div>
 
-                            <div>
-                                <div valign="top">
+                            <div *ngFor="let item of currentCar.tarif_gorod.slice(0, currentCar.tarif_gorod.length - 2)"> 
+                                <div valign="top" *ngIf="item[0] !== ''">
                                     <div width="6">
                                     </div>
                                     <div width="344">
-                                        <div align="left"  style="background-color: red;">
-                                            тариф 1 рублей <strong>(1-2 суток)</strong>
+                                        <div align="left">
+                                            {{item[1]}} руб <strong>({{item[0]}} суток)</strong>
                                         </div>
                                     </div>
                                     <div colspan="2" width="225">
                                     </div>
                                 </div>
-                                <div valign="top">
-                                    <div width="6" height="1">
-                                    </div>
-                                    <div width="344">
-                                        <div align="left"  style="background-color: red;">
-                                            траиф 2 рублей <strong>(3-7 суток)</strong>
-                                        </div>
-                                    </div>
-                                    <div width="4">
-                                    </div>
-                                </div>
-
-
                             </div>
 
                             <div>
-                                <div valign="top">
+
+                                <div valign="top" *ngIf="currentCar.tarif_gorod[10][1] !== ''">
                                     <div width="6">
                                     </div>
                                     <div width="344">
-                                        <div align="left"  style="background-color: red;">
-                                            тариф 3 рублей <strong>(8-14 суток)</strong>
-                                        </div>
-                                    </div>
-                                    <div width="4">
-                                    </div>
-                                    <div width="203">
-                                    </div>
-                                </div>
-                                <div valign="top">
-                                    <div width="6" height="1">
-                                    </div>
-                                    <div width="344">
-                                        <div align="left"  style="background-color: red;">
-                                            тариф 4 рублей <strong>(15-30 суток)</strong>
-                                        </div>
-                                    </div>
-                                    <div width="4">
-                                    </div>
-
-                                </div>
-
-
-                                <div valign="top">
-                                    <div width="6" height="1">
-                                    </div>
-                                    <div width="344">
-                                        <div align="left"  style="background-color: red;">
-                                            тариф 5 рублей <strong>(31+ суток)</strong>
-                                        </div>
-                                    </div>
-                                    <div width="4">
-                                    </div>
-
-                                </div>
-
-
-
-                                <div valign="top">
-                                    <div width="6">
-                                    </div>
-                                    <div width="344">
-                                        <div align="left" style="background-color: red;">
-                                            Залог <strong> залог город руб</strong>
+                                        <div align="left" >
+                                            Залог <strong> {{currentCar.tarif_gorod[10][1]}} руб</strong>
                                         </div>
                                     </div>
                                     <div colspan="2" width="225">
@@ -209,6 +155,10 @@
                                 </div>
                             </div>
                         </div><br>
+
+
+
+
 
                         <div>
                             <div>
@@ -226,25 +176,27 @@
                                     <div width="203">
                                     </div>
                                 </div>
-                                <div valign="top">
-                                    <div width="6" height="1">
-                                    </div>
-                                    <div width="344">
-                                        <div align="left" style="background-color: red;">
-                                            тариф межгород рублей
+
+                                <div *ngFor="let item of currentCar.tarif_mejgorod.slice(0, currentCar.tarif_mejgorod.length - 2)">
+                                    <div valign="top" *ngIf="item[0] !== ''">
+                                        <div width="6">
+                                        </div>
+                                        <div width="344">
+                                            <div align="left">
+                                                {{item[1]}} руб <strong>({{item[0]}} суток)</strong>
+                                            </div>
+                                        </div>
+                                        <div colspan="2" width="225">
                                         </div>
                                     </div>
-                                    <div width="4">
-                                    </div>
-
                                 </div>
 
-                                <div valign="top">
+                                <div valign="top" *ngIf="currentCar.tarif_mejgorod[10][1] !== ''">
                                     <div width="6">
                                     </div>
                                     <div width="344">
-                                        <div align="left" style="background-color: red;">
-                                            Залог <strong> Залог межгород руб</strong>
+                                        <div align="left">
+                                            Залог <strong> {{currentCar.tarif_mejgorod[10][1]}} руб</strong>
                                         </div>
                                     </div>
                                     <div colspan="2" width="225">
@@ -269,28 +221,27 @@
                                     <div width="203">
                                     </div>
                                 </div>
-                                <div valign="top">
-                                    <div width="6">
-                                    </div>
-                                    <div width="344">
-                                        <div align="left" style="background-color: red;">
-                                            тариф Россия рублей
+                                
+                                <div *ngFor="let item of currentCar.tarif_russia.slice(0, currentCar.tarif_russia.length - 2)">
+                                    <div valign="top" *ngIf="item[0] !== ''">
+                                        <div width="6">
+                                        </div>
+                                        <div width="344">
+                                            <div align="left">
+                                                {{item[1]}} руб <strong>({{item[0]}} суток)</strong>
+                                            </div>
+                                        </div>
+                                        <div colspan="2" width="225">
                                         </div>
                                     </div>
-                                    <div width="4">
-                                    </div>
-                                    <div width="203">
-                                    </div>
-                                    <div width="296">
-                                    </div>
                                 </div>
-
-                                <div valign="top">
+                                
+                                <div valign="top" *ngIf="currentCar.tarif_russia[10][1] !== ''">
                                     <div width="6">
                                     </div>
                                     <div width="344">
-                                        <div align="left" style="background-color: red;">
-                                            Залог <strong> Залог Россия руб</strong>
+                                        <div align="left">
+                                            Залог <strong> {{currentCar.tarif_russia[10][1]}} руб</strong>
                                         </div>
                                     </div>
                                     <div colspan="2" width="225">
@@ -317,8 +268,16 @@
                                 <div width="6">
                                 </div>
                                 <div width="344">
-                                    <div align="left" style="background-color: red;">
-                                        Мойка
+                                    <div align="left" *ngIf="currentCar.category === 'Комфорт'">
+                                        {{settingAvnoprokat.washing_avto.komfort}} руб
+                                    </div>
+
+                                    <div align="left"  *ngIf="currentCar.category === 'Бизнес'">
+                                        {{settingAvnoprokat.washing_avto.business}} руб
+                                    </div>
+
+                                    <div align="left"  *ngIf="currentCar.category === 'Премиум'">
+                                        {{settingAvnoprokat.washing_avto.premium}} руб
                                     </div>
                                 </div>
                                 <div width="4">
@@ -333,10 +292,37 @@
                 </td>
             </tr>
 
-            <tr>
+            <tr *ngIf="currentBooking.tarifCheked === 'Город'">
                 <td colspan="9" width="922">
-                    <div align="left" style="background-color: red;">
-                        * Почасовой прокат оплачивается по тарифу <u><strong>цена доп час
+                    <div align="left">
+                        * Почасовой прокат оплачивается по тарифу <u><strong>{{currentBooking.tarif[0].dop_hours_price}}
+                                рублей</strong></u> за каждый час после
+                        расчетного времени до <strong>20:00</strong>. После <strong>20:00</strong> оплата проката
+                        взимается
+                        за одни
+                        полные сутки.
+                    </div>
+                </td>
+            </tr>
+
+            <tr *ngIf="currentBooking.tarifCheked === 'Межгород'">
+                <td colspan="9" width="922">
+                    <div align="left">
+                        * Почасовой прокат оплачивается по тарифу <u><strong>{{currentBooking.tarif[1].dop_hours_price}}
+                                рублей</strong></u> за каждый час после
+                        расчетного времени до <strong>20:00</strong>. После <strong>20:00</strong> оплата проката
+                        взимается
+                        за одни
+                        полные сутки.
+                    </div>
+                </td>
+            </tr>
+
+
+            <tr *ngIf="currentBooking.tarifCheked === 'Россия'">
+                <td colspan="9" width="922">
+                    <div align="left">
+                        * Почасовой прокат оплачивается по тарифу <u><strong>{{currentBooking.tarif[2].dop_hours_price}}
                                 рублей</strong></u> за каждый час после
                         расчетного времени до <strong>20:00</strong>. После <strong>20:00</strong> оплата проката
                         взимается
@@ -347,16 +333,18 @@
             </tr>
         </tbody>
     </table>
-    <div align="justify">
+
+    <div align="justify" *ngIf="currentClient.type === 'fiz'">
         Настоящий акт составлен в двух экземплярах, по одному для каждой стороны,
         при передаче автомобиля по договору проката между: ООО «ВВС-ВЕБ» в лице
         уполномоченного {{currentUser.secondName}} {{currentUser.name}}
         {{currentUser.lastName}}, далее «Арендодатель»
         действующий на основании доверенности №<strong>{{currentUser.doverenostNumber}} </strong>от
-        <strong>{{currentUser.doverenostDate | date : 'd MMMM y'}}г</strong>., и гражданин
+        <strong>{{currentUser.doverenostDate | date : 'dd.MM.yyyy'}}г</strong>., и гражданин
         РФ, {{currentBooking.client.surname}} {{currentBooking.client.name}}
         {{currentBooking.client.lastname}}, далее «Арендатор».
     </div>
+
     <div align="center">
         <strong>Автомобиль:</strong>
     </div>
@@ -1258,7 +1246,7 @@
             </tr>
         </tbody>
     </table>
-    <div align="center">
+    <div align="left">
         <strong>Подписи сторон: </strong>
     </div>
     <table width="947" cellpadding="9" cellspacing="0">
@@ -1267,44 +1255,51 @@
             <col width="459" />
         </colgroup>
         <tbody>
+
+            
             <tr valign="top">
                 <td width="450">
-                    <div align="left">
+         
+                    <div align="left"  *ngIf="currentClient.type === 'fiz'">
                         <strong>
-                            <br />
+                            Арендодатель автомобиль передал: 
                         </strong>
-                        <br />
-                    </div>
-                    <div align="left" style="background-color: red;">
-                        <strong>
-                            Арендодатель автомобиль передал: _______________
-                        </strong>
-                        <!-- /{{currentBooking.client.surname}} {{currentBooking.client.name}}
-                        {{currentBooking.client.lastname}}/ -->
-                        клиент
+                        {{currentClient.surname}} {{currentClient.name}}
+                        {{currentClient.lastname}}/
                         <br />
                         М.П. (подпись) (ФИО)
                     </div>
+
+
+                    <div align="left" *ngIf="currentClient.type === 'law'">
+                        <strong>
+                            Арендодатель автомобиль передал:
+                        </strong>
+                        {{currentClient.short_name}} {{currentClient.name}}
+                        <br />
+                        М.П. (подпись) (ФИО)
+                    </div>
+
                 </td>
+
+
                 <td width="459">
                     <div align="left">
                         <strong>
-                            Арендодатель автомобиль принял: _____________
+                            Арендодатель автомобиль принял: 
                         </strong>
-                        /____________/
                         <br />
                         М.П. (подпись) (ФИО)
                     </div>
                 </td>
             </tr>
+
+
+
+
             <tr valign="top">
                 <td width="450">
-                    <div align="left">
-                        <strong>
-                            <br />
-                        </strong>
-                        <br />
-                    </div>
+
                     <div align="left">
                         <strong>
                             Арендатор автомобиль принял: ________________
@@ -1327,6 +1322,9 @@
                     </div>
                 </td>
             </tr>
+
+
+
         </tbody>
     </table>
 </div>
