@@ -48,6 +48,15 @@ router.get('/current-client-for-booking/:id', passport.authenticate('jwt', { ses
 router.post('/add-act-booking', passport.authenticate('jwt', { session: false }), controller.addActBooking);
 
 
+// Изменяем статус брони когда авто поехало
+router.get('/toggle-status-booking/:id', passport.authenticate('jwt', { session: false }), controller.toggleStatusBooking);
+
+
+
+// Роут на получение акта
+router.get('/current-act/:id', passport.authenticate('jwt', { session: false }), controller.currentAct);
+
+
 // Роут на update
 // router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.update);
 

@@ -172,6 +172,12 @@ const bookingSchema = new Schema({
     },
 
 
+    act: {
+        type: String,
+        default: '',
+        required: false,
+    },
+
     sale: {
         type: Number,
         default: '',

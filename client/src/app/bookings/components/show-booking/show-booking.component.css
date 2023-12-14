@@ -252,3 +252,20 @@ td
     font-size: 12px;
     padding: 7px !important;
 }
+
+
+.managmentActions
+{
+    margin-top: 30px;
+}
+
+.managmentActions span
+{
+    cursor: pointer;
+}
+
+.managmentActions
+{
+    display: flex;
+    justify-content: space-between;
+}

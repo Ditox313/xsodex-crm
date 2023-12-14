@@ -48,6 +48,7 @@ module.exports.create = async function (req, res) {
             comment: req.body.comment,
             status: req.body.status,
             sale: req.body.sale,
+            act: req.body.act,
             userId: req.body.userId,
             order: maxOrder + 1
         }).save();
@@ -336,11 +337,65 @@ module.exports.addActBooking = async function (req, res) {
         }).save();
 
 
+        let actualAct = await Act.findOne({ bookingId: req.body.bookingId });
+
+
+        const bookingUpdate = await Booking.findOneAndUpdate(
+            { _id: req.body.bookingId }, // Ищем по id
+            { $set: { act: actualAct._id } }, // Обновляем только поле "act" с новым значением
+            { new: true } // Вернуть обновленный объект
+        );
+
+
+
         res.status(201).json(act);
     } catch (e) {
         errorHandler(res, e);
     }
 };
+
+
+
+
+
+
+// Изменяем статус брони когда авто поехало
+module.exports.toggleStatusBooking = async function (req, res) {
+    try {
+        const bookingUpdate = await Booking.findOneAndUpdate(
+            { _id: req.params.id }, // Ищем по id
+            { $set: { status: 'В аренде' } }, // Обновляем только поле "act" с новым значением
+            { new: true } // Вернуть обновленный объект
+        );
+
+        res.status(201).json(bookingUpdate);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+// Контроллер для получения акта
+module.exports.currentAct = async function (req, res) {
+    try {
+        let act = await Act.findOne({ _id: req.params.id });
+
+        res.status(200).json(act);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
 
 
 

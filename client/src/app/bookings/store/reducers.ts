@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { BookingsStateInterface } from '../types/bookings.interfaces';
-import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentReset, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListResetAction, bookingsListSuccessAction, changeCleintForBookingAction, changeCleintForBookingResetAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListResetAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchResetAction, clientsSearchSuccessAction, currentClientForActAction, currentClientForActFailureAction, currentClientForActResetAction, currentClientForActSuccessAction, noMoreBookingsListAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction, noMoreClientsForSearchListAction, noMoreClientsForSearchListFalseAction, noMoreClientsForSearchListTrueAction, paysListAction, paysListFailureAction, paysListResetAction, paysListSuccessAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from './actions/bookings.action';
+import { addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentReset, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListResetAction, bookingsListSuccessAction, changeCleintForBookingAction, changeCleintForBookingResetAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListResetAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchResetAction, clientsSearchSuccessAction, currentActAction, currentActFailureAction, currentActResetAction, currentActSuccessAction, currentClientForActAction, currentClientForActFailureAction, currentClientForActResetAction, currentClientForActSuccessAction, noMoreBookingsListAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction, noMoreClientsForSearchListAction, noMoreClientsForSearchListFalseAction, noMoreClientsForSearchListTrueAction, paysListAction, paysListFailureAction, paysListResetAction, paysListSuccessAction, toggleStatusBookingAction, toggleStatusFailureAction, toggleStatusSuccessAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from './actions/bookings.action';
 
 
 
@@ -18,7 +18,8 @@ const initialState: BookingsStateInterface = {
   noMoreClientsList: true,
   searchList: null,
   paysList: null,
-  currentClientForAct: null
+  currentClientForAct: null,
+  currentAct: null
 };
 
 
@@ -481,6 +482,91 @@ const bookingsReducer = createReducer(
     (state): BookingsStateInterface => ({
       ...state,
       currentClientForAct: null,
+    })
+  ),
+
+
+
+
+
+
+
+
+
+
+
+
+  on(
+    toggleStatusBookingAction,
+    (state): BookingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true,
+    })
+  ),
+
+  on(
+    toggleStatusSuccessAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: false,
+      currentBooking: action.booking
+    })
+  ),
+  on(
+    toggleStatusFailureAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  on(
+    currentActAction,
+    (state): BookingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    currentActSuccessAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      currentAct: action.act,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    currentActFailureAction,
+    (state, action): BookingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    currentActResetAction,
+    (state): BookingsStateInterface => ({
+      ...state,
+      currentAct: null,
     })
   ),
 

@@ -341,6 +341,63 @@ export const addActBookingFailureAction = createAction(
 
 
 
+// Toggle status booking
+export const toggleStatusBookingAction = createAction(
+  ActionTypes.TOGGLE_STATUS_BOOKING,
+  props<{ bookingId: string  | undefined}>()
+);
+
+export const toggleStatusSuccessAction = createAction(
+  ActionTypes.TOGGLE_STATUS_BOOKING_SUCCESS,
+  props<{ booking: Booking }>()
+);
+
+
+export const toggleStatusFailureAction = createAction(
+  ActionTypes.TOGGLE_STATUS_BOOKING_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Current client for act
+export const currentActAction = createAction(
+  ActionTypes.CURRENT_ACT,
+  props<{ id: string | undefined }>()
+);
+
+
+export const currentActSuccessAction = createAction(
+  ActionTypes.CURRENT_ACT_SUCCES,
+  props<{ act: Act }>()
+);
+
+
+export const currentActFailureAction = createAction(
+  ActionTypes.CURRENT_ACT_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const currentActResetAction = createAction(
+  ActionTypes.CURRENT_ACT_RESET,
+);
+
+
+
+
+
+
 
 
 // Update Partner

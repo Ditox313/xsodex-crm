@@ -1,7 +1,11 @@
-.add-act-booking {
+.show-act-booking {
     padding: 0 20px;
-    overflow: hidden;
 }
+
+
+
+
+
 
 
 button {
@@ -23,5 +27,4 @@ button:disabled {
 
 .submit {
     margin-top: 30px;
-
 }

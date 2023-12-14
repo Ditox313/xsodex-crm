@@ -311,8 +311,27 @@
                             *ngIf="currentBooking.paidCount > currentBooking.summaFull">Оплачено
                             ({{currentBooking.summaFull - currentBooking.paidCount}} руб)</span>
 
-                        <span class="btn_act_create" [routerLink]="['/add-act-booking', bookingId]">Сформировать акт</span>
+                        <span class="btn_act_create" [routerLink]="['/add-act-booking', bookingId]" *ngIf="!currentBooking.act">Сформировать акт</span>
+                        <span class="btn_act_create" [routerLink]="['/show-act-booking', bookingId]" *ngIf="currentBooking.act">Просмотр акта</span>
                     </div>
+
+                    <div class="managmentActions">
+                        <span class="output_avto" *ngIf="currentBooking.act && currentBooking.status === 'В ожидании'" (click)="carToggleStatus()" title="Выдать авто">
+                            <img src="../../../../assets/img/vidat_avto.png" alt="">
+                        </span>
+
+                        <span title="Продлить бронь" *ngIf="currentBooking.status === 'В аренде'">
+                            <img src="../../../../assets/img/prodlit.png">
+                        </span>
+                        
+                        <span  title="Принять автомобиль" *ngIf="currentBooking.status === 'В аренде'">
+                            <img src="../../../../assets/img/vernut.png">
+                        </span>
+
+                        <span class="edit_avto" title="Редактировать бронь">
+                            <img src="../../../../assets/img/edit_avto.png" alt="">
+                        </span>
+                    </div>    
                 </div>
             </div>
         </div>

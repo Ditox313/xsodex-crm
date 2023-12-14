@@ -72,3 +72,11 @@ export const currentClientForAct = createSelector(
 
 
 
+
+export const getCurrentActSelector = createSelector(
+    bookingsFeatureSelector,
+    (state: BookingsStateInterface) => state.currentAct
+)
+
+
+

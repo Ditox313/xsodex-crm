@@ -101,6 +101,26 @@ export class BookingsService {
 
 
 
+  // Меняем статус брони когда авто поехало
+  toggleStatusBooking(bookingId: string | undefined): Observable<Booking> {
+    return this.http.get<Booking>(`/api/bookings/toggle-status-booking/${bookingId}`);
+  }
+
+
+
+
+  // Получаем текущий акт
+  currentAct(id: string | undefined): Observable<Act> {
+    return this.http.get<Act>(`/api/bookings/current-act/${id}`);
+  }
+
+
+
+
+
+
+
+
   // update(partner: Partner,
   //     file_1?: File,
   //     file_2?: File): Observable<Partner> {

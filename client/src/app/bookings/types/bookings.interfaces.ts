@@ -30,6 +30,7 @@ export interface Booking {
     comment?: string,
     status: string,
     sale: Number,
+    act: '',
     userId: string | undefined,
     order?: Number,
     date?: string
@@ -69,7 +70,8 @@ export interface BookingsStateInterface {
     noMoreClientsList: boolean,
     searchList: any[] | null,
     paysList?: Pay[] | null | undefined | any,
-    currentClientForAct: ClientFiz | ClientLaw | null | undefined
+    currentClientForAct: ClientFiz | ClientLaw | null | undefined,
+    currentAct: Act | null | undefined | any,
 }
 
 

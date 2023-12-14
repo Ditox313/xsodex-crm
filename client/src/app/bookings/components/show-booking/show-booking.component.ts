@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { getCurrentBookingSelector, isLoadingSelector, paysListSelector } from '../../store/selectors';
-import { bookingCreatePayAction, bookingGetCurrent, bookingGetCurrentReset, paysListAction, paysListResetAction } from '../../store/actions/bookings.action';
+import { bookingCreatePayAction, bookingGetCurrent, bookingGetCurrentReset, paysListAction, paysListResetAction, toggleStatusBookingAction } from '../../store/actions/bookings.action';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { Smena } from 'src/app/smena/types/smena.interfaces';
@@ -194,6 +194,14 @@ export class ShowBookingComponent {
     console.log(this.form.value.typePayZalog);
   }
 
+
+
+
+  // Меняем статус брони когда машина поехала
+  carToggleStatus()
+  {
+    this.store.dispatch(toggleStatusBookingAction({ bookingId: this.bookingId }))
+  }
 
 
 

@@ -1093,6 +1093,7 @@ export class AddBookingComponent {
       comment: this.form.value.comment,
       status: 'В ожидании',
       sale: 0,
+      act: '',
       userId: this.currentSmema?.userId,
     }
 
