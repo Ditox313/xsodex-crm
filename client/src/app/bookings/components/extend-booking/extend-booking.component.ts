@@ -8,6 +8,9 @@ import { Store, select } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { Car } from 'src/app/cars/types/cars.interfaces';
+import { getCurrentCarSelector } from 'src/app/cars/store/selectors';
+import { carGetCurrent } from 'src/app/cars/store/actions/cars.action';
 
 @Component({
   selector: 'app-extend-booking',
@@ -22,6 +25,9 @@ export class ExtendBookingComponent {
   currentBookingSelector!: Observable<Booking | null | undefined>
   currentBookingSub$!: Subscription
   currentBooking!: Booking & { client: any } & { car: any } & { tarif: any } & { additional_services: any } | null | undefined;
+  currentCarSelector!: Observable<Car | null | undefined>
+  currentCarSub$!: Subscription
+  currentCar!: Car | null | undefined
   bookingId!: string
   getParamsSub$!: Subscription
 
@@ -91,6 +97,7 @@ export class ExtendBookingComponent {
   initForm() {
     this.form = new FormGroup({
       booking_end: new FormControl('', [Validators.required]),
+      booking_start: new FormControl(''),
       tarif: new FormControl('', [Validators.required]),
     });
 
@@ -99,6 +106,7 @@ export class ExtendBookingComponent {
     {
       this.form.patchValue({
         booking_end: this.currentBooking.booking_end,
+        booking_start: this.currentBooking.booking_start,
         tarif: this.currentBooking.tarifCheked
       })
     } 
@@ -108,8 +116,6 @@ export class ExtendBookingComponent {
   initValues() {
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
 
-
-
     //Отправляем запрос на получение брони
     this.store.dispatch(bookingGetCurrent({ id: this.bookingId }));
 
@@ -118,28 +124,69 @@ export class ExtendBookingComponent {
       next: (currentBooking) => {
         this.currentBooking = currentBooking
 
-
-
         if (currentBooking) {
           this.title = `Продление брони №${currentBooking.order}`
 
+          this.booking.tarif[0].name = this.currentBooking?.tarif[0].name
+          this.booking.tarif[1].name = this.currentBooking?.tarif[1].name
+          this.booking.tarif[2].name = this.currentBooking?.tarif[2].name
+          this.booking.tarif[0].status = this.currentBooking?.tarif[0].status
+          this.booking.tarif[1].status = this.currentBooking?.tarif[1].status
+          this.booking.tarif[2].status = this.currentBooking?.tarif[2].status
+          this.booking.tarif[0].tarif_price = this.currentBooking?.tarif[0].tarif_price
+          this.booking.tarif[1].tarif_price = this.currentBooking?.tarif[1].tarif_price
+          this.booking.tarif[2].tarif_price = this.currentBooking?.tarif[2].tarif_price
+          this.booking.tarif[0].booking_days = this.currentBooking?.tarif[0].booking_days
+          this.booking.tarif[1].booking_days = this.currentBooking?.tarif[1].booking_days
+          this.booking.tarif[2].booking_days = this.currentBooking?.tarif[2].booking_days
+          this.booking.tarif[0].dop_hours = this.currentBooking?.tarif[0].dop_hours
+          this.booking.tarif[1].dop_hours = this.currentBooking?.tarif[1].dop_hours
+          this.booking.tarif[2].dop_hours = this.currentBooking?.tarif[2].dop_hours
+          this.booking.tarif[0].dop_hours_price = this.currentBooking?.tarif[0].dop_hours_price
+          this.booking.tarif[1].dop_hours_price = this.currentBooking?.tarif[1].dop_hours_price
+          this.booking.tarif[2].dop_hours_price = this.currentBooking?.tarif[2].dop_hours_price
+          this.booking.tarif[0].tarif_price = this.currentBooking?.tarif[0].tarif_price
+          this.booking.tarif[1].tarif_price = this.currentBooking?.tarif[1].tarif_price
+          this.booking.tarif[2].tarif_price = this.currentBooking?.tarif[2].tarif_price
+
+
+
+          this.booking.booking_start = currentBooking.booking_start
+          this.booking.tarifCheked = currentBooking.tarifCheked
+          this.booking.arenda = +currentBooking.arenda
+          this.booking.zalog = +currentBooking.zalog,
+          this.booking.custome_zalog = currentBooking.custome_zalog
+          this.booking.place_start = currentBooking.place_start
+          this.booking.place_start_price = +currentBooking.place_start_price
+          this.booking.place_end = currentBooking.place_end
+          this.booking.place_end_price = +currentBooking.place_end_price
+          this.booking.custome_place_start = currentBooking.custome_place_start
+          this.booking.custome_place_end = currentBooking.custome_place_end
+          this.booking.additional_services = currentBooking.additional_services
+          this.booking.additional_services_price = +currentBooking.additional_services_price
+
+
+          //Отправляем запрос на получение текущего автомобиля
+          this.store.dispatch(carGetCurrent({ id: this.currentBooking?.car._id }));
+
+
+
+          // НЕ забудь что при ините не выполняется  this.booking.booking_end = e.target.value !!!!!!!!!!!!!!!!!!!!!!!!!
           
-          // this.booking.car = currentBooking.car
-          // this.booking.tarif = currentBooking.tarif
-          // this.booking.tarifCheked = currentBooking.tarifCheked
-          // this.booking.arenda = +currentBooking.arenda
-          // this.booking.zalog = +currentBooking.zalog,
-          // this.booking.custome_zalog = currentBooking.custome_zalog
-          // this.booking.place_start = currentBooking.place_start
-          // this.booking.place_start_price = +currentBooking.place_start_price
-          // this.booking.place_end = currentBooking.place_end
-          // this.booking.place_end_price = +currentBooking.place_end_price
-          // this.booking.custome_place_start = currentBooking.custome_place_start
-          // this.booking.custome_place_end = currentBooking.custome_place_end
-          // this.booking.additional_services = currentBooking.additional_services
-          // this.booking.additional_services_price = +currentBooking.additional_services_price
 
         }
+      }
+    })
+
+
+
+    
+
+    this.currentCarSelector = this.store.pipe(select(getCurrentCarSelector))
+    this.currentCarSub$ = this.currentCarSelector.subscribe({
+      next: (currentCar) => {
+        this.currentCar = currentCar
+        this.booking.car = this.currentCar
       }
     })
   }
@@ -236,21 +283,17 @@ export class ExtendBookingComponent {
   // Считаем тариф город
   tarifGorod() {
     
-    if(this.currentBooking)
-    {
-      this.booking.tarif[0].status = 'active'
-      this.booking.tarif[1].status = 'no_active'
-      this.booking.tarif[2].status = 'no_active'
-      this.booking.tarif[1].booking_days = 0
-      this.booking.tarif[2].booking_days = 0
-      this.booking.tarif[1].dop_hours = 0
-      this.booking.tarif[2].dop_hours = 0
-      this.booking.tarif[1].dop_hours_price = 0
-      this.booking.tarif[2].dop_hours_price = 0
-      this.booking.tarif[1].tarif_price = 0
-      this.booking.tarif[2].tarif_price = 0
-
-    }
+    this.booking.tarif[0].status = 'active'
+    this.booking.tarif[1].status = 'no_active'
+    this.booking.tarif[2].status = 'no_active'
+    this.booking.tarif[1].booking_days = 0
+    this.booking.tarif[2].booking_days = 0
+    this.booking.tarif[1].dop_hours = 0
+    this.booking.tarif[2].dop_hours = 0
+    this.booking.tarif[1].dop_hours_price = 0
+    this.booking.tarif[2].dop_hours_price = 0
+    this.booking.tarif[1].tarif_price = 0
+    this.booking.tarif[2].tarif_price = 0
     
 
     this.form.patchValue({
