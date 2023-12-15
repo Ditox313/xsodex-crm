@@ -1,0 +1,104 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
+
+
+
+<div class="add-booking">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="add_booking_content">
+            <div class="group_1">
+
+                <fieldset>
+                    <label htmlFor="booking_end">Продлить бронь до</label>
+                    <input type="datetime-local" pInputText id="booking_end" formControlName="booking_end"
+                        placeholder="Введите значение"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_end'].invalid && form.controls['booking_end'].touched}"
+                        (change)="checkedEndBookingDate($event)" />
+
+
+                    <div class="errorValidate"
+                        *ngIf="form.controls['booking_end'].invalid && form.controls['booking_end'].touched">
+                        <p
+                            *ngIf="form.controls['booking_end'].errors && form.controls['booking_end'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <label htmlFor="tarif">Тариф</label>
+                    <select id="tarif" formControlName="tarif"
+                        [ngClass]="{'invalid': form.controls['tarif'].invalid && form.controls['tarif'].touched}"
+                        (ngModelChange)="checkedTarif($event)">
+                        <option value="" disabled selected>Выбрать ↷</option>
+                        <option value="Город">Город</option>
+                        <option value="Межгород">Межгород</option>
+                        <option value="Россия">Россия</option>
+                        <option value="Смешанный">Смешанный</option>
+                    </select>
+
+
+                    <div class="errorValidate" *ngIf="form.controls['tarif'].invalid && form.controls['tarif'].touched">
+                        <p *ngIf="form.controls['tarif'].errors && form.controls['tarif'].errors['required']">
+                            Заполните поле
+                        </p>
+                    </div>
+                </fieldset>
+
+
+
+
+
+
+                <fieldset *ngIf="this.form.value.tarif === 'Смешанный'" style="width: 84%;">
+                    <div class="mixed_tarif">
+                        <div class="checkboxs_row" style="display: flex;">
+                            <div>
+                                <label style="margin-bottom: 0;">
+                                    <div style="margin-bottom: 7px; font-size: 11px;">Город</div>
+                                </label>
+
+                                <label>
+                                    <input type="number" placeholder="..." formControlName="tarif_mixed_gorod_days"
+                                        style="width: 90px;" (ngModelChange)="tarifMixedGorodDays($event)">
+                                </label>
+                            </div>
+
+
+                            <div>
+                                <label>
+                                    <div style="margin-bottom: 7px; font-size: 11px;">Межгород</div>
+                                </label>
+
+                                <label>
+                                    <input type="number" placeholder="..." formControlName="tarif_mixed_mezjgorod_days"
+                                        style="width: 90px;" (ngModelChange)="tarifMixedMejgorodDays($event)">
+                                </label>
+                            </div>
+
+
+                            <div>
+                                <label>
+                                    <div style="margin-bottom: 7px; font-size: 11px;"> Россия</div>
+                                </label>
+
+                                <label>
+                                    <input type="number" placeholder="..." formControlName="tarif_mixed_russia_days"
+                                        style="width: 90px;" (ngModelChange)="tarifMixedRussiaDays($event)">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div *ngIf="errorValidTarifMixedDays" class="errorValidTarifMixedDays">
+                            Кол-во дней выбранных тарифов превышает общее кол-во дней брони
+                        </div>
+                    </div>
+                </fieldset>
+
+            </div>
+        </div>
+
+        <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+    </form>
+</div>

@@ -31,6 +31,7 @@ import { ShowBookingComponent } from './components/show-booking/show-booking.com
 import { DropdownModule } from 'primeng/dropdown';
 import { AddActBookingComponent } from './components/add-act-booking/add-act-booking.component';
 import { ShowActBookingComponent } from './components/show-act-booking/show-act-booking.component';
+import { ExtendBookingComponent } from './components/extend-booking/extend-booking.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ShowActBookingComponent } from './components/show-act-booking/show-act-
     ShowBookingComponent,
     AddActBookingComponent,
     ShowActBookingComponent,
+    ExtendBookingComponent,
   ],
   imports: [
     CommonModule,

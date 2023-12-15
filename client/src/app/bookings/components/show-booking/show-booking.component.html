@@ -320,7 +320,7 @@
                             <img src="../../../../assets/img/vidat_avto.png" alt="">
                         </span>
 
-                        <span title="Продлить бронь" *ngIf="currentBooking.status === 'В аренде'">
+                        <span title="Продлить бронь" *ngIf="currentBooking.status === 'В аренде'"  [routerLink]="['/extend-booking', bookingId]">
                             <img src="../../../../assets/img/prodlit.png">
                         </span>
                         

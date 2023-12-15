@@ -7,6 +7,7 @@ import { AddBookingComponent } from "../components/add-booking/add-booking.compo
 import { ShowBookingComponent } from "../components/show-booking/show-booking.component";
 import { AddActBookingComponent } from "../components/add-act-booking/add-act-booking.component";
 import { ShowActBookingComponent } from "../components/show-act-booking/show-act-booking.component";
+import { ExtendBookingComponent } from "../components/extend-booking/extend-booking.component";
 
 
 
@@ -37,6 +38,10 @@ export function getRoutes(): Route[] {
                 {
                     path: 'show-act-booking/:id',
                     component: ShowActBookingComponent,
+                },
+                {
+                    path: 'extend-booking/:id',
+                    component: ExtendBookingComponent,
                 },
             ],
         },
