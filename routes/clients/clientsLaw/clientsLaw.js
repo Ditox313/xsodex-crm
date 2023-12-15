@@ -50,5 +50,8 @@ router.post('/search-client', passport.authenticate('jwt', { session: false }), 
 // Роут на получение актов для клиента
 router.get('/acts-list/:id', passport.authenticate('jwt', { session: false }), controller.actsForClient);
 
+// Роут на получение броней для клиента
+router.get('/bookings-list/:id', passport.authenticate('jwt', { session: false }), controller.bookingsForClient);
+
 
 module.exports = router;

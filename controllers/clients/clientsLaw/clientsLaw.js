@@ -3,6 +3,7 @@ const Dogovor = require('../../../models/clients/clientsFiz/Dogovor.js');
 const errorHandler = require('../../../Utils/errorHendler.js');
 const Act = require('../../../models/bookings/Act.js');
 const Pay = require('../../../models/bookings/Pay.js');
+const Booking = require('../../../models/bookings/Booking.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -353,6 +354,28 @@ module.exports.actsForClient = async function (req, res) {
 
         // Возвращаем пользователю позиции 
         res.status(200).json(actsList);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
+
+
+
+
+
+// Получаем список броней
+module.exports.bookingsForClient = async function (req, res) {
+    try {
+
+        const bookingsList = await Booking.find({ "client._id": req.params.id }).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+        // Возвращаем пользователю позиции 
+        res.status(200).json(bookingsList);
     } catch (e) {
         errorHandler(res, e);
     }

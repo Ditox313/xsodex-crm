@@ -1,4 +1,4 @@
-import { Act } from "src/app/bookings/types/bookings.interfaces"
+import { Act, Booking } from "src/app/bookings/types/bookings.interfaces"
 
 
 //Интерфейс для клиента Юр/лицо
@@ -51,6 +51,7 @@ export interface ClientLawStateInterface {
     searchList?: ClientLaw[] | null | undefined | any,
     actsLawList: Act[] | null | undefined | any,
     noMoreActsLawList: boolean,
+    bookingsLawList: Booking[] | null | undefined | any,
 }
 
 

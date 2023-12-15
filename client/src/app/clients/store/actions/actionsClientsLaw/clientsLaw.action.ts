@@ -2,7 +2,7 @@ import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { ClientLaw, ClientLawDogovorsParamsFetch, ClientsLawParamsFetch, Dogovor } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 import { ActionTypes } from '../../actionTypes/clientsLaw/actionTypesClientsLaw';
-import { Act } from 'src/app/bookings/types/bookings.interfaces';
+import { Act, Booking } from 'src/app/bookings/types/bookings.interfaces';
 
 
 
@@ -386,4 +386,39 @@ export const noMoreActsListClientLawFalseAction = createAction(
 
 export const noMoreActsListClientLawTrueAction = createAction(
   ActionTypes.NO_MORE_ACTS_LIST_CLIENT_LAW_TRUE,
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Bookings list for clientlaw
+export const bookingsListForClientLawAction = createAction(
+  ActionTypes.BOOKINGS_LIST_FOR_CLIENT_LAW,
+  props<{ params: any }>()
+);
+
+
+export const bookingsListForClientLawSuccessAction = createAction(
+  ActionTypes.BOOKINGS_LIST_FOR_CLIENT_LAW_SUCCES,
+  props<{ data: Booking[] }>()
+);
+
+
+export const bookingsListForClientLawFailureAction = createAction(
+  ActionTypes.BOOKINGS_LIST_FOR_CLIENT_LAW_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const bookingsListForClientLawResetAction = createAction(
+  ActionTypes.BOOKINGS_LIST_FOR_CLIENT_LAW_RESET,
 );

@@ -72,3 +72,10 @@ export const noMoreActsListClientLawActionSelector = createSelector(
 
 
 
+export const bookingsListLawSelector = createSelector(
+    clientsLawFeatureSelector,
+    (state: ClientLawStateInterface) => state.bookingsLawList
+)
+
+
+

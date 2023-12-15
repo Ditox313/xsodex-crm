@@ -1,0 +1,52 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector | async"></loader>
+
+
+<div class="bookings" *ngIf="bookingsList">
+    <p-table [value]="bookingsList" styleClass="p-datatable-gridlines list_table"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>№</th>
+                <th>Создана</th>
+                <th>Статус</th>
+                <th>Автомобиль</th>
+                <th>Клиент</th>
+                <th>Начало</th>
+                <th>Конец</th>
+                <th>Суток</th>
+                <th>Выдача</th>
+                <th>Прием</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-booking>
+            <tr [routerLink]="['/show-booking',booking._id]">
+                <td><strong>{{booking.order}}</strong></td>
+                <td>{{booking.date | date : 'dd.MM.yyyy HH:mm'}}</td>
+                <td *ngIf="booking.status === 'В ожидании'" style="background-color: #FFA500; color: #fff;">
+                    {{booking.status}}</td>
+                <td *ngIf="booking.status === 'В аренде'" style="background-color: #194A9E; color: #fff;">
+                    {{booking.status}}</td>
+                <td *ngIf="booking.status === 'Закрыта'" style="background-color: #FF2400; color: #fff;">
+                    {{booking.status}}</td>
+                <td>{{booking.car.marka}} {{booking.car.model}}({{booking.car.number}})</td>
+                <td *ngIf="booking.client.surname">{{booking.client.surname}} {{booking.client.name}}
+                    {{booking.client.lastname}}</td>
+                <td *ngIf="booking.client.short_name">{{booking.client.short_name}} {{booking.client.name}}</td>
+                <td>{{booking.booking_start | date : 'dd.MM.yyyy HH:mm'}}</td>
+                <td>{{booking.booking_end | date : 'dd.MM.yyyy HH:mm'}}</td>
+                <td>{{booking.booking_days}}</td>
+                <td>{{booking.place_start}}</td>
+                <td>{{booking.place_end}}</td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <div *ngIf="bookingsList.length === 0" class="noMoreBookingsList">
+        <h2>Нет броней...</h2>
+    </div>
+
+</div>
