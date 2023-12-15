@@ -201,6 +201,7 @@ module.exports.create_pay = async function (req, res) {
                 bookingId: req.body.pay_1.bookingId,
                 smenaId: req.body.pay_1.smenaId,
                 userId: req.user._id,
+                clientId: req.body.pay_1.clientId,
             }).save();
         }
         if (+req.body.pay_2.pricePay !== 0)
@@ -212,6 +213,7 @@ module.exports.create_pay = async function (req, res) {
                 bookingId: req.body.pay_2.bookingId,
                 smenaId: req.body.pay_2.smenaId,
                 userId: req.user._id,
+                clientId: req.body.pay_2.clientId,
             }).save();
         }
         if (+req.body.pay_3.pricePay !== 0)
@@ -223,6 +225,7 @@ module.exports.create_pay = async function (req, res) {
                 bookingId: req.body.pay_3.bookingId,
                 smenaId: req.body.pay_3.smenaId,
                 userId: req.user._id,
+                clientId: req.body.pay_3.clientId,
             }).save();
         }
         if (+req.body.pay_4.pricePay !== 0)
@@ -234,6 +237,7 @@ module.exports.create_pay = async function (req, res) {
                 bookingId: req.body.pay_4.bookingId,
                 smenaId: req.body.pay_4.smenaId,
                 userId: req.user._id,
+                clientId: req.body.pay_4.clientId,
             }).save();
         }
         if (+req.body.pay_5.pricePay !== 0)
@@ -245,6 +249,7 @@ module.exports.create_pay = async function (req, res) {
                 bookingId: req.body.pay_5.bookingId,
                 smenaId: req.body.pay_5.smenaId,
                 userId: req.user._id,
+                clientId: req.body.pay_5.clientId,
             }).save();
         }
 
@@ -395,6 +400,15 @@ module.exports.currentAct = async function (req, res) {
         errorHandler(res, e);
     }
 };
+
+
+
+
+
+
+
+
+
 
 
 

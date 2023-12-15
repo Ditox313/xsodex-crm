@@ -58,6 +58,17 @@ export const clientsFizSearchSelector = createSelector(
 
 
 
+export const actsListFizSelector = createSelector(
+    clientsFizFeatureSelector,
+    (state: ClientFizStateInterface) => state.actsFizList
+)
+
+
+export const noMoreActsListClientFizActionSelector = createSelector(
+    clientsFizFeatureSelector,
+    (state: ClientFizStateInterface) => state.noMoreActsFizList
+)
+
 
 
 

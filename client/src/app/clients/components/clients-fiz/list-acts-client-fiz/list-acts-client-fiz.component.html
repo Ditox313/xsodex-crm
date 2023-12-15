@@ -1,0 +1,37 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector | async"></loader>
+
+
+<div class="actsList" *ngIf="actsList">
+    <p-table [value]="actsList" styleClass="p-datatable-gridlines list_table"
+        [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Номер акта</th>
+                <th>Дата создания</th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-act>
+            <tr >
+                <td>{{act.act_number}}</td>
+                <td>{{act.date | date : 'dd.MM.yyyy HH:mm'}}</td>
+                <td style="cursor: pointer; text-align: center;" (click)="onDeleteAct($event, act)"><i
+                        class="pi pi-trash"></i></td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
+    <div *ngIf="actsList.length === 0" class="noMoreClientsFizList">
+        <h2>Нет актов для клиента...</h2>
+    </div>
+
+
+    <div class="btn">
+        <p-button label="Загрузить еще..." *ngIf="!(noMoreActsList | async)"
+            (click)="loadmore()"></p-button>
+    </div>
+</div>

@@ -47,4 +47,9 @@ router.get('/get-dogovor/:id', passport.authenticate('jwt', { session: false }),
 router.post('/search-client', passport.authenticate('jwt', { session: false }), controller.search);
 
 
+
+// Роут на получение актов для клиента
+router.get('/acts-list/:id', passport.authenticate('jwt', { session: false }), controller.actsForClient);
+
+
 module.exports = router;

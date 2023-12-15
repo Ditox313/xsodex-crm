@@ -97,6 +97,7 @@ export interface Pay {
     smenaId?: string,
     userId?: string,
     date?: string,
+    clientId: string,
 }
 
 

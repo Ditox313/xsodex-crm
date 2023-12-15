@@ -57,6 +57,9 @@ router.get('/toggle-status-booking/:id', passport.authenticate('jwt', { session:
 router.get('/current-act/:id', passport.authenticate('jwt', { session: false }), controller.currentAct);
 
 
+
+
+
 // Роут на update
 // router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.update);
 

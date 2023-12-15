@@ -1,5 +1,6 @@
 const ClientFiz = require('../../../models/clients/clientsFiz/ClientFiz.js');
 const Dogovor = require('../../../models/clients/clientsFiz/Dogovor.js');
+const Act = require('../../../models/bookings/Act.js');
 const errorHandler = require('../../../Utils/errorHendler.js');
 const fs = require('fs');
 const path = require('path');
@@ -111,7 +112,19 @@ module.exports.remove = async function (req, res) {
         });
 
 
-        // Удаляем партнера
+        // // Удаляем платежи
+        // const paysList = await Pay.find({ bookingId: req.params.id })
+        // paysList.forEach(async (pay) => {
+        //     await Pay.deleteOne({ _id: pay._id });
+        // });
+
+        // // Удаляем акты
+        // const actsList = await Act.find({ bookingId: req.params.id })
+        // actsList.forEach(async (act) => {
+        //     await Act.deleteOne({ _id: act._id });
+        // });
+
+
         const result = await ClientFiz.deleteOne({ _id: req.params.id });
         if (result.deletedCount === 1) {
             res.status(200).json(req.params.id);
@@ -334,3 +347,25 @@ module.exports.search = async function (req, res) {
     }
 
 };
+
+
+
+
+
+
+
+// Получаем список актов дял клиеньта
+module.exports.actsForClient = async function (req, res) {
+    try {
+
+        const actsList = await Act.find({ clientId: req.params.id }).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+        // Возвращаем пользователю позиции 
+        res.status(200).json(actsList);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+

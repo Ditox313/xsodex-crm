@@ -327,6 +327,20 @@
                             </span>
                         </div>
 
+                        <div *ngIf="this.currentClient && this.currentClient.type === 'fiz'">
+                            <span>Клиент:</span>
+                            <span class="booking_info_element">
+                                {{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}}
+                            </span>
+                        </div>
+
+                        <div *ngIf="this.currentClient && this.currentClient.type === 'law'">
+                            <span>Клиент:</span>
+                            <span class="booking_info_element">
+                                {{this.currentClient.short_name}}  {{this.currentClient.name}}
+                            </span>
+                        </div>
+
                         <div>
                             <span>Цена аренды:</span>
                             <span class="booking_info_element">

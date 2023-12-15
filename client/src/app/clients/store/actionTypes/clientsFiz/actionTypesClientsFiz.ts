@@ -46,4 +46,11 @@ export enum ActionTypes {
   CLIENTS_SEARCH_SUCCES = '[ClientsFiz] search clientFiz succes',
   CLIENTS_SEARCH_FAILURE = '[ClientsFiz] search clientFiz failure',
   CLIENTS_SEARCH_RESET = '[ClientsFiz] search clientFiz list reset',
+  ACTS_LIST_FOR_CLIENT_FIZ = '[ClientsFiz] Acts List for client',
+  ACTS_LIST_FOR_CLIENT_FIZ_SUCCES = '[ClientsFiz] Acts List for client succes',
+  ACTS_LIST_FOR_CLIENT_FIZ_FAILURE = '[ClientsFiz] Acts List for client failure',
+  ACTS_LIST_FOR_CLIENT_FIZ_RESET = '[ClientsFiz] Acts List for client reset',
+  NO_MORE_ACTS_LIST_CLIENT_FIZ = '[ClientsFiz] No more acts list for client fiz',
+  NO_MORE_ACTS_LIST_CLIENT_FIZ_FALSE = '[ClientsFiz] No more acts list for client fiz false',
+  NO_MORE_ACTS_LIST_CLIENT_FIZ_TRUE = '[ClientsFiz] No more acts list for client fiz true',
 }

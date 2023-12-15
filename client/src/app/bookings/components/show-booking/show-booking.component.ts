@@ -207,6 +207,10 @@ export class ShowBookingComponent {
 
  onSubmit() {
 
+   console.log(this.currentBooking);
+
+  
+
     // Создаем платежи
     const pay_1: Pay = {
       type: 'Аренда',
@@ -214,7 +218,8 @@ export class ShowBookingComponent {
       typeMoney: this.form.value.typePayArenda,
       bookingId: this.bookingId,
       smenaId: this.currentSmema?._id,
-      userId: this.currentUser?._id
+      userId: this.currentUser?._id,
+      clientId: this.currentBooking?.client._id
     };
 
 
@@ -225,7 +230,8 @@ export class ShowBookingComponent {
       typeMoney: this.form.value.typePayZalog,
       bookingId: this.bookingId,
       smenaId: this.currentSmema?._id,
-      userId: this.currentUser?._id
+      userId: this.currentUser?._id,
+      clientId: this.currentBooking?.client._id
     };
 
     const pay_3: Pay = {
@@ -234,7 +240,8 @@ export class ShowBookingComponent {
       typeMoney: this.form.value.typePayArenda,
       bookingId: this.bookingId,
       smenaId: this.currentSmema?._id,
-      userId: this.currentUser?._id
+      userId: this.currentUser?._id,
+      clientId: this.currentBooking?.client._id
     };
 
 
@@ -244,7 +251,8 @@ export class ShowBookingComponent {
       typeMoney: this.form.value.typePayArenda,
       bookingId: this.bookingId,
       smenaId: this.currentSmema?._id,
-      userId: this.currentUser?._id
+      userId: this.currentUser?._id,
+      clientId: this.currentBooking?.client._id
     };
 
 
@@ -254,7 +262,8 @@ export class ShowBookingComponent {
       typeMoney: this.form.value.typePayArenda,
       bookingId: this.bookingId,
       smenaId: this.currentSmema?._id,
-      userId: this.currentUser?._id
+      userId: this.currentUser?._id,
+      clientId: this.currentBooking?.client._id
     };
 
   this.store.dispatch(bookingCreatePayAction({ pay_1, pay_2, pay_3, pay_4, pay_5}))

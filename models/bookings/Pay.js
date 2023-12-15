@@ -42,7 +42,13 @@ const paySchema = new Schema({
     userId: {
         type: String,
         required: true,
-        default: 1
+    },
+
+
+    // Id client
+    clientId: {
+        type: String,
+        required: true,
     },
 
 

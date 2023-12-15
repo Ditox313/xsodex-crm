@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ClientFiz, Dogovor } from '../../types/clientsFiz/clientsFiz.interfaces';
+import { Act } from 'src/app/bookings/types/bookings.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -178,5 +179,19 @@ export class ClientsFizService {
   // Поиск
   search(searchData: any): Observable<ClientFiz[]> {
     return this.http.post<ClientFiz[]>('/api/clientsFiz/search-client', searchData)
+  }
+
+
+
+
+  // Получаем список актов для клиента
+  actsListForClientFiz(params: any = {}): Observable<Act[]> {
+    console.log(params);
+    
+    return this.http.get<Act[]>(`/api/clientsFiz/acts-list/${params.params.clientId}`, {
+      params: new HttpParams({
+        fromObject: params.params.params
+      })
+    });
   }
 }

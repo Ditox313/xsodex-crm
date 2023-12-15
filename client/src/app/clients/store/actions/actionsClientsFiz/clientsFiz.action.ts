@@ -2,6 +2,7 @@ import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { ActionTypes } from '../../actionTypes/clientsFiz/actionTypesClientsFiz';
 import { ClientFiz, ClientFizDogovorsParamsFetch, ClientsFizParamsFetch, Dogovor } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
+import { Act } from 'src/app/bookings/types/bookings.interfaces';
 
 
 
@@ -342,4 +343,56 @@ export const clientsFizSearchFailureAction = createAction(
 
 export const clientsFizSearchResetAction = createAction(
   ActionTypes.CLIENTS_SEARCH_RESET,
+);
+
+
+
+
+
+
+
+
+
+// Acts list for clientfiz
+export const actsListForClientFizAction = createAction(
+  ActionTypes.ACTS_LIST_FOR_CLIENT_FIZ,
+  props<{ params: ClientFizDogovorsParamsFetch }>()
+);
+
+
+export const actsListForClientFizSuccessAction = createAction(
+  ActionTypes.ACTS_LIST_FOR_CLIENT_FIZ_SUCCES,
+  props<{ data: Act[] }>()
+);
+
+
+export const actsListForClientFizFailureAction = createAction(
+  ActionTypes.ACTS_LIST_FOR_CLIENT_FIZ_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const actsListForClientFizResetAction = createAction(
+  ActionTypes.ACTS_LIST_FOR_CLIENT_FIZ_RESET,
+);
+
+
+
+
+
+
+
+// No more Acts list for clientfiz
+
+export const noMoreActsListClientFizAction = createAction(
+  ActionTypes.NO_MORE_ACTS_LIST_CLIENT_FIZ,
+  props<{ data: boolean }>()
+);
+
+export const noMoreActsListClientFizFalseAction = createAction(
+  ActionTypes.NO_MORE_ACTS_LIST_CLIENT_FIZ_FALSE,
+);
+
+export const noMoreActsListClientFizTrueAction = createAction(
+  ActionTypes.NO_MORE_ACTS_LIST_CLIENT_FIZ_TRUE,
 );

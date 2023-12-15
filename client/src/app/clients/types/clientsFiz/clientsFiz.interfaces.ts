@@ -1,3 +1,4 @@
+import { Act } from "src/app/bookings/types/bookings.interfaces";
 
 
 
@@ -48,9 +49,11 @@ export interface ClientFizStateInterface {
     noMoreClientsFizList: boolean,
     noMoreClientsFizDogovorsList: boolean,
     currentClientFiz: ClientFiz | null | undefined | any,
-    dogovorsList: Dogovor | null | undefined | any
+    dogovorsList: Dogovor | null | undefined | any,
     currentDogovorClientFiz: Dogovor | null | undefined | any,
     searchList?: ClientFiz[] | null | undefined | any,
+    actsFizList: Act | null | undefined | any,
+    noMoreActsFizList: boolean,
 }
 
 
@@ -59,7 +62,8 @@ export interface ClientFizStateInterface {
 // Интерфейс для клиентов запроса на получение всех партнеров
 export interface ClientsFizParamsFetch {
     offset: number | null,
-    limit: number | null
+    limit: number | null,
+    
 }
 
 
