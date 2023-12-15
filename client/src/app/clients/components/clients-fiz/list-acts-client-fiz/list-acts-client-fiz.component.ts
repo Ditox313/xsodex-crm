@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Act } from 'src/app/bookings/types/bookings.interfaces';
-import { actsListForClientFizAction, actsListForClientFizResetAction, noMoreActsListClientFizFalseAction, noMoreActsListClientFizTrueAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
-import { actsListFizSelector, isLoadingSelector, noMoreActsListClientFizActionSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
-import { ClientFizDogovorsParamsFetch, ClientsFizParamsFetch } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
+import { actsListForClientFizAction, actsListForClientFizResetAction, clientFizGetCurrent, noMoreActsListClientFizFalseAction, noMoreActsListClientFizTrueAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { actsListFizSelector, getCurrentClientFizSelector, isLoadingSelector, noMoreActsListClientFizActionSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
+import { ClientFiz, ClientFizDogovorsParamsFetch, ClientsFizParamsFetch } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
 @Component({
   selector: 'app-list-acts-client-fiz',
@@ -21,6 +21,9 @@ export class ListActsClientFizComponent {
   noMoreActsList!: Observable<boolean | null>
   actsListSelector!: Observable<Act[] | null | undefined>
   actsListSub$!: Subscription
+  currentClientFizSelector!: Observable<ClientFiz | null | undefined>
+  currentClientFizSub$!: Subscription
+  currentClientFiz!: ClientFiz | null | undefined
   actsList: Act[] | null | undefined = [];
   getParamsSub$!: Subscription
   clientFizId!: string
@@ -61,9 +64,21 @@ export class ListActsClientFizComponent {
     this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))
 
 
-    // Получаем селектор noMore
-    this.noMoreActsList = this.store.pipe(select(noMoreActsListClientFizActionSelector))
 
+    //Отправляем запрос на получение текущего физического лица
+    this.store.dispatch(clientFizGetCurrent({ id: this.clientFizId }));
+
+    this.currentClientFizSelector = this.store.pipe(select(getCurrentClientFizSelector))
+    this.currentClientFizSub$ = this.currentClientFizSelector.subscribe({
+      next: (currentClientFiz) => {
+        this.currentClientFiz = currentClientFiz
+
+        if (currentClientFiz) {
+          this.title = `Акты для клиента - ${currentClientFiz.surname} ${currentClientFiz.name} ${currentClientFiz.lastname}`
+        }
+
+      }
+    })
 
 
 
@@ -73,9 +88,6 @@ export class ListActsClientFizComponent {
       next: (actsFizList) => {
         if (actsFizList) {
           this.actsList = actsFizList;
-          console.log(this.actsList);
-          
-
 
           if (this.actsList.length >= this.STEP) {
             // Изменяем значение noMoreClientsFizList в состоянии на false что бы открыть кнопку загрузить ещё

@@ -71,4 +71,10 @@ export const noMoreActsListClientFizActionSelector = createSelector(
 
 
 
+export const bookingsListFizSelector = createSelector(
+    clientsFizFeatureSelector,
+    (state: ClientFizStateInterface) => state.bookingsFizList
+)
+
+
 

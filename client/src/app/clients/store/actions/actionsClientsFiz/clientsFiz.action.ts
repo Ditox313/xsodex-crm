@@ -2,7 +2,7 @@ import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { ActionTypes } from '../../actionTypes/clientsFiz/actionTypesClientsFiz';
 import { ClientFiz, ClientFizDogovorsParamsFetch, ClientsFizParamsFetch, Dogovor } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
-import { Act } from 'src/app/bookings/types/bookings.interfaces';
+import { Act, Booking } from 'src/app/bookings/types/bookings.interfaces';
 
 
 
@@ -395,4 +395,34 @@ export const noMoreActsListClientFizFalseAction = createAction(
 
 export const noMoreActsListClientFizTrueAction = createAction(
   ActionTypes.NO_MORE_ACTS_LIST_CLIENT_FIZ_TRUE,
+);
+
+
+
+
+
+
+
+
+// Bookings list for clientfiz
+export const bookingsListForClientFizAction = createAction(
+  ActionTypes.BOOKINGS_LIST_FOR_CLIENT_FIZ,
+  props<{ params: any }>()
+);
+
+
+export const bookingsListForClientFizSuccessAction = createAction(
+  ActionTypes.BOOKINGS_LIST_FOR_CLIENT_FIZ_SUCCES,
+  props<{ data: Booking[] }>()
+);
+
+
+export const bookingsListForClientFizFailureAction = createAction(
+  ActionTypes.BOOKINGS_LIST_FOR_CLIENT_FIZ_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const bookingsListForClientFizResetAction = createAction(
+  ActionTypes.BOOKINGS_LIST_FOR_CLIENT_FIZ_RESET,
 );

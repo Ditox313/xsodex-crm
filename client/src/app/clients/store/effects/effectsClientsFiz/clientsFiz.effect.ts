@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsFizService } from 'src/app/clients/services/clientsFiz/clientsFiz.service'
-import { actsListForClientFizAction, actsListForClientFizFailureAction, actsListForClientFizSuccessAction, addClientFizAction, addClientFizDogovorAction, addClientFizDogovorActionFromBooking, addClientFizDogovorFailureAction, addClientFizDogovorSuccessAction, addClientFizFailureAction, addClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizDogovorDeleteAction, clientFizDogovorDeleteFailureAction, clientFizDogovorDeleteSuccessAction, clientFizDogovorGetCurrent, clientFizDogovorGetCurrentFailureAction, clientFizDogovorGetCurrentSuccessAction, clientFizDogovorsListAction, clientFizDogovorsListFailureAction, clientFizDogovorsListSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, clientsFizSearchAction, clientsFizSearchFailureAction, clientsFizSearchSuccessAction, noMoreActsListClientFizAction, noMoreClientFizDogovorsListAction, noMoreClientsFizListAction, updateClientFizAction, updateClientFizFailureAction, updateClientFizSuccessAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
+import { actsListForClientFizAction, actsListForClientFizFailureAction, actsListForClientFizSuccessAction, addClientFizAction, addClientFizDogovorAction, addClientFizDogovorActionFromBooking, addClientFizDogovorFailureAction, addClientFizDogovorSuccessAction, addClientFizFailureAction, addClientFizSuccessAction, bookingsListForClientFizAction, bookingsListForClientFizFailureAction, bookingsListForClientFizSuccessAction, clientFizDeleteAction, clientFizDeleteFailureAction, clientFizDeleteSuccessAction, clientFizDogovorDeleteAction, clientFizDogovorDeleteFailureAction, clientFizDogovorDeleteSuccessAction, clientFizDogovorGetCurrent, clientFizDogovorGetCurrentFailureAction, clientFizDogovorGetCurrentSuccessAction, clientFizDogovorsListAction, clientFizDogovorsListFailureAction, clientFizDogovorsListSuccessAction, clientFizGetCurrent, clientFizGetCurrentFailureAction, clientFizGetCurrentSuccessAction, clientsFizListAction, clientsFizListFailureAction, clientsFizListSuccessAction, clientsFizSearchAction, clientsFizSearchFailureAction, clientsFizSearchSuccessAction, noMoreActsListClientFizAction, noMoreClientFizDogovorsListAction, noMoreClientsFizListAction, updateClientFizAction, updateClientFizFailureAction, updateClientFizSuccessAction, updateStateClientsFizAction, updateStateClientsFizFailureAction, updateStateClientsFizSuccessAction } from '../../actions/actionsClientsFiz/clientsFiz.action'
 
 
 
@@ -342,6 +342,29 @@ export class ClientsFizEffect {
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               actsListForClientFizFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+  // Получение броней
+  bookingsListForClientFiz$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(bookingsListForClientFizAction),
+      concatMap((params) => {
+        return this.clientsFiz.bookingsListForClientFiz(params).pipe(
+          concatMap((bookings) => {
+            return of(bookingsListForClientFizSuccessAction({ data: bookings }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              bookingsListForClientFizFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

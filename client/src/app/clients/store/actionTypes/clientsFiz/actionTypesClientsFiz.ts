@@ -53,4 +53,8 @@ export enum ActionTypes {
   NO_MORE_ACTS_LIST_CLIENT_FIZ = '[ClientsFiz] No more acts list for client fiz',
   NO_MORE_ACTS_LIST_CLIENT_FIZ_FALSE = '[ClientsFiz] No more acts list for client fiz false',
   NO_MORE_ACTS_LIST_CLIENT_FIZ_TRUE = '[ClientsFiz] No more acts list for client fiz true',
+  BOOKINGS_LIST_FOR_CLIENT_FIZ = '[ClientsFiz] Bookings List for client',
+  BOOKINGS_LIST_FOR_CLIENT_FIZ_SUCCES = '[ClientsFiz] Bookings List for client succes',
+  BOOKINGS_LIST_FOR_CLIENT_FIZ_FAILURE = '[ClientsFiz] Bookings List for client failure',
+  BOOKINGS_LIST_FOR_CLIENT_FIZ_RESET = '[ClientsFiz] Bookings List for client reset',
 }

@@ -3,10 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription, take } from 'rxjs';
 import { Act } from 'src/app/bookings/types/bookings.interfaces';
-import { actsListForClientLawAction, actsListForClientLawResetAction, noMoreActsListClientLawFalseAction, noMoreActsListClientLawTrueAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
-import { actsListLawSelector, isLoadingSelector, noMoreActsListClientLawActionSelector } from 'src/app/clients/store/selectors/clientslaw/selectorsClientsLaw';
+import { actsListForClientLawAction, actsListForClientLawResetAction, clientLawGetCurrent, noMoreActsListClientLawFalseAction, noMoreActsListClientLawTrueAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
+import { actsListLawSelector, getCurrentClientLawSelector, isLoadingSelector, noMoreActsListClientLawActionSelector } from 'src/app/clients/store/selectors/clientslaw/selectorsClientsLaw';
 import { ClientFizDogovorsParamsFetch } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
-import { ClientLawDogovorsParamsFetch } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
+import { ClientLaw, ClientLawDogovorsParamsFetch } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 
 @Component({
   selector: 'app-list-acts-client-law',
@@ -23,6 +23,9 @@ export class ListActsClientLawComponent {
   actsListSelector!: Observable<Act[] | null | undefined>
   actsListSub$!: Subscription
   actsList: Act[] | null | undefined = [];
+  currentClientLawSelector!: Observable<ClientLaw | null | undefined>
+  currentClientLawSub$!: Subscription
+  currentClientLaw!: ClientLaw | null | undefined
   getParamsSub$!: Subscription
   clientLawId!: string
 
@@ -67,11 +70,27 @@ export class ListActsClientLawComponent {
 
 
 
+    //Отправляем запрос на получение текущего Юридичекого лица
+    this.store.dispatch(clientLawGetCurrent({ id: this.clientLawId }));
+
+    this.currentClientLawSelector = this.store.pipe(select(getCurrentClientLawSelector))
+    this.currentClientLawSub$ = this.currentClientLawSelector.subscribe({
+      next: (currentClientLaw) => {
+        this.currentClientLaw = currentClientLaw
+
+        if (currentClientLaw) {
+          this.title = `Акты для клиента - ${currentClientLaw.short_name} ${currentClientLaw.name}`
+        }
+
+      }
+    })
+
+
+
 
     // Получаем акты
     this.actsListSelector = this.store.pipe(
       select(actsListLawSelector),
-
     );
     this.actsListSub$ = this.actsListSelector.subscribe((actsLawList)=>{
       if (actsLawList) {

@@ -1,4 +1,4 @@
-import { Act } from "src/app/bookings/types/bookings.interfaces";
+import { Act, Booking } from "src/app/bookings/types/bookings.interfaces";
 
 
 
@@ -49,11 +49,12 @@ export interface ClientFizStateInterface {
     noMoreClientsFizList: boolean,
     noMoreClientsFizDogovorsList: boolean,
     currentClientFiz: ClientFiz | null | undefined | any,
-    dogovorsList: Dogovor | null | undefined | any,
+    dogovorsList: Dogovor[] | null | undefined | any,
     currentDogovorClientFiz: Dogovor | null | undefined | any,
     searchList?: ClientFiz[] | null | undefined | any,
-    actsFizList: Act | null | undefined | any,
+    actsFizList: Act[] | null | undefined | any,
     noMoreActsFizList: boolean,
+    bookingsFizList: Booking[] | null | undefined | any,
 }
 
 

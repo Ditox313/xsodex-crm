@@ -1,0 +1,25 @@
+.bookings {
+    padding: 0 20px;
+}
+
+.btn {
+    margin-top: 20px;
+}
+
+.noMoreBookingsList {
+    margin-top: 20px;
+}
+
+td {
+    cursor: pointer;
+    padding-bottom: 15px !important;
+    padding-top: 15px !important;
+}
+
+tr {
+    outline: none !important;
+}
+
+tr:hover {
+    background-color: #F8F9FA;
+}

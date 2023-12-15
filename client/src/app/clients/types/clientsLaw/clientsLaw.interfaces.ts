@@ -46,10 +46,10 @@ export interface ClientLawStateInterface {
     noMoreClientsLawList: boolean,
     noMoreClientsLawDogovorsList: boolean,
     currentClientLaw: ClientLaw | null | undefined | any,
-    dogovorsList: Dogovor | null | undefined | any
+    dogovorsList: Dogovor[] | null | undefined | any
     currentDogovorClientLaw: Dogovor | null | undefined | any,
     searchList?: ClientLaw[] | null | undefined | any,
-    actsLawList: Act | null | undefined | any,
+    actsLawList: Act[] | null | undefined | any,
     noMoreActsLawList: boolean,
 }
 

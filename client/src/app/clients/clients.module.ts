@@ -40,6 +40,8 @@ import { AddDogovorClientLawComponent } from './components/clients-law/add-dogov
 import { ShowDogovorClientLawComponent } from './components/clients-law/show-dogovor-client-law/show-dogovor-client-law.component';
 import { ListActsClientFizComponent } from './components/clients-fiz/list-acts-client-fiz/list-acts-client-fiz.component';
 import { ListActsClientLawComponent } from './components/clients-law/list-acts-client-law/list-acts-client-law.component';
+import { ListBookingsClientFizComponent } from './components/clients-fiz/list-bookings-client-fiz/list-bookings-client-fiz.component';
+
 
 
 
@@ -61,6 +63,8 @@ import { ListActsClientLawComponent } from './components/clients-law/list-acts-c
     ShowDogovorClientLawComponent,
     ListActsClientFizComponent,
     ListActsClientLawComponent,
+    ListBookingsClientFizComponent,
+
   ],
   imports: [
     CommonModule,

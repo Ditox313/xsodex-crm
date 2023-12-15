@@ -9,6 +9,7 @@ import { ListDogovorsClientsFizComponent } from "../../components/clients-fiz/li
 import { AddDogovorClientFizComponent } from "../../components/clients-fiz/add-dogovor-client-fiz/add-dogovor-client-fiz.component";
 import { ShowDogovorClientFizComponent } from "../../components/clients-fiz/show-dogovor-client-fiz/show-dogovor-client-fiz.component";
 import { ListActsClientFizComponent } from "../../components/clients-fiz/list-acts-client-fiz/list-acts-client-fiz.component";
+import { ListBookingsClientFizComponent } from "../../components/clients-fiz/list-bookings-client-fiz/list-bookings-client-fiz.component";
 
 
 
@@ -51,6 +52,11 @@ export function getRoutesClientsFiz(): Route[] {
                     path: 'list-acts-client-fiz/:id',
                     component: ListActsClientFizComponent,
                 },
+                {
+                    path: 'list-bookings-client-fiz/:id',
+                    component: ListBookingsClientFizComponent,
+                },
+                
                 
             ],
         },
