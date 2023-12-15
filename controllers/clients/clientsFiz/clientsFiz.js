@@ -1,6 +1,7 @@
 const ClientFiz = require('../../../models/clients/clientsFiz/ClientFiz.js');
 const Dogovor = require('../../../models/clients/clientsFiz/Dogovor.js');
 const Act = require('../../../models/bookings/Act.js');
+const Pay = require('../../../models/bookings/Pay.js');
 const errorHandler = require('../../../Utils/errorHendler.js');
 const fs = require('fs');
 const path = require('path');
@@ -80,8 +81,11 @@ module.exports.remove = async function (req, res) {
     try {
 
         const clientFiz = await ClientFiz.findOne({ _id: req.params.id });
+
         // Удаляем все договоры клиента при удалении
         const dogovors = await Dogovor.deleteMany({ client: req.params.id });
+        const paysList = await Pay.deleteMany({ clientId: req.params.id });
+        const actsList = await Act.deleteMany({ clientId: req.params.id });
 
         fs.unlink(clientFiz.file_1, (err) => {
             if (err) {
@@ -112,17 +116,6 @@ module.exports.remove = async function (req, res) {
         });
 
 
-        // // Удаляем платежи
-        // const paysList = await Pay.find({ bookingId: req.params.id })
-        // paysList.forEach(async (pay) => {
-        //     await Pay.deleteOne({ _id: pay._id });
-        // });
-
-        // // Удаляем акты
-        // const actsList = await Act.find({ bookingId: req.params.id })
-        // actsList.forEach(async (act) => {
-        //     await Act.deleteOne({ _id: act._id });
-        // });
 
 
         const result = await ClientFiz.deleteOne({ _id: req.params.id });
