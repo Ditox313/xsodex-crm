@@ -1,3 +1,4 @@
+import { Act } from "src/app/bookings/types/bookings.interfaces"
 
 
 //Интерфейс для клиента Юр/лицо
@@ -48,6 +49,8 @@ export interface ClientLawStateInterface {
     dogovorsList: Dogovor | null | undefined | any
     currentDogovorClientLaw: Dogovor | null | undefined | any,
     searchList?: ClientLaw[] | null | undefined | any,
+    actsLawList: Act | null | undefined | any,
+    noMoreActsLawList: boolean,
 }
 
 

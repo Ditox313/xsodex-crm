@@ -109,15 +109,4 @@ export class ListActsClientFizComponent {
     this.getActsList();
   }
 
-
-  // Удаление физического лица
-  onDeleteAct(event: Event, act: Act) {
-    event.stopPropagation();
-    const dicision = window.confirm(`Удалить акт?`);
-
-    // if (dicision) {
-    //   this.store.dispatch(clientFizDeleteAction({ id: clientFiz._id }))
-    // }
-  }
-
 }

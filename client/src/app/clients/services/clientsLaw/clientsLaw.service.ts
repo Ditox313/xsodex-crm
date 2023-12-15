@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ClientLaw, Dogovor } from '../../types/clientsLaw/clientsLaw.interfaces';
+import { Act } from 'src/app/bookings/types/bookings.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -176,5 +177,17 @@ export class ClientsLawService {
   // Поиск
   search(searchData: any): Observable<ClientLaw[]> {
     return this.http.post<ClientLaw[]>('/api/clientsLaw/search-client', searchData)
+  }
+
+
+
+
+  // Получаем список актов для клиента
+  actsListForClientLaw(params: any = {}): Observable<Act[]> {
+    return this.http.get<Act[]>(`/api/clientsLaw/acts-list/${params.params.clientId}`, {
+      params: new HttpParams({
+        fromObject: params.params.params
+      })
+    });
   }
 }

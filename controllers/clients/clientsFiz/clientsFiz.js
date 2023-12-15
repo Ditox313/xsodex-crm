@@ -2,6 +2,7 @@ const ClientFiz = require('../../../models/clients/clientsFiz/ClientFiz.js');
 const Dogovor = require('../../../models/clients/clientsFiz/Dogovor.js');
 const Act = require('../../../models/bookings/Act.js');
 const Pay = require('../../../models/bookings/Pay.js');
+const Booking = require('../../../models/bookings/Booking.js');
 const errorHandler = require('../../../Utils/errorHendler.js');
 const fs = require('fs');
 const path = require('path');
@@ -86,6 +87,7 @@ module.exports.remove = async function (req, res) {
         const dogovors = await Dogovor.deleteMany({ client: req.params.id });
         const paysList = await Pay.deleteMany({ clientId: req.params.id });
         const actsList = await Act.deleteMany({ clientId: req.params.id });
+        const bookings = await Booking.deleteMany({ "client._id": req.params.id });
 
         fs.unlink(clientFiz.file_1, (err) => {
             if (err) {

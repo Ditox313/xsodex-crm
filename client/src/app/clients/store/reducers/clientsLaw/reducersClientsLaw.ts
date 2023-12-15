@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { ClientLawStateInterface } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
-import { addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawDogovorDeleteAction, clientLawDogovorDeleteFailureAction, clientLawDogovorDeleteSuccessAction, clientLawDogovorGetCurrent, clientLawDogovorGetCurrentFailureAction, clientLawDogovorGetCurrentReset, clientLawDogovorGetCurrentSuccessAction, clientLawDogovorsListAction, clientLawDogovorsListFailureAction, clientLawDogovorsListResetAction, clientLawDogovorsListSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentReset, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListResetAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchResetAction, clientsLawSearchSuccessAction, noMoreClientLawDogovorsListAction, noMoreClientLawDogovorsListFalseAction, noMoreClientLawDogovorsListTrueAction, noMoreClientsLawListAction, noMoreClientsLawListFalseAction, noMoreClientsLawListTrueAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action';
+import { actsListForClientLawAction, actsListForClientLawFailureAction, actsListForClientLawResetAction, actsListForClientLawSuccessAction, addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawDogovorDeleteAction, clientLawDogovorDeleteFailureAction, clientLawDogovorDeleteSuccessAction, clientLawDogovorGetCurrent, clientLawDogovorGetCurrentFailureAction, clientLawDogovorGetCurrentReset, clientLawDogovorGetCurrentSuccessAction, clientLawDogovorsListAction, clientLawDogovorsListFailureAction, clientLawDogovorsListResetAction, clientLawDogovorsListSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentReset, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListResetAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchResetAction, clientsLawSearchSuccessAction, noMoreActsListClientLawAction, noMoreActsListClientLawFalseAction, noMoreActsListClientLawTrueAction, noMoreClientLawDogovorsListAction, noMoreClientLawDogovorsListFalseAction, noMoreClientLawDogovorsListTrueAction, noMoreClientsLawListAction, noMoreClientsLawListFalseAction, noMoreClientsLawListTrueAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action';
 
 
 
@@ -19,7 +19,9 @@ const initialState: ClientLawStateInterface = {
   dogovorsList: null,
   noMoreClientsLawDogovorsList: true,
   currentDogovorClientLaw: null,
-  searchList: null
+  searchList: null,
+  actsLawList: null,
+  noMoreActsLawList: true
 };
 
 
@@ -176,7 +178,9 @@ const clientsLawReducer = createReducer(
       currentClientLaw: action.data.clientsLaw.currentClientLaw,
       dogovorsList: action.data.clientsLaw.dogovorsList,
       currentDogovorClientLaw: action.data.clientsLaw.currentDogovorClientLaw,
-      searchList: action.data.clientsLaw.searchList
+      searchList: action.data.clientsLaw.searchList,
+      actsLawList: action.data.clientsLaw.actsLawList,
+      noMoreActsLawList: action.data.clientsLaw.noMoreActsLawList,
     }),
   ),
   on(
@@ -405,6 +409,74 @@ const clientsLawReducer = createReducer(
       searchList: null,
     })
   ),
+
+
+
+
+
+
+
+
+
+
+  on(
+    actsListForClientLawAction,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    actsListForClientLawSuccessAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      actsLawList: action.data,
+    })
+  ),
+  on(
+    actsListForClientLawFailureAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    actsListForClientLawResetAction,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      actsLawList: null,
+    })
+  ),
+  on(
+    noMoreActsListClientLawAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      noMoreActsLawList: action.data,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreActsListClientLawFalseAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      noMoreActsLawList: false,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreActsListClientLawTrueAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      noMoreActsLawList: true,
+      isLoading: false,
+    })
+  ),
+
 
 
 

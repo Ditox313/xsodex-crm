@@ -1,6 +1,8 @@
 const ClientLaw = require('../../../models/clients/clientsLaw/ClientLaw.js');
 const Dogovor = require('../../../models/clients/clientsFiz/Dogovor.js');
 const errorHandler = require('../../../Utils/errorHendler.js');
+const Act = require('../../../models/bookings/Act.js');
+const Pay = require('../../../models/bookings/Pay.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -77,8 +79,10 @@ module.exports.remove = async function (req, res) {
     try {
 
         const clientLaw = await ClientLaw.findOne({ _id: req.params.id });
-        // Удаляем все договоры клиента при удалении
+
         const dogovors = await Dogovor.deleteMany({ client: req.params.id });
+        const paysList = await Pay.deleteMany({ clientId: req.params.id });
+        const actsList = await Act.deleteMany({ clientId: req.params.id });
 
         fs.unlink(clientLaw.file_1, (err) => {
             if (err) {
@@ -332,4 +336,24 @@ module.exports.search = async function (req, res) {
         errorHandler(res, e);
     }
 
+};
+
+
+
+
+
+
+// Получаем список актов дял клиеньта
+module.exports.actsForClient = async function (req, res) {
+    try {
+
+        const actsList = await Act.find({ clientId: req.params.id }).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+        // Возвращаем пользователю позиции 
+        res.status(200).json(actsList);
+    } catch (e) {
+        errorHandler(res, e);
+    }
 };

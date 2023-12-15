@@ -4,8 +4,7 @@
 
 
 <div class="actsList" *ngIf="actsList">
-    <p-table [value]="actsList" styleClass="p-datatable-gridlines list_table"
-        [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="actsList" styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
                 <th>Номер акта</th>
@@ -26,9 +25,4 @@
         <h2>Нет актов для клиента...</h2>
     </div>
 
-
-    <div class="btn">
-        <p-button label="Загрузить еще..." *ngIf="!(noMoreActsList | async)"
-            (click)="loadmore()"></p-button>
-    </div>
 </div>

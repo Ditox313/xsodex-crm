@@ -58,6 +58,17 @@ export const clientsLawSearchSelector = createSelector(
 
 
 
+export const actsListLawSelector = createSelector(
+    clientsLawFeatureSelector,
+    (state: ClientLawStateInterface) => state.actsLawList
+)
+
+
+export const noMoreActsListClientLawActionSelector = createSelector(
+    clientsLawFeatureSelector,
+    (state: ClientLawStateInterface) => state.noMoreActsLawList
+)
+
 
 
 

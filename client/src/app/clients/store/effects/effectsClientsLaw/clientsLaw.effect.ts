@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsLawService } from 'src/app/clients/services/clientsLaw/clientsLaw.service'
-import { addClientLawAction, addClientLawDogovorAction, addClientLawDogovorActionFromBooking, addClientLawDogovorFailureAction, addClientLawDogovorSuccessAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawDogovorDeleteAction, clientLawDogovorDeleteFailureAction, clientLawDogovorDeleteSuccessAction, clientLawDogovorGetCurrent, clientLawDogovorGetCurrentFailureAction, clientLawDogovorGetCurrentSuccessAction, clientLawDogovorsListAction, clientLawDogovorsListFailureAction, clientLawDogovorsListSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreClientLawDogovorsListAction, noMoreClientsLawListAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
+import { actsListForClientLawAction, actsListForClientLawFailureAction, actsListForClientLawSuccessAction, addClientLawAction, addClientLawDogovorAction, addClientLawDogovorActionFromBooking, addClientLawDogovorFailureAction, addClientLawDogovorSuccessAction, addClientLawFailureAction, addClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawDogovorDeleteAction, clientLawDogovorDeleteFailureAction, clientLawDogovorDeleteSuccessAction, clientLawDogovorGetCurrent, clientLawDogovorGetCurrentFailureAction, clientLawDogovorGetCurrentSuccessAction, clientLawDogovorsListAction, clientLawDogovorsListFailureAction, clientLawDogovorsListSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreActsListClientLawAction, noMoreClientLawDogovorsListAction, noMoreClientsLawListAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
 
 
 
@@ -320,6 +320,36 @@ export class ClientsLawEffect {
       })
     )
   );
+
+
+
+
+
+
+
+
+  // Получение актов
+  actsListForClientLaw$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actsListForClientLawAction),
+      concatMap((params) => {
+        return this.clientsLaw.actsListForClientLaw(params).pipe(
+          concatMap((acts) => {
+            if (acts.length === 0) {
+              return of(noMoreActsListClientLawAction({ data: true }));
+            }
+            return of(actsListForClientLawSuccessAction({ data: acts }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              actsListForClientLawFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
 
 
 

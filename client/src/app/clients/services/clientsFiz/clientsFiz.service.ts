@@ -186,8 +186,6 @@ export class ClientsFizService {
 
   // Получаем список актов для клиента
   actsListForClientFiz(params: any = {}): Observable<Act[]> {
-    console.log(params);
-    
     return this.http.get<Act[]>(`/api/clientsFiz/acts-list/${params.params.clientId}`, {
       params: new HttpParams({
         fromObject: params.params.params

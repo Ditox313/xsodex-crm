@@ -327,7 +327,7 @@ export class ClientsFizEffect {
 
 
 
-  // Получение всех физических лиц
+  // Получение актов
   actsListForClientFiz$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actsListForClientFizAction),

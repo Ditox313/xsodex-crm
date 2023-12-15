@@ -2,6 +2,7 @@ import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { ClientLaw, ClientLawDogovorsParamsFetch, ClientsLawParamsFetch, Dogovor } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 import { ActionTypes } from '../../actionTypes/clientsLaw/actionTypesClientsLaw';
+import { Act } from 'src/app/bookings/types/bookings.interfaces';
 
 
 
@@ -334,4 +335,55 @@ export const clientsLawSearchFailureAction = createAction(
 
 export const clientsLawSearchResetAction = createAction(
   ActionTypes.CLIENTS_LAW_SEARCH_RESET,
+);
+
+
+
+
+
+
+
+
+// Acts list for clientlaw
+export const actsListForClientLawAction = createAction(
+  ActionTypes.ACTS_LIST_FOR_CLIENT_LAW,
+  props<{ params: ClientLawDogovorsParamsFetch }>()
+);
+
+
+export const actsListForClientLawSuccessAction = createAction(
+  ActionTypes.ACTS_LIST_FOR_CLIENT_LAW_SUCCES,
+  props<{ data: Act[] }>()
+);
+
+
+export const actsListForClientLawFailureAction = createAction(
+  ActionTypes.ACTS_LIST_FOR_CLIENT_LAW_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const actsListForClientLawResetAction = createAction(
+  ActionTypes.ACTS_LIST_FOR_CLIENT_LAW_RESET,
+);
+
+
+
+
+
+
+
+// No more Acts list for clientfiz
+
+export const noMoreActsListClientLawAction = createAction(
+  ActionTypes.NO_MORE_ACTS_LIST_CLIENT_LAW,
+  props<{ data: boolean }>()
+);
+
+export const noMoreActsListClientLawFalseAction = createAction(
+  ActionTypes.NO_MORE_ACTS_LIST_CLIENT_LAW_FALSE,
+);
+
+export const noMoreActsListClientLawTrueAction = createAction(
+  ActionTypes.NO_MORE_ACTS_LIST_CLIENT_LAW_TRUE,
 );

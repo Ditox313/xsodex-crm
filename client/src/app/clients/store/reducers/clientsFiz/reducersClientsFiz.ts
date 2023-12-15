@@ -178,7 +178,9 @@ const clientsFizReducer = createReducer(
       currentClientFiz: action.data.clientsFiz.currentClientFiz,
       dogovorsList: action.data.clientsFiz.dogovorsList,
       currentDogovorClientFiz: action.data.clientsFiz.currentDogovorClientFiz,
-      searchList: action.data.clientsFiz.searchList
+      searchList: action.data.clientsFiz.searchList,
+      actsFizList: action.data.clientsFiz.actsFizList,
+      noMoreActsFizList: action.data.clientsFiz.noMoreActsFizList,
     }),
   ),
   on(
@@ -431,7 +433,7 @@ const clientsFizReducer = createReducer(
       ...state,
       isLoading: false,
       validationErrors: null,
-      actsFizList: state.actsFizList ? [...state.actsFizList, ...action.data] : action.data,
+      actsFizList: action.data,
     })
   ),
   on(
