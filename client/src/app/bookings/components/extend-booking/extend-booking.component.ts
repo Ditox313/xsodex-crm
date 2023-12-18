@@ -745,7 +745,7 @@ export class ExtendBookingComponent {
     }
 
 
-    console.log(booking);
+    
     
 
 
