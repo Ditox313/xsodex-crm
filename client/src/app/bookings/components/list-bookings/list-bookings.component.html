@@ -6,7 +6,7 @@
 <div class="bookings" *ngIf="bookingsList">
     <p-table [value]="bookingsList" styleClass="p-datatable-gridlines list_table"
         [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="caption">
+        <ng-template pTemplate="caption" *ngIf="currentSmema">
             <div class="add_new" [routerLink]="['/add-booking']">
                 <p-button icon="pi pi-plus"></p-button>
             </div>

@@ -1050,7 +1050,7 @@ export class AddBookingComponent {
 
 
 
-
+// Открываем модалку клиента
   modalClientClick()
   {
     this.isVisibleModalClient = !this.isVisibleModalClient

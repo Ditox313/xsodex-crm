@@ -4,6 +4,8 @@ import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { bookingsListSelector, isLoadingSelector, noMoreBookingsList } from '../../store/selectors';
 import { bookingDeleteAction, bookingsListAction, bookingsListResetAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction } from '../../store/actions/bookings.action';
+import { Smena } from 'src/app/smena/types/smena.interfaces';
+import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
 
 @Component({
   selector: 'app-list-bookings',
@@ -20,6 +22,9 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
   bookingsListSelector!: Observable<Booking[] | null | undefined>
   bookingsListSub$!: Subscription
   bookingsList: Booking[] | null | undefined = [];
+  currentSmemaSelector!: Observable<Smena | null | undefined>
+  currentSmemaSub$!: Subscription
+  currentSmema!: Smena | null | undefined
 
 
   constructor(private store: Store) { }
@@ -31,6 +36,10 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.bookingsListSub$) {
       this.bookingsListSub$.unsubscribe();
+    }
+
+    if (this.currentSmemaSub$) {
+      this.currentSmemaSub$.unsubscribe();
     }
 
     // Отчищаем состояние 
@@ -72,6 +81,19 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
         }
       }
     });
+
+
+
+    // Отправляем запрос на получение текущей смены
+    this.currentSmemaSelector = this.store.pipe(select(isOpenedSmenaSelector))
+    this.currentSmemaSub$ = this.currentSmemaSelector.subscribe({
+      next: (currentSmena) => {
+        this.currentSmema = currentSmena
+        console.log(this.currentSmema);
+
+      }
+    })
+
   }
 
 
