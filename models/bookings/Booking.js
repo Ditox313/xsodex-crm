@@ -7,6 +7,13 @@ const Schema = mongoose.Schema;
 const bookingSchema = new Schema({
 
     
+    extends: {
+        type: Array,
+        default: '',
+        required: false,
+    },
+
+
     booking_start: {
         type: String,
         default: '',

@@ -1063,6 +1063,7 @@ export class AddBookingComponent {
   onSubmit() {
 
     const booking: Booking = {
+      extends: [],
       booking_start: this.booking.booking_start,
       booking_end: this.booking.booking_end,
       booking_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days,

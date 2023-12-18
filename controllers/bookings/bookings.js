@@ -24,6 +24,7 @@ module.exports.create = async function (req, res) {
 
 
         const booking = await new Booking({
+            extends: req.body.extends,
             booking_start: req.body.booking_start,
             booking_end: req.body.booking_end,
             booking_days: req.body.booking_days,
