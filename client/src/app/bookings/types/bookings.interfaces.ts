@@ -36,6 +36,21 @@ export interface Booking {
     date?: string
 }
 
+//Интерфейс для брони на продление
+export interface BookingEtend {
+    booking_end: string,
+    booking_days: Number,
+    tarif: Object,
+    tarifCheked: string,
+    zalog: Number,
+    arenda: Number,
+    custome_zalog: boolean,
+    summaFull: number,
+    paidCount: number,
+    sale: Number,
+}
+
+
 //Интерфейс для объекта данных брони 
 export interface BookingData {
     booking_start: string,
