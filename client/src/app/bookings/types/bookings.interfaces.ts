@@ -109,7 +109,7 @@ export interface BookingsParamsFetch {
 export interface Pay {
     _id?: string,
     type: string,
-    pricePay: string,
+    pricePay: string | Number,
     typeMoney: string,
     bookingId?: string,
     smenaId?: string,
