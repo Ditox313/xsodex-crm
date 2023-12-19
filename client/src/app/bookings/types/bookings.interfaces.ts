@@ -68,7 +68,10 @@ export interface BookingData {
     custome_place_end: boolean,
     additional_services: Array<any>,
     additional_services_price: number,
-    tarifCheked: string
+    tarifCheked: string,
+    arendaGorodMixed: number,
+    arendaMejGorodMixed: number,
+    arendaRussiaMixed: number,
 }
 
 

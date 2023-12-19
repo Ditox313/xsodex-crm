@@ -195,12 +195,26 @@
                         <span class="booking_info_element">{{this.booking.place_end}} - {{this.booking.place_end_price}} руб</span>
                     </div>
             
-                    <div>
-                        <span>Залог:</span>
+                    <!-- <div *ngIf="this.currentBooking && this.booking.zalog > this.currentBooking.zalog">
+                        <span>Вернуть залог залога:</span>
                         <span class="booking_info_element">
-                            {{this.booking.zalog}} руб
+                            {{+this.booking.zalog - (+this.currentBooking.zalog)}} руб
                         </span>
                     </div>
+
+                    <div *ngIf="this.currentBooking && this.booking.zalog < this.currentBooking.zalog">
+                        <span>Вернуть залог:</span>
+                        <span class="booking_info_element">
+                            {{+this.currentBooking.zalog - (+this.booking.zalog)}} руб
+                        </span>
+                    </div> -->
+
+                    <!-- <div *ngIf="this.booking.zalog Б this.currentBooking?.zalog">
+                        <span>Вернуть залога:</span>
+                        <span class="booking_info_element">
+                            {{this.currentBooking?.zalog - this.booking.zalog}} руб
+                        </span>
+                    </div> -->
             
                     <div
                         *ngIf="this.booking.additional_services[0].status || this.booking.additional_services[1].status || this.booking.additional_services[2].status 
@@ -250,6 +264,6 @@
             </div>
         </div>
 
-        <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+        <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Продлить</button>
     </form>
 </div>
