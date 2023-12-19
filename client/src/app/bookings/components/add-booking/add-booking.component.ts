@@ -15,6 +15,8 @@ import { MessageService } from 'primeng/api';
 import { Smena } from 'src/app/smena/types/smena.interfaces';
 import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
 import { addBookingAction } from '../../store/actions/bookings.action';
+import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
+import { currentUserSelector } from 'src/app/account/store/selectors';
 
 @Component({
   selector: 'app-add-booking',
@@ -44,6 +46,12 @@ export class AddBookingComponent {
   currentClientSelector!: Observable<any | null | undefined>
   currentClientSub$!: Subscription
   currentClient!: any | null | undefined
+
+
+
+  currentUserSelector!: Observable<UserResponceRegister | null | undefined>
+  currentUserSub$!: Subscription
+  currentUser!: UserResponceRegister | null | undefined
 
 
   booking: BookingData = {
@@ -104,6 +112,12 @@ export class AddBookingComponent {
       this.currentClientSub$.unsubscribe();
     }
 
+    if (this.currentUserSub$) {
+      this.currentUserSub$.unsubscribe();
+    }
+
+    
+
     // Отчищаем состояние carsList
     this.store.dispatch(carsListResetAction());
 
@@ -163,6 +177,16 @@ export class AddBookingComponent {
         }
       }
     });
+
+
+
+    // Получаем пользователя
+    this.currentUserSelector = this.store.pipe(select(currentUserSelector))
+    this.currentUserSub$ = this.currentUserSelector.subscribe({
+      next: (user) => {
+        this.currentUser = user
+      }
+    })
 
 
     // Получаем настройки автопарка
@@ -1125,7 +1149,7 @@ export class AddBookingComponent {
       status: 'В ожидании',
       sale: 0,
       act: '',
-      userId: this.currentSmema?.userId,
+      userId: this.currentUser?._id,
     }
 
     this.store.dispatch(addBookingAction({ booking: booking }))

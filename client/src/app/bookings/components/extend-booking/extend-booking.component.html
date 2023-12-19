@@ -46,11 +46,19 @@
                     </div>
                 </fieldset>
 
-                <fieldset>
-                    <label htmlFor="sale">Скидка</label>
-                    <input pInputText id="sale" formControlName="sale" placeholder="Введите скидку" />
+                <fieldset *ngIf="this.booking.custome_zalog">
+                    <label htmlFor="om">Произвольный залог</label>
+                    <div style="display: flex; height: 43px; margin-top: 15px;">
+                        <!-- <p-checkbox formControlName="custome_zalog" (click)="customeZalogCheck()" value="true"
+                                            inputId="custome_zalog"></p-checkbox> -->
+                
+                        <input *ngIf="this.booking.custome_zalog" type="text" placeholder="Введите сумму"
+                            formControlName="custome_zalog_value" id="custome_zalog_value" style="
+                                                          display: inline-block; margin-top: 0;" (change)="customeZalogValue($event)">
+                    </div>
                 </fieldset>
 
+            
                 <fieldset *ngIf="this.form.value.tarif === 'Смешанный'" style="width: 84%;">
                     <div class="mixed_tarif">
                         <div class="checkboxs_row" style="display: flex;">
@@ -94,19 +102,6 @@
                             Кол-во дней выбранных тарифов превышает общее кол-во дней брони
                         </div>
                     </div>
-
-                    <fieldset style="display: inline-block; margin-top: 50px; " *ngIf="this.booking.custome_zalog">
-                        <label htmlFor="om">Произвольный залог</label>
-                        <div style="display: flex; height: 43px; margin-top: 5px;">
-                            <p-checkbox formControlName="custome_zalog" (click)="customeZalogCheck()" value="true"
-                                inputId="custome_zalog"></p-checkbox>
-                    
-                            <input *ngIf="this.booking.custome_zalog" type="text" placeholder="Введите сумму"
-                                formControlName="custome_zalog_value" id="custome_zalog_value"
-                                style="margin-left: 15px;
-                                                                                                                display: inline-block; margin-top: 0;" (change)="customeZalogValue($event)">
-                        </div>
-                    </fieldset>
                 </fieldset>
             </div>
 
@@ -262,6 +257,21 @@
                     </div> -->
                 </div>
             </div>
+        </div>
+
+        <div>
+            <fieldset>
+                <label htmlFor="pay">Оплата</label>
+                <div style="display: flex; height: 43px; margin-top: 15px;">
+                    <input type="text" placeholder="Введите сумму" formControlName="pay" id="pay"
+                        style="display: inline-block; margin-top: 0;">
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <label htmlFor="sale">Скидка</label>
+                <input pInputText id="sale" formControlName="sale" placeholder="Введите скидку" />
+            </fieldset>
         </div>
 
         <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Продлить</button>
