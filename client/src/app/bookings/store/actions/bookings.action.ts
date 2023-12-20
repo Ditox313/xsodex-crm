@@ -366,10 +366,6 @@ export const toggleStatusFailureAction = createAction(
 
 
 
-
-
-
-
 // Current client for act
 export const currentActAction = createAction(
   ActionTypes.CURRENT_ACT,
@@ -394,6 +390,27 @@ export const currentActResetAction = createAction(
 );
 
 
+
+
+
+
+
+
+// Extend Booking
+export const extendBookingAction = createAction(
+  ActionTypes.EXTEND_BOOKING,
+  props<{ data: any }>()
+);
+
+export const extendBookingSuccessAction = createAction(
+  ActionTypes.EXTEND_BOOKING_SUCCES,
+);
+
+
+export const extendBookingFailureAction = createAction(
+  ActionTypes.EXTEND_BOOKING_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 

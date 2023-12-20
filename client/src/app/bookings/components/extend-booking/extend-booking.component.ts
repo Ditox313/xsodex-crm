@@ -3,14 +3,14 @@ import { Observable, Subscription } from 'rxjs';
 import { Booking, BookingData, BookingEtend, Pay } from '../../types/bookings.interfaces';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { getCurrentBookingSelector, isLoadingSelector } from '../../store/selectors';
-import { bookingGetCurrent, bookingGetCurrentReset } from '../../store/actions/bookings.action';
+import { bookingGetCurrent, bookingGetCurrentReset, extendBookingAction } from '../../store/actions/bookings.action';
 import { Store, select } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Car } from 'src/app/cars/types/cars.interfaces';
 import { getCurrentCarSelector } from 'src/app/cars/store/selectors';
-import { carGetCurrent } from 'src/app/cars/store/actions/cars.action';
+import { carGetCurrent, carGetCurrentReset } from 'src/app/cars/store/actions/cars.action';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { Smena } from 'src/app/smena/types/smena.interfaces';
@@ -113,6 +113,7 @@ export class ExtendBookingComponent {
 
     // Отчищаем состояние
     this.store.dispatch(bookingGetCurrentReset());
+    this.store.dispatch(carGetCurrentReset());
 
   }
 
@@ -130,13 +131,12 @@ export class ExtendBookingComponent {
       tarif: new FormControl('', [Validators.required]),
       sale: new FormControl(0),
       pay: new FormControl(0),
-
-
       custome_zalog: new FormControl(''),
       custome_zalog_value: new FormControl(''),
       tarif_mixed_gorod_days: new FormControl(0),
       tarif_mixed_mezjgorod_days: new FormControl(0),
       tarif_mixed_russia_days: new FormControl(0),
+      typePayArenda: new FormControl('Наличные',),
     });
   }
 
@@ -190,45 +190,6 @@ export class ExtendBookingComponent {
 
 
           console.log('1', this.booking)
-
-
-
-          // this.booking.tarif[0].name = this.currentBooking?.tarif[0].name
-          // this.booking.tarif[1].name = this.currentBooking?.tarif[1].name
-          // this.booking.tarif[2].name = this.currentBooking?.tarif[2].name
-          // this.booking.tarif[0].status = this.currentBooking?.tarif[0].status
-          // this.booking.tarif[1].status = this.currentBooking?.tarif[1].status
-          // this.booking.tarif[2].status = this.currentBooking?.tarif[2].status
-          // this.booking.tarif[0].tarif_price = this.currentBooking?.tarif[0].tarif_price
-          // this.booking.tarif[1].tarif_price = this.currentBooking?.tarif[1].tarif_price
-          // this.booking.tarif[2].tarif_price = this.currentBooking?.tarif[2].tarif_price
-          // this.booking.tarif[0].booking_days = this.currentBooking?.tarif[0].booking_days
-          // this.booking.tarif[1].booking_days = this.currentBooking?.tarif[1].booking_days
-          // this.booking.tarif[2].booking_days = this.currentBooking?.tarif[2].booking_days
-          // this.booking.tarif[0].dop_hours = this.currentBooking?.tarif[0].dop_hours
-          // this.booking.tarif[1].dop_hours = this.currentBooking?.tarif[1].dop_hours
-          // this.booking.tarif[2].dop_hours = this.currentBooking?.tarif[2].dop_hours
-          // this.booking.tarif[0].dop_hours_price = this.currentBooking?.tarif[0].dop_hours_price
-          // this.booking.tarif[1].dop_hours_price = this.currentBooking?.tarif[1].dop_hours_price
-          // this.booking.tarif[2].dop_hours_price = this.currentBooking?.tarif[2].dop_hours_price
-          // this.booking.tarif[0].tarif_price = this.currentBooking?.tarif[0].tarif_price
-          // this.booking.tarif[1].tarif_price = this.currentBooking?.tarif[1].tarif_price
-          // this.booking.tarif[2].tarif_price = this.currentBooking?.tarif[2].tarif_price
-
-
-         
-          // this.booking.tarifCheked = currentBooking.tarifCheked
-          // this.booking.arenda = +currentBooking.arenda
-          // this.booking.zalog = +currentBooking.zalog,
-          // this.booking.custome_zalog = currentBooking.custome_zalog
-          // this.booking.place_start = currentBooking.place_start
-          // this.booking.place_start_price = +currentBooking.place_start_price
-          // this.booking.place_end = currentBooking.place_end
-          // this.booking.place_end_price = +currentBooking.place_end_price
-          // this.booking.custome_place_start = currentBooking.custome_place_start
-          // this.booking.custome_place_end = currentBooking.custome_place_end
-          // this.booking.additional_services = currentBooking.additional_services
-          // this.booking.additional_services_price = +currentBooking.additional_services_price
         }
       }
     })
@@ -297,6 +258,7 @@ export class ExtendBookingComponent {
       this.booking.tarif[1].dop_hours = 0
       this.booking.tarif[2].dop_hours = 0
       this.tarifMixed()
+      this.form.controls['custome_zalog_value'].disable();
     }
 
 
@@ -355,13 +317,6 @@ export class ExtendBookingComponent {
     this.booking.tarif[2].tarif_price = 0
     
 
-    // this.form.patchValue({
-    //   custome_zalog: ['false']
-    // })
-    // this.booking.custome_zalog = false
-
-
-
 
 
     this.booking.zalog = Number(this.booking.car?.tarif_gorod[this.booking.car?.tarif_gorod.length - 2][1])
@@ -410,11 +365,6 @@ export class ExtendBookingComponent {
     this.booking.tarif[2].tarif_price = 0
 
 
-
-    // this.form.patchValue({
-    //   custome_zalog: ['false']
-    // })
-    // this.booking.custome_zalog = false
 
 
 
@@ -465,11 +415,6 @@ export class ExtendBookingComponent {
     this.booking.tarif[1].tarif_price = 0
 
 
-
-    // this.form.patchValue({
-    //   custome_zalog: ['false']
-    // })
-    // this.booking.custome_zalog = false
 
 
 
@@ -597,6 +542,8 @@ export class ExtendBookingComponent {
         pay: this.booking.arenda
       })
 
+      this.form.controls['custome_zalog_value'].enable();
+
       console.log('Смеш-1', this.booking);
     }
     
@@ -662,6 +609,8 @@ export class ExtendBookingComponent {
         pay: this.booking.arenda
       })
 
+      this.form.controls['custome_zalog_value'].enable();
+
       console.log('Смеш-2', this.booking);
     }
   }
@@ -721,6 +670,8 @@ export class ExtendBookingComponent {
         }
       });
 
+      this.form.controls['custome_zalog_value'].enable();
+
 
 
       this.form.patchValue({
@@ -760,6 +711,9 @@ export class ExtendBookingComponent {
 
     }
 
+
+   
+
     console.log(this.booking);
   }
 
@@ -769,12 +723,70 @@ export class ExtendBookingComponent {
     this.booking.zalog = Number(e.target.value)
 
     console.log(this.booking);
+
+
+
+
+    if (this.currentBooking && this.booking.zalog > this.currentBooking?.zalog) {
+      this.form.patchValue({
+        pay: this.booking.arenda + (this.booking.zalog - +this.currentBooking?.zalog) - this.form.value.sale
+      })
+    }
+    else if (this.currentBooking && this.booking.zalog < this.currentBooking?.zalog) {
+      this.form.patchValue({
+        pay: this.booking.arenda + (this.booking.zalog - +this.currentBooking?.zalog) - this.form.value.sale
+      })
+    }
+    else if (this.currentBooking && this.booking.zalog === this.currentBooking?.zalog) {
+      this.form.patchValue({
+        pay: this.booking.arenda + 0 - this.form.value.sale
+      })
+    }
+  }
+
+
+
+  // Выбираем тип оплаты продления
+  checkedTypeExtend(e: any) {
+    this.form.value.typePayArenda = e
+  }
+
+
+  // Выбираем вводе скидки
+  checkedSale(e: any) {
+    if (this.currentBooking && this.booking.zalog > this.currentBooking?.zalog) {
+      this.form.patchValue({
+        pay: this.booking.arenda + (this.booking.zalog - +this.currentBooking?.zalog) - this.form.value.sale
+      })
+    }
+    else if (this.currentBooking && this.booking.zalog < this.currentBooking?.zalog) {
+      this.form.patchValue({
+        pay: this.booking.arenda + (this.booking.zalog - +this.currentBooking?.zalog) - this.form.value.sale
+      })
+    }
+    else if (this.currentBooking && this.booking.zalog === this.currentBooking?.zalog) {
+      this.form.patchValue({
+        pay: this.booking.arenda + 0 - this.form.value.sale
+      })
+    }
   }
 
 
 
 
   onSubmit() {
+
+
+    this.booking.tarif[0].booking_days += this.currentBooking?.tarif[0].booking_days
+    this.booking.tarif[1].booking_days += this.currentBooking?.tarif[1].booking_days
+    this.booking.tarif[2].booking_days += this.currentBooking?.tarif[2].booking_days
+    this.booking.tarif[0].dop_hours += this.currentBooking?.tarif[0].dop_hours
+    this.booking.tarif[1].dop_hours += this.currentBooking?.tarif[1].dop_hours
+    this.booking.tarif[2].dop_hours += this.currentBooking?.tarif[2].dop_hours
+    this.booking.tarif[0].dop_hours_price += this.currentBooking?.tarif[0].dop_hours_price
+    this.booking.tarif[1].dop_hours_price += this.currentBooking?.tarif[1].dop_hours_price
+    this.booking.tarif[2].dop_hours_price += this.currentBooking?.tarif[2].dop_hours_price
+
 
     const extend = {
       date: new Date(),
@@ -785,214 +797,200 @@ export class ExtendBookingComponent {
     }
 
 
-    const pay_1: Pay = {
+    let pay_1: Pay = {
       type: 'Продление брони',
-      pricePay: 'из интпуьта',
-      typeMoney: 'тип',
+      pricePay: this.booking.arenda - this.form.value.sale,
+      typeMoney: this.form.value.typePayArenda,
       bookingId: this.currentBooking?._id,
       smenaId: this.currentSmema?._id,
       userId: this.currentUser?._id,
       clientId: this.currentBooking?.client._id
     };
 
-    const pay_2: Pay = {
-      type: 'Продление брони',
-      pricePay: 'из интпуьта',
-      typeMoney: 'тип',
-      bookingId: this.currentBooking?._id,
-      smenaId: this.currentSmema?._id,
-      userId: this.currentUser?._id,
-      clientId: this.currentBooking?.client._id
-    };
-
-
-    const pay_3: Pay = {
+    let pay_2: Pay = {
       type: 'Залог',
-      pricePay: 'из интпуьта',
-      typeMoney: 'тип',
+      pricePay: 0,
+      typeMoney: this.form.value.typePayArenda,
       bookingId: this.currentBooking?._id,
       smenaId: this.currentSmema?._id,
       userId: this.currentUser?._id,
       clientId: this.currentBooking?.client._id
     };
 
-    
-
-    const booking: Booking = {
-      extends: [...this.currentBooking?.extends, extend],
-      booking_start: this.currentBooking?.booking_start,
-      booking_end: this.booking.booking_end,
-      booking_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days + this.currentBooking?.booking_days,
-      car: this.currentBooking?.car,
-      tarif: this.booking.tarif,
-      tarifCheked: this.booking.tarifCheked,
-      client: this.currentBooking?.client,
-      place_start: this.currentBooking?.place_start || '',
-      place_start_price: this.currentBooking?.place_start_price || 0,
-      place_end: this.booking.currentBooking?.place_end || '',
-      place_end_price: this.currentBooking?.place_end_price || 0,
-      arenda: this.booking.arenda + this.currentBooking?.arenda,
-      custome_place_start: this.currentBooking?.custome_place_start || false,
-      custome_place_end: this.currentBooking?.custome_place_end || false,
-      custome_zalog: this.booking.custome_zalog,
-      additional_services: this.currentBooking?.additional_services,
-      additional_services_price: this.currentBooking?.additional_services_price || 0,
-      smenaId: this.currentBooking?.smenaId,
-      summaFull: this.booking.arenda + this.booking.zalog + this.currentBooking?.arenda + this.currentBooking?.place_start_price + this.currentBooking?.place_end_price + this.currentBooking?.additional_services_price,
-      zalog: this.booking.zalog,
-      paidCount: this.currentBooking?.paidCount || 0,
-      comment: this.currentBooking?.comment,
-      status: this.currentBooking?.status || '',
-      sale: this.form.value.sale || 0,
-      act: this.currentBooking?.act || '',
-      userId: this.currentBooking?.userId,
-    }
-    
-
-    console.log(booking);
-    
-
-    // Делаем кастомный залог для всего.Проводим правильно математически
-
-    // const extend = {
-    //   date: new Date(),
-    //   extend_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days,
-    //   summ: this.booking.arenda,
-    //   sale: this.form.value.sale || 0,
-    //   tariff: this.booking.tarifCheked
-    // }
+    if(this.currentBooking && this.booking.zalog > this.currentBooking?.zalog)
+    {
+      pay_2 = {
+        type: 'Залог',
+        pricePay: this.booking.zalog - +this.currentBooking?.zalog,
+        typeMoney: this.form.value.typePayArenda,
+        bookingId: this.currentBooking?._id,
+        smenaId: this.currentSmema?._id,
+        userId: this.currentUser?._id,
+        clientId: this.currentBooking?.client._id
+      };
 
 
-    // const pay_1: Pay = {
-    //   type: 'Продление брони',
-    //   pricePay: this.booking.arenda || 0,
-    //   typeMoney: 'тип',
-    //   bookingId: this.currentBooking?._id,
-    //   smenaId: this.currentBooking?.smenaId,
-    //   userId: this.currentBooking?.userId,
-    //   clientId: this.currentBooking?.client._id
-    // };
+      const booking: Booking = {
+        _id: this.currentBooking?._id,
+        extends: [...this.currentBooking?.extends, extend],
+        booking_start: this.currentBooking?.booking_start,
+        booking_end: this.booking.booking_end,
+        booking_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days + this.currentBooking?.booking_days,
+        car: this.currentBooking?.car,
+        tarif: this.booking.tarif,
+        tarifCheked: this.booking.tarifCheked,
+        client: this.currentBooking?.client,
+        place_start: this.currentBooking?.place_start || '',
+        place_start_price: this.currentBooking?.place_start_price || 0,
+        place_end: this.currentBooking?.place_end || '',
+        place_end_price: this.currentBooking?.place_end_price || 0,
+        arenda: this.booking.arenda + this.currentBooking?.arenda - this.form.value.sale,
+        custome_place_start: this.currentBooking?.custome_place_start || false,
+        custome_place_end: this.currentBooking?.custome_place_end || false,
+        custome_zalog: this.booking.custome_zalog,
+        additional_services: this.currentBooking?.additional_services,
+        additional_services_price: this.currentBooking?.additional_services_price || 0,
+        smenaId: this.currentBooking?.smenaId,
+
+        summaFull: this.booking.arenda + (this.booking.zalog ) + this.currentBooking?.arenda + 
+        this.currentBooking?.place_start_price + this.currentBooking?.place_end_price + this.currentBooking?.additional_services_price - this.form.value.sale ,
+        
+        zalog: this.booking.zalog,
+        paidCount: this.currentBooking ? +this.currentBooking?.paidCount - (this.booking.zalog - +this.currentBooking?.zalog) + (+this.form.value.pay) + (+pay_2.pricePay) : 0,
+        comment: this.currentBooking?.comment,
+        status: this.currentBooking?.status || '',
+        sale: (+this.form.value.sale + +this.currentBooking.sale) || 0,
+        act: this.currentBooking?.act || '',
+        userId: this.currentBooking?.userId,
+      }
+
+      const data = {
+        booking: booking,
+        pay_1: pay_1,
+        pay_2: pay_2,
+      }
 
 
-    // if (this.currentBooking && this.booking.zalog > this.currentBooking?.zalog)
-    // {
-    //   const pay_2: Pay = {
-    //     type: 'Залог',
-    //     pricePay: this.booking.zalog - +this.currentBooking?.zalog,
-    //     typeMoney: 'тип',
-    //     bookingId: this.currentBooking?._id,
-    //     smenaId: this.currentBooking?.smenaId,
-    //     userId: this.currentBooking?.userId,
-    //     clientId: this.currentBooking?.client._id
-    //   };
+      this.store.dispatch(extendBookingAction({ data }))
+      console.log(data);
       
-
-    //   const booking: Booking = {
-    //     extends: [...this.currentBooking?.extends, extend],
-    //     booking_start: this.currentBooking?.booking_start,
-    //     booking_end: this.booking.booking_end,
-    //     booking_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days + this.currentBooking?.booking_days,
-    //     car: this.currentBooking?.car,
-    //     tarif: this.booking.tarif,
-    //     tarifCheked: this.booking.tarifCheked,
-    //     client: this.currentBooking?.client,
-    //     place_start: this.currentBooking?.place_start || '',
-    //     place_start_price: this.currentBooking?.place_start_price || 0,
-    //     place_end: this.booking.currentBooking?.place_end || '',
-    //     place_end_price: this.currentBooking?.place_end_price || 0,
-    //     arenda: this.booking.arenda + this.currentBooking?.arenda,
-    //     custome_place_start: this.currentBooking?.custome_place_start || false,
-    //     custome_place_end: this.currentBooking?.custome_place_end || false,
-    //     custome_zalog: this.booking.custome_zalog,
-    //     additional_services: this.currentBooking?.additional_services,
-    //     additional_services_price: this.currentBooking?.additional_services_price || 0,
-    //     smenaId: this.currentBooking?.smenaId,
-    //     summaFull: this.booking.arenda + this.booking.zalog + this.currentBooking?.arenda + this.currentBooking?.place_start_price + this.currentBooking?.place_end_price + this.currentBooking?.additional_services_price,
-    //     zalog: this.booking.zalog,
-    //     paidCount: this.currentBooking?.paidCount + +pay_1.pricePay + +pay_2.pricePay || 0,
-    //     comment: this.currentBooking?.comment,
-    //     status: this.currentBooking?.status || '',
-    //     sale: this.form.value.sale || 0,
-    //     act: this.currentBooking?.act || '',
-    //     userId: this.currentBooking?.userId,
-    //   }
-    // }
+    }
+    else if (this.currentBooking && this.booking.zalog < this.currentBooking?.zalog) {
+      pay_2 = {
+        type: 'Залог',
+        pricePay: this.booking.zalog - +this.currentBooking?.zalog,
+        typeMoney: this.form.value.typePayArenda,
+        bookingId: this.currentBooking?._id,
+        smenaId: this.currentSmema?._id,
+        userId: this.currentUser?._id,
+        clientId: this.currentBooking?.client._id
+      };
 
 
-    // if (this.currentBooking && this.booking.zalog < this.currentBooking?.zalog) {
-    //   const pay_2: Pay = {
-    //     type: 'Залог',
-    //     pricePay: -(+this.currentBooking?.zalog - this.booking.zalog),
-    //     typeMoney: 'тип',
-    //     bookingId: this.currentBooking?._id,
-    //     smenaId: this.currentBooking?.smenaId,
-    //     userId: this.currentBooking?.userId,
-    //     clientId: this.currentBooking?.client._id
-    //   };
+      const booking: Booking = {
+        _id: this.currentBooking?._id,
+        extends: [...this.currentBooking?.extends, extend],
+        booking_start: this.currentBooking?.booking_start,
+        booking_end: this.booking.booking_end,
+        booking_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days + this.currentBooking?.booking_days,
+        car: this.currentBooking?.car,
+        tarif: this.booking.tarif,
+        tarifCheked: this.booking.tarifCheked,
+        client: this.currentBooking?.client,
+        place_start: this.currentBooking?.place_start || '',
+        place_start_price: this.currentBooking?.place_start_price || 0,
+        place_end: this.currentBooking?.place_end || '',
+        place_end_price: this.currentBooking?.place_end_price || 0,
+        arenda: this.booking.arenda + this.currentBooking?.arenda - this.form.value.sale,
+        custome_place_start: this.currentBooking?.custome_place_start || false,
+        custome_place_end: this.currentBooking?.custome_place_end || false,
+        custome_zalog: this.booking.custome_zalog,
+        additional_services: this.currentBooking?.additional_services,
+        additional_services_price: this.currentBooking?.additional_services_price || 0,
+        smenaId: this.currentBooking?.smenaId,
 
-    //   const booking: Booking = {
-    //     extends: [...this.currentBooking?.extends, extend],
-    //     booking_start: this.currentBooking?.booking_start,
-    //     booking_end: this.booking.booking_end,
-    //     booking_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days + this.currentBooking?.booking_days,
-    //     car: this.currentBooking?.car,
-    //     tarif: this.booking.tarif,
-    //     tarifCheked: this.booking.tarifCheked,
-    //     client: this.currentBooking?.client,
-    //     place_start: this.currentBooking?.place_start || '',
-    //     place_start_price: this.currentBooking?.place_start_price || 0,
-    //     place_end: this.booking.currentBooking?.place_end || '',
-    //     place_end_price: this.currentBooking?.place_end_price || 0,
-    //     arenda: this.booking.arenda + this.currentBooking?.arenda,
-    //     custome_place_start: this.currentBooking?.custome_place_start || false,
-    //     custome_place_end: this.currentBooking?.custome_place_end || false,
-    //     custome_zalog: this.booking.custome_zalog,
-    //     additional_services: this.currentBooking?.additional_services,
-    //     additional_services_price: this.currentBooking?.additional_services_price || 0,
-    //     smenaId: this.currentBooking?.smenaId,
-    //     summaFull: this.booking.arenda + this.booking.zalog + this.currentBooking?.arenda + this.currentBooking?.place_start_price + this.currentBooking?.place_end_price + this.currentBooking?.additional_services_price,
-    //     zalog: this.booking.zalog,
-    //     paidCount: this.currentBooking?.paidCount - (+this.currentBooking?.zalog - this.booking.zalog) + +pay_1.pricePay || 0,
-    //     comment: this.currentBooking?.comment,
-    //     status: this.currentBooking?.status || '',
-    //     sale: this.form.value.sale || 0,
-    //     act: this.currentBooking?.act || '',
-    //     userId: this.currentBooking?.userId,
-    //   }
-    // }
+        summaFull: this.booking.arenda + (this.booking.zalog) + this.currentBooking?.arenda +
+          this.currentBooking?.place_start_price + this.currentBooking?.place_end_price + this.currentBooking?.additional_services_price - this.form.value.sale,
+
+        zalog: this.booking.zalog,
+        paidCount: this.currentBooking ? +this.currentBooking?.paidCount - (this.booking.zalog - +this.currentBooking?.zalog) + (+this.form.value.pay) + (+pay_2.pricePay) : 0,
+        comment: this.currentBooking?.comment,
+        status: this.currentBooking?.status || '',
+        sale: (+this.form.value.sale + +this.currentBooking.sale) || 0,
+        act: this.currentBooking?.act || '',
+        userId: this.currentBooking?.userId,
+      }
+
+      const data = {
+        booking: booking,
+        pay_1: pay_1,
+        pay_2: pay_2,
+      }
 
 
-    // if (this.currentBooking)
+      this.store.dispatch(extendBookingAction({ data }))
+      console.log(data);
+    }
+    else if (this.currentBooking && this.booking.zalog === this.currentBooking?.zalog)
+    {
+      pay_2 = {
+        type: 'Залог',
+        pricePay: 0,
+        typeMoney: this.form.value.typePayArenda,
+        bookingId: this.currentBooking?._id,
+        smenaId: this.currentSmema?._id,
+        userId: this.currentUser?._id,
+        clientId: this.currentBooking?.client._id
+      };
+
+
+      const booking: Booking = {
+        _id: this.currentBooking?._id,
+        extends: [...this.currentBooking?.extends, extend],
+        booking_start: this.currentBooking?.booking_start,
+        booking_end: this.booking.booking_end,
+        booking_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days + this.currentBooking?.booking_days,
+        car: this.currentBooking?.car,
+        tarif: this.booking.tarif,
+        tarifCheked: this.booking.tarifCheked,
+        client: this.currentBooking?.client,
+        place_start: this.currentBooking?.place_start || '',
+        place_start_price: this.currentBooking?.place_start_price || 0,
+        place_end: this.currentBooking?.place_end || '',
+        place_end_price: this.currentBooking?.place_end_price || 0,
+        arenda: this.booking.arenda + this.currentBooking?.arenda - this.form.value.sale,
+        custome_place_start: this.currentBooking?.custome_place_start || false,
+        custome_place_end: this.currentBooking?.custome_place_end || false,
+        custome_zalog: this.booking.custome_zalog,
+        additional_services: this.currentBooking?.additional_services,
+        additional_services_price: this.currentBooking?.additional_services_price || 0,
+        smenaId: this.currentBooking?.smenaId,
+        summaFull: this.booking.arenda + this.booking.zalog + this.currentBooking?.arenda + this.currentBooking?.place_start_price + this.currentBooking?.place_end_price + this.currentBooking?.additional_services_price - this.form.value.sale + (+pay_2.pricePay),
+        zalog: this.booking.zalog,
+        paidCount: this.currentBooking ? +this.currentBooking?.paidCount + (+this.form.value.pay) + (+pay_2.pricePay) : 0,
+        comment: this.currentBooking?.comment,
+        status: this.currentBooking?.status || '',
+        sale: (+this.form.value.sale + +this.currentBooking.sale)  || 0,
+        act: this.currentBooking?.act || '',
+        userId: this.currentBooking?.userId,
+      }
+
+      const data = {
+        booking: booking,
+        pay_1: pay_1,
+        pay_2: pay_2,
+      }
+
+
+      this.store.dispatch(extendBookingAction({ data }))
+    }
+
+
+   
+
+    // if(this.currentBooking)
     // {
-    //   const booking: Booking = {
-    //     extends: [...this.currentBooking?.extends, extend],
-    //     booking_start: this.currentBooking?.booking_start,
-    //     booking_end: this.booking.booking_end,
-    //     booking_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days + this.currentBooking?.booking_days,
-    //     car: this.currentBooking?.car,
-    //     tarif: this.booking.tarif,
-    //     tarifCheked: this.booking.tarifCheked,
-    //     client: this.currentBooking?.client,
-    //     place_start: this.currentBooking?.place_start || '',
-    //     place_start_price: this.currentBooking?.place_start_price || 0,
-    //     place_end: this.booking.currentBooking?.place_end || '',
-    //     place_end_price: this.currentBooking?.place_end_price || 0,
-    //     arenda: this.booking.arenda + this.currentBooking?.arenda,
-    //     custome_place_start: this.currentBooking?.custome_place_start || false,
-    //     custome_place_end: this.currentBooking?.custome_place_end || false,
-    //     custome_zalog: this.booking.custome_zalog,
-    //     additional_services: this.currentBooking?.additional_services,
-    //     additional_services_price: this.currentBooking?.additional_services_price || 0,
-    //     smenaId: this.currentBooking?.smenaId,
-    //     summaFull: this.booking.arenda + this.booking.zalog + this.currentBooking?.arenda + this.currentBooking?.place_start_price + this.currentBooking?.place_end_price + this.currentBooking?.additional_services_price,
-    //     zalog: this.booking.zalog,
-    //     paidCount: this.currentBooking?.paidCount + +pay_1.pricePay || 0,
-    //     comment: this.currentBooking?.comment,
-    //     status: this.currentBooking?.status || '',
-    //     sale: this.form.value.sale || 0,
-    //     act: this.currentBooking?.act || '',
-    //     userId: this.currentBooking?.userId,
-    //   }
+      
     // }
     
   }

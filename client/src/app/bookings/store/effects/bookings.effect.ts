@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { BookingsService } from '../../services/bookings.service'
-import { addActBookingAction, addActBookingFailureAction, addActBookingSuccessAction, addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, currentActAction, currentActFailureAction, currentActSuccessAction, currentClientForActAction, currentClientForActFailureAction, currentClientForActSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction, paysListAction, paysListFailureAction, paysListSuccessAction, toggleStatusBookingAction, toggleStatusFailureAction, toggleStatusSuccessAction, updateStateBookingsAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from '../actions/bookings.action'
+import { addActBookingAction, addActBookingFailureAction, addActBookingSuccessAction, addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, currentActAction, currentActFailureAction, currentActSuccessAction, currentClientForActAction, currentClientForActFailureAction, currentClientForActSuccessAction, extendBookingAction, extendBookingFailureAction, extendBookingSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction, paysListAction, paysListFailureAction, paysListSuccessAction, toggleStatusBookingAction, toggleStatusFailureAction, toggleStatusSuccessAction, updateStateBookingsAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from '../actions/bookings.action'
 
 
 
@@ -350,6 +350,34 @@ export class BookingsEffect {
       })
     )
   );
+
+
+
+
+
+
+
+  // Продление брони
+  extendBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(extendBookingAction),
+      switchMap(({ data }) => {
+        return this.bookings.extendBooking(data).pipe(
+          map((booking) => {
+            this.messageService.add({ severity: 'success', summary: `Бронь продлена`, detail: 'Успешно!' });
+            this.router.navigate(['/show-booking', booking._id]);
+            return extendBookingSuccessAction();
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              extendBookingFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
 
 
   

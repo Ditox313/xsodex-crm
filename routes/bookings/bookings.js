@@ -58,6 +58,11 @@ router.get('/current-act/:id', passport.authenticate('jwt', { session: false }),
 
 
 
+// Роут на extend
+router.post('/extend', passport.authenticate('jwt', { session: false }), controller.extend);
+
+
+
 
 
 // Роут на update

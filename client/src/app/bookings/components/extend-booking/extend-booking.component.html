@@ -120,7 +120,22 @@
                     <div>
                         <span>Цена продления:</span>
                         <span class="booking_info_element">
-                            {{this.booking.arenda}} руб
+                            {{this.booking.arenda - this.form.value.sale}} руб
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>Скидка:</span>
+                        <span class="booking_info_element">
+                            {{this.form.value.sale}} руб
+                        </span>
+                    </div>
+
+
+                    <div>
+                        <span>Залог:</span>
+                        <span class="booking_info_element">
+                            {{this.booking.zalog}} руб
                         </span>
                     </div>
             
@@ -178,83 +193,16 @@
                             0
                         </span>
                     </div>
-            
-                    <div *ngIf="this.booking.place_start !== ''">
-                        <span>Место падачи:</span>
-                        <span class="booking_info_element">{{this.booking.place_start}} - {{this.booking.place_start_price}}
-                            руб</span>
-                    </div>
-            
-                    <div *ngIf="this.booking.place_end !== ''">
-                        <span>Место приема:</span>
-                        <span class="booking_info_element">{{this.booking.place_end}} - {{this.booking.place_end_price}} руб</span>
-                    </div>
-            
-                    <!-- <div *ngIf="this.currentBooking && this.booking.zalog > this.currentBooking.zalog">
-                        <span>Вернуть залог залога:</span>
-                        <span class="booking_info_element">
-                            {{+this.booking.zalog - (+this.currentBooking.zalog)}} руб
-                        </span>
-                    </div>
 
-                    <div *ngIf="this.currentBooking && this.booking.zalog < this.currentBooking.zalog">
-                        <span>Вернуть залог:</span>
-                        <span class="booking_info_element">
-                            {{+this.currentBooking.zalog - (+this.booking.zalog)}} руб
-                        </span>
-                    </div> -->
-
-                    <!-- <div *ngIf="this.booking.zalog Б this.currentBooking?.zalog">
-                        <span>Вернуть залога:</span>
-                        <span class="booking_info_element">
-                            {{this.currentBooking?.zalog - this.booking.zalog}} руб
-                        </span>
-                    </div> -->
             
-                    <div
-                        *ngIf="this.booking.additional_services[0].status || this.booking.additional_services[1].status || this.booking.additional_services[2].status 
-                                    || this.booking.additional_services[3].status || this.booking.additional_services[4].status || this.booking.additional_services[5].status">
-                        <span>Доп.услуги:</span>
-                        <span class="booking_info_element" *ngIf="this.booking.additional_services[0].status === true">Детское
-                            кресло - {{this.booking.additional_services[0].price}} руб</span><br>
-                        <span class="booking_info_element" *ngIf="this.booking.additional_services[1].status === true">Бустер -
-                            {{this.booking.additional_services[1].price}} руб</span><br>
-                        <span class="booking_info_element"
-                            *ngIf="this.booking.additional_services[2].status === true">Видеорегистратор -
-                            {{this.booking.additional_services[2].price}} руб</span><br>
-                        <span class="booking_info_element" *ngIf="this.booking.additional_services[3].status === true">Зарядное
-                            устройство - {{this.booking.additional_services[3].price}} руб</span><br>
-                        <span class="booking_info_element" *ngIf="this.booking.additional_services[4].status === true">Антирадар -
-                            {{this.booking.additional_services[4].price}} руб</span><br>
-                        <span class="booking_info_element" *ngIf="this.booking.additional_services[5].status === true">Мойка -
-                            {{this.booking.additional_services[5].price}} руб</span>
-                    </div>
-            
-                    <!-- <div>
-                        <span>Итого:</span>
+                    <div>
+                        <span style="text-transform: uppercase; font-weight: 600; margin-top: 30px; display: inline-block;">К оплате:</span>
                         <span class="booking_info_element_summ">
-                            {{this.booking.arenda +
-            
-            
-                            this.booking.zalog +
-            
-                            this.booking.place_start_price +
-            
-                            this.booking.place_end_price +
-            
-                            this.booking.additional_services_price}} руб
+                            {{this.form.value.pay}} руб
                         </span>
-                    </div> -->
+                    </div>
 
 
-
-
-                    <!-- <div>
-                        <span>Время продления:</span>
-                        <span class="booking_info_element">
-                            {{this.booking.booking_days_extend}} д
-                        </span>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -270,7 +218,18 @@
 
             <fieldset>
                 <label htmlFor="sale">Скидка</label>
-                <input pInputText id="sale" formControlName="sale" placeholder="Введите скидку" />
+                <input pInputText id="sale" formControlName="sale" placeholder="Введите скидку"  (ngModelChange)="checkedSale($event)"/>
+            </fieldset>
+
+            <fieldset>
+                <label htmlFor="typePayArenda">Тип оплаты</label>
+                <select formControlName="typePayArenda" id="typePayArenda" (ngModelChange)="checkedTypeExtend($event)"
+                    style="width: 150px;">
+                    <option value="Наличные">Наличные</option>
+                    <option value="Терминал">Терминал</option>
+                    <option value="На карту">На карту</option>
+                    <option value="р/с">р/с</option>
+                </select>
             </fieldset>
         </div>
 

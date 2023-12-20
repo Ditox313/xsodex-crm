@@ -119,6 +119,17 @@ export class BookingsService {
 
 
 
+  // Продление брони
+  extendBooking(data: any): Observable<Booking> {
+    return this.http.post<Booking>(`/api/bookings/extend`, data);
+  }
+
+
+
+
+
+
+
 
 
   // update(partner: Partner,

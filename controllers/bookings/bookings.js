@@ -407,6 +407,58 @@ module.exports.currentAct = async function (req, res) {
 
 
 
+// Контроллер для extend
+module.exports.extend = async function (req, res) {
+    try {
+
+        const updated = req.body;
+
+
+
+        if (+req.body.pay_1.pricePay !== 0) {
+            const pay_1 = await new Pay({
+                type: req.body.pay_1.type,
+                pricePay: req.body.pay_1.pricePay,
+                typeMoney: req.body.pay_1.typeMoney,
+                bookingId: req.body.pay_1.bookingId,
+                smenaId: req.body.pay_1.smenaId,
+                userId: req.user._id,
+                clientId: req.body.pay_1.clientId,
+            }).save();
+        }
+        if (+req.body.pay_2.pricePay !== 0) {
+            const pay_2 = await new Pay({
+                type: req.body.pay_2.type,
+                pricePay: req.body.pay_2.pricePay,
+                typeMoney: req.body.pay_2.typeMoney,
+                bookingId: req.body.pay_2.bookingId,
+                smenaId: req.body.pay_2.smenaId,
+                userId: req.user._id,
+                clientId: req.body.pay_2.clientId,
+            }).save();
+        }
+
+
+
+        // Находим и обновляем позицию. 
+        const bookingUpdate = await Booking.findOneAndUpdate({ _id: updated.booking._id }, //Ищем по id
+            { $set: updated.booking }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
+            { new: true } //обновит позицию и верет нам уже обновленную
+        );
+
+
+        // Находим уже обновленную бронь и отдаем ее ответом
+        const actualBookingForResponce = await Booking.findOne({ _id: updated.booking._id })
+
+        // Возвращаем пользователю обновленную позицию 
+        res.status(200).json(actualBookingForResponce);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
 
 
 
