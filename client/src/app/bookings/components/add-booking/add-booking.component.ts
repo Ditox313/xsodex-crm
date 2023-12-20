@@ -151,7 +151,6 @@ export class AddBookingComponent {
       additionally_battery_charger: new FormControl(false),
       additionally_antiradar: new FormControl(false),
       moyka: new FormControl(false),
-      // client: new FormControl('', [Validators.required]),
       comment: new FormControl('',)
     });
   }

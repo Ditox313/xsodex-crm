@@ -51,7 +51,7 @@ module.exports.create = async function (req, res) {
             sale: req.body.sale,
             act: req.body.act,
             userId: req.body.userId,
-            order: maxOrder + 1
+            order: maxOrder + 1,
         }).save();
 
         // Возвращаем пользователю позицию которую создали 

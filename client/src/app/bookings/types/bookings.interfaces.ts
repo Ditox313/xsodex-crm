@@ -34,7 +34,7 @@ export interface Booking {
     act: '',
     userId: string | undefined,
     order?: Number,
-    date?: string
+    date?: string,
 }
 
 //Интерфейс для брони на продление

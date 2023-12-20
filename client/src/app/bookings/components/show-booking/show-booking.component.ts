@@ -92,6 +92,7 @@ export class ShowBookingComponent {
       place_start_price: new FormControl('0',),
       place_end_price: new FormControl('0',),
       additional_services_price: new FormControl('0',),
+      booking_end: new FormControl('0',),
     });
   }
 
@@ -180,6 +181,8 @@ export class ShowBookingComponent {
     this.isVisibleModalPay = !this.isVisibleModalPay
   }
 
+
+
   // Выбираем тип оплаты аренды
   checkedTypeArenda(e: any)
   {
@@ -202,6 +205,9 @@ export class ShowBookingComponent {
   {
     this.store.dispatch(toggleStatusBookingAction({ bookingId: this.bookingId }))
   }
+
+
+
 
 
 

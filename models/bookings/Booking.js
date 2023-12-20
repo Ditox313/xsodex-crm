@@ -203,11 +203,14 @@ const bookingSchema = new Schema({
         default: '',
         required: true,
     },
-    // Дата создания
+
+
     date: {
         type: Date,
         default: Date.now,
     },
+
+
 });
 
 

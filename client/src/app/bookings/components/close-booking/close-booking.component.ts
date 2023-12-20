@@ -1,0 +1,189 @@
+import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Observable, Subscription } from 'rxjs';
+import { Booking, Pay } from '../../types/bookings.interfaces';
+import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
+import { Smena } from 'src/app/smena/types/smena.interfaces';
+import { DatePipe } from '@angular/common';
+import { Store, select } from '@ngrx/store';
+import { bookingGetCurrent, bookingGetCurrentReset } from '../../store/actions/bookings.action';
+import { getCurrentBookingSelector, isLoadingSelector } from '../../store/selectors';
+import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
+import { currentUserSelector } from 'src/app/account/store/selectors';
+import { ActivatedRoute } from '@angular/router';
+import { Car } from 'src/app/cars/types/cars.interfaces';
+import { getCurrentCarSelector } from 'src/app/cars/store/selectors';
+import { carGetCurrent } from 'src/app/cars/store/actions/cars.action';
+
+@Component({
+  selector: 'app-close-booking',
+  templateUrl: './close-booking.component.html',
+  styleUrls: ['./close-booking.component.css']
+})
+export class CloseBookingComponent {
+  form!: FormGroup;
+  isLoadingSelector$!: Observable<boolean | null>
+  currentBookingSelector!: Observable<Booking | null | undefined>
+  currentBookingSub$!: Subscription
+  currentBooking!: Booking & { client: any } & { car: any } & { tarif: any } & { additional_services: any } | null | undefined;
+  currentUserSelector!: Observable<UserResponceRegister | null | undefined>
+  currentUserSub$!: Subscription
+  currentUser!: UserResponceRegister | null | undefined
+  currentSmemaSelector!: Observable<Smena | null | undefined>
+  currentSmemaSub$!: Subscription
+  currentSmema!: Smena | null | undefined
+  title: string = ''
+  getParamsSub$!: Subscription
+  bookingId!: string
+  currentCarSelector!: Observable<Car | null | undefined>
+  currentCarSub$!: Subscription
+  currentCar!: Car | null | undefined
+
+
+
+
+
+  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.initForm()
+    this.getParams()
+    this.initValues()
+  }
+
+
+  ngOnDestroy(): void {
+    if (this.getParamsSub$) {
+      this.getParamsSub$.unsubscribe()
+    }
+    if (this.currentBookingSub$) {
+      this.currentBookingSub$.unsubscribe()
+    }
+
+    if (this.currentUserSub$) {
+      this.currentUserSub$.unsubscribe();
+    }
+
+    if (this.currentSmemaSub$) {
+      this.currentSmemaSub$.unsubscribe();
+    }
+
+
+    //Отчищаем состояние 
+    this.store.dispatch(bookingGetCurrentReset());
+  }
+
+
+  getParams() {
+    this.getParamsSub$ = this.rote.params.subscribe((params: any) => {
+      this.bookingId = params['id'];
+    });
+  }
+
+  initForm() {
+    this.form = new FormGroup({
+      booking_end: new FormControl('',),
+      probeg_old: new FormControl('',),
+      probeg: new FormControl('',),
+      isCarClean: new FormControl(false),
+      isCarFuel: new FormControl(false),
+      outputZalog: new FormControl(0),
+      typePayOutputZalog: new FormControl('Наличные'),
+      comment: new FormControl(''),
+      moyka: new FormControl(''),
+      typePayMoyka: new FormControl('Наличные'),
+    });
+  }
+
+
+
+
+  initValues() {
+
+    this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
+
+
+
+    //Отчищаем состояние 
+    this.store.dispatch(bookingGetCurrentReset());
+
+    //Отправляем запрос на получение брони
+    this.store.dispatch(bookingGetCurrent({ id: this.bookingId }));
+
+
+
+    this.currentBookingSelector = this.store.pipe(select(getCurrentBookingSelector))
+    this.currentBookingSub$ = this.currentBookingSelector.subscribe({
+      next: (currentBooking) => {
+        this.currentBooking = currentBooking
+        console.log('111', this.currentBooking);
+        if (currentBooking) {
+          this.title = `Закрыть бронь №${currentBooking.order}`
+          this.store.dispatch(carGetCurrent({ id: this.currentBooking?.car._id }));
+          this.form.controls['probeg_old'].disable();
+        }
+      }
+    })
+
+
+
+
+   
+    this.currentCarSelector = this.store.pipe(select(getCurrentCarSelector))
+    this.currentCarSub$ = this.currentCarSelector.subscribe({
+      next: (currentCar) => {
+        this.currentCar = currentCar
+        console.log(this.currentCar);
+
+        this.form.patchValue({
+          booking_end: this.currentBooking?.booking_end,
+          probeg_old: currentCar?.probeg,
+          outputZalog: this.currentBooking?.zalog
+        })
+      }
+    })
+
+
+
+
+    // Получаем смену
+    this.currentSmemaSelector = this.store.pipe(select(isOpenedSmenaSelector))
+    this.currentSmemaSub$ = this.currentSmemaSelector.subscribe({
+      next: (currentSmena) => {
+        this.currentSmema = currentSmena
+      }
+    })
+
+
+    // Получаем текущего пользователя
+    this.currentUserSelector = this.store.pipe(select(currentUserSelector))
+    this.currentUserSub$ = this.currentUserSelector.subscribe({
+      next: (user) => {
+        this.currentUser = user
+      }
+    })
+
+  
+  }
+
+
+
+
+
+
+  onSubmit() {
+    // const pay_2: Pay = {
+    //   type: 'Залог',
+    //   pricePay: this.form.value.zalog || 0,
+    //   typeMoney: this.form.value.typePayZalog,
+    //   bookingId: this.bookingId,
+    //   smenaId: this.currentSmema?._id,
+    //   userId: this.currentUser?._id,
+    //   clientId: this.currentBooking?.client._id
+    // };
+
+
+    // this.store.dispatch(bookingCreatePayAction({ pay_1, pay_2, pay_3, pay_4, pay_5 }))
+
+  }
+}
