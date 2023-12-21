@@ -2,6 +2,7 @@ const Booking = require('../../models/bookings/Booking.js');
 const ClientFiz = require('../../models/clients/clientsFiz/ClientFiz.js');
 const ClientLaw = require('../../models/clients/clientsLaw/ClientLaw.js');
 const Pay = require('../../models/bookings/Pay.js');
+const Car = require('../../models/cars/Car.js');
 const Act = require('../../models/bookings/Act.js');
 const errorHandler = require('../../Utils/errorHendler.js');
 const fs = require('fs');
@@ -473,6 +474,7 @@ module.exports.close = async function (req, res) {
         updated.bookingUpdate.closeInfo = updated.close
 
 
+
         if (+req.body.pay_1.pricePay !== 0) {
             const pay_1 = await new Pay({
                 type: req.body.pay_1.type,
@@ -495,6 +497,13 @@ module.exports.close = async function (req, res) {
                 clientId: req.body.pay_2.clientId,
             }).save();
         }
+
+
+        // Обновляем пробег в авто
+        const carUpdate = await Car.findOneAndUpdate({ _id: updated.carId }, //Ищем по id
+            { $set: { probeg: updated.close.newProbeg } }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
+            { new: true } //обновит позицию и верет нам уже обновленную
+        );
 
 
 

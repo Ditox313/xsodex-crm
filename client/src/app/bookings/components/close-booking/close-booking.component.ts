@@ -229,6 +229,7 @@ export class CloseBookingComponent {
       close: close,
       pay_1: pay_1,
       pay_2: pay_2,
+      carId: this.currentCar?._id
     }
 
 
