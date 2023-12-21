@@ -113,17 +113,17 @@
 
                     <div *ngIf="currentBooking.tarifCheked === 'Город'">
                         <span>Суток:</span>
-                        <span> {{currentBooking.tarif[0].booking_days}} д</span>
+                        <span> {{currentBooking.tarif[0].booking_days + currentBooking.tarif[1].booking_days + currentBooking.tarif[2].booking_days}} д</span>
                     </div>
 
                     <div *ngIf="currentBooking.tarifCheked === 'Межгород'">
                         <span>Суток:</span>
-                        <span> {{currentBooking.tarif[1].booking_days}} д</span>
+                        <span> {{currentBooking.tarif[0].booking_days + currentBooking.tarif[1].booking_days + currentBooking.tarif[2].booking_days}}д</span>
                     </div>
 
                     <div *ngIf="currentBooking.tarifCheked === 'Россия'">
                         <span>Суток:</span>
-                        <span> {{currentBooking.tarif[2].booking_days}} д</span>
+                        <span> {{currentBooking.tarif[0].booking_days + currentBooking.tarif[1].booking_days + currentBooking.tarif[2].booking_days}} д</span>
                     </div>
 
 
@@ -334,9 +334,9 @@
                             <img src="../../../../assets/img/vernut.png">
                         </span>
 
-                        <span class="edit_avto" title="Редактировать бронь">
+                        <!-- <span class="edit_avto" title="Редактировать бронь" [routerLink]="['/edit-booking', bookingId]">
                             <img src="../../../../assets/img/edit_avto.png" alt="">
-                        </span>
+                        </span> -->
                     </div>  
                     
                     
@@ -376,6 +376,36 @@
                             <span>{{this.currentBooking.closeInfo.date | date : 'dd.MM.yyyy HH:mm'}}</span>
                         </div>
                     </div>
+
+
+                    <h3 style="margin-top: 30px;" *ngIf="this.currentBooking.extends.length > 0">Продления брони</h3>
+
+                    <div *ngIf="this.currentBooking.extends.length > 0">
+                        <p-table [value]="currentBooking.extends" styleClass="p-datatable-gridlines list_table">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th>Дата</th>
+                                    <th>Дней</th>
+                                    <th>Сумма</th>
+                                    <th>Скидка</th>
+                                    <th>Тариф</th>
+                                </tr>
+                            </ng-template>
+                        
+                            <ng-template pTemplate="body" let-extend>
+                                <tr>
+                                    <td>{{extend.date | date : 'dd.MM.yyyy HH:mm'}}</td>
+                                    <td>{{extend.extend_days}}</td>
+                                    <td>{{extend.summ}}</td>
+                                    <td>{{extend.sale}}</td>
+                                    <td>{{extend.tariff}}</td>
+                                </tr>
+                        
+                            </ng-template>
+                        </p-table>
+                    </div>
+
+
                 </div>
             </div>
         </div>

@@ -1,0 +1,479 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
+
+
+
+<div class="add-booking"  *ngIf="currentBooking">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="add_booking_content">
+            <div>
+                <div class="group_1">
+                    <fieldset>
+                        <label htmlFor="booking_start">Дата начала брони</label>
+                        <input type="datetime-local" pInputText id="booking_start" formControlName="booking_start"
+                            placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_start'].invalid && form.controls['booking_start'].touched}"
+                            (change)="checkedStartBookingDate($event)" />
+
+
+                        <div class="errorValidate"
+                            *ngIf="form.controls['booking_start'].invalid && form.controls['booking_start'].touched">
+                            <p
+                                *ngIf="form.controls['booking_start'].errors && form.controls['booking_start'].errors['required']">
+                                Поле не должно быть пустым
+                            </p>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <label htmlFor="booking_end">Дата окончания брони</label>
+                        <input type="datetime-local" pInputText id="booking_end" formControlName="booking_end"
+                            placeholder="Введите значение"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_end'].invalid && form.controls['booking_end'].touched}"
+                            (change)="checkedEndBookingDate($event)" />
+
+
+                        <div class="errorValidate"
+                            *ngIf="form.controls['booking_end'].invalid && form.controls['booking_end'].touched">
+                            <p
+                                *ngIf="form.controls['booking_end'].errors && form.controls['booking_end'].errors['required']">
+                                Поле не должно быть пустым
+                            </p>
+                        </div>
+                    </fieldset>
+
+
+
+                    <fieldset>
+                        <label htmlFor="car">Автомобиль</label>
+                        <select id="car" formControlName="car"
+                            [ngClass]="{'invalid': form.controls['car'].invalid && form.controls['car'].touched}"
+                            (ngModelChange)="checkedCar($event)">
+                            <option value="" disabled selected>Выбрать ↷</option>
+                            <option value="{{car._id}}" *ngFor="let car of carsList">
+                                {{car.marka}} {{car.model}} ({{car.number}})</option>
+                        </select>
+
+
+                        <div class="errorValidate" *ngIf="form.controls['car'].invalid && form.controls['car'].touched">
+                            <p *ngIf="form.controls['car'].errors && form.controls['car'].errors['required']">
+                                Заполните поле
+                            </p>
+                        </div>
+                    </fieldset>
+
+
+
+
+                    <fieldset>
+                        <label htmlFor="tarif">Тариф</label>
+                        <select id="tarif" formControlName="tarif"
+                            [ngClass]="{'invalid': form.controls['tarif'].invalid && form.controls['tarif'].touched}"
+                            (ngModelChange)="checkedTarif($event)">
+                            <option value="" disabled selected>Выбрать ↷</option>
+                            <option value="Город">Город</option>
+                            <option value="Межгород">Межгород</option>
+                            <option value="Россия">Россия</option>
+                            <option value="Смешанный">Смешанный</option>
+                        </select>
+
+
+                        <div class="errorValidate"
+                            *ngIf="form.controls['tarif'].invalid && form.controls['tarif'].touched">
+                            <p *ngIf="form.controls['tarif'].errors && form.controls['tarif'].errors['required']">
+                                Заполните поле
+                            </p>
+                        </div>
+                    </fieldset>
+
+                    <fieldset>
+                        <label htmlFor="place_start">Место выдачи</label>
+                        <select id="place_start" formControlName="place_start"
+                            [ngClass]="{'invalid': form.controls['place_start'].invalid && form.controls['place_start'].touched}"
+                            (ngModelChange)="placeStart($event)">
+                            <option value="" disabled selected>Выбрать ↷</option>
+                            <option value="Офис">Офис</option>
+                            <option value="Аэропорт">Аэропорт</option>
+                            <option value="Ж/д вокзал">Ж/д вокзал</option>
+                            <option value="ТЦ Кристалл">ТЦ Кристалл</option>
+                            <option value="Тц Сити Молл">Тц Сити Молл</option>
+                        </select>
+
+
+                        <div class="errorValidate"
+                            *ngIf="form.controls['place_start'].invalid && form.controls['place_start'].touched">
+                            <p
+                                *ngIf="form.controls['place_start'].errors && form.controls['place_start'].errors['required']">
+                                Заполните поле
+                            </p>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <label htmlFor="place_end">Место приема</label>
+                        <select id="place_end" formControlName="place_end"
+                            [ngClass]="{'invalid': form.controls['place_end'].invalid && form.controls['place_end'].touched}"
+                            (ngModelChange)="placeEnd($event)">
+                            <option value="" disabled selected>Выбрать ↷</option>
+                            <option value="Офис">Офис</option>
+                            <option value="Аэропорт">Аэропорт</option>
+                            <option value="Ж/д вокзал">Ж/д вокзал</option>
+                            <option value="ТЦ Кристалл">ТЦ Кристалл</option>
+                            <option value="Тц Сити Молл">Тц Сити Молл</option>
+                        </select>
+
+
+                        <div class="errorValidate"
+                            *ngIf="form.controls['place_end'].invalid && form.controls['place_end'].touched">
+                            <p
+                                *ngIf="form.controls['place_end'].errors && form.controls['place_end'].errors['required']">
+                                Заполните поле
+                            </p>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset *ngIf="this.form.value.tarif === 'Смешанный'" style="width: 84%;">
+                        <div class="mixed_tarif">
+                            <div class="checkboxs_row" style="display: flex;">
+                                <div>
+                                    <label style="margin-bottom: 0;">
+                                        <div style="margin-bottom: 7px; font-size: 11px;">Город</div>
+                                    </label>
+
+                                    <label>
+                                        <input type="number" placeholder="..." formControlName="tarif_mixed_gorod_days"
+                                            style="width: 90px;" (ngModelChange)="tarifMixedGorodDays($event)">
+                                    </label>
+                                </div>
+
+
+                                <div>
+                                    <label>
+                                        <div style="margin-bottom: 7px; font-size: 11px;">Межгород</div>
+                                    </label>
+
+                                    <label>
+                                        <input type="number" placeholder="..."
+                                            formControlName="tarif_mixed_mezjgorod_days" style="width: 90px;"
+                                            (ngModelChange)="tarifMixedMejgorodDays($event)">
+                                    </label>
+                                </div>
+
+
+                                <div>
+                                    <label>
+                                        <div style="margin-bottom: 7px; font-size: 11px;"> Россия</div>
+                                    </label>
+
+                                    <label>
+                                        <input type="number" placeholder="..." formControlName="tarif_mixed_russia_days"
+                                            style="width: 90px;" (ngModelChange)="tarifMixedRussiaDays($event)">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div *ngIf="errorValidTarifMixedDays" class="errorValidTarifMixedDays">
+                                Кол-во дней выбранных тарифов превышает общее кол-во дней брони
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="client" (click)="modalClientClick()" icon="pi pi-external-link" label="Show">
+                        <label htmlFor="#">Клиент</label>
+                        <div style="display: flex;">
+                            <span class="client_input" *ngIf="!currentClient">Выбор клиента...</span>
+                            <span class="client_input"
+                                *ngIf="currentClient && currentClient.surname">{{currentClient.surname}}
+                                {{currentClient.name}} {{currentClient.lastname}}</span>
+                            <span class="client_input"
+                                *ngIf="currentClient && currentClient.short_name">{{currentClient.name}}</span>
+                            <i class="pi pi-plus"></i>
+                        </div>
+                    </fieldset>
+
+                    <p-dialog [(visible)]="isVisibleModalClient" [style]="{width: '90vw'}" [modal]="true"
+                        [maximizable]="true">
+                        <app-all-clients-search></app-all-clients-search>
+                    </p-dialog>
+
+                    <fieldset>
+                        <label htmlFor="comment">Комментарий</label>
+                        <textarea type="text" rows="1" cols="10" placeholder="Комментарий"
+                            formControlName="comment"></textarea>
+                    </fieldset>
+
+
+                </div>
+
+
+                <div class="group_2">
+                    <h4>Произвольные настройки</h4>
+
+                    <fieldset style="display: inline-block; margin-right: 30px; ">
+                        <label htmlFor="om">Произвольный залог</label>
+                        <div style="display: flex; height: 43px; margin-top: 5px;">
+                            <p-checkbox formControlName="custome_zalog" (click)="customeZalogCheck()" value="true"
+                                inputId="custome_zalog"></p-checkbox>
+
+                            <input *ngIf="this.booking.custome_zalog" type="text" placeholder="Введите сумму"
+                                formControlName="custome_zalog_value" id="custome_zalog_value" style="margin-left: 15px;
+                                        display: inline-block; margin-top: 0;" (change)="customeZalogValue($event)">
+                        </div>
+                    </fieldset>
+
+                    <fieldset style="display: inline-block; margin-right: 30px;">
+                        <label htmlFor="custome_place_start">Произвольное место подачи</label>
+                        <div style="display: flex; height: 43px; margin-top: 5px;">
+                            <p-checkbox formControlName="custome_place_start" (click)="customePlaceStartCheck()"
+                                value="true" inputId="custome_place_start"></p-checkbox>
+
+                            <input *ngIf="this.booking.custome_place_start" type="text" placeholder="Адрес"
+                                formControlName="custome_place_start_value" id="custome_place_start_value" style="margin-left: 15px;
+                                                        display: inline-block; margin-top: 0;"
+                                (change)="customePlaceStartValue($event)">
+
+                            <input *ngIf="this.booking.custome_place_start" type="text" placeholder="Сумма"
+                                formControlName="custome_place_start_price" id="custome_place_start_price" style="margin-left: 15px;
+                                                                                display: inline-block; margin-top: 0;"
+                                (change)="customePlaceStartPrice($event)">
+                        </div>
+                    </fieldset>
+
+                    <fieldset style="display: inline-block">
+                        <label htmlFor="custome_place_end">Произвольное место приема</label>
+                        <div style="display: flex; height: 43px; margin-top: 5px;">
+                            <p-checkbox formControlName="custome_place_end" (click)="customePlaceEndCheck()"
+                                value="true" inputId="custome_place_end"></p-checkbox>
+
+                            <input *ngIf="this.booking.custome_place_end" type="text" placeholder="Адрес"
+                                formControlName="custome_place_end_value" id="custome_place_end_value" style="margin-left: 15px;
+                                                                        display: inline-block; margin-top: 0;"
+                                (change)="customePlaceEndValue($event)">
+
+                            <input *ngIf="this.booking.custome_place_end" type="text" placeholder="Сумма"
+                                formControlName="custome_place_end_price" id="custome_place_end_price"
+                                style="margin-left: 15px;
+                                                                                                display: inline-block; margin-top: 0;" (change)="customePlaceEndPrice($event)">
+                        </div>
+                    </fieldset>
+
+
+                    <div class="dop_service">
+                        <h4>Дополнительная информация:</h4>
+
+                        <div style="display: flex;">
+                            <div>
+                                <label htmlFor="additionally_det_kreslo">
+                                    <p-checkbox formControlName="additionally_det_kreslo" value="true"
+                                        inputId="additionally_det_kreslo"
+                                        (click)="additionally_det_kreslo()"></p-checkbox>
+                                    <span style="margin-left: 10px;">Детское кресло</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label htmlFor="additionally_buster">
+                                    <p-checkbox formControlName="additionally_buster" value="true"
+                                        (click)="additionally_buster()" inputId="additionally_buster"></p-checkbox>
+                                    <span style="margin-left: 10px;">Бустер</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label htmlFor="additionally_buster">
+                                    <p-checkbox formControlName="additionally_videoregister" value="true"
+                                        (click)="additionally_videoregister()"
+                                        inputId="additionally_videoregister"></p-checkbox>
+                                    <span style="margin-left: 10px;">Видеорегистратор</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label htmlFor="additionally_battery_charger">
+                                    <p-checkbox formControlName="additionally_battery_charger" value="true"
+                                        (click)="additionally_battery_charger()"
+                                        inputId="additionally_battery_charger"></p-checkbox>
+                                    <span style="margin-left: 10px;">Зарядное устройство</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label htmlFor="additionally_antiradar">
+                                    <p-checkbox formControlName="additionally_antiradar" value="true"
+                                        (click)="additionally_antiradar()"
+                                        inputId="additionally_antiradar"></p-checkbox>
+                                    <span style="margin-left: 10px;">Антирадар</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label htmlFor="additionally_antiradar">
+                                    <p-checkbox formControlName="moyka" value="true" (click)="additionally_moyka()"
+                                        inputId="moyka"></p-checkbox>
+                                    <span style="margin-left: 10px;">Мойка</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="calc">
+                    <h4>Рассчеты</h4>
+                    <div style="margin-bottom: 30px;">
+                        <div>
+                            <span>Дней аренды:</span>
+                            <span class="booking_info_element">
+                                {{this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days +
+                                this.booking.tarif[2].booking_days}} д
+                            </span>
+                        </div>
+
+                        <div *ngIf="this.currentClient && this.currentClient.type === 'fiz'">
+                            <span>Клиент:</span>
+                            <span class="booking_info_element">
+                                {{this.currentClient.surname}} {{this.currentClient.name}}
+                                {{this.currentClient.lastname}}
+                            </span>
+                        </div>
+
+                        <div *ngIf="this.currentClient && this.currentClient.type === 'law'">
+                            <span>Клиент:</span>
+                            <span class="booking_info_element">
+                                {{this.currentClient.short_name}} {{this.currentClient.name}}
+                            </span>
+                        </div>
+
+                        <div>
+                            <span>Цена аренды:</span>
+                            <span class="booking_info_element">
+                                {{this.booking.arenda}} руб
+                            </span>
+                        </div>
+
+                        <div *ngIf="this.booking.car !== null">
+                            <span>Автомобиль:</span>
+                            <span class="booking_info_element">
+                                {{this.booking.car.marka}} {{this.booking.car.model}}({{this.booking.car.number}})
+                            </span>
+                        </div>
+
+                        <div *ngIf="this.booking.tarifCheked !== ''">
+                            <span>Тариф:</span>
+                            <span class="booking_info_element">
+                                {{this.booking.tarifCheked}}
+                            </span>
+                        </div>
+
+                        <div *ngIf="this.booking.tarifCheked !== ''">
+                            <span>Цена тарифа(за 1д):</span>
+                            <span *ngIf="this.booking.tarifCheked ==='Город'" class="booking_info_element">
+                                {{this.booking.tarif[0].tarif_price}} руб
+                            </span>
+                            <span *ngIf="this.booking.tarifCheked ==='Межгород'" class="booking_info_element">
+                                {{this.booking.tarif[1].tarif_price}} руб
+                            </span>
+                            <span *ngIf="this.booking.tarifCheked ==='Россия'" class="booking_info_element">
+                                {{this.booking.tarif[2].tarif_price}} руб
+                            </span>
+                            <span *ngIf="this.booking.tarifCheked ==='Смешанный'" class="booking_info_element">
+                                Гор - {{this.booking.tarif[0].tarif_price}} р, Меж -
+                                {{this.booking.tarif[1].tarif_price}} р, Рос - {{this.booking.tarif[2].tarif_price}} р,
+                            </span>
+                        </div>
+
+                        <div *ngIf="this.booking.tarifCheked !== '' && this.booking.tarifCheked  !== 'Смешанный'">
+                            <span>Доп.часы:</span>
+                            <span class="booking_info_element">
+                                {{this.booking.tarif[0].dop_hours + this.booking.tarif[1].dop_hours +
+                                this.booking.tarif[2].dop_hours}}
+                            </span>
+                        </div>
+
+                        <div
+                            *ngIf="this.booking.tarif[0].dop_hours > 0 || this.booking.tarif[1].dop_hours > 0 && this.booking.tarif[2].dop_hours > 0">
+                            <span>Цена за доп.час(1ч):</span>
+                            <span *ngIf="this.booking.tarifCheked ==='Город'" class="booking_info_element">
+                                {{this.booking.tarif[0].dop_hours_price}} руб
+                            </span>
+                            <span *ngIf="this.booking.tarifCheked ==='Межгород'" class="booking_info_element">
+                                {{this.booking.tarif[1].dop_hours_price}} руб
+                            </span>
+                            <span *ngIf="this.booking.tarifCheked ==='Россия'" class="booking_info_element">
+                                {{this.booking.tarif[2].dop_hours_price}} руб
+                            </span>
+                            <span *ngIf="this.booking.tarifCheked ==='Смешанный'" class="booking_info_element">
+                                0
+                            </span>
+                        </div>
+
+                        <div *ngIf="this.booking.place_start !== ''">
+                            <span>Место падачи:</span>
+                            <span class="booking_info_element">{{this.booking.place_start}} -
+                                {{this.booking.place_start_price}} руб</span>
+                        </div>
+
+                        <div *ngIf="this.booking.place_end !== ''">
+                            <span>Место приема:</span>
+                            <span class="booking_info_element">{{this.booking.place_end}} -
+                                {{this.booking.place_end_price}} руб</span>
+                        </div>
+
+                        <div>
+                            <span>Залог:</span>
+                            <span class="booking_info_element">
+                                {{this.booking.zalog}} руб
+                            </span>
+                        </div>
+
+                        <div
+                            *ngIf="this.booking.additional_services[0].status || this.booking.additional_services[1].status || this.booking.additional_services[2].status 
+                        || this.booking.additional_services[3].status || this.booking.additional_services[4].status || this.booking.additional_services[5].status">
+                            <span>Доп.услуги:</span>
+                            <span class="booking_info_element"
+                                *ngIf="this.booking.additional_services[0].status === true">Детское кресло -
+                                {{this.booking.additional_services[0].price}} руб</span><br>
+                            <span class="booking_info_element"
+                                *ngIf="this.booking.additional_services[1].status === true">Бустер -
+                                {{this.booking.additional_services[1].price}} руб</span><br>
+                            <span class="booking_info_element"
+                                *ngIf="this.booking.additional_services[2].status === true">Видеорегистратор -
+                                {{this.booking.additional_services[2].price}} руб</span><br>
+                            <span class="booking_info_element"
+                                *ngIf="this.booking.additional_services[3].status === true">Зарядное устройство -
+                                {{this.booking.additional_services[3].price}} руб</span><br>
+                            <span class="booking_info_element"
+                                *ngIf="this.booking.additional_services[4].status === true">Антирадар -
+                                {{this.booking.additional_services[4].price}} руб</span><br>
+                            <span class="booking_info_element"
+                                *ngIf="this.booking.additional_services[5].status === true">Мойка -
+                                {{this.booking.additional_services[5].price}} руб</span>
+                        </div>
+
+                        <div>
+                            <span>Итого:</span>
+                            <span class="booking_info_element_summ">
+                                {{this.booking.arenda +
+
+
+                                this.booking.zalog +
+
+                                this.booking.place_start_price +
+
+                                this.booking.place_end_price +
+
+                                this.booking.additional_services_price}} руб
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="submit" [disabled]="!currentClient"><i class="pi pi-check"></i> Сохранить</button>
+    </form>
+</div>

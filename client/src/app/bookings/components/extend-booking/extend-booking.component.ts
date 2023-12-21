@@ -777,6 +777,16 @@ export class ExtendBookingComponent {
   onSubmit() {
 
 
+
+    const extend = {
+      date: new Date(),
+      extend_days: this.booking.checkedTarif === 'Смешанный' ? this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days : this.isBookingdays(),
+      summ: this.booking.arenda,
+      sale: this.form.value.sale || 0,
+      tariff: this.booking.tarifCheked
+    }
+
+
     this.booking.tarif[0].booking_days += this.currentBooking?.tarif[0].booking_days
     this.booking.tarif[1].booking_days += this.currentBooking?.tarif[1].booking_days
     this.booking.tarif[2].booking_days += this.currentBooking?.tarif[2].booking_days
@@ -786,15 +796,6 @@ export class ExtendBookingComponent {
     this.booking.tarif[0].dop_hours_price += this.currentBooking?.tarif[0].dop_hours_price
     this.booking.tarif[1].dop_hours_price += this.currentBooking?.tarif[1].dop_hours_price
     this.booking.tarif[2].dop_hours_price += this.currentBooking?.tarif[2].dop_hours_price
-
-
-    const extend = {
-      date: new Date(),
-      extend_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days,
-      summ: this.booking.arenda,
-      sale: this.form.value.sale || 0,
-      tariff: this.booking.tarifCheked
-    }
 
 
     let pay_1: Pay = {
@@ -985,13 +986,6 @@ export class ExtendBookingComponent {
       this.store.dispatch(extendBookingAction({ data }))
     }
 
-
-   
-
-    // if(this.currentBooking)
-    // {
-      
-    // }
     
   }
 }

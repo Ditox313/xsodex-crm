@@ -1,0 +1,260 @@
+.add-booking {
+    padding: 0 20px;
+}
+
+
+.add-booking form>div {
+    margin-bottom: 40px;
+}
+
+
+
+
+
+
+
+
+label {
+    font-size: 13px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+
+
+fieldset {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.errorValidate {
+    display: inline-block;
+    color: #fff;
+    padding-left: 0px;
+    color: #FF2400;
+    text-align: left;
+    font-size: 12px;
+    margin-right: 10px;
+    position: absolute;
+    top: 16px;
+}
+
+
+.dn {
+    display: none;
+}
+
+select {
+    color: #495057;
+    background: #ffffff;
+    padding: 0.75rem 0.75rem;
+    border: 1px solid #ced4da;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 6px;
+    margin-right: 15px;
+    margin-top: 15px;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 16px;
+    cursor: pointer;
+    width: 200px;
+}
+
+input {
+    color: #495057;
+    background: #ffffff;
+    padding: 11px;
+    border: 1px solid #ced4da;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 6px;
+    margin-right: 15px;
+    margin-top: 15px;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 16px;
+    cursor: pointer;
+    width: 200px;
+}
+
+textarea {
+    color: #495057;
+    background: #ffffff;
+    padding: 11px;
+    border: 1px solid #ced4da;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 6px;
+    margin-right: 15px;
+    margin-top: 15px;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 16px;
+    cursor: pointer;
+    width: 300px;
+    height: 45px;
+}
+
+.client_input {
+    color: #495057;
+    background: #ffffff;
+    padding: 11px;
+    border: 1px solid #ced4da;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 6px;
+    margin-right: 10px;
+    margin-top: 15px;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 16px;
+    cursor: pointer;
+    width: 300px;
+    height: 45px;
+}
+
+p-inputMask {
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+input::-webkit-datetime-edit-day-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-year-field:focus {
+    background-color: transparent;
+    color: #495057;
+    outline: none;
+}
+
+
+fieldset {
+    margin-bottom: 30px;
+}
+
+
+
+
+
+button {
+    color: #ffffff;
+    background: #3B82F6;
+    border: 1px solid #3B82F6;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: default !important;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.submit {
+    margin-top: 10px;
+}
+
+
+.add_booking_content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add_booking_content>div:first-child {
+    width: 70%;
+}
+
+.add_booking_content>div:last-child {
+    width: 30%;
+}
+
+.mixed_tarif>div>div>label:first-child {
+    margin-right: 20px;
+    display: inline-block;
+}
+
+.errorValidTarifMixedDays {
+    background-color: #FF2400;
+    color: #fff;
+    padding: 10px 15px;
+    margin-top: 30px;
+}
+
+.dop_service>div {
+    width: 100%;
+    display: flex;
+}
+
+h4 {
+    font-size: 21px;
+}
+
+.dop_service>div>div {
+    margin-right: 45px;
+
+}
+
+.dop_service>div>div:last-child {
+    margin-right: 0px;
+}
+
+.dop_service>div>div label {
+    display: inline-block;
+    line-height: 22px;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.calc {
+    font-size: 16px;
+    background-color: #3B82F6;
+    color: #fff;
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 4px;
+    width: 100%;
+
+}
+
+.group_2 {
+    margin-top: 25px;
+}
+
+.booking_info_element {
+    display: inline-block;
+    background-color: #fff;
+    padding: 2px 4px;
+    margin-left: 5px;
+    color: #3B82F6;
+}
+
+.booking_info_element_summ {
+    display: inline-block;
+    background-color: #fff;
+    padding: 2px 4px;
+    margin-left: 5px;
+    color: #3B82F6;
+}
+
+.calc>div>div {
+    margin-bottom: 5px;
+}
+
+.client i {
+    font-size: 22px;
+    cursor: pointer;
+    margin-top: 26px;
+    margin-right: 20px;
+}

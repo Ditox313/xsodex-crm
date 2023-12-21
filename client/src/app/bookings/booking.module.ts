@@ -33,6 +33,7 @@ import { AddActBookingComponent } from './components/add-act-booking/add-act-boo
 import { ShowActBookingComponent } from './components/show-act-booking/show-act-booking.component';
 import { ExtendBookingComponent } from './components/extend-booking/extend-booking.component';
 import { CloseBookingComponent } from './components/close-booking/close-booking.component';
+import { EditBookingComponent } from './components/edit-booking/edit-booking.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { CloseBookingComponent } from './components/close-booking/close-booking.
     ShowActBookingComponent,
     ExtendBookingComponent,
     CloseBookingComponent,
+    EditBookingComponent,
   ],
   imports: [
     CommonModule,
