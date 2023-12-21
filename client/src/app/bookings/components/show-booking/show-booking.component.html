@@ -366,7 +366,7 @@
                             <span *ngIf="!this.currentBooking.closeInfo.zalogOutputPart">Нет</span>
                         </div>
 
-                        <div>
+                        <div *ngIf="this.currentBooking.closeInfo.comment !== ''">
                             <span>Комментарий: </span>
                             <span>{{this.currentBooking.closeInfo.comment}}</span>
                         </div>
