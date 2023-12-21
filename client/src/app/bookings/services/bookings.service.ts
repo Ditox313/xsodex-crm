@@ -125,6 +125,12 @@ export class BookingsService {
   }
 
 
+  // закрытие брони
+  closeBooking(data: any): Observable<any> {
+    return this.http.post<any>(`/api/bookings/close`, data);
+  }
+
+
 
 
 

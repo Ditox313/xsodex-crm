@@ -6,7 +6,9 @@ import { ClientLaw } from "src/app/clients/types/clientsLaw/clientsLaw.interface
 //Интерфейс для брони
 export interface Booking {
     _id?: string,
+    openInfo?: Object,
     extends?: Array<any>,
+    closeInfo?: Object,
     booking_start: string,
     booking_end: string,
     booking_days: Number,
@@ -134,3 +136,8 @@ export interface Act {
     bookingId: string | undefined,
     smenaId: string | undefined
 }
+
+
+
+
+

@@ -6,7 +6,7 @@ import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
 import { Smena } from 'src/app/smena/types/smena.interfaces';
 import { DatePipe } from '@angular/common';
 import { Store, select } from '@ngrx/store';
-import { bookingGetCurrent, bookingGetCurrentReset } from '../../store/actions/bookings.action';
+import { bookingGetCurrent, bookingGetCurrentReset, closeBookingAction } from '../../store/actions/bookings.action';
 import { getCurrentBookingSelector, isLoadingSelector } from '../../store/selectors';
 import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
 import { currentUserSelector } from 'src/app/account/store/selectors';
@@ -83,8 +83,8 @@ export class CloseBookingComponent {
   initForm() {
     this.form = new FormGroup({
       booking_end: new FormControl('',),
-      probeg_old: new FormControl('',),
-      probeg: new FormControl('',),
+      probeg_old: new FormControl(0),
+      probeg: new FormControl(0),
       isCarClean: new FormControl(false),
       isCarFuel: new FormControl(false),
       outputZalog: new FormControl(0),
@@ -138,7 +138,8 @@ export class CloseBookingComponent {
         this.form.patchValue({
           booking_end: this.currentBooking?.booking_end,
           probeg_old: currentCar?.probeg,
-          outputZalog: this.currentBooking?.zalog
+          outputZalog: this.currentBooking?.zalog,
+          moyka: this.currentBooking?.additional_services[5].price,
         })
       }
     })
@@ -172,18 +173,70 @@ export class CloseBookingComponent {
 
 
   onSubmit() {
-    // const pay_2: Pay = {
-    //   type: 'Залог',
-    //   pricePay: this.form.value.zalog || 0,
-    //   typeMoney: this.form.value.typePayZalog,
-    //   bookingId: this.bookingId,
-    //   smenaId: this.currentSmema?._id,
-    //   userId: this.currentUser?._id,
-    //   clientId: this.currentBooking?.client._id
-    // };
+    const close = {
+      date: this.form.value.booking_end,
+      isCarClean: this.form.value.isCarClean[0] || false,
+      isCarFuel: this.form.value.isCarFuel[0] || false,
+      zalogOutput: +this.form.value.outputZalog,
+      zalogOutputPart: this.currentBooking && this.currentBooking.zalog > this.form.value.outputZalog ? true : false,
+      moyka: +this.form.value.moyka,
+      comment: this.form.value.comment,
+      oldProbeg: this.currentCar ? +this.currentCar.probeg : 0,
+      newProbeg: +this.form.value.probeg,
+      smenaIdClose:this.currentSmema?._id,
+      userIdClose: this.currentUser?._id
+    };
 
 
-    // this.store.dispatch(bookingCreatePayAction({ pay_1, pay_2, pay_3, pay_4, pay_5 }))
+
+    const bookingUpdate = {
+      booking_end: this.form.value.booking_end,
+      zalog: this.currentBooking ? (+this.currentBooking?.zalog) - this.form.value.outputZalog : 0,
+      summaFull: this.currentBooking ? this.currentBooking.summaFull - this.form.value.outputZalog + this.form.value.moyka : 0,
+      paidCount: this.currentBooking ? this.currentBooking.paidCount - this.form.value.outputZalog + this.form.value.moyka : 0,
+      status: 'Закрыта',
+      _id: this.currentBooking?._id
+    }
+
+
+
+    let pay_1: Pay = {
+      type: 'Залог',
+      pricePay: -(+this.form.value.outputZalog),
+      typeMoney: this.form.value.typePayOutputZalog,
+      bookingId: this.currentBooking?._id,
+      smenaId: this.currentSmema?._id,
+      userId: this.currentUser?._id,
+      clientId: this.currentBooking?.client._id
+    };
+
+
+    let pay_2: Pay = {
+      type: 'Мойка',
+      pricePay: +this.form.value.moyka,
+      typeMoney: this.form.value.typePayMoyka,
+      bookingId: this.currentBooking?._id,
+      smenaId: this.currentSmema?._id,
+      userId: this.currentUser?._id,
+      clientId: this.currentBooking?.client._id
+    };
+
+    
+
+
+    const data = {
+      bookingUpdate: bookingUpdate,
+      close: close,
+      pay_1: pay_1,
+      pay_2: pay_2,
+    }
+
+
+    console.log(data);
+    
+
+
+    this.store.dispatch(closeBookingAction({ data: data}))
 
   }
 }

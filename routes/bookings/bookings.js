@@ -63,6 +63,11 @@ router.post('/extend', passport.authenticate('jwt', { session: false }), control
 
 
 
+// Роут на close
+router.post('/close', passport.authenticate('jwt', { session: false }), controller.close);
+
+
+
 
 
 // Роут на update

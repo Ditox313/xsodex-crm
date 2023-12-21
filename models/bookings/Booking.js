@@ -14,6 +14,20 @@ const bookingSchema = new Schema({
     },
 
 
+    openInfo: {
+        type: Object,
+        required: false,
+    },
+
+    
+
+    closeInfo: {
+        type: Object,
+        required: false,
+    },
+
+
+
     booking_start: {
         type: String,
         default: '',

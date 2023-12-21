@@ -22,7 +22,7 @@ export class ShowBookingComponent {
   isLoadingSelector$!: Observable<boolean | null>
   currentBookingSelector!: Observable<Booking | null | undefined>
   currentBookingSub$!: Subscription
-  currentBooking!: Booking & { client: any } & { car: any } & { tarif: any } & { additional_services : any} | null | undefined;
+  currentBooking!: Booking & { client: any } & { car: any }   & { tarif: any } & { additional_services : any} | null | undefined | any;
   currentUserSelector!: Observable<UserResponceRegister | null | undefined>
   currentUserSub$!: Subscription
   currentUser!: UserResponceRegister | null | undefined

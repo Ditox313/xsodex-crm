@@ -25,6 +25,8 @@ module.exports.create = async function (req, res) {
 
         const booking = await new Booking({
             extends: req.body.extends,
+            openInfo: req.body.openInfo,
+            closeInfo: req.body.closeInfo,
             booking_start: req.body.booking_start,
             booking_end: req.body.booking_end,
             booking_days: req.body.booking_days,
@@ -456,6 +458,60 @@ module.exports.extend = async function (req, res) {
         errorHandler(res, e);
     }
 };
+
+
+
+
+
+
+
+// Контроллер для close
+module.exports.close = async function (req, res) {
+    try {
+
+        const updated = req.body;
+        updated.bookingUpdate.closeInfo = updated.close
+
+
+        if (+req.body.pay_1.pricePay !== 0) {
+            const pay_1 = await new Pay({
+                type: req.body.pay_1.type,
+                pricePay: req.body.pay_1.pricePay,
+                typeMoney: req.body.pay_1.typeMoney,
+                bookingId: req.body.pay_1.bookingId,
+                smenaId: req.body.pay_1.smenaId,
+                userId: req.user._id,
+                clientId: req.body.pay_1.clientId,
+            }).save();
+        }
+        if (+req.body.pay_2.pricePay !== 0) {
+            const pay_2 = await new Pay({
+                type: req.body.pay_2.type,
+                pricePay: req.body.pay_2.pricePay,
+                typeMoney: req.body.pay_2.typeMoney,
+                bookingId: req.body.pay_2.bookingId,
+                smenaId: req.body.pay_2.smenaId,
+                userId: req.user._id,
+                clientId: req.body.pay_2.clientId,
+            }).save();
+        }
+
+
+
+        // Находим и обновляем позицию. 
+        const bookingUpdate = await Booking.findOneAndUpdate({ _id: updated.bookingUpdate._id }, //Ищем по id
+            { $set: updated.bookingUpdate }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
+            { new: true } //обновит позицию и верет нам уже обновленную
+        );
+
+
+        // Возвращаем пользователю обновленную позицию 
+        res.status(200).json(bookingUpdate);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
 
 
 

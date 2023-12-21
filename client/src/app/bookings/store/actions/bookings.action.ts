@@ -417,6 +417,27 @@ export const extendBookingFailureAction = createAction(
 
 
 
+
+// Close Booking
+export const closeBookingAction = createAction(
+  ActionTypes.CLOSE_BOOKING,
+  props<{ data: any }>()
+);
+
+export const closeBookingSuccessAction = createAction(
+  ActionTypes.CLOSE_BOOKING_SUCCES,
+);
+
+
+export const closeBookingFailureAction = createAction(
+  ActionTypes.CLOSE_BOOKING_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+
+
+
 // Update Partner
 // export const updatePartnerAction = createAction(
 //   ActionTypes.UPDATE_PARTNER,

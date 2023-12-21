@@ -1117,6 +1117,23 @@ export class AddBookingComponent {
 
     const booking: Booking = {
       extends: [],
+      closeInfo: {
+        date: '',
+        isCarClean: false,
+        isCarFuel:  false,
+        zalogOutput: 0,
+        zalogOutputPart:  false,
+        moyka: 0,
+        comment: '',
+        oldProbeg:  0,
+        newProbeg: 0,
+        smenaIdClose: '',
+        userIdClose: ''
+      },
+      openInfo: {
+        userIdOpen: this.currentUser?._id,
+        smenaIdOpen: this.currentSmema?._id
+      },
       booking_start: this.booking.booking_start,
       booking_end: this.booking.booking_end,
       booking_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days,
