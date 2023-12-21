@@ -269,3 +269,25 @@ td
     display: flex;
     justify-content: space-between;
 }
+
+
+.close_info
+{
+    background-color: #008000;
+    padding: 20px;
+    margin-top: 10px;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.close_info> div
+{
+    margin-bottom: 10px;
+}
+
+.close_info > div > span:last-child
+{
+    background-color: #fff;
+    color: #194A9E;
+    padding: 0 5px;
+}

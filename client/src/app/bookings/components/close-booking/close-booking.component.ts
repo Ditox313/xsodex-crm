@@ -139,7 +139,7 @@ export class CloseBookingComponent {
           booking_end: this.currentBooking?.booking_end,
           probeg_old: currentCar?.probeg,
           outputZalog: this.currentBooking?.zalog,
-          moyka: this.currentBooking?.additional_services[5].price,
+          moyka: this.currentBooking && this.currentBooking?.additional_services[5] === false ? this.currentBooking?.additional_services[5].price : 0,
         })
       }
     })
@@ -175,8 +175,8 @@ export class CloseBookingComponent {
   onSubmit() {
     const close = {
       date: this.form.value.booking_end,
-      isCarClean: this.form.value.isCarClean[0] || false,
-      isCarFuel: this.form.value.isCarFuel[0] || false,
+      isCarClean: Boolean(this.form.value.isCarClean[0]) || false,
+      isCarFuel: Boolean(this.form.value.isCarFuel[0]) || false,
       zalogOutput: +this.form.value.outputZalog,
       zalogOutputPart: this.currentBooking && this.currentBooking.zalog > this.form.value.outputZalog ? true : false,
       moyka: +this.form.value.moyka,

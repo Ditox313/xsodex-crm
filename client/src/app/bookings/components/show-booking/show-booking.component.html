@@ -230,7 +230,7 @@
                         </div>
 
 
-                        <div>
+                        <div *ngIf="currentBooking.closeInfo.moyka > 0">
                             <span>Мойка: </span>
                             <span>{{currentBooking.closeInfo.moyka}} руб</span>
                         </div>
@@ -337,7 +337,45 @@
                         <span class="edit_avto" title="Редактировать бронь">
                             <img src="../../../../assets/img/edit_avto.png" alt="">
                         </span>
-                    </div>    
+                    </div>  
+                    
+                    
+                    <h3 style="margin-top: 30px;" *ngIf="this.currentBooking.status === 'Закрыта'">Информация на момент закрытия брони</h3>
+
+                    <div class="close_info" *ngIf="this.currentBooking.status === 'Закрыта'">
+                        
+                        <div>
+                            <span>Автомобиль заправлен </span>
+                            <span *ngIf="this.currentBooking.closeInfo.isCarFuel">Да</span>
+                            <span *ngIf="!this.currentBooking.closeInfo.isCarFuel">Нет</span>
+                        </div>
+
+                        <div>
+                            <span>Пробег на начало аренды </span>
+                            <span>{{this.currentBooking.closeInfo.oldProbeg}}</span>
+                        </div>
+
+                        <div>
+                            <span>Пробег на конец аренды </span>
+                            <span>{{this.currentBooking.closeInfo.newProbeg}}</span>
+                        </div>
+
+                        <div>
+                            <span>Частичный возврат залога </span>
+                            <span *ngIf="this.currentBooking.closeInfo.zalogOutputPart">Да</span>
+                            <span *ngIf="!this.currentBooking.closeInfo.zalogOutputPart">Нет</span>
+                        </div>
+
+                        <div>
+                            <span>Комментарий: </span>
+                            <span>{{this.currentBooking.closeInfo.comment}}</span>
+                        </div>
+
+                        <div>
+                            <span>Бронь закрыта: </span>
+                            <span>{{this.currentBooking.closeInfo.date | date : 'dd.MM.yyyy HH:mm'}}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
