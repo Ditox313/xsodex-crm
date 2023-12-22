@@ -192,8 +192,8 @@ export class CloseBookingComponent {
     const bookingUpdate = {
       booking_end: this.form.value.booking_end,
       zalog: this.currentBooking ? (+this.currentBooking?.zalog) - this.form.value.outputZalog : 0,
-      summaFull: this.currentBooking ? this.currentBooking.summaFull - this.form.value.outputZalog + this.form.value.moyka : 0,
-      paidCount: this.currentBooking ? this.currentBooking.paidCount - this.form.value.outputZalog + this.form.value.moyka : 0,
+      summaFull: this.currentBooking ? +this.currentBooking.summaFull - +this.form.value.outputZalog + +this.form.value.moyka : 0,
+      paidCount: this.currentBooking ? +this.currentBooking.paidCount - +this.form.value.outputZalog + +this.form.value.moyka : 0,
       status: 'Закрыта',
       _id: this.currentBooking?._id
     }
