@@ -206,11 +206,8 @@ export class AddBookingComponent {
     this.currentSmemaSub$ = this.currentSmemaSelector.subscribe({
       next: (currentSmena) => {
         this.currentSmema = currentSmena
-        console.log(this.currentSmema);
-        
       }
     })
-
 
 
     // Отправляем запрос на получение выбранного клиента

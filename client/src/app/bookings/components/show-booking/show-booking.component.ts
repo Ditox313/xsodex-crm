@@ -116,7 +116,6 @@ export class ShowBookingComponent {
     this.currentBookingSub$ = this.currentBookingSelector.subscribe({
       next: (currentBooking) => {
         this.currentBooking = currentBooking
-        console.log('111',this.currentBooking);
         
 
         if (currentBooking) {
@@ -164,7 +163,6 @@ export class ShowBookingComponent {
       next: (paysList) => {
         if (paysList) {
           this.paysList = paysList;
-          console.log(paysList);
         }
       }
     });
@@ -187,14 +185,12 @@ export class ShowBookingComponent {
   checkedTypeArenda(e: any)
   {
     this.form.value.typePayArenda = e
-    console.log(this.form.value.typePayArenda);
     
   }
 
   // Выбираем тип оплаты залога
   checkedTypeZalog(e: any) {
     this.form.value.typePayZalog = e
-    console.log(this.form.value.typePayZalog);
   }
 
 
@@ -212,10 +208,6 @@ export class ShowBookingComponent {
 
 
  onSubmit() {
-
-   console.log(this.currentBooking);
-
-  
 
     // Создаем платежи
     const pay_1: Pay = {

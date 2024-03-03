@@ -191,3 +191,11 @@ select:disabled {
 .tarifs>div {
     width: 33%;
 }
+
+
+
+
+.tarif_dn
+{
+    display: none;
+}

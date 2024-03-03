@@ -89,7 +89,6 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
     this.currentSmemaSub$ = this.currentSmemaSelector.subscribe({
       next: (currentSmena) => {
         this.currentSmema = currentSmena
-        console.log(this.currentSmema);
 
       }
     })

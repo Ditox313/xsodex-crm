@@ -169,3 +169,9 @@ button:disabled
     width: 33%;
 }
 
+
+
+.tarif_dn
+{
+    display: none;
+}
