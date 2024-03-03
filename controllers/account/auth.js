@@ -100,42 +100,40 @@ module.exports.register = async function(req, res) {
 // Контроллер для update
 module.exports.updateUser = async function (req, res) {
     try {
-
-        const salt = bcrypt.genSaltSync(10);
-        const updated = req.body;
-        const actualUser = await User.findOne({ _id: req.user._id, });
-        
-
-        if (req.body.password === null || req.body.password === '') {
-            updated.password = actualUser.password;
-        }
-        else {
-            updated.password = bcrypt.hashSync(req.body.password, salt);
-        }
-
-
-        if (req.file && actualUser) {
-            fs.unlink(actualUser.avatar, (err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-                }
-            });
-            updated.avatar = req.file.path;
-        }
-
-
-
-        const updateUser = await User.findOneAndUpdate({ _id: req.user._id, }, //Ищем по id
-            { $set: updated }, 
-            { new: true } 
-        );
-
-
-        res.status(200).json(updateUser);
+      const salt = bcrypt.genSaltSync(10);
+      const updated = req.body;
+      const actualUser = await User.findOne({ _id: req.user._id });
+  
+      if (req.body.password === null || req.body.password === '') {
+        updated.password = actualUser.password;
+      } else {
+        updated.password = bcrypt.hashSync(req.body.password, salt);
+      }
+  
+      if (req.file && actualUser) {
+        fs.unlink(actualUser.avatar, (err) => {
+          if (err) {
+            console.error('Ошибка при удалении картинки:', err);
+            // Здесь можно отправить ответ с ошибкой, если это необходимо
+            // return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+          }
+        });
+        updated.avatar = req.file.path;
+      }
+  
+      const updateUser = await User.findOneAndUpdate(
+        { _id: req.user._id },
+        { $set: updated },
+        { new: true }
+      );
+  
+      res.status(200).json(updateUser);
     } catch (e) {
-        errorHandler(res, e);
+      errorHandler(res, e);
+      // Убедитесь, что функция errorHandler отправляет ответ и завершает выполнение
+      return;
     }
-};
+  };
 
 
 
