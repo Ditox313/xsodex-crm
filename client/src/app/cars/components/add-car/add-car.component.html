@@ -315,7 +315,23 @@
                                             </p>
                                         </div>
                                     </fieldset>
+                                </div>
+                                <button type="submit" class="submit"  [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </p-tabPanel>
 
+
+
+
+            <p-tabPanel header="Техобслуживание">
+                <div class="tab_wrapper">
+                    <div class="add_car_page">
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()">                    
+                            <div class="add_car_inputs">
+                                <div>
                                     <fieldset>
                                         <label htmlFor="to_date">Дата крайнего ТО</label>
                                         <input type="date" id="to_date" formControlName="to_date"

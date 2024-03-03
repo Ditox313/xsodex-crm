@@ -317,6 +317,23 @@
                                         </div>
                                     </fieldset>
 
+                                </div>
+                                <button type="submit" class="submit" *ngIf="edit"  [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+
+
+
+            <p-tabPanel header="Техобслуживание">
+                <div class="tab_wrapper">
+                    <div class="add_car_page">
+                        <form [formGroup]="form" (ngSubmit)="onSubmit()">                    
+                            <div class="show_car_inputs">
+                                <div>
                                     <fieldset>
                                         <label htmlFor="to_date">Дата крайнего ТО</label>
                                         <input type="date" id="to_date" formControlName="to_date"
@@ -399,6 +416,7 @@
 
                                     <fieldset>
                                         <label htmlFor="stoa_phone">Телефон СТОА</label>
+
                                         <p-inputMask id="stoa_phone"   formControlName="stoa_phone" mask="+7(999)-999-99-99" placeholder="+7(999)999-99-99"
                                         [ngClass]="{'ng-invalid ng-dirty': form.controls['stoa_phone'].invalid && form.controls['stoa_phone'].touched}"></p-inputMask>
 
@@ -411,7 +429,7 @@
                                         </div>
                                     </fieldset>
                                 </div>
-                                <button type="submit" class="submit" *ngIf="edit"  [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+                                <button type="submit" class="submit"  [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
                             </div>
                         </form>
                     </div>
