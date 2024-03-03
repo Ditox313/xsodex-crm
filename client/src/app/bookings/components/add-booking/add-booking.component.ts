@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { currentClient, isLoadingSelector } from '../../store/selectors';
 import { Store, select } from '@ngrx/store';
@@ -34,6 +34,8 @@ export class AddBookingComponent {
   isVisibleModalClient: boolean = false
   minDate: string = '';
 
+  @ViewChild('myLocalDate') myLocalDate: ElementRef<any> | undefined;
+  
   settingsAvtoparkListSelector!: Observable<SettingAvtopark[] | null | undefined>
   settingsAvtoparkListSub$!: Subscription
   settingsAvtoparkList: SettingAvtopark[]  | null | undefined = [];
@@ -91,6 +93,9 @@ export class AddBookingComponent {
 
 
 
+
+
+
   constructor(public datePipe: DatePipe, private store: Store, private messageService: MessageService,) { }
 
 
@@ -98,8 +103,10 @@ export class AddBookingComponent {
     this.initForm()
     this.initValues()
     this.dasable_controls()
-    this.setMinDate()
+    this.setMinDate()    
   }
+
+
 
   ngOnDestroy(): void {
     if (this.carsListSub$) {
@@ -608,6 +615,13 @@ export class AddBookingComponent {
   // При выборе кол-ва дней смешанного тарифа - город
   tarifMixedGorodDays(e: any)
   {
+    if(e < 0)
+    {
+      this.form.patchValue({
+        tarif_mixed_gorod_days: 0
+      })
+    }
+
     this.booking.tarif[0].booking_days = e | 0
 
     if (e === null || e === 0) {
@@ -668,6 +682,12 @@ export class AddBookingComponent {
   tarifMixedMejgorodDays(e: any) {
     this.booking.tarif[1].booking_days = e | 0
 
+    if(e < 0)
+    {
+      this.form.patchValue({
+        tarif_mixed_mezjgorod_days: 0
+      })
+    }
 
     if (e === null || e === 0) {
       this.booking.arendaMejGorodMixed = 0
@@ -732,6 +752,12 @@ export class AddBookingComponent {
   tarifMixedRussiaDays(e: any) {
     this.booking.tarif[2].booking_days = e | 0
 
+    if(e < 0)
+    {
+      this.form.patchValue({
+        tarif_mixed_russia_days: 0
+      })
+    }
 
     if (e === null || e === 0) {
       this.booking.arendaRussiaMixed = 0
