@@ -32,6 +32,7 @@ export class AddBookingComponent {
   carsList: Car[] | null | undefined = [];
   errorValidTarifMixedDays: boolean = false;
   isVisibleModalClient: boolean = false
+  minDate: string = '';
 
   settingsAvtoparkListSelector!: Observable<SettingAvtopark[] | null | undefined>
   settingsAvtoparkListSub$!: Subscription
@@ -97,6 +98,7 @@ export class AddBookingComponent {
     this.initForm()
     this.initValues()
     this.dasable_controls()
+    this.setMinDate()
   }
 
   ngOnDestroy(): void {
@@ -124,6 +126,12 @@ export class AddBookingComponent {
     // Отчищаем состояние settingsAvtoparkList если не хотим сохранять список авто  в состояние
     this.store.dispatch(settingsAvtoparkListResetAction());
 
+  }
+
+
+  setMinDate() {
+    const today = new Date();
+    this.minDate = today.toISOString().slice(0, 16);
   }
 
   initForm() {

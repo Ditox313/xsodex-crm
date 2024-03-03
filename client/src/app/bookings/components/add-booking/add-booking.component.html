@@ -13,6 +13,7 @@
                         <label htmlFor="booking_start">Дата начала брони</label>
                         <input type="datetime-local" pInputText id="booking_start" formControlName="booking_start"
                             placeholder="Введите значение"
+                            [min]="minDate"
                             [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_start'].invalid && form.controls['booking_start'].touched}"
                             (change)="checkedStartBookingDate($event)" />
 
