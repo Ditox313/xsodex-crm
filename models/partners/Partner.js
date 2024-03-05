@@ -101,6 +101,13 @@ const partnerSchema = new Schema({
         required: false,
     },
 
+    // Файлы
+    files: {
+        type: Array,
+        required: false,
+    },
+
+
     user: {
         type: String,
         default: '',

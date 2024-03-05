@@ -266,6 +266,16 @@ export class AddBookingComponent {
 
   // При выборе даты старта брони
   checkedStartBookingDate(e: any) {
+
+    // Округляем значение до ближайшей тридцатиминутки
+    if (e.target.value) {
+      const selectedDate = new Date(e.target.value);
+      const minutes = selectedDate.getMinutes();
+      const roundedMinutes = Math.round(minutes / 30) * 30;
+      selectedDate.setMinutes(roundedMinutes);
+      this.form.controls['booking_start'].patchValue(selectedDate.toISOString().slice(0, 16));
+    }
+
     // // Получаем и устанавливаем  начало  аренды
     this.booking.booking_start = e.target.value
 
@@ -286,6 +296,16 @@ export class AddBookingComponent {
 
   // При выборе даты окончания брони
   checkedEndBookingDate(e: any) {
+
+    // Округляем значение до ближайшей тридцатиминутки
+    if (e.target.value) {
+      const selectedDate = new Date(e.target.value);
+      const minutes = selectedDate.getMinutes();
+      const roundedMinutes = Math.round(minutes / 30) * 30;
+      selectedDate.setMinutes(roundedMinutes);
+      this.form.controls['booking_end'].patchValue(selectedDate.toISOString().slice(0, 16));
+    }
+
     // Получаем и устанавливаем  окончание  аренды
     this.booking.booking_end = e.target.value
 
@@ -1139,6 +1159,11 @@ export class AddBookingComponent {
   {
     this.isVisibleModalClient = !this.isVisibleModalClient
   }
+
+
+
+
+ 
  
 
 

@@ -5,9 +5,14 @@ import { Partner, PartnersParamsFetch } from '../../types/partners.interfaces';
 
 
 // Add partner
+// export const addPartnerAction = createAction(
+//   ActionTypes.ADD_PARTNER,
+//   props<{ partner: Partner, file_1?: File, file_2?: File }>()
+// );
+
 export const addPartnerAction = createAction(
   ActionTypes.ADD_PARTNER,
-  props<{ partner: Partner, file_1?: File, file_2?: File }>()
+  props<{ partner: Partner, files?:Array<File>}>()
 );
 
 export const addPartnerSuccessAction = createAction(

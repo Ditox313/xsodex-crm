@@ -7,8 +7,38 @@ const path = require('path');
 
 
 // Контроллер для create
+// module.exports.create = async function (req, res) {
+//     try {
+
+//         const partner = await new Partner({
+//             name: req.body.name,
+//             surname: req.body.surname,
+//             lastname: req.body.lastname,
+//             passport_seria: req.body.passport_seria,
+//             passport_number: req.body.passport_number,
+//             passport_date: req.body.passport_date,
+//             passport_who_take: req.body.passport_who_take,
+//             code_podrazdeleniya: req.body.code_podrazdeleniya,
+//             passport_register: req.body.passport_register,
+//             phone_1: req.body.phone_1,
+//             phone_2: req.body.phone_2,
+//             user: req.user._id,
+//             file_1: req.files.file_1[0] ? req.files.file_1[0].path : '',
+//             file_2: req.files.file_2[0] ? req.files.file_2[0].path : '',
+//         }).save();
+
+//         // Возвращаем пользователю позицию которую создали 
+//         res.status(201).json(partner);
+//     } catch (e) {
+//         errorHandler(res, e);
+//     }
+// };
+
+
 module.exports.create = async function (req, res) {
     try {
+        const files = req.files.files.map(file => file.path);
+
         const partner = await new Partner({
             name: req.body.name,
             surname: req.body.surname,
@@ -22,14 +52,14 @@ module.exports.create = async function (req, res) {
             phone_1: req.body.phone_1,
             phone_2: req.body.phone_2,
             user: req.user._id,
-            file_1: req.files.file_1[0] ? req.files.file_1[0].path : '',
-            file_2: req.files.file_2[0] ? req.files.file_2[0].path : '',
+            files
         }).save();
 
         // Возвращаем пользователю позицию которую создали 
         res.status(201).json(partner);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -77,19 +107,16 @@ module.exports.remove = async function (req, res) {
     try {
 
         const partner = await Partner.findOne({ _id: req.params.id });
-        fs.unlink(partner.file_1, (err) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-            }
-        });
 
-        fs.unlink(partner.file_2, (err) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-            }
+        partner.files.forEach(file => {
+            fs.unlink(file, (err) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+                }
+            });
         });
+        
 
 
         // Удаляем партнера
@@ -101,8 +128,10 @@ module.exports.remove = async function (req, res) {
         }
 
 
+        
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 

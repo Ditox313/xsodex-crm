@@ -3,11 +3,18 @@ const router = express.Router();
 const controller = require('../../controllers/partners/partners.js');
 const passport = require('passport');
 const upload = require('../../middleware/upload-partner-docs.js');
+const upload_drag = require('../../middleware/partner_drag_and_drop.js');
+
+
+
+
 
 
 
 // Роут на create
-router.post('/create', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.create);
+// router.post('/create', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.create);
+router.post('/create', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'files', maxCount: 10 }]), controller.create);
+
 
 
 // Роут на Получение всех партнеров
@@ -27,7 +34,7 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), controller.
 
 
 // Роут на update
-router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.update);
+router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([]), controller.update);
 
 
 
