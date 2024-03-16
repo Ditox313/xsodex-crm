@@ -37,3 +37,12 @@ export interface PartnersParamsFetch {
     offset: number | null,
     limit: number | null
 }
+
+
+
+// Интерфейс для загрузки файла
+export interface UploadResponse {
+    offset: number | null,
+    limit: number | null
+}
+

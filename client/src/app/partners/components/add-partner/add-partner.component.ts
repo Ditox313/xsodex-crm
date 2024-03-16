@@ -1,13 +1,12 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { Partner } from '../../types/partners.interfaces';
+import { Partner, UploadResponse } from '../../types/partners.interfaces';
 import { DatePipe } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { addPartnerAction } from '../../store/actions/partners.action';
 import { isLoadingSelector } from '../../store/selectors';
-import { UploadResponse } from '..//../../shared/types/product-response';
-import { PartnersService } from '../../services/partners.service';
+
 
 @Component({
   selector: 'app-add-partner',
@@ -18,13 +17,14 @@ export class AddPartnerComponent {
   title: string = 'Добавить партнера'
   form!: FormGroup;
   isLoadingSelector$!: Observable<boolean | null>
-  upload: UploadResponse = new UploadResponse();
+  upload!: UploadResponse
+
   isActive!: boolean;
   uploadFiles: any = []
   filesSrc: any = []
 
 
-  constructor(public datePipe: DatePipe, private store: Store, private partnersService: PartnersService,) { }
+  constructor(public datePipe: DatePipe, private store: Store) { }
 
 
   ngOnInit(): void {
@@ -60,6 +60,12 @@ export class AddPartnerComponent {
 
 
 
+  // Принимает загруженные файлы из модуля
+  uploadFilesData(data: { isActive: boolean, uploadFiles: any[], filesSrc: any[] }) {
+    this.isActive = data.isActive;
+    this.uploadFiles = data.uploadFiles;
+    this.filesSrc = data.filesSrc;
+  }
 
 
 
@@ -87,132 +93,4 @@ export class AddPartnerComponent {
     this.store.dispatch(addPartnerAction({ partner: partner, files: this.uploadFiles }))
   }
 
-
-
-
-
-
-
-
-
-
-
-
-  onDragOver(event: any) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.isActive = true;
-  }
-
-  onDragLeave(event: any) {
-    event.preventDefault();
-    event.stopPropagation();
-    this.isActive = false;
-  }
-
-  onDrop(event: any) {
-    event.preventDefault();
-    event.stopPropagation();
-    let droppedFiles = event.dataTransfer.files;
-    if(droppedFiles.length > 0) {
-      // this.onDroppedFile(droppedFiles)
-
-      const fileArray = Array.from(droppedFiles);
-
-      fileArray.forEach((file: any, i) => {
-        this.uploadFiles.push(file)
-        
-
-        const reader = new FileReader();
-        
-        reader.onload = () => {
-          if (this.uploadFiles[i].type !== 'application/pdf') {
-            // Переменная для хранения информации об изображении
-            this.filesSrc[i] = reader.result;
-          }
-          else {
-            // Переменная для хранения информации об изображении
-            this.filesSrc[i] = 'https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg';
-          }
-        };
-
-
-
-        // Читаем нужный нам файл
-        reader.readAsDataURL(file);
-      });
-    }
-    this.isActive = false;
-  }
-
-  onDroppedFile(droppedFiles: any) {
-    let formData = new FormData();
-    for(let item of droppedFiles) {
-      formData.append('userfiles', item);
-    }
-
-    this.partnersService.fileUpload(formData).subscribe(
-      result => {
-        this.upload = result;
-      }
-    )
-  }
-
-
-  
-  onSelectedFile(event: any) {
-    if (event.target.files.length > 0) {
-
-      const fileArray = Array.from(event.target.files);
-
-      fileArray.forEach((file: any, i) => {
-        this.uploadFiles.push(file)
-        
-
-        const reader = new FileReader();
-        
-        reader.onload = () => {
-          if (this.uploadFiles[i].type !== 'application/pdf') {
-            // Переменная для хранения информации об изображении
-            this.filesSrc[i] = reader.result;
-          }
-          else {
-            // Переменная для хранения информации об изображении
-            this.filesSrc[i] = 'https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg';
-          }
-        };
-
-
-
-        // Читаем нужный нам файл
-        reader.readAsDataURL(file);
-      });
-
-      // this.onDroppedFile(event.target.files);
-    }
-  }
-
-
-
-
-  formatFileSize(size: number) {
-    if (size < 1024) {
-      return `${size} байт`;
-    } else if (size < 1024 * 1024) {
-      return `${(size / 1024).toFixed(2)} КБ`;
-    } else {
-      return `${(size / (1024 * 1024)).toFixed(2)} МБ`;
-    }
-  }
-
-
-  onDeleteUploadInList(i: number)
-  {
-    this.uploadFiles.splice(i, 1);
-    this.filesSrc.splice(i, 1);
-    
-  }
-
-
-  
 }

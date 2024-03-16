@@ -25,6 +25,7 @@ import { PartnersEffect } from './store/effects/partners.effect';
 import { ShowPartnerComponent } from './components/show-partner/show-partner.component';
 import { PartnersService } from './services/partners.service';
 import {FileUploadModule} from 'primeng/fileupload';
+import { UploadFileModule } from '../shared/modules/upload-file/upload-file.module';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import {FileUploadModule} from 'primeng/fileupload';
     TreeSelectModule,
     InputMaskModule,
     FileUploadModule,
+    UploadFileModule,
     StoreModule.forFeature('partners', reducers),
     EffectsModule.forFeature([PartnersEffect]),
   ],

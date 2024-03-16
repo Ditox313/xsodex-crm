@@ -125,35 +125,7 @@
                 
             </div>
 
-            <div class="add_partner_images">
-                <div class="xs_droparea">
-                    <div class="file-list">
-                        <ng-container  *ngFor="let src of filesSrc; let i = index">
-                            <div style="display: flex; align-items: center;">
-                                <img *ngIf="src" [src]="[src]" style="margin-right: 10px;" alt="Изображение" > 
-                                <div class="file_info">
-                                    <span style="display: block;">{{this.uploadFiles[i].name}}</span>
-                                    <span style="display: block;">{{this.formatFileSize(this.uploadFiles[i].size)}}</span>
-                                    <span style="display: block;" *ngIf="src" (click)="onDeleteUploadInList(i)">Удалить</span>
-                                </div>
-                            </div>
-                        </ng-container>
-                    </div>
-
-                    <div
-                        class="droparea_place"
-                        (dragover)="onDragOver($event)"
-                        (drop)="onDrop($event)"
-                        (dragleave)="onDragLeave($event)"
-                        [class.active]="isActive"
-                    >
-                        <input type="file" name="userfiles" class="browse-file" (change)="onSelectedFile($event)" multiple/>
-                        <h4>Выберите файлы <br /> Или перетащите в браузер</h4>
-                    </div>
-                </div>
-
-                
-            </div>
+            <app-upload-file (dataUpload)="uploadFilesData($event)"></app-upload-file>
         </div>
 
         <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
