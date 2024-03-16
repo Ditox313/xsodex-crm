@@ -23,29 +23,6 @@ export class PartnersEffect {
   ) {}
 
 
-  // Создание партнера
-  // addPartner$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(addPartnerAction), 
-  //     switchMap(({ partner, file_1, file_2 }) => {
-  //       return this.partners.create(partner, file_1, file_2).pipe(
-  //         map((partner) => {
-  //           this.messageService.add({ severity: 'success', summary: `Партнер создан`, detail: 'Успешно!' });
-  //           this.router.navigate(['/list-partners']);
-  //           return addPartnerSuccessAction({ partner: partner }); 
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             addPartnerFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
-
-
-
 
 
 

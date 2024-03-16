@@ -87,19 +87,6 @@ const partnerSchema = new Schema({
     },
 
 
-    // Файл №1
-    file_1: {
-        type: String,
-        default: '',
-        required: false,
-    },
-
-    // Файл №2
-    file_2: {
-        type: String,
-        default: '',
-        required: false,
-    },
 
     // Файлы
     files: {
