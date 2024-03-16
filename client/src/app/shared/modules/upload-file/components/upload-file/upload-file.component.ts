@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { UploadFileService } from '../../services/uploadFile.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-upload-file',
@@ -9,7 +11,18 @@ export class UploadFileComponent {
   isActive!: boolean;
   uploadFiles: any = []
   filesSrc: any = []
+  @Input() initialFilesSrc: any | undefined = [];
+  @Input() postId: string | undefined  = '' ;
+  @Input() typePost: string | undefined  = '';
   @Output() dataUpload: EventEmitter<{ isActive: boolean, uploadFiles: any[], filesSrc: any[] }> = new EventEmitter<{ isActive: boolean, uploadFiles: any[], filesSrc: any[] }>()
+
+
+  constructor(
+    private uploadFileService: UploadFileService,
+    private messageService: MessageService, 
+  ) {}
+
+  
 
 
 
@@ -35,6 +48,8 @@ export class UploadFileComponent {
 
       const fileArray = Array.from(droppedFiles);
 
+      this.uploadFiles = []
+      
       fileArray.forEach((file: any, i) => {
         this.uploadFiles.push(file)
         
@@ -78,6 +93,7 @@ export class UploadFileComponent {
     if (event.target.files.length > 0) {
 
       const fileArray = Array.from(event.target.files);
+      this.uploadFiles = []
 
       fileArray.forEach((file: any, i) => {
         this.uploadFiles.push(file)
@@ -110,23 +126,67 @@ export class UploadFileComponent {
 
   formatFileSize(size: number) {
     if (size < 1024) {
-      this.dataUpload.emit({isActive: this.isActive, uploadFiles: this.uploadFiles, filesSrc: this.filesSrc })
       return `${size} байт`;
     } else if (size < 1024 * 1024) {
-      this.dataUpload.emit({isActive: this.isActive, uploadFiles: this.uploadFiles, filesSrc: this.filesSrc })
       return `${(size / 1024).toFixed(2)} КБ`;
     } else {
-      this.dataUpload.emit({isActive: this.isActive, uploadFiles: this.uploadFiles, filesSrc: this.filesSrc })
       return `${(size / (1024 * 1024)).toFixed(2)} МБ`;
     }
   }
 
 
+
+  // Удаляем загруженные файлы
   onDeleteUploadInList(i: number)
   {
     this.uploadFiles.splice(i, 1);
     this.filesSrc.splice(i, 1);
     this.dataUpload.emit({isActive: this.isActive, uploadFiles: this.uploadFiles, filesSrc: this.filesSrc })
+  }
+
+
+// Удаляем загруженные файлы которые уже на сервере
+  onDeleteInitialFilesSrc(src: string)
+  {
+    let data: any = {
+      postId: this.postId,
+      typePost: this.typePost,
+      src: src
+    }
+    
+
+    
+
+    this.uploadFileService.delete_file(data).subscribe((res) => {
+
+      this.messageService.add({ severity: 'success', summary: `Файл удален`, detail: 'Успешно!' });
+
+      this.initialFilesSrc.forEach((item: any) => {
+        if(item == src)
+        {
+          this.initialFilesSrc = this.initialFilesSrc.filter((item: any) => item != src)
+        }
+        
+      })
+      
+    });
+
+    this.dataUpload.emit({isActive: this.isActive, uploadFiles: this.uploadFiles, filesSrc: this.filesSrc })
+  }
+
+
+
+  getFileName(fileUrl: string) {
+    // Удаляем начальные обратные слэши, если есть
+    const cleanedUrl = fileUrl.replace(/^\\+/, '');
+  
+    // Разделяем URL по обратным слэшам
+    const urlParts = cleanedUrl.split('\\');
+  
+    // Последняя часть будет именем файла
+    const fileName = urlParts.pop();
+  
+    return fileName;
   }
 
 }

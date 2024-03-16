@@ -155,10 +155,16 @@ export const partnerGetCurrentReset = createAction(
 
 
 // Update Partner
+// export const updatePartnerAction = createAction(
+//   ActionTypes.UPDATE_PARTNER,
+//   props<{ partner: Partner, file_1?: File, file_2?: File }>()
+// )
+
 export const updatePartnerAction = createAction(
   ActionTypes.UPDATE_PARTNER,
-  props<{ partner: Partner, file_1?: File, file_2?: File }>()
+  props<{ partner: Partner, files?:Array<File>}>()
 )
+
 
 
 export const updatePartnerSuccessAction = createAction(

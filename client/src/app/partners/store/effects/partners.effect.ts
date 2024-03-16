@@ -11,6 +11,8 @@ import { PartnersService } from '../../services/partners.service'
 
 
 
+
+
 @Injectable()
 export class PartnersEffect {
 
@@ -150,13 +152,26 @@ export class PartnersEffect {
 
 
   // Обновление партнера
-  UpdatePartner$ = createEffect(() =>
+  UpdatePartner$ =  createEffect(() =>
     this.actions$.pipe(
       ofType(updatePartnerAction),
-      switchMap(({ partner, file_1, file_2 }) => {
-        return this.partners.update(partner, file_1, file_2).pipe(
+      switchMap(({ partner, files }) => {
+        return this.partners.update(partner, files).pipe(
           map((data) => {
             this.messageService.add({ severity: 'success', summary: `Партнер обновлен`, detail: 'Успешно!' });
+
+            // Если при обновлении загружаем файлы то делаем редирект
+            if(files && files.length > 0)
+            {
+              let currentUrl = this.router.url;
+
+              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+                this.messageService.add({ severity: 'success', summary: `Партнер обновлен`, detail: 'Успешно!' });
+                this.router.navigateByUrl(currentUrl);
+              });
+            }
+            
+
             return updatePartnerSuccessAction({ data: data });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
@@ -169,6 +184,12 @@ export class PartnersEffect {
       })
     )
   );
+
+
+
+
+
+
 
 
 

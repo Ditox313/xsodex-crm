@@ -13,8 +13,7 @@ export interface Partner {
     passport_register: string
     phone_1: string
     phone_2: string
-    file_1?: string
-    file_2?: string
+    files?: Array<any>,
     _id?: string
 }
 

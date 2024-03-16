@@ -32,7 +32,7 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), controller.
 
 
 // Роут на update
-router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([]), controller.update);
+router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'files', maxCount: 10 }]), controller.update);
 
 
 

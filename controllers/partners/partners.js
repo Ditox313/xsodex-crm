@@ -131,35 +131,20 @@ module.exports.update = async function (req, res) {
     try {
 
         const updated = req.body;
+        
 
+        // Находим партнера и добавляем картинки если они есть
+        const partner = await Partner.findOne({ _id: req.body._id });
+        
 
-
-        // Если объект file есть,то заполняем параметр путем фала
-        if (req.files.file_1) {
-            // Находим нужный автомобиль и удаляем аватарку автомобиля
-            const partner = await Partner.findOne({ _id: req.body._id });
-            fs.unlink(partner.file_1, (err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-                }
-            });
-
-            updated.file_1 = req.files.file_1[0] ? req.files.file_1[0].path : '';
+        // Если есть загруженные файлы
+        if(req.files.files && req.files.files.length > 0)
+        {
+            const files = req.files.files.map(file => file.path);
+            updated.files = [...partner.files, ...files]
         }
-
-        // Если объект file есть,то заполняем параметр путем фала
-        if (req.files.file_2) {
-            // Находим нужный автомобиль и удаляем аватарку автомобиля
-            const partner = await Partner.findOne({ _id: req.body._id });
-            fs.unlink(partner.file_2, (err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-                }
-            });
-
-            updated.file_2 = req.files.file_2[0] ? req.files.file_2[0].path : '';
-        }
-
+     
+        
 
 
         // Находим и обновляем позицию. 
@@ -174,5 +159,6 @@ module.exports.update = async function (req, res) {
         errorHandler(res, e);
     }
 };
+
 
 

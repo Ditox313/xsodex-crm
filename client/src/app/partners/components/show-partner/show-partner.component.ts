@@ -7,6 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { getCurrentPartnerSelector, isLoadingSelector } from '../../store/selectors';
 import { ActivatedRoute } from '@angular/router';
 import { partnerGetCurrent, partnerGetCurrentReset, updatePartnerAction } from '../../store/actions/partners.action';
+import { setTimeout } from 'timers/promises';
 
 @Component({
   selector: 'app-show-partner',
@@ -15,12 +16,6 @@ import { partnerGetCurrent, partnerGetCurrentReset, updatePartnerAction } from '
 })
 export class ShowPartnerComponent {
   form!: FormGroup;
-  uploadFile_1!: File
-  uploadFile_2!: File
-  file_1: string | ArrayBuffer | undefined | null = 'https://phonoteka.org/uploads/posts/2023-03/1680212136_phonoteka-org-p-dmitrii-razvarov-art-instagram-90.jpg';
-  file_2: string | ArrayBuffer | undefined | null = 'https://phonoteka.org/uploads/posts/2023-03/1680212136_phonoteka-org-p-dmitrii-razvarov-art-instagram-90.jpg';
-  @ViewChild('upload_1') upload_1!: ElementRef;
-  @ViewChild('upload_2') upload_2!: ElementRef;
   value!: string;
   isLoadingSelector$!: Observable<boolean | null>
   currentPartnerSelector!: Observable<Partner | null | undefined>
@@ -30,6 +25,12 @@ export class ShowPartnerComponent {
   edit: boolean = false
   getParamsSub$!: Subscription
   partnerId!: string
+
+
+
+  isActive!: boolean;
+  uploadFiles: any = []
+  filesSrc: any = []
 
 
 
@@ -53,6 +54,14 @@ export class ShowPartnerComponent {
     //Отчищаем состояние currentCar
     this.store.dispatch(partnerGetCurrentReset());
 
+  }
+
+
+  // Принимает загруженные файлы из модуля
+  uploadFilesData(data: { isActive: boolean, uploadFiles: any[], filesSrc: any[] }) {
+    this.isActive = data.isActive;
+    this.uploadFiles = data.uploadFiles;
+    this.filesSrc = data.filesSrc;
   }
 
 
@@ -93,6 +102,7 @@ export class ShowPartnerComponent {
         if (currentPartner) {
           this.title = `Просмотр партнера ${currentPartner.surname} ${currentPartner.name}`
           this.pathValuePartner(currentPartner)
+          this.filesSrc = currentPartner.files
         }
       
       }
@@ -101,60 +111,6 @@ export class ShowPartnerComponent {
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
   }
 
-
-  // Обрабатываем загрузку картинок
-  onFile1Upload(event: any) {
-    const file = event.target.files['0'];
-    this.uploadFile_1 = file;
-
-    const reader = new FileReader();
-    // Метод вызовется тогда, когда загрузится вся картинка
-    reader.onload = () => {
-      if (event.target.files['0'].type !== 'application/pdf') {
-        // Переменная для хранения информации об изображении
-        this.file_1 = reader.result;
-      }
-      else {
-        // Переменная для хранения информации об изображении
-        this.file_1 = 'https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg';
-      }
-    };
-    // Читаем нужный нам файл
-    reader.readAsDataURL(file);
-  };
-
-
-
-  onFile2Upload(event: any) {
-    const file = event.target.files['0'];
-    this.uploadFile_2 = file;
-
-    const reader = new FileReader();
-    // Метод вызовется тогда, когда загрузится вся картинка
-    // Метод вызовется тогда, когда загрузится вся картинка
-    reader.onload = () => {
-      if (event.target.files['0'].type !== 'application/pdf') {
-        // Переменная для хранения информации об изображении
-        this.file_2 = reader.result;
-      }
-      else {
-        // Переменная для хранения информации об изображении
-        this.file_2 = 'https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg';
-      }
-    };
-    // Читаем нужный нам файл
-    reader.readAsDataURL(file);
-  }
-
-
-
-  // Обрабатываем кнопку загрузки тригиря клик по скрытому инпуту
-  onFile1UploadClick() {
-    this.upload_1.nativeElement.click();
-  }
-  onFile2UploadClick() {
-    this.upload_2.nativeElement.click();
-  }
 
 
   // Проверяем оканчивается ли строка на определенные символы.Внашем случае PDF
@@ -191,9 +147,9 @@ export class ShowPartnerComponent {
       phone_2: partner.phone_2,
     });
 
-    this.file_1 = partner.file_1
-    this.file_2 = partner.file_2
   }
+
+  
 
 
 
@@ -219,6 +175,9 @@ export class ShowPartnerComponent {
     };
 
 
-    this.store.dispatch(updatePartnerAction({ partner: partner, file_1: this.uploadFile_1, file_2: this.uploadFile_2, }))
+  
+
+    this.store.dispatch(updatePartnerAction({ partner: partner, files: this.uploadFiles  }))
+    
   }
 }

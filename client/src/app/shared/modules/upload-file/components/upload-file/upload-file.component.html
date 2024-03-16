@@ -1,13 +1,29 @@
+
+<p-toast></p-toast>
 <div class="add_partner_images">
     <div class="xs_droparea">
         <div class="file-list">
+
+            <ng-container  *ngFor="let src of initialFilesSrc; let i = index">
+                <div style="display: flex; align-items: center;">
+                    <img *ngIf="!src.endsWith('.pdf')" [src]="src" style="margin-right: 10px; margin-bottom: 10px;" alt="Изображение" > 
+                    <img *ngIf="src.endsWith('.pdf')" src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg" style="margin-right: 10px; margin-bottom: 10px;" alt="Изображение" > 
+                    <div class="file_info">
+                        <span style="display: block;">{{this.getFileName(this.initialFilesSrc[i])}}</span>
+                        <a style="display: block;" *ngIf="src" [href]="src" download><i class="pi pi-download" style="font-size: 21px; color: #3B82F6; cursor: pointer;"></i></a>
+                        <span style="display: block;" *ngIf="src" (click)="onDeleteInitialFilesSrc(src)"><i class="pi pi-times" style="font-size: 21px; color:red; cursor: pointer;"></i></span> 
+                    </div>
+                    
+                </div>
+            </ng-container>
+
             <ng-container  *ngFor="let src of filesSrc; let i = index">
                 <div style="display: flex; align-items: center;">
-                    <img *ngIf="src" [src]="[src]" style="margin-right: 10px;" alt="Изображение" > 
+                    <img *ngIf="src" [src]="[src]" style="margin-right: 10px; margin-bottom: 10px;" alt="Изображение" > 
                     <div class="file_info">
                         <span style="display: block;">{{this.uploadFiles[i].name}}</span>
                         <span style="display: block;">{{this.formatFileSize(this.uploadFiles[i].size)}}</span>
-                        <span style="display: block;" *ngIf="src" (click)="onDeleteUploadInList(i)">Удалить</span>
+                        <span style="display: block;" *ngIf="src" (click)="onDeleteUploadInList(i)"><i class="pi pi-times" style="font-size: 21px; color:red; cursor: pointer;"></i></span>
                     </div>
                 </div>
             </ng-container>
