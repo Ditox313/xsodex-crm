@@ -140,16 +140,14 @@
 
             <div *ngIf="currentPartner">
                 <div [ngClass]="{'no_active': !this.edit}">
-                    <app-upload-file *ngIf="filesSrc" 
+                    <app-upload-file 
                     [initialFilesSrc]="this.currentPartner.files"  
+                    [filesSrcRes]="this.filesSrc"  
                     [postId]="this.currentPartner._id"  
                     [typePost]="'partner'"  
                     (dataUpload)="uploadFilesData($event)"></app-upload-file>
                 </div>
-                
             </div>
-
-            
         </div>
 
         <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>

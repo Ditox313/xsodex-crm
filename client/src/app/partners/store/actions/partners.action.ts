@@ -153,13 +153,6 @@ export const partnerGetCurrentReset = createAction(
 
 
 
-
-// Update Partner
-// export const updatePartnerAction = createAction(
-//   ActionTypes.UPDATE_PARTNER,
-//   props<{ partner: Partner, file_1?: File, file_2?: File }>()
-// )
-
 export const updatePartnerAction = createAction(
   ActionTypes.UPDATE_PARTNER,
   props<{ partner: Partner, files?:Array<File>}>()
@@ -206,3 +199,5 @@ export const partnersListNoParamsFailureAction = createAction(
 export const partnersListNoParamsResetAction = createAction(
   ActionTypes.PARTNERS_LIST_NO_PARAMS_RESET,
 );
+export { ActionTypes };
+

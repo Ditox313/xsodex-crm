@@ -1,13 +1,13 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Partner } from '../../types/partners.interfaces';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { getCurrentPartnerSelector, isLoadingSelector } from '../../store/selectors';
 import { ActivatedRoute } from '@angular/router';
-import { partnerGetCurrent, partnerGetCurrentReset, updatePartnerAction } from '../../store/actions/partners.action';
-import { setTimeout } from 'timers/promises';
+import { partnerGetCurrent, partnerGetCurrentReset, updatePartnerAction, updatePartnerSuccessAction, ActionTypes, } from '../../store/actions/partners.action';
+import { Action } from '@ngrx/store';
 
 @Component({
   selector: 'app-show-partner',
@@ -27,10 +27,10 @@ export class ShowPartnerComponent {
   partnerId!: string
 
 
-
   isActive!: boolean;
   uploadFiles: any = []
   filesSrc: any = []
+
 
 
 
@@ -40,6 +40,7 @@ export class ShowPartnerComponent {
     this.getParams()
     this.initForm()
     this.initValues()
+
   }
 
 
@@ -102,7 +103,7 @@ export class ShowPartnerComponent {
         if (currentPartner) {
           this.title = `Просмотр партнера ${currentPartner.surname} ${currentPartner.name}`
           this.pathValuePartner(currentPartner)
-          this.filesSrc = currentPartner.files
+          // this.filesSrc = currentPartner.files
         }
       
       }
@@ -149,35 +150,36 @@ export class ShowPartnerComponent {
 
   }
 
+
+
+onSubmit() {
+
+  // Отчищаем загруженные файлы
+  this.filesSrc = []
   
 
+  let fio = this.form.value.fio.split(' ');
+  let passport_seria_number = this.form.value.passport_seria_number.split('-');
 
 
-  onSubmit() {
-
-    let fio = this.form.value.fio.split(' ');
-    let passport_seria_number = this.form.value.passport_seria_number.split('-');
-
-
-    const partner: Partner = {
-      _id: this.currentPartner?._id,
-      name: fio[1],
-      surname: fio[0],
-      lastname: fio[2],
-      passport_seria: passport_seria_number[0],
-      passport_number: passport_seria_number[1],
-      passport_date: this.form.value.passport_date,
-      passport_who_take: this.form.value.passport_who_take,
-      code_podrazdeleniya: this.form.value.code_podrazdeleniya,
-      passport_register: this.form.value.passport_register,
-      phone_1: this.form.value.phone_1,
-      phone_2: this.form.value.phone_2,
-    };
+  const partner: Partner = {
+    _id: this.currentPartner?._id,
+    name: fio[1],
+    surname: fio[0],
+    lastname: fio[2],
+    passport_seria: passport_seria_number[0],
+    passport_number: passport_seria_number[1],
+    passport_date: this.form.value.passport_date,
+    passport_who_take: this.form.value.passport_who_take,
+    code_podrazdeleniya: this.form.value.code_podrazdeleniya,
+    passport_register: this.form.value.passport_register,
+    phone_1: this.form.value.phone_1,
+    phone_2: this.form.value.phone_2,
+  };
 
 
-  
 
-    this.store.dispatch(updatePartnerAction({ partner: partner, files: this.uploadFiles  }))
-    
+
+   this.store.dispatch(updatePartnerAction({ partner: partner, files: this.uploadFiles  }))
   }
 }

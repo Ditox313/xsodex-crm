@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core'
 import {createEffect, Actions, ofType} from '@ngrx/effects'
-import {map, catchError, switchMap, tap, concatMap} from 'rxjs/operators'
+import {map, catchError, switchMap, tap, concatMap, delay} from 'rxjs/operators'
 import {HttpErrorResponse} from '@angular/common/http'
 import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
@@ -161,17 +161,17 @@ export class PartnersEffect {
             this.messageService.add({ severity: 'success', summary: `Партнер обновлен`, detail: 'Успешно!' });
 
             // Если при обновлении загружаем файлы то делаем редирект
-            if(files && files.length > 0)
-            {
-              let currentUrl = this.router.url;
+            // if(files && files.length > 0)
+            // {
+            //   let currentUrl = this.router.url;
 
-              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-                this.messageService.add({ severity: 'success', summary: `Партнер обновлен`, detail: 'Успешно!' });
-                this.router.navigateByUrl(currentUrl);
-              });
-            }
+            //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            //     this.router.navigateByUrl(currentUrl);
+            //   });
+
+
+            // }
             
-
             return updatePartnerSuccessAction({ data: data });
           }),
           catchError((errorResponse: HttpErrorResponse) => {

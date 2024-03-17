@@ -125,7 +125,11 @@
                 
             </div>
 
-            <app-upload-file (dataUpload)="uploadFilesData($event)"></app-upload-file>
+            <app-upload-file 
+            (dataUpload)="uploadFilesData($event)"
+            [filesSrcRes]="this.filesSrc"  
+            [typePost]="'partner'"
+            ></app-upload-file>
         </div>
 
         <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>

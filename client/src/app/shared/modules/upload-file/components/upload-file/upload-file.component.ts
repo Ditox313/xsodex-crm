@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UploadFileService } from '../../services/uploadFile.service';
 import { MessageService } from 'primeng/api';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-upload-file',
@@ -11,10 +12,16 @@ export class UploadFileComponent {
   isActive!: boolean;
   uploadFiles: any = []
   filesSrc: any = []
-  @Input() initialFilesSrc: any | undefined = [];
-  @Input() postId: string | undefined  = '' ;
-  @Input() typePost: string | undefined  = '';
+  delete_file$!: Subscription
+
+
+
+  @Input() initialFilesSrc?: any | undefined = [];
+  @Input() filesSrcRes: any | undefined = [];
+  @Input() postId?: string | undefined  = '' ;
+  @Input() typePost?: string | undefined  = '';
   @Output() dataUpload: EventEmitter<{ isActive: boolean, uploadFiles: any[], filesSrc: any[] }> = new EventEmitter<{ isActive: boolean, uploadFiles: any[], filesSrc: any[] }>()
+
 
 
   constructor(
@@ -22,10 +29,18 @@ export class UploadFileComponent {
     private messageService: MessageService, 
   ) {}
 
+
+
+
+  ngOnDestroy(): void {
+    if (this.delete_file$) {
+      this.delete_file$.unsubscribe()
+    }
+  }
   
 
 
-
+  // 
   onDragOver(event: any) {
     event.preventDefault();
     event.stopPropagation();
@@ -88,7 +103,6 @@ export class UploadFileComponent {
   }
 
 
-  
   onSelectedFile(event: any) {
     if (event.target.files.length > 0) {
 
@@ -115,9 +129,11 @@ export class UploadFileComponent {
 
         // Читаем нужный нам файл
         reader.readAsDataURL(file);
+        
       });
 
       this.dataUpload.emit({isActive: this.isActive, uploadFiles: this.uploadFiles, filesSrc: this.filesSrc })
+
     }
   }
 
@@ -134,8 +150,6 @@ export class UploadFileComponent {
     }
   }
 
-
-
   // Удаляем загруженные файлы
   onDeleteUploadInList(i: number)
   {
@@ -143,7 +157,6 @@ export class UploadFileComponent {
     this.filesSrc.splice(i, 1);
     this.dataUpload.emit({isActive: this.isActive, uploadFiles: this.uploadFiles, filesSrc: this.filesSrc })
   }
-
 
 // Удаляем загруженные файлы которые уже на сервере
   onDeleteInitialFilesSrc(src: string)
@@ -157,7 +170,7 @@ export class UploadFileComponent {
 
     
 
-    this.uploadFileService.delete_file(data).subscribe((res) => {
+    this.delete_file$ = this.uploadFileService.delete_file(data).subscribe((res) => {
 
       this.messageService.add({ severity: 'success', summary: `Файл удален`, detail: 'Успешно!' });
 
@@ -175,7 +188,7 @@ export class UploadFileComponent {
   }
 
 
-
+  // Получаем название файла
   getFileName(fileUrl: string) {
     // Удаляем начальные обратные слэши, если есть
     const cleanedUrl = fileUrl.replace(/^\\+/, '');

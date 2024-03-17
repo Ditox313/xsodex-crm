@@ -19,6 +19,7 @@ export class AddPartnerComponent {
   isLoadingSelector$!: Observable<boolean | null>
   upload!: UploadResponse
 
+  // Данные для загрузки файлов
   isActive!: boolean;
   uploadFiles: any = []
   filesSrc: any = []
@@ -58,6 +59,7 @@ export class AddPartnerComponent {
   };
 
 
+  
 
 
   // Принимает загруженные файлы из модуля

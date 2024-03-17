@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { PartnersStateInterface } from '../types/partners.interfaces';
-import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, noMorePartnersListFalseAction, noMorePartnersListTrueAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnerGetCurrent, partnerGetCurrentFailureAction, partnerGetCurrentReset, partnerGetCurrentSuccessAction, partnersListAction, partnersListFailureAction, partnersListNoParamsAction, partnersListNoParamsFailureAction, partnersListNoParamsResetAction, partnersListNoParamsSuccessAction, partnersListResetAction, partnersListSuccessAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from './actions/partners.action';
+import { addPartnerAction, addPartnerFailureAction, addPartnerSuccessAction, noMorePartnersListAction, noMorePartnersListFalseAction, noMorePartnersListTrueAction, partnerDeleteAction, partnerDeleteFailureAction, partnerDeleteSuccessAction, partnerGetCurrent, partnerGetCurrentFailureAction, partnerGetCurrentReset, partnerGetCurrentSuccessAction, partnersListAction, partnersListFailureAction, partnersListNoParamsAction, partnersListNoParamsFailureAction, partnersListNoParamsResetAction, partnersListNoParamsSuccessAction, partnersListResetAction, partnersListSuccessAction, updatePartnerAction, updatePartnerFailureAction, updatePartnerSuccessAction, updateStatePartnersFailureAction, updateStatePartnersSuccessAction } from './actions/partners.action';
 
 
 
@@ -254,6 +254,42 @@ const partnersReducer = createReducer(
     (state): PartnersStateInterface => ({
       ...state,
       currentPartner: null
+    })
+  ),
+
+
+
+
+
+
+
+
+
+
+  on(
+    updatePartnerAction,
+    (state): PartnersStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    updatePartnerSuccessAction,
+    (state, action): PartnersStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentPartner: action.data
+    })
+  ),
+  on(
+    updatePartnerFailureAction,
+    (state, action): PartnersStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
     })
   ),
 
