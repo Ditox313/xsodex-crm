@@ -24,6 +24,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { CarsEffect } from './store/effects/cars.effect';
 import { ShowCarComponent } from './components/show-car/show-car.component';
+import { UploadFileModule } from '../shared/modules/upload-file/upload-file.module';
 
 
 
@@ -50,6 +51,7 @@ import { ShowCarComponent } from './components/show-car/show-car.component';
     TabViewModule,
     TreeSelectModule,
     InputMaskModule,
+    UploadFileModule,
     StoreModule.forFeature('cars', reducers),
     EffectsModule.forFeature([CarsEffect]),
   ],
