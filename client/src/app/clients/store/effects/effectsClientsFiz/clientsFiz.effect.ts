@@ -28,8 +28,8 @@ export class ClientsFizEffect {
   addClientFiz$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addClientFizAction), 
-      switchMap(({ clientFiz, file_1, file_2, file_3, file_4 }) => {
-        return this.clientsFiz.create(clientFiz, file_1, file_2, file_3, file_4).pipe(
+      switchMap(({ clientFiz, files }) => {
+        return this.clientsFiz.create(clientFiz, files).pipe(
           map((clientFiz) => {
             this.messageService.add({ severity: 'success', summary: `Клиент создан`, detail: 'Успешно!' });
             this.router.navigate(['/list-clients-fiz']);
@@ -154,8 +154,8 @@ export class ClientsFizEffect {
   UpdateClientFiz$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateClientFizAction),
-      switchMap(({ clientFiz, file_1, file_2, file_3, file_4 }) => {
-        return this.clientsFiz.update(clientFiz, file_1, file_2, file_3, file_4).pipe(
+      switchMap(({ clientFiz, files }) => {
+        return this.clientsFiz.update(clientFiz, files).pipe(
           map((data) => {
             this.messageService.add({ severity: 'success', summary: `Клиент обновлен`, detail: 'Успешно!' });
             return updateClientFizSuccessAction({ data: data });

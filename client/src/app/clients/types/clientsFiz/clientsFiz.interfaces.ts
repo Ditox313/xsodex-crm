@@ -30,10 +30,7 @@ export interface ClientFiz {
     phone_4_dop_number?: string,
     phone_5_dop_name?: string,
     phone_5_dop_number?: string,
-    file_1?: string,
-    file_2?: string,
-    file_3?: string,
-    file_4?: string,
+    files?: Array<any>,
     date?: string ,
     dogovor_active?: string
 }

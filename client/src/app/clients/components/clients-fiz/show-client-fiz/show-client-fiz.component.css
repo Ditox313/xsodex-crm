@@ -197,3 +197,10 @@ button:disabled {
     border-radius: 6px;
     cursor: pointer;
 }
+
+
+.no_active
+{
+    position: relative;
+    z-index: -1;
+}

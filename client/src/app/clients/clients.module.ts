@@ -42,6 +42,7 @@ import { ListActsClientFizComponent } from './components/clients-fiz/list-acts-c
 import { ListActsClientLawComponent } from './components/clients-law/list-acts-client-law/list-acts-client-law.component';
 import { ListBookingsClientFizComponent } from './components/clients-fiz/list-bookings-client-fiz/list-bookings-client-fiz.component';
 import { ListBookingsClientLawComponent } from './components/clients-law/list-bookings-client-law/list-bookings-client-law.component';
+import { UploadFileModule } from '../shared/modules/upload-file/upload-file.module';
 
 
 
@@ -84,6 +85,7 @@ import { ListBookingsClientLawComponent } from './components/clients-law/list-bo
     InputTextModule,
     TableModule,
     ToggleButtonModule,
+    UploadFileModule,
     TabViewModule,
     TreeSelectModule,
     InputMaskModule,

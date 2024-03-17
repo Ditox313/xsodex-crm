@@ -155,7 +155,6 @@ export class UploadFileComponent {
   {
     this.uploadFiles.splice(i, 1);
     this.filesSrc.splice(i, 1);
-    this.dataUpload.emit({isActive: this.isActive, uploadFiles: this.uploadFiles, filesSrc: this.filesSrc })
   }
 
 // Удаляем загруженные файлы которые уже на сервере
@@ -184,7 +183,6 @@ export class UploadFileComponent {
       
     });
 
-    this.dataUpload.emit({isActive: this.isActive, uploadFiles: this.uploadFiles, filesSrc: this.filesSrc })
   }
 
 

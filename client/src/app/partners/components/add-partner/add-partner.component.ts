@@ -17,7 +17,7 @@ export class AddPartnerComponent {
   title: string = 'Добавить партнера'
   form!: FormGroup;
   isLoadingSelector$!: Observable<boolean | null>
-  upload!: UploadResponse
+  // upload!: UploadResponse
 
   // Данные для загрузки файлов
   isActive!: boolean;
@@ -54,9 +54,9 @@ export class AddPartnerComponent {
 
 
   // Проверяем оканчивается ли строка на определенные символы.Внашем случае PDF
-  isPDF(str: any, suffix: any) {
-    return new RegExp(suffix + '$').test(str);
-  };
+  // isPDF(str: any, suffix: any) {
+  //   return new RegExp(suffix + '$').test(str);
+  // };
 
 
   

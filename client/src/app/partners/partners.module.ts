@@ -51,7 +51,6 @@ import { UploadFileModule } from '../shared/modules/upload-file/upload-file.modu
     TabViewModule,
     TreeSelectModule,
     InputMaskModule,
-    FileUploadModule,
     UploadFileModule,
     StoreModule.forFeature('partners', reducers),
     EffectsModule.forFeature([PartnersEffect]),

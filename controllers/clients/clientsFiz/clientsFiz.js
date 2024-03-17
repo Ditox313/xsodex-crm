@@ -13,6 +13,9 @@ const path = require('path');
 // Контроллер для create
 module.exports.create = async function (req, res) {
     try {
+
+        const files = req.files.files.map(file => file.path);
+
         const clientFiz = await new ClientFiz({
             name: req.body.name,
             type: req.body.type,
@@ -40,10 +43,7 @@ module.exports.create = async function (req, res) {
             phone_5_dop_name: req.body.phone_5_dop_name,
             phone_5_dop_number: req.body.phone_5_dop_number,
             user: req.user._id,
-            file_1: req.files.file_1[0] ? req.files.file_1[0].path : '',
-            file_2: req.files.file_2[0] ? req.files.file_2[0].path : '',
-            file_3: req.files.file_3[0] ? req.files.file_3[0].path : '',
-            file_4: req.files.file_4[0] ? req.files.file_4[0].path : '',
+            files
         }).save();
 
         // Возвращаем пользователю позицию которую создали 
@@ -89,32 +89,13 @@ module.exports.remove = async function (req, res) {
         const actsList = await Act.deleteMany({ clientId: req.params.id });
         const bookings = await Booking.deleteMany({ "client._id": req.params.id });
 
-        fs.unlink(clientFiz.file_1, (err) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-            }
-        });
-
-        fs.unlink(clientFiz.file_2, (err) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-            }
-        });
-
-        fs.unlink(clientFiz.file_3, (err) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-            }
-        });
-
-        fs.unlink(clientFiz.file_4, (err) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-            }
+        clientFiz.files.forEach(file => {
+            fs.unlink(file, (err) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+                }
+            });
         });
 
 
@@ -160,50 +141,13 @@ module.exports.update = async function (req, res) {
         const client = await ClientFiz.findOne({ _id: req.body._id });
 
 
-        // Если объект file есть,то заполняем параметр путем фала
-        if (req.files.file_1) {
-            fs.unlink(client.file_1, (err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-                }
-            });
-
-            updated.file_1 = req.files.file_1[0] ? req.files.file_1[0].path : '';
+        // Если есть загруженные файлы
+        if(req.files.files && req.files.files.length > 0)
+        {
+            const files = req.files.files.map(file => file.path);
+            updated.files = [...client.files, ...files]
         }
-
-        // Если объект file есть,то заполняем параметр путем фала
-        if (req.files.file_2) {
-            fs.unlink(client.file_2, (err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-                }
-            });
-
-            updated.file_2 = req.files.file_2[0] ? req.files.file_2[0].path : '';
-        }
-
-        // Если объект file есть,то заполняем параметр путем фала
-        if (req.files.file_3) {
-            fs.unlink(client.file_3, (err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-                }
-            });
-
-            updated.file_3 = req.files.file_3[0] ? req.files.file_3[0].path : '';
-        }
-
-
-        // Если объект file есть,то заполняем параметр путем фала
-        if (req.files.file_4) {
-            fs.unlink(client.file_4, (err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-                }
-            });
-
-            updated.file_4 = req.files.file_4[0] ? req.files.file_4[0].path : '';
-        }
+     
 
 
 

@@ -9,8 +9,9 @@ import { Act, Booking } from 'src/app/bookings/types/bookings.interfaces';
 // Add clientFiz
 export const addClientFizAction = createAction(
   ActionTypes.ADD_CLIENT_FIZ,
-    props<{ clientFiz: ClientFiz, file_1?: File, file_2?: File, file_3?: File, file_4?: File }>()
+    props<{ clientFiz: ClientFiz, files?:Array<File> }>()
 );
+
 
 export const addClientFizSuccessAction = createAction(
   ActionTypes.ADD_CLIENT_FIZ_SUCCESS,
@@ -160,7 +161,7 @@ export const clientFizGetCurrentReset = createAction(
 // Update ClientFiz
 export const updateClientFizAction = createAction(
   ActionTypes.UPDATE_CLIENT_FIZ,
-  props<{ clientFiz: ClientFiz, file_1?: File, file_2?: File, file_3?: File, file_4?: File }>()
+  props<{ clientFiz: ClientFiz, files?:Array<File>}>()
 )
 
 

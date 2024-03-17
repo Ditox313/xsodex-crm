@@ -103,7 +103,6 @@ export class ShowPartnerComponent {
         if (currentPartner) {
           this.title = `Просмотр партнера ${currentPartner.surname} ${currentPartner.name}`
           this.pathValuePartner(currentPartner)
-          // this.filesSrc = currentPartner.files
         }
       
       }

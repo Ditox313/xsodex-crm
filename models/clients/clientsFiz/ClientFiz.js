@@ -208,33 +208,10 @@ const clientFizSchema = new Schema({
     },
 
 
-    // Файл №1
-    file_1: {
-        type: String,
-        default: '',
-        required: false,
-    },
-
-    // Файл №2
-    file_2: {
-        type: String,
-        default: '',
-        required: false,
-    },
-
-
-    // Файл №3
-    file_3: {
-        type: String,
-        default: '',
-        required: false,
-    },
-
-
-    // Файл №4
-    file_4: {
-        type: String,
-        default: '',
+    
+    // Файлы
+    files: {
+        type: Array,
         required: false,
     },
 
