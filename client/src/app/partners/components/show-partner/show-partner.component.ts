@@ -180,5 +180,8 @@ onSubmit() {
 
 
    this.store.dispatch(updatePartnerAction({ partner: partner, files: this.uploadFiles  }))
+
+  //  Отчищаем загруженные файлы
+   this.uploadFiles = []
   }
 }

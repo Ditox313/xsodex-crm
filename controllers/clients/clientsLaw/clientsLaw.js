@@ -13,6 +13,8 @@ const path = require('path');
 // Контроллер для create
 module.exports.create = async function (req, res) {
     try {
+        const files = req.files.files.map(file => file.path);
+
         const clientLaw = await new ClientLaw({
             name: req.body.name,
             type: req.body.type,
@@ -38,16 +40,14 @@ module.exports.create = async function (req, res) {
             bik_number: req.body.bik_number,
             name_bank: req.body.name_bank,
             user: req.user._id,
-            file_1: req.files.file_1[0] ? req.files.file_1[0].path : '',
-            file_2: req.files.file_2[0] ? req.files.file_2[0].path : '',
-            file_3: req.files.file_3[0] ? req.files.file_3[0].path : '',
-            file_4: req.files.file_4[0] ? req.files.file_4[0].path : '',
+            files
         }).save();
 
         // Возвращаем пользователю позицию которую создали 
         res.status(201).json(clientLaw);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -68,6 +68,7 @@ module.exports.getAllClientsLaw = async function (req, res) {
         res.status(200).json(clientsLawList);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -84,33 +85,15 @@ module.exports.remove = async function (req, res) {
         const dogovors = await Dogovor.deleteMany({ client: req.params.id });
         const paysList = await Pay.deleteMany({ clientId: req.params.id });
         const actsList = await Act.deleteMany({ clientId: req.params.id });
+        const bookings = await Booking.deleteMany({ "client._id": req.params.id });
 
-        fs.unlink(clientLaw.file_1, (err) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-            }
-        });
-
-        fs.unlink(clientLaw.file_2, (err) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-            }
-        });
-
-        fs.unlink(clientLaw.file_3, (err) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-            }
-        });
-
-        fs.unlink(clientLaw.file_4, (err) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-            }
+        clientLaw.files.forEach(file => {
+            fs.unlink(file, (err) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+                }
+            });
         });
 
 
@@ -128,6 +111,7 @@ module.exports.remove = async function (req, res) {
 
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -141,6 +125,7 @@ module.exports.getById = async function (req, res) {
         res.status(200).json(clientLaw);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -157,50 +142,14 @@ module.exports.update = async function (req, res) {
         const updated = req.body;
         const client = await ClientLaw.findOne({ _id: req.body._id });
 
-        // Если объект file есть,то заполняем параметр путем фала
-        if (req.files.file_1) {
-            fs.unlink(client.file_1, (err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-                }
-            });
-
-            updated.file_1 = req.files.file_1[0] ? req.files.file_1[0].path : '';
-        }
-
-        // Если объект file есть,то заполняем параметр путем фала
-        if (req.files.file_2) {
-            fs.unlink(client.file_2, (err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-                }
-            });
-
-            updated.file_2 = req.files.file_2[0] ? req.files.file_2[0].path : '';
-        }
-
-        // Если объект file есть,то заполняем параметр путем фала
-        if (req.files.file_3) {
-            fs.unlink(client.file_3, (err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-                }
-            });
-
-            updated.file_3 = req.files.file_3[0] ? req.files.file_3[0].path : '';
-        }
-
-
-        // Если объект file есть,то заполняем параметр путем фала
-        if (req.files.file_4) {
-            fs.unlink(client.file_4, (err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-                }
-            });
-
-            updated.file_4 = req.files.file_4[0] ? req.files.file_4[0].path : '';
-        }
+       
+         // Если есть загруженные файлы
+         if(req.files.files && req.files.files.length > 0)
+         {
+             const files = req.files.files.map(file => file.path);
+             updated.files = [...client.files, ...files]
+         }
+      
 
 
 
@@ -214,6 +163,7 @@ module.exports.update = async function (req, res) {
         res.status(200).json(clientLawUpdate);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -254,6 +204,7 @@ module.exports.create_dogovor = async function (req, res) {
         res.status(201).json(dogovor);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -274,6 +225,7 @@ module.exports.get_all_dogovorsById = async function (req, res) {
         res.status(200).json(dogovors);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -304,6 +256,7 @@ module.exports.remove_dogovor = async function (req, res) {
 
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -317,6 +270,7 @@ module.exports.getDogovorById = async function (req, res) {
         res.status(200).json(currentDogovor);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -335,6 +289,7 @@ module.exports.search = async function (req, res) {
         res.status(200).json(search);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 
 };
@@ -356,6 +311,7 @@ module.exports.actsForClient = async function (req, res) {
         res.status(200).json(actsList);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -378,5 +334,6 @@ module.exports.bookingsForClient = async function (req, res) {
         res.status(200).json(bookingsList);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };

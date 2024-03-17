@@ -7,7 +7,7 @@ const upload = require('../../../middleware/upload-clientsLaw-docs.js');
 
 
 // Роут на create
-router.post('/create', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }, { name: 'file_3' }, { name: 'file_4' }]), controller.create);
+router.post('/create', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'files', maxCount: 10 }]), controller.create);
 
 
 // Роут на Получение всех юридичексих лиц
@@ -23,7 +23,7 @@ router.get('/:id', passport.authenticate('jwt', { session: false }), controller.
 
 
 // Роут на update
-router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }, { name: 'file_3' }, { name: 'file_4' }]), controller.update);
+router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'files', maxCount: 10 }]), controller.update);
 
 
 // Роут на create dogovor

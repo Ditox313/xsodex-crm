@@ -133,6 +133,7 @@ export class UploadFileComponent {
       });
 
       this.dataUpload.emit({isActive: this.isActive, uploadFiles: this.uploadFiles, filesSrc: this.filesSrc })
+      
 
     }
   }

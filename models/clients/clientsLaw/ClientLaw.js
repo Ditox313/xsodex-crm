@@ -189,33 +189,9 @@ const clientLawSchema = new Schema({
     },
 
     
-    // Документ №1
-    file_1: {
-        type: String,
-        default: '',
-        required: false,
-    },
-
-    /// Документ №2
-    file_2: {
-        type: String,
-        default: '',
-        required: false,
-    },
-
-
-    // Документ №3
-    file_3: {
-        type: String,
-        default: '',
-        required: false,
-    },
-
-
-    // Документ №4
-    file_4: {
-        type: String,
-        default: '',
+    // Файлы
+    files: {
+        type: Array,
         required: false,
     },
 

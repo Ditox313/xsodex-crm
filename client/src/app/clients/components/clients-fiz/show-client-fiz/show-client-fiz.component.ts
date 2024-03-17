@@ -119,12 +119,6 @@ export class ShowClientFizComponent {
 
 
 
-  // Проверяем оканчивается ли строка на определенные символы.Внашем случае PDF
-  // isPDF(str: any, suffix: any) {
-  //   return new RegExp(suffix + '$').test(str);
-  // };
-
-
   // Переключаем состояние edit 
   initEdit()
   {
@@ -174,42 +168,46 @@ export class ShowClientFizComponent {
      // Отчищаем загруженные файлы
   this.filesSrc = []
 
-    let fio = this.form.value.fio.split(' ');
-    let passport_seria_number = this.form.value.passport_seria_number.split('-');
-    let prava_seria_number = this.form.value.prava_seria_number.split('-');
-    this.resident = this.form.value.resident ? 'true' : 'false'
+  let fio = this.form.value.fio.split(' ');
+  let passport_seria_number = this.form.value.passport_seria_number.split('-');
+  let prava_seria_number = this.form.value.prava_seria_number.split('-');
+  this.resident = this.form.value.resident ? 'true' : 'false'
 
 
-    const clientFiz: ClientFiz = {
-      _id: this.currentClientFiz?._id,
-      type: 'fiz',
-      name: fio[1],
-      surname: fio[0],
-      lastname: fio[2],
-      date_birth: this.form.value.date_birth,
-      passport_seria: passport_seria_number[0],
-      passport_number: passport_seria_number[1],
-      passport_date: this.form.value.passport_date,
-      passport_who_take: this.form.value.passport_who_take,
-      code_podrazdeleniya: this.form.value.code_podrazdeleniya,
-      passport_register: this.form.value.passport_register,
-      passport_address_fact: this.form.value.passport_register,
-      prava_seria: prava_seria_number[0],
-      prava_number: prava_seria_number[1],
-      prava_date: this.form.value.prava_date,
-      resident: this.resident,
-      phone_1: this.form.value.phone_1,
-      phone_2_dop_name: this.form.value.phone_2_dop_name,
-      phone_2_dop_number: this.form.value.phone_2_dop_number,
-      phone_3_dop_name: this.form.value.phone_3_dop_name,
-      phone_3_dop_number: this.form.value.phone_3_dop_number,
-      phone_4_dop_name: this.form.value.phone_4_dop_name,
-      phone_4_dop_number: this.form.value.phone_4_dop_number,
-      phone_5_dop_name: this.form.value.phone_5_dop_name,
-      phone_5_dop_number: this.form.value.phone_5_dop_number,
-    };
+  const clientFiz: ClientFiz = {
+    _id: this.currentClientFiz?._id,
+    type: 'fiz',
+    name: fio[1],
+    surname: fio[0],
+    lastname: fio[2],
+    date_birth: this.form.value.date_birth,
+    passport_seria: passport_seria_number[0],
+    passport_number: passport_seria_number[1],
+    passport_date: this.form.value.passport_date,
+    passport_who_take: this.form.value.passport_who_take,
+    code_podrazdeleniya: this.form.value.code_podrazdeleniya,
+    passport_register: this.form.value.passport_register,
+    passport_address_fact: this.form.value.passport_register,
+    prava_seria: prava_seria_number[0],
+    prava_number: prava_seria_number[1],
+    prava_date: this.form.value.prava_date,
+    resident: this.resident,
+    phone_1: this.form.value.phone_1,
+    phone_2_dop_name: this.form.value.phone_2_dop_name,
+    phone_2_dop_number: this.form.value.phone_2_dop_number,
+    phone_3_dop_name: this.form.value.phone_3_dop_name,
+    phone_3_dop_number: this.form.value.phone_3_dop_number,
+    phone_4_dop_name: this.form.value.phone_4_dop_name,
+    phone_4_dop_number: this.form.value.phone_4_dop_number,
+    phone_5_dop_name: this.form.value.phone_5_dop_name,
+    phone_5_dop_number: this.form.value.phone_5_dop_number,
+  };
 
 
-    this.store.dispatch(updateClientFizAction({ clientFiz: clientFiz, files: this.uploadFiles }))
+  this.store.dispatch(updateClientFizAction({ clientFiz: clientFiz, files: this.uploadFiles }))
+
+
+    //  Отчищаем загруженные файлы
+    this.uploadFiles = []
   }
 }

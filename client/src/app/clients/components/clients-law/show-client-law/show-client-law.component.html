@@ -314,122 +314,16 @@
                 </fieldset>
             </div>
 
-            <div class="show_clientLaw_images">
-                <div class="file_1">
-                    <img [src]="[file_1]" alt="Изображение" *ngIf="!this.isPDF(file_1, '.pdf')">
-        
-                    <div *ngIf="this.isPDF(file_1, '.pdf')">
-                        <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg"
-                            alt="Изображение">
-                    </div>
-        
-        
-                    <div class="upload_btns">
-                        <input type="file" class="dn" #upload_1 (change)="onFile1Upload($event)">
-                        <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
-                            (click)="onFile1UploadClick()"></p-button>
-        
-                        <a href="{{file_1}}" target="_blank" *ngIf="this.isPDF(file_1, '.pdf')" class="pdf_view">
-                            <i class="pi pi-eye"></i>
-                        </a>
-                    </div>
-        
-                </div>
-        
-                <div class="file_2">
-                    <img [src]="[file_2]" alt="Изображение" *ngIf="!this.isPDF(file_2, '.pdf')">
-                    <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg"
-                        alt="Изображение" *ngIf="this.isPDF(file_2, '.pdf')">
-        
-                    <div class="upload_btns">
-                        <input type="file" class="dn" #upload_2 (change)="onFile2Upload($event)">
-                        <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
-                            (click)="onFile2UploadClick()"></p-button>
-                        <a href="{{file_2}}" target="_blank" *ngIf="this.isPDF(file_2, '.pdf')" class="pdf_view">
-                            <i class="pi pi-eye"></i>
-                        </a>
-                    </div>
-                </div>
-        
-        
-                <div class="file_3">
-                    <img [src]="[file_3]" alt="Изображение" *ngIf="!this.isPDF(file_3, '.pdf')">
-                    <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg"
-                        alt="Изображение" *ngIf="this.isPDF(file_3, '.pdf')">
-        
-                    <div class="upload_btns">
-                        <input type="file" class="dn" #upload_3 (change)="onFile3Upload($event)">
-                        <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
-                            (click)="onFile3UploadClick()"></p-button>
-                        <a href="{{file_3}}" target="_blank" *ngIf="this.isPDF(file_3, '.pdf')" class="pdf_view">
-                            <i class="pi pi-eye"></i>
-                        </a>
-                    </div>
-                </div>
-        
-        
-                <div class="file_4">
-                    <img [src]="[file_4]" alt="Изображение" *ngIf="!this.isPDF(file_4, '.pdf')">
-                    <img src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg"
-                        alt="Изображение" *ngIf="this.isPDF(file_4, '.pdf')">
-        
-                    <div class="upload_btns">
-                        <input type="file" class="dn" #upload_4 (change)="onFile4Upload($event)">
-                        <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
-                            (click)="onFile4UploadClick()"></p-button>
-                        <a href="{{file_4}}" target="_blank" *ngIf="this.isPDF(file_4, '.pdf')" class="pdf_view">
-                            <i class="pi pi-eye"></i>
-                        </a>
-                    </div>
+            <div *ngIf="currentClientLaw">
+                <div [ngClass]="{'no_active': !this.edit}">
+                    <app-upload-file 
+                    [initialFilesSrc]="this.currentClientLaw.files"  
+                    [filesSrcRes]="this.filesSrc"  
+                    [postId]="this.currentClientLaw._id"  
+                    [typePost]="'clientLaw'"  
+                    (dataUpload)="uploadFilesData($event)"></app-upload-file>
                 </div>
             </div>
-
-            <!-- <div class="show_clientLaw_images">
-                <div class="file_1">
-                    <img [src]="[file_1]" alt="Изображение">
-
-
-                    <div class="upload_btns">
-                        <input type="file" class="dn" #upload_1 (change)="onFile1Upload($event)">
-                        <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
-                            (click)="onFile1UploadClick()"></p-button>
-                    </div>
-
-                </div>
-
-                <div class="file_2">
-                    <img [src]="[file_2]" alt="Изображение">
-
-
-                    <div class="upload_btns">
-                        <input type="file" class="dn" #upload_2 (change)="onFile2Upload($event)">
-                        <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
-                            (click)="onFile2UploadClick()"></p-button>
-                    </div>
-                </div>
-
-                <div class="file_3">
-                    <img [src]="[file_3]" alt="Изображение">
-                
-                
-                    <div class="upload_btns">
-                        <input type="file" class="dn" #upload_3 (change)="onFile3Upload($event)">
-                        <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
-                            (click)="onFile3UploadClick()"></p-button>
-                    </div>
-                </div>
-
-                <div class="file_4">
-                    <img [src]="[file_4]" alt="Изображение">
-                
-                
-                    <div class="upload_btns">
-                        <input type="file" class="dn" #upload_4 (change)="onFile4Upload($event)">
-                        <p-button label="Изменить" icon="pi pi-cloud-upload" styleClass="p-button-warning p-button-sm"
-                            (click)="onFile4UploadClick()"></p-button>
-                    </div>
-                </div>
-            </div> -->
         </div>
 
         <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>

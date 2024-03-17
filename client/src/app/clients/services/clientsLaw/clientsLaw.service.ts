@@ -14,10 +14,7 @@ export class ClientsLawService {
   // Создаем нового Юридического клиента
   create(
     clientLaw: ClientLaw,
-    file_1?: File,
-    file_2?: File,
-    file_3?: File,
-    file_4?: File
+    files: any
   ): Observable<ClientLaw> {
     const fd = new FormData();
 
@@ -46,20 +43,8 @@ export class ClientsLawService {
     fd.append('name_bank', clientLaw.name_bank);
    
     
-    if (file_1) {
-      fd.append('file_1', file_1, file_1.name);
-    }
-
-    if (file_2) {
-      fd.append('file_2', file_2, file_2.name);
-    }
-
-    if (file_3) {
-      fd.append('file_3', file_3, file_3.name);
-    }
-
-    if (file_4) {
-      fd.append('file_4', file_4, file_4.name);
+    for (let i = 0; i < files.length; i++) {
+      fd.append('files', files[i], files[i].name);
     }
 
     return this.http.post<ClientLaw>(`/api/clientsLaw/create`, fd);
@@ -82,10 +67,7 @@ export class ClientsLawService {
 
 
   update(clientLaw: ClientLaw,
-    file_1?: File,
-    file_2?: File,
-    file_3?: File,
-    file_4?: File): Observable<ClientLaw> {
+    files: any): Observable<ClientLaw> {
     const fd = new FormData();
       
     fd.append('name', clientLaw.name);
@@ -112,20 +94,8 @@ export class ClientsLawService {
     fd.append('name_bank', clientLaw.name_bank);
 
 
-    if (file_1) {
-      fd.append('file_1', file_1, file_1.name);
-    }
-
-    if (file_2) {
-      fd.append('file_2', file_2, file_2.name);
-    }
-
-    if (file_3) {
-      fd.append('file_3', file_3, file_3.name);
-    }
-
-    if (file_4) {
-      fd.append('file_4', file_4, file_4.name);
+    for (let i = 0; i < files.length; i++) {
+      fd.append('files', files[i], files[i].name);
     }
 
     if (clientLaw._id) {

@@ -9,7 +9,7 @@ import { Act, Booking } from 'src/app/bookings/types/bookings.interfaces';
 // Add clientFiz
 export const addClientLawAction = createAction(
   ActionTypes.ADD_CLIENT_LAW,
-    props<{ clientLaw: ClientLaw, file_1?: File, file_2?: File, file_3?: File, file_4?: File }>()
+    props<{ clientLaw: ClientLaw, files?:Array<File> }>()
 );
 
 export const addClientLawSuccessAction = createAction(
@@ -177,7 +177,7 @@ export const clientLawGetCurrentReset = createAction(
 // Update ClientLaw
 export const updateClientLawAction = createAction(
   ActionTypes.UPDATE_CLIENT_LAW,
-  props<{ clientLaw: ClientLaw, file_1?: File, file_2?: File, file_3?: File, file_4?: File }>()
+  props<{ clientLaw: ClientLaw, files?:Array<File> }>()
 )
 
 

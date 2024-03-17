@@ -27,10 +27,7 @@ export interface ClientLaw {
     kor_rc_number: string
     bik_number: string
     name_bank: string
-    file_1?: string
-    file_2?: string
-    file_3?: string
-    file_4?: string
+    files?: Array<any>,
     date?: string,
     dogovor_active?: string
 }

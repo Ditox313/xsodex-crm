@@ -20,7 +20,7 @@
             <ng-container  *ngFor="let src of filesSrcRes; let i = index">
                 <div style="display: flex; align-items: center;">
                     <img *ngIf="src" [src]="[src]" style="margin-right: 10px; margin-bottom: 10px;" alt="Изображение" > 
-                    <div class="file_info">
+                    <div class="file_info" *ngIf="src">
                         <span style="display: block;">{{this.uploadFiles[i].name}}</span>
                         <span style="display: block;">{{this.formatFileSize(this.uploadFiles[i].size)}}</span>
                         <span style="display: block;" *ngIf="src" (click)="onDeleteUploadInList(i)"><i class="pi pi-times" style="font-size: 21px; color:red; cursor: pointer;"></i></span>

@@ -53,11 +53,6 @@ export class AddPartnerComponent {
 
 
 
-  // Проверяем оканчивается ли строка на определенные символы.Внашем случае PDF
-  // isPDF(str: any, suffix: any) {
-  //   return new RegExp(suffix + '$').test(str);
-  // };
-
 
   
 

@@ -52,6 +52,7 @@ module.exports.getAllPartners = async function (req, res) {
         res.status(200).json(partnersList);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -67,6 +68,7 @@ module.exports.getAllPartnersNoParams = async function (req, res) {
         res.status(200).json(partnersList);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -117,6 +119,7 @@ module.exports.getById = async function (req, res) {
         res.status(200).json(car);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 
@@ -157,6 +160,7 @@ module.exports.update = async function (req, res) {
         res.status(200).json(partnerUpdate);
     } catch (e) {
         errorHandler(res, e);
+        return;
     }
 };
 

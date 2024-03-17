@@ -28,8 +28,8 @@ export class ClientsLawEffect {
   addClientLaw$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addClientLawAction), 
-      switchMap(({ clientLaw, file_1, file_2, file_3, file_4 }) => {
-        return this.clientsLaw.create(clientLaw, file_1, file_2, file_3, file_4).pipe(
+      switchMap(({ clientLaw, files}) => {
+        return this.clientsLaw.create(clientLaw, files).pipe(
           map((clientLaw) => {
             this.messageService.add({ severity: 'success', summary: `Клиент создан`, detail: 'Успешно!' });
             this.router.navigate(['/list-clients-law']);
@@ -151,8 +151,8 @@ export class ClientsLawEffect {
   UpdateClientLaw$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateClientLawAction),
-      switchMap(({ clientLaw, file_1, file_2, file_3, file_4 }) => {
-        return this.clientsLaw.update(clientLaw, file_1, file_2, file_3, file_4).pipe(
+      switchMap(({ clientLaw, files }) => {
+        return this.clientsLaw.update(clientLaw, files).pipe(
           map((data) => {
             this.messageService.add({ severity: 'success', summary: `Клиент обновлен`, detail: 'Успешно!' });
             return updateClientLawSuccessAction({ data: data });

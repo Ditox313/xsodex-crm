@@ -13,6 +13,21 @@ const transliteration = require('transliteration');
 
 
 
+// Нормализует имя файла при сохранении
+function cleanFileName(str) {
+    // Регулярное выражение для поиска всех символов, кроме русских букв, английских букв, цифр, пробелов, дефисов и точек
+    const nonRussianAndNonEnglishCharsRegex = /[^а-яА-ЯёЁa-zA-Z\d\s\-.]/g;
+
+    // Заменяем найденные символы на пустую строку (удаляем их)
+    let cleanedStr = str.replace(nonRussianAndNonEnglishCharsRegex, '');
+
+    // Заменяем пробелы и дефисы на подчеркивания
+    cleanedStr = cleanedStr.replace(/[-\s]/g, '_');
+
+    return cleanedStr;
+}
+
+
 
 
 
@@ -30,7 +45,7 @@ const storage = multer.diskStorage({
 
     filename(req, file, cb) {
         const date = moment().format('YYYYMMDDSSS');
-        const filename = req.body.short_name + '-' + req.body.name + file.originalname
+        const filename = cleanFileName(req.body.short_name + '-' + req.body.name + file.originalname)
         cb(null, `${date}-${filename}`);
     }
 });
