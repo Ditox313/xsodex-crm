@@ -189,16 +189,16 @@ export class UploadFileComponent {
 
   // Получаем название файла
   getFileName(fileUrl: string) {
-    // Удаляем начальные обратные слэши, если есть
-    const cleanedUrl = fileUrl.replace(/^\\+/, '');
-  
-    // Разделяем URL по обратным слэшам
-    const urlParts = cleanedUrl.split('\\');
-  
-    // Последняя часть будет именем файла
-    const fileName = urlParts.pop();
-  
-    return fileName;
+    // Находим последний индекс слэша
+    const lastSlashIndex = fileUrl.lastIndexOf('\\');
+
+    // Если слэш присутствует, возвращаем строку после последнего слэша
+    if (lastSlashIndex !== -1) {
+      return fileUrl.substring(lastSlashIndex + 1);
+    }
+
+    // Если слэш отсутствует, возвращаем исходную строку
+    return fileUrl;
   }
 
 }
