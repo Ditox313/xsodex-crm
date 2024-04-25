@@ -13,7 +13,7 @@ import { ClientLaw } from 'src/app/clients/types/clientsLaw/clientsLaw.interface
   styleUrls: ['./add-client-law.component.css']
 })
 export class AddClientLawComponent {
-  title: string = 'Добавить клиента'
+  title: string = 'Добавить клиента (юр-лицо)'
   form!: FormGroup;
 
   isLoadingSelector$!: Observable<boolean | null>

@@ -6,8 +6,19 @@
 <div class="clientsList" *ngIf="clientsList">
     <div class="top_line">
         <div>
-            <span class="active">Все клиенты</span>
+            <span class="xs_add_client_modal_button" (click)="modalAddClientFizClick()">Создать клиента(физ)</span>
+            <span class="xs_add_client_modal_button" (click)="modalAddClientLawClick()">Создать клиента(юр)</span>
+
+
+            <p-dialog [(visible)]="isVisibleAddModalClientFiz" [style]="{width: '95vw', height: '95vh'}" [modal]="true" [maximizable]="true">
+                <app-add-client-fiz></app-add-client-fiz>
+            </p-dialog>
+
+            <p-dialog [(visible)]="isVisibleAddModalClientLaw" [style]="{width: '95vw', height: '100vh'}" [modal]="true" [maximizable]="true">
+                <app-add-client-law></app-add-client-law>
+            </p-dialog>
         </div>
+        
 
         <div>
             <input type="text" (keyup)="search($event)" placeholder="Введите для поиска...">
@@ -57,6 +68,9 @@
         </ng-template>
     </p-table>
 
+
+
+
     <div class="dogovor_no_active" *ngIf="this.dogovor_active === 'no_active'">
         Клиент не имеет активного договора
         <span  (click)="modalClientClick()">Создать договор</span>
@@ -67,16 +81,24 @@
         </p-dialog>
     </div>
 
+
+
+
     <div *ngIf="clientsList.length === 0" class="noMoreClientsList">
         <h2>Клиентов не найдено...</h2>
     </div>
+
+
+
 
     <div *ngIf="hasQuery && clientsSearch && clientsSearch.length === 0" class="noMoreClientsList">
         <h2>Клиентов не найдено...</h2>
     </div>
 
+
+
+
     <div class="btn">
-        <p-button label="Загрузить еще..." *ngIf="!(noMoreClientsList | async) && !hasQuery"
-            (click)="loadmore()"></p-button>
+        <p-button label="Загрузить еще..." *ngIf="!(noMoreClientsList | async) && !hasQuery" (click)="loadmore()"></p-button>
     </div>
 </div>

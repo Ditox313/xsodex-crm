@@ -30,7 +30,8 @@ export class AllClientsSearchComponent {
   currentClient!: any
   currentClientId: string = ''
   isVisibleModalClient: boolean = false
-  isVisibleAddModalClient: boolean = false
+  isVisibleAddModalClientFiz: boolean = false
+  isVisibleAddModalClientLaw: boolean = false
 
 
   constructor(private store: Store) { }
@@ -150,13 +151,19 @@ export class AllClientsSearchComponent {
     this.isVisibleModalClient = !this.isVisibleModalClient
   }
 
-  // Модалка для создания клиента
-  modalAddClientClick()
+  // Модалка для создания клиента физ
+  modalAddClientFizClick()
   {
-    this.isVisibleAddModalClient = !this.isVisibleAddModalClient
+    this.isVisibleAddModalClientFiz = !this.isVisibleAddModalClientFiz
   }
 
 
+    // Модалка для создания клиента юр
+    modalAddClientLawClick()
+    {
+      this.isVisibleAddModalClientLaw = !this.isVisibleAddModalClientLaw
+    }
+  
 
 
 

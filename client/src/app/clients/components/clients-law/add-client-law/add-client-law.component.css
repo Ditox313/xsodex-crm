@@ -3,6 +3,11 @@
 }
 
 
+body
+{
+    overflow-x: hidden;
+}
+
 .add-clientLaw form>div {
     margin-bottom: 40px;
 }

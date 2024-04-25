@@ -56,6 +56,7 @@ import { EditBookingComponent } from './components/edit-booking/edit-booking.com
     RouterModule.forChild(getRoutes()),
     LayoutsModule,
     RouterModule,
+    ClientsModule,
     DropdownModule,
     BrowserAnimationsModule,
     ToastModule,

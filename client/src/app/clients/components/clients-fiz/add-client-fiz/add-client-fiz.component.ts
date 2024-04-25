@@ -14,7 +14,7 @@ import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interface
   styleUrls: ['./add-client-fiz.component.css']
 })
 export class AddClientFizComponent {
-  title: string = 'Добавить клиента'
+  title: string = 'Добавить клиента (физ-лицо)'
   form!: FormGroup;
   isLoadingSelector$!: Observable<boolean | null>
   resident!: string

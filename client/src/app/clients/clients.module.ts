@@ -93,7 +93,7 @@ import { UploadFileModule } from '../shared/modules/upload-file/upload-file.modu
     StoreModule.forFeature('clientsLaw', reducerLaw),
     EffectsModule.forFeature([ClientsFizEffect, ClientsLawEffect]),
   ],
-  exports: [AddDogovorClientFizComponent, AddDogovorClientLawComponent, AddClientFizComponent, AddClientLawComponent,],
+  exports: [AddDogovorClientFizComponent, AddDogovorClientLawComponent, AddClientFizComponent, AddClientLawComponent, ListClientsFizComponent, ListClientsLawComponent],
   providers: [MessageService, DatePipe, ClientsFizService, ClientsLawService]
 })
 export class ClientsModule { }
