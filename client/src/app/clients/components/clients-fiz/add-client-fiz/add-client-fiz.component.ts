@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { isLoadingSelector } from 'src/app/account/store/selectors';
 import { changeCleintForBookingResetAction, clientsForSearchListResetAction, clientsSearchResetAction } from 'src/app/bookings/store/actions/bookings.action';
-import { addClientFizAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { addClientFizAction, clientsFizFromResetAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
 @Component({
@@ -23,6 +23,10 @@ export class AddClientFizComponent {
   isActive!: boolean;
   uploadFiles: any = []
   filesSrc: any = []
+
+  // Если мы из создния брони хотим создать клиента
+  @Input() fromAddBooking?: boolean = false
+  @Output() clientAddStatus: EventEmitter<string> = new EventEmitter()
 
   
 
@@ -63,18 +67,25 @@ export class AddClientFizComponent {
   }
 
 
+  ngOnDestroy(): void {
+    // Отчищаем состояние from (Откуда был создан клиент)
+    this.store.dispatch(clientsFizFromResetAction());
+
+  }
+
+
   initValues() {
 
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
   }
 
 
-    // Принимает загруженные файлы из модуля
-    uploadFilesData(data: { isActive: boolean, uploadFiles: any[], filesSrc: any[] }) {
-      this.isActive = data.isActive;
-      this.uploadFiles = data.uploadFiles;
-      this.filesSrc = data.filesSrc;
-    }
+  // Принимает загруженные файлы из модуля
+  uploadFilesData(data: { isActive: boolean, uploadFiles: any[], filesSrc: any[] }) {
+    this.isActive = data.isActive;
+    this.uploadFiles = data.uploadFiles;
+    this.filesSrc = data.filesSrc;
+  }
 
 
 
@@ -118,9 +129,12 @@ export class AddClientFizComponent {
 
 
 
-    this.store.dispatch(addClientFizAction({ clientFiz: clientFiz, files: this.uploadFiles }))
+    this.store.dispatch(addClientFizAction({ clientFiz: clientFiz, files: this.uploadFiles, from: this.fromAddBooking ? 'add_booking' : 'add_client'}))
 
+    if(this.fromAddBooking)
+    {
+      this.clientAddStatus?.emit('client_ok')
+    }
     
-  
   }
 }

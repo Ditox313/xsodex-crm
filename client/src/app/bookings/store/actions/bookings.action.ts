@@ -78,7 +78,7 @@ export const noMoreBookingsListTrueAction = createAction(
 
 
 
-// Clients for search booking
+// Clients All for search booking
 export const clientsForSearchListAction = createAction(
   ActionTypes.CLIENTS_FOR_SEARCH,
   props<{ params?: BookingsParamsFetch }>()
@@ -114,6 +114,16 @@ export const noMoreClientsForSearchListFalseAction = createAction(
 export const noMoreClientsForSearchListTrueAction = createAction(
   ActionTypes.NO_MORE_CLIENTS_FOR_SEARCH_LIST_TRUE,
 );
+
+
+
+
+
+
+
+
+
+
 
 
 

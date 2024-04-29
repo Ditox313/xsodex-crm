@@ -78,3 +78,10 @@ export const bookingsListFizSelector = createSelector(
 
 
 
+export const getFromAddClientSelector = createSelector(
+    clientsFizFeatureSelector,
+    (state: ClientFizStateInterface) => state.from
+)
+
+
+

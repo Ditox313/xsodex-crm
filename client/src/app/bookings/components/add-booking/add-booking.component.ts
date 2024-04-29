@@ -17,6 +17,7 @@ import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
 import { addBookingAction } from '../../store/actions/bookings.action';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
 import { currentUserSelector } from 'src/app/account/store/selectors';
+import { clientsFizFromResetAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 
 @Component({
   selector: 'app-add-booking',
@@ -132,6 +133,9 @@ export class AddBookingComponent {
 
     // Отчищаем состояние settingsAvtoparkList если не хотим сохранять список авто  в состояние
     this.store.dispatch(settingsAvtoparkListResetAction());
+
+    // Отчищаем состояние from (Откуда был создан клиент)
+    this.store.dispatch(clientsFizFromResetAction());
 
   }
 

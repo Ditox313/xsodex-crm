@@ -22,6 +22,11 @@ router.delete('/booking-remove/:id', passport.authenticate('jwt', { session: fal
 router.get('/clients-for-search-booking', passport.authenticate('jwt', { session: false }), controller.getAllClientsForSearch);
 
 
+
+// Роут на Получение списка физ.лиц для поиска
+// router.get('/clients-fiz-for-search-booking', passport.authenticate('jwt', { session: false }), controller.getClientsFizForSearch);
+
+
 // Роут на поиск
 router.post('/search-clients', passport.authenticate('jwt', { session: false }), controller.search);
 

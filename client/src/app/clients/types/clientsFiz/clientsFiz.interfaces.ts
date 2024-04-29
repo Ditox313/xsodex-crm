@@ -52,6 +52,7 @@ export interface ClientFizStateInterface {
     actsFizList: Act[] | null | undefined | any,
     noMoreActsFizList: boolean,
     bookingsFizList: Booking[] | null | undefined | any,
+    from: string | undefined
 }
 
 

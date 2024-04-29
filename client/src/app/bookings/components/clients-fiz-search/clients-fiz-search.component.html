@@ -1,9 +1,8 @@
-
 <p-toast></p-toast>
 <loader *ngIf="isLoadingSelector | async"></loader>
 
 
-<div class="clientsList" *ngIf="clientsList">
+<div class="clientsList" *ngIf="clientsFizList">
     <div class="top_line">
         <div>
             <div style="display: flex;">
@@ -11,8 +10,9 @@
                 <div  style="margin-bottom: 30px; text-align: center;">ЮРИДИЧЕСКИЕ ЛИЦА</div>
             </div>
             
+
+
             <span class="xs_add_client_modal_button" (click)="modalAddClientFizClick()">Создать</span>
-            <!-- <span class="xs_add_client_modal_button" (click)="modalAddClientLawClick()">Создать клиента(юр)</span> -->
             
 
 
@@ -32,7 +32,17 @@
     </div>
 
 
-    <p-table *ngIf="!hasQuery" [value]="clientsList" styleClass="p-datatable-gridlines list_table"
+    <div class="dogovor_no_active" *ngIf="this.dogovor_active === 'no_active'" style="margin-bottom: 40px;">
+        Клиент {{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}} не имеет активного договора
+        <span  (click)="modalClientClick()">Создать договор</span>
+
+        <p-dialog [(visible)]="isVisibleModalClient" [style]="{width: '80vw'}" [modal]="true">
+            <app-add-dogovor-client-fiz *ngIf="this.currentClient.type === 'fiz'"  [clientId]="this.currentClientId"  (resultDogovor)="resultDogovor($event)"></app-add-dogovor-client-fiz>
+        </p-dialog>
+    </div>
+
+
+    <p-table *ngIf="!hasQuery" [value]="clientsFizList" styleClass="p-datatable-gridlines list_table"
         [tableStyle]="{ 'min-width': '50rem' }">
        
         <ng-template pTemplate="header">
@@ -50,7 +60,7 @@
         </ng-template>
     </p-table>
 
-    <p-table *ngIf="hasQuery && clientsSearch" [value]="clientsSearch"
+    <p-table *ngIf="hasQuery && clientsFizSearch" [value]="clientsFizSearch"
         styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="table_top">
@@ -77,27 +87,19 @@
 
 
 
-    <div class="dogovor_no_active" *ngIf="this.dogovor_active === 'no_active'">
-        Клиент не имеет активного договора
-        <span  (click)="modalClientClick()">Создать договор</span>
-
-        <p-dialog [(visible)]="isVisibleModalClient" [style]="{width: '80vw'}" [modal]="true">
-            <app-add-dogovor-client-fiz *ngIf="this.currentClient.type === 'fiz'"  [clientId]="this.currentClientId"  (resultDogovor)="resultDogovor($event)"></app-add-dogovor-client-fiz>
-            <app-add-dogovor-client-law *ngIf="this.currentClient.type === 'law'"  [clientId]="this.currentClientId"  (resultDogovor)="resultDogovor($event)"></app-add-dogovor-client-law>
-        </p-dialog>
-    </div>
+   
 
 
 
 
-    <div *ngIf="clientsList.length === 0" class="noMoreClientsList">
+    <div *ngIf="clientsFizList.length === 0" class="noMoreClientsList">
         <h2>Клиентов не найдено...</h2>
     </div>
 
 
 
 
-    <div *ngIf="hasQuery && clientsSearch && clientsSearch.length === 0" class="noMoreClientsList">
+    <div *ngIf="hasQuery && clientsFizSearch && clientsFizList.length === 0" class="noMoreClientsList">
         <h2>Клиентов не найдено...</h2>
     </div>
 
@@ -105,6 +107,6 @@
 
 
     <div class="btn">
-        <p-button label="Загрузить еще..." *ngIf="!(noMoreClientsList | async) && !hasQuery" (click)="loadmore()"></p-button>
+        <p-button label="Загрузить еще..." *ngIf="!(noMoreClientsFizList | async) && !hasQuery" (click)="loadmore()"></p-button>
     </div>
 </div>

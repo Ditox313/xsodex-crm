@@ -129,6 +129,9 @@ export class BookingsEffect {
 
 
 
+
+
+
   // Поиск
   clientsSearch$ = createEffect(() =>
     this.actions$.pipe(

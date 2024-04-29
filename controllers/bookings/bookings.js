@@ -88,7 +88,7 @@ module.exports.getAllBookings = async function (req, res) {
 
 
 
-
+// Получаем список всех клиентов для поиска
 module.exports.getAllClientsForSearch = async function (req, res) {
     try {
 
@@ -109,6 +109,27 @@ module.exports.getAllClientsForSearch = async function (req, res) {
     }
 };
 
+
+
+
+
+
+
+// // Получаем список физ.лиц для поиска
+// module.exports.getClientsFizForSearch = async function (req, res) {
+//     try {
+
+//         const clientsFizList = await ClientFiz.find({}).sort({ date: -1 })
+//             .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+//             .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+
+//         // Возвращаем пользователю позиции 
+//         res.status(200).json(clientsFizList);
+//     } catch (e) {
+//         errorHandler(res, e);
+//     }
+// };
 
 
 

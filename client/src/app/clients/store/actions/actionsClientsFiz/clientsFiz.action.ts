@@ -9,13 +9,13 @@ import { Act, Booking } from 'src/app/bookings/types/bookings.interfaces';
 // Add clientFiz
 export const addClientFizAction = createAction(
   ActionTypes.ADD_CLIENT_FIZ,
-    props<{ clientFiz: ClientFiz, files?:Array<File> }>()
+    props<{ clientFiz: ClientFiz, files?:Array<File>, from?: string }>()
 );
 
 
 export const addClientFizSuccessAction = createAction(
   ActionTypes.ADD_CLIENT_FIZ_SUCCESS,
-  props<{ clientFiz: ClientFiz }>()
+  props<{ clientFiz: ClientFiz, from?: string }>()
 );
 
 
@@ -24,6 +24,10 @@ export const addClientFizFailureAction = createAction(
   props<{ errors: any }>()
 );
 
+
+export const clientsFizFromResetAction = createAction(
+  ActionTypes.CLIENTS_FIZ_FROM_RESET,
+);
 
 
 

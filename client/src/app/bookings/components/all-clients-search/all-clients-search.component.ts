@@ -5,6 +5,7 @@ import { clientsForSearchListSelector, clientsSearchSelector, isLoadingSelector,
 import { Store, select } from '@ngrx/store';
 import { BookingsParamsFetch } from '../../types/bookings.interfaces';
 import { changeCleintForBookingAction, changeCleintForBookingResetAction, clientsForSearchListAction, clientsForSearchListResetAction, clientsSearchAction, clientsSearchResetAction, noMoreClientsForSearchListAction, noMoreClientsForSearchListFalseAction, noMoreClientsForSearchListTrueAction } from '../../store/actions/bookings.action';
+import { getFromAddClientSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
 
 @Component({
   selector: 'app-all-clients-search',
@@ -32,7 +33,10 @@ export class AllClientsSearchComponent {
   isVisibleModalClient: boolean = false
   isVisibleAddModalClientFiz: boolean = false
   isVisibleAddModalClientLaw: boolean = false
-
+  fromAddClientSelector?: Observable<string | null | undefined>
+  fromAddClientSub$!: Subscription
+  fromAddClient?: string = ''
+  
 
   constructor(private store: Store) { }
   ngOnInit(): void {
@@ -46,6 +50,9 @@ export class AllClientsSearchComponent {
     }
     if (this.clientsSearchSub$) {
       this.clientsSearchSub$.unsubscribe();
+    }
+    if (this.fromAddClientSub$) {
+      this.fromAddClientSub$.unsubscribe();
     }
 
 
@@ -70,14 +77,12 @@ export class AllClientsSearchComponent {
 
 
 
-
+    // Получаем список клиентов
     this.clientsListSelector = this.store.pipe(select(clientsForSearchListSelector))
     this.clientsListSub$ = this.clientsListSelector.subscribe({
       next: (clientsList) => {
         if (clientsList) {
           this.clientsList = clientsList;
-
-
           if (this.clientsList.length >= this.STEP) {
 
             this.store.dispatch(noMoreClientsForSearchListFalseAction());
@@ -86,6 +91,20 @@ export class AllClientsSearchComponent {
             // Изменяем значение noMoreClientsFizList в состоянии на true что бы скрыть кнопку загрузить ещё
             this.store.dispatch(noMoreClientsForSearchListTrueAction());
           }
+        }
+      }
+    });
+
+
+
+
+    // Получаем инфу откуда создание клиента
+    this.fromAddClientSelector = this.store.pipe(select(getFromAddClientSelector))
+    this.fromAddClientSub$ = this.fromAddClientSelector.subscribe({
+      next: (from) => {
+        if(from)
+        {
+          this.fromAddClient = from
         }
       }
     });
@@ -117,7 +136,6 @@ export class AllClientsSearchComponent {
     }
     
   }
-
 
 
 
@@ -159,11 +177,22 @@ export class AllClientsSearchComponent {
 
 
     // Модалка для создания клиента юр
-    modalAddClientLawClick()
-    {
-      this.isVisibleAddModalClientLaw = !this.isVisibleAddModalClientLaw
-    }
+  modalAddClientLawClick()
+  {
+    this.isVisibleAddModalClientLaw = !this.isVisibleAddModalClientLaw
+  }
   
+
+
+  // Обрабатывает @output из компонента создания физ.лица
+  clientAddStatus(e: any)
+  {
+    if(e === 'client_ok')
+    {
+      this.isVisibleAddModalClientFiz = false
+    }
+    
+  }
 
 
 

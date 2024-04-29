@@ -28,12 +28,18 @@ export class ClientsFizEffect {
   addClientFiz$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addClientFizAction), 
-      switchMap(({ clientFiz, files }) => {
+      switchMap(({ clientFiz, files, from }) => {
         return this.clientsFiz.create(clientFiz, files).pipe(
           map((clientFiz) => {
             this.messageService.add({ severity: 'success', summary: `Клиент создан`, detail: 'Успешно!' });
-            this.router.navigate(['/list-clients-fiz']);
-            return addClientFizSuccessAction({ clientFiz: clientFiz }); 
+
+            // Если создаем клиента не из брони
+            if(from !== 'add_booking')
+            {
+              this.router.navigate(['/list-clients-fiz']);
+            }
+           
+            return addClientFizSuccessAction({ clientFiz: clientFiz, from: from}); 
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(

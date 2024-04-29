@@ -34,6 +34,7 @@ import { ShowActBookingComponent } from './components/show-act-booking/show-act-
 import { ExtendBookingComponent } from './components/extend-booking/extend-booking.component';
 import { CloseBookingComponent } from './components/close-booking/close-booking.component';
 import { EditBookingComponent } from './components/edit-booking/edit-booking.component';
+import { ClientsFizSearchComponent } from './components/clients-fiz-search/clients-fiz-search.component';
 
 
 @NgModule({
@@ -47,6 +48,7 @@ import { EditBookingComponent } from './components/edit-booking/edit-booking.com
     ExtendBookingComponent,
     CloseBookingComponent,
     EditBookingComponent,
+    ClientsFizSearchComponent,
   ],
   imports: [
     CommonModule,

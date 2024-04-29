@@ -2,6 +2,7 @@ export enum ActionTypes {
   ADD_CLIENT_FIZ = '[ClientsFiz] Add clientFiz',
   ADD_CLIENT_FIZ_SUCCESS = '[ClientsFiz] Add clientFiz success',
   ADD_CLIENT_FIZ_FAILURE = '[ClientsFiz] Add clientFiz failure',
+  CLIENTS_FIZ_FROM_RESET = '[ClientsFiz] clientFiz from reset',
   CLIENTS_FIZ_LIST = '[ClientsFiz] clientFiz List',
   CLIENTS_FIZ_LIST_SUCCES = '[ClientsFiz] clientFiz List succes',
   CLIENTS_FIZ_LIST_FAILURE = '[ClientsFiz] clientFiz List failure',
