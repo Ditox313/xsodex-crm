@@ -23,6 +23,7 @@ const initialState: ClientLawStateInterface = {
   actsLawList: null,
   noMoreActsLawList: true,
   bookingsLawList: null,
+  from: ''
 };
 
 
@@ -46,6 +47,9 @@ const clientsLawReducer = createReducer(
       ...state,
       validationErrors: null,
       isLoading: false,
+      from: action.from,
+      clientsLawList: state.clientsLawList ? [ action.clientLaw, ...state.clientsLawList,] : state.clientsLawList,
+      currentClientLaw: action.clientLaw
     })
   ),
   on(
@@ -183,6 +187,7 @@ const clientsLawReducer = createReducer(
       actsLawList: action.data.clientsLaw.actsLawList,
       noMoreActsLawList: action.data.clientsLaw.noMoreActsLawList,
       bookingsLawList: action.data.clientsLaw.bookingsLawList,
+      from: action.data.clientsFiz.from
     }),
   ),
   on(

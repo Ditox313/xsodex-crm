@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -24,6 +24,11 @@ export class AddClientLawComponent {
    isActive!: boolean;
    uploadFiles: any = []
    filesSrc: any = []
+
+
+     // Если мы из создния брони хотим создать клиента
+  @Input() fromAddBooking?: boolean = false
+  @Output() clientAddStatus: EventEmitter<string> = new EventEmitter()
 
 
    constructor(public datePipe: DatePipe, private store: Store,) { }
@@ -109,6 +114,11 @@ export class AddClientLawComponent {
     };
 
     
-    this.store.dispatch(addClientLawAction({ clientLaw: clientLaw, files: this.uploadFiles }))
+    this.store.dispatch(addClientLawAction({ clientLaw: clientLaw, files: this.uploadFiles, from: this.fromAddBooking ? 'add_booking' : 'add_client' }))
+
+    if(this.fromAddBooking)
+    {
+      this.clientAddStatus?.emit('client_ok')
+    }
   }
 }

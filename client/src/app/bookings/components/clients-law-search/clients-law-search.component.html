@@ -1,1 +1,107 @@
-<p>clients-law-search works!</p>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector | async"></loader>
+
+
+<div class="clientsList" *ngIf="clientsLawList">
+    <div class="top_line">
+        <div>
+            <div style="display: flex;">
+                <div style="margin-bottom: 30px; text-align: center; margin-right: 40px;" (click)="toggleOnClientsFiz()">ФИЗИЧЕСКИЕ ЛИЦА</div>
+                <div class="active"   style="margin-bottom: 30px; text-align: center;">ЮРИДИЧЕСКИЕ ЛИЦА</div>
+            </div>
+            
+
+
+            <span class="xs_add_client_modal_button" (click)="modalAddClientLawClick()">Создать</span>
+        
+
+            <p-dialog [(visible)]="isVisibleAddModalClientLaw" [style]="{width: '95vw', height: '100vh'}" [modal]="true" [maximizable]="true">
+                <app-add-client-law [fromAddBooking]="true" (clientAddStatus)="clientAddStatus($event)"></app-add-client-law>
+            </p-dialog>
+        </div>
+        
+
+        <div>
+            <input type="text" (keyup)="search($event)" placeholder="Введите для поиска...">
+        </div>
+    </div>
+
+
+    <div class="dogovor_no_active" *ngIf="this.dogovor_active === 'no_active'" style="margin-bottom: 40px;">
+        Клиент {{this.currentClient.short_name}} {{this.currentClient.name}} не имеет активного договора
+        <span  (click)="modalClientAddDogovor()">Создать договор</span>
+
+        <p-dialog [(visible)]="isVisibleModalClient" [style]="{width: '80vw'}" [modal]="true">
+            <app-add-dogovor-client-law *ngIf="this.currentClient.type === 'law'"  [clientId]="this.currentClientId"  (resultDogovor)="resultDogovor($event)"></app-add-dogovor-client-law>
+        </p-dialog>
+    </div>
+
+
+    <p-table *ngIf="!hasQuery" [value]="clientsLawList" styleClass="p-datatable-gridlines list_table"
+        [tableStyle]="{ 'min-width': '50rem' }">
+       
+        <ng-template pTemplate="header">
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-client>
+            <tr (click)="changeClientLaw(client)">
+                <td><strong>{{client.short_name}} {{client.name}}</strong></td>
+                <td>{{client.phone_1}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-table *ngIf="hasQuery && clientsLawSearch" [value]="clientsLawSearch"
+        styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption">
+            <div class="table_top">
+                <div class="add_new" [routerLink]="['/add-client-fiz']">
+                    <p-button icon="pi pi-plus"></p-button>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-client>
+            <tr (click)="changeClientLaw(client)">
+                <td><strong>{{client.short_name}} {{client.name}}</strong></td>
+                <td>{{client.phone_1}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
+
+
+   
+
+
+
+
+    <div *ngIf="clientsLawList.length === 0" class="noMoreClientsList">
+        <h2>Клиентов не найдено...</h2>
+    </div>
+
+
+
+
+    <div *ngIf="hasQuery && clientsLawSearch && clientsLawList.length === 0" class="noMoreClientsList">
+        <h2>Клиентов не найдено...</h2>
+    </div>
+
+
+
+
+    <div class="btn">
+        <p-button label="Загрузить еще..." *ngIf="!(noMoreClientsLawList | async) && !hasQuery" (click)="loadmore()"></p-button>
+    </div>
+</div>

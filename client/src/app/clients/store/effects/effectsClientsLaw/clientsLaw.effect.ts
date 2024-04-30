@@ -28,12 +28,18 @@ export class ClientsLawEffect {
   addClientLaw$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addClientLawAction), 
-      switchMap(({ clientLaw, files}) => {
+      switchMap(({ clientLaw, files, from}) => {
         return this.clientsLaw.create(clientLaw, files).pipe(
           map((clientLaw) => {
             this.messageService.add({ severity: 'success', summary: `Клиент создан`, detail: 'Успешно!' });
-            this.router.navigate(['/list-clients-law']);
-            return addClientLawSuccessAction({ clientLaw: clientLaw }); 
+            
+            // Если создаем клиента не из брони
+            if(from !== 'add_booking')
+            {
+              this.router.navigate(['/list-clients-law']);
+            }
+
+            return addClientLawSuccessAction({ clientLaw: clientLaw,  from: from }); 
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(

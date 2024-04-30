@@ -19,10 +19,6 @@
             <p-dialog [(visible)]="isVisibleAddModalClientFiz" [style]="{width: '95vw', height: '95vh'}" [modal]="true" [maximizable]="true">
                 <app-add-client-fiz [fromAddBooking]="true" (clientAddStatus)="clientAddStatus($event)"></app-add-client-fiz>
             </p-dialog>
-
-            <p-dialog [(visible)]="isVisibleAddModalClientLaw" [style]="{width: '95vw', height: '100vh'}" [modal]="true" [maximizable]="true">
-                <app-add-client-law></app-add-client-law>
-            </p-dialog>
         </div>
         
 

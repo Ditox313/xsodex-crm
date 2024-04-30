@@ -202,7 +202,7 @@
 
                     <!-- Модальное окно выбора юр.клиентов -->
                     <p-dialog [(visible)]="isVisibleModalClientLaw" [style]="{width: '100vw', height: '100vh'}" [modal]="true" [maximizable]="true">
-                        <app-clients-law-search></app-clients-law-search>
+                        <app-clients-law-search (toggleOnFiz)="toggleClientsFiz($event)"></app-clients-law-search>
                     </p-dialog>
 
 

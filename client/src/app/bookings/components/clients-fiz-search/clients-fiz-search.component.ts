@@ -32,7 +32,6 @@ export class ClientsFizSearchComponent {
   currentClientId: string = ''
   isVisibleModalClient: boolean = false
   isVisibleAddModalClientFiz: boolean = false
-  isVisibleAddModalClientLaw: boolean = false
   fromAddClientSelector?: Observable<string | null | undefined>
   fromAddClientSub$!: Subscription
   fromAddClient?: string = ''
@@ -142,8 +141,12 @@ export class ClientsFizSearchComponent {
     {
       this.dogovor_active = 'active'
       this.store.dispatch(changeCleintForBookingAction({ client: this.currentClient }));
-      this.store.dispatch(changeCleintForBookingResetAction());
       this.store.dispatch(clientsFizSearchResetAction());
+      this.store.dispatch(clientsFizListResetAction());
+
+      // Отчищаем список и состояние списка что бы обновить его.Для того что бы у вабранного клиента изменить состояние активного договора
+      this.clientsFizList = []
+      this.getClientsList()
     }
     
   }
@@ -185,13 +188,6 @@ export class ClientsFizSearchComponent {
   modalAddClientFizClick()
   {
     this.isVisibleAddModalClientFiz = !this.isVisibleAddModalClientFiz
-  }
-
-
-    // Модалка для создания клиента юр
-  modalAddClientLawClick()
-  {
-    this.isVisibleAddModalClientLaw = !this.isVisibleAddModalClientLaw
   }
 
 

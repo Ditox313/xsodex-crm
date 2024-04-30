@@ -18,6 +18,7 @@ import { addBookingAction } from '../../store/actions/bookings.action';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { clientsFizFromResetAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { clientsLawListResetAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
 
 @Component({
   selector: 'app-add-booking',
@@ -263,6 +264,8 @@ export class AddBookingComponent {
         if (this.currentClient)
         {
           this.isVisibleModalClient = false
+          this.isVisibleModalClientLaw = false
+          // this.store.dispatch(clientsLawListResetAction());
         }
       }
     })
@@ -1154,8 +1157,22 @@ export class AddBookingComponent {
   // Закрываем модалку физ.лиц и открываем модалку юр.лиц
   toggleClientsLaw(e:any)
   {
-    this.isVisibleModalClient = false
-    this.isVisibleModalClientLaw = true
+    if(e === 'toggleOnLaw')
+    {
+      this.isVisibleModalClient = false
+      this.isVisibleModalClientLaw = true
+    }
+  }
+
+
+  // Закрываем модалку юр.лиц и открываем модалку физ.лиц
+  toggleClientsFiz(e:any)
+  {
+    if(e === 'toggleOnFiz')
+    {
+      this.isVisibleModalClient = true
+      this.isVisibleModalClientLaw = false
+    }
   }
  
  

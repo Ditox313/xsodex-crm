@@ -9,12 +9,12 @@ import { Act, Booking } from 'src/app/bookings/types/bookings.interfaces';
 // Add clientFiz
 export const addClientLawAction = createAction(
   ActionTypes.ADD_CLIENT_LAW,
-    props<{ clientLaw: ClientLaw, files?:Array<File> }>()
+    props<{ clientLaw: ClientLaw, files?:Array<File>, from?: string  }>()
 );
 
 export const addClientLawSuccessAction = createAction(
   ActionTypes.ADD_CLIENT_LAW_SUCCESS,
-  props<{ clientLaw: ClientLaw }>()
+  props<{ clientLaw: ClientLaw , from?: string}>()
 );
 
 
