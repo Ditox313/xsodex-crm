@@ -14,7 +14,7 @@ import { clientFizGetCurrentReset, clientsFizListAction, clientsFizListResetActi
   styleUrls: ['./clients-fiz-search.component.css']
 })
 export class ClientsFizSearchComponent {
-  STEP = 2;
+  STEP = 50;
   offset: number = 0;
   limit: number = this.STEP;
   isLoadingSelector!: Observable<boolean | null>
@@ -147,6 +147,11 @@ export class ClientsFizSearchComponent {
       // Отчищаем список и состояние списка что бы обновить его.Для того что бы у вабранного клиента изменить состояние активного договора
       this.clientsFizList = []
       this.getClientsList()
+
+      // Ставим статус неактивный договор, работало при создании 2-х и более клиентов
+      setTimeout(()=>{
+        this.dogovor_active = 'no_active'
+      }, 200)
     }
     
   }
