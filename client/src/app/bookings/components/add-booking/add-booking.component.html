@@ -193,11 +193,20 @@
                         </div>
                     </fieldset>
                     
+
+                    <!-- Модальное окно выбора физ.клиентов -->
                     <p-dialog [(visible)]="isVisibleModalClient" [style]="{width: '100vw', height: '100vh'}" [modal]="true" [maximizable]="true">
-                        <!-- <app-all-clients-search></app-all-clients-search> -->
-                        <app-clients-fiz-search></app-clients-fiz-search>
+                        <app-clients-fiz-search (toggleOnLaw)="toggleClientsLaw($event)"></app-clients-fiz-search>
                     </p-dialog>
 
+
+                    <!-- Модальное окно выбора юр.клиентов -->
+                    <p-dialog [(visible)]="isVisibleModalClientLaw" [style]="{width: '100vw', height: '100vh'}" [modal]="true" [maximizable]="true">
+                        <app-clients-law-search></app-clients-law-search>
+                    </p-dialog>
+
+
+                    
                     <fieldset>
                         <label htmlFor="comment">Комментарий</label>
                         <textarea type="text" rows="1" cols="10" placeholder="Комментарий" formControlName="comment"></textarea>

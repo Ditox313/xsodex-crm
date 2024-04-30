@@ -7,7 +7,7 @@
         <div>
             <div style="display: flex;">
                 <div class="active" style="margin-bottom: 30px; text-align: center; margin-right: 40px;">ФИЗИЧЕСКИЕ ЛИЦА</div>
-                <div  style="margin-bottom: 30px; text-align: center;">ЮРИДИЧЕСКИЕ ЛИЦА</div>
+                <div  style="margin-bottom: 30px; text-align: center;" (click)="toggleOnClientsLaw()">ЮРИДИЧЕСКИЕ ЛИЦА</div>
             </div>
             
 
@@ -34,7 +34,7 @@
 
     <div class="dogovor_no_active" *ngIf="this.dogovor_active === 'no_active'" style="margin-bottom: 40px;">
         Клиент {{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}} не имеет активного договора
-        <span  (click)="modalClientClick()">Создать договор</span>
+        <span  (click)="modalClientAddDogovor()">Создать договор</span>
 
         <p-dialog [(visible)]="isVisibleModalClient" [style]="{width: '80vw'}" [modal]="true">
             <app-add-dogovor-client-fiz *ngIf="this.currentClient.type === 'fiz'"  [clientId]="this.currentClientId"  (resultDogovor)="resultDogovor($event)"></app-add-dogovor-client-fiz>

@@ -35,6 +35,7 @@ import { ExtendBookingComponent } from './components/extend-booking/extend-booki
 import { CloseBookingComponent } from './components/close-booking/close-booking.component';
 import { EditBookingComponent } from './components/edit-booking/edit-booking.component';
 import { ClientsFizSearchComponent } from './components/clients-fiz-search/clients-fiz-search.component';
+import { ClientsLawSearchComponent } from './components/clients-law-search/clients-law-search.component';
 
 
 @NgModule({
@@ -49,6 +50,7 @@ import { ClientsFizSearchComponent } from './components/clients-fiz-search/clien
     CloseBookingComponent,
     EditBookingComponent,
     ClientsFizSearchComponent,
+    ClientsLawSearchComponent,
   ],
   imports: [
     CommonModule,

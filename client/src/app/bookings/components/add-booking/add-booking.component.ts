@@ -33,6 +33,7 @@ export class AddBookingComponent {
   carsList: Car[] | null | undefined = [];
   errorValidTarifMixedDays: boolean = false;
   isVisibleModalClient: boolean = false
+  isVisibleModalClientLaw: boolean = false
   minDate: string = '';
 
   @ViewChild('myLocalDate') myLocalDate: ElementRef<any> | undefined;
@@ -1141,7 +1142,7 @@ export class AddBookingComponent {
 
 
 
-// Открываем модалку клиента
+// Открываем модалку клиента физ.лиц
   modalClientClick()
   {
     this.isVisibleModalClient = !this.isVisibleModalClient
@@ -1150,6 +1151,12 @@ export class AddBookingComponent {
 
 
 
+  // Закрываем модалку физ.лиц и открываем модалку юр.лиц
+  toggleClientsLaw(e:any)
+  {
+    this.isVisibleModalClient = false
+    this.isVisibleModalClientLaw = true
+  }
  
  
 

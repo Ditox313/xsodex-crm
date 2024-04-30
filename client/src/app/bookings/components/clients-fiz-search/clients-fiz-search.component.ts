@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { ClientFiz, ClientsFizParamsFetch } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
@@ -40,6 +40,9 @@ export class ClientsFizSearchComponent {
   currentClientFizSub$!: Subscription
 
 
+  @Output() toggleOnLaw: EventEmitter<string> = new EventEmitter()
+
+
 
   
   constructor(private store: Store) { }
@@ -65,8 +68,6 @@ export class ClientsFizSearchComponent {
 
      // Отчищаем состояние поиска
      this.store.dispatch(clientsFizSearchResetAction());
-
-     this.store.dispatch(changeCleintForBookingResetAction());
 
       // Отчищаем выбранного клиента
       this.store.dispatch(changeCleintForBookingResetAction());
@@ -141,10 +142,8 @@ export class ClientsFizSearchComponent {
     {
       this.dogovor_active = 'active'
       this.store.dispatch(changeCleintForBookingAction({ client: this.currentClient }));
+      this.store.dispatch(changeCleintForBookingResetAction());
       this.store.dispatch(clientsFizSearchResetAction());
-      this.store.dispatch(changeCleintForBookingResetAction());
-      this.store.dispatch(changeCleintForBookingResetAction());
-      this.getClientsList()
     }
     
   }
@@ -171,13 +170,14 @@ export class ClientsFizSearchComponent {
     }
     else
     {
+      this.dogovor_active = 'active'
       this.store.dispatch(changeCleintForBookingAction({ client: client }));
     }
     
   }
 
   // Модалка для создания договора
-  modalClientClick() {
+  modalClientAddDogovor() {
     this.isVisibleModalClient = !this.isVisibleModalClient
   }
 
@@ -192,6 +192,14 @@ export class ClientsFizSearchComponent {
   modalAddClientLawClick()
   {
     this.isVisibleAddModalClientLaw = !this.isVisibleAddModalClientLaw
+  }
+
+
+
+  // Переключаем на Юр.лиц
+  toggleOnClientsLaw()
+  {
+    this.toggleOnLaw?.emit('toggleOnLaw')
   }
   
 
@@ -212,11 +220,20 @@ export class ClientsFizSearchComponent {
         next: (currentClientFiz) => {
           this.currentClient = currentClientFiz
           this.currentClientId = currentClientFiz?._id || ''
-          this.dogovor_active = 'no_active'
+
+          if(this.currentClient.dogovor_active === 'no_active')
+          {
+            this.dogovor_active = 'no_active'
+          }
+          else
+          {
+            this.dogovor_active = 'active'
+            this.store.dispatch(changeCleintForBookingAction({ client: this.currentClient  }));
+          }
+          
         }
       })
   }
-
 }
 
 
@@ -224,7 +241,7 @@ export class ClientsFizSearchComponent {
 
 
    // Поиск физ.лица
-   search(e: any) {
+  search(e: any) {
     // Отчищаем запрос
     let query: string = e.target.value.trim()
 
