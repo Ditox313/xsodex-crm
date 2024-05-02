@@ -145,11 +145,12 @@ export class AddDogovorClientFizComponent {
    {
      let docDefinition = {
        content: [html],
-       filename: 'Договор для клиента' + this.currentClientFiz.surname + '-' + this.currentClientFiz.name + '-' + this.currentClientFiz.lastname + '.pdf',
      };
 
-     pdfMake.createPdf(docDefinition).download();
+     pdfMake.createPdf(docDefinition).download('Договор для клиента ' + this.currentClientFiz.surname + '-' + this.currentClientFiz.name + '-' + this.currentClientFiz.lastname + '.pdf');
    }
+
+   
     
   } 
 
