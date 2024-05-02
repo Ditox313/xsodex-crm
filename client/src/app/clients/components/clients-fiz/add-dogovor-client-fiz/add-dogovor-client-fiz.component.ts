@@ -44,6 +44,9 @@ export class AddDogovorClientFizComponent {
   currentUser!: UserResponceRegister | null | undefined
   yearDate: any;
   xs_actual_date: any;
+  xs_actual_time_hour: any;
+  xs_actual_time_min: any;
+  xs_actual_time_sec: any;
   @ViewChild('content') content!: ElementRef | any;
 
 
@@ -97,7 +100,7 @@ export class AddDogovorClientFizComponent {
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
 
     // Задаем значения даты действия договора.Для физ лиц 365 дней
-    this.xs_actual_date = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+    this.xs_actual_date = this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
     this.yearDate = new Date(this.xs_actual_date);
     this.yearDate.setDate(this.yearDate.getDate() + 365);
 
@@ -124,17 +127,25 @@ export class AddDogovorClientFizComponent {
         this.currentUser = user
       }
     })
+
+
+
+    // Получаем текущее время для id договора
+    this.xs_actual_time_hour = new Date().getHours()
+    this.xs_actual_time_min = new Date().getMinutes()
+    this.xs_actual_time_sec = new Date().getSeconds()
   }
 
   // Генерируем PDF
  generatePDF() {
-   var html = htmlToPdfmake(this.content.nativeElement.innerHTML);
+  const styledHtml = `<div style="font-size: 8px;">${this.content.nativeElement.innerHTML}</div>`;
+  const html = htmlToPdfmake(styledHtml);
 
    if (this.currentClientFiz)
    {
      let docDefinition = {
        content: [html],
-       filename: 'Договор для клиента' + this.currentClientFiz.surname + '-' + this.currentClientFiz.name + '-' + this.currentClientFiz.lastname + '.pdf'
+       filename: 'Договор для клиента' + this.currentClientFiz.surname + '-' + this.currentClientFiz.name + '-' + this.currentClientFiz.lastname + '.pdf',
      };
 
      pdfMake.createPdf(docDefinition).download();

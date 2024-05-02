@@ -84,15 +84,17 @@ export class ShowDogovorClientFizComponent {
 
   // Генерируем PDF
   generatePDF() {
-    var html = htmlToPdfmake(this.content.nativeElement.innerHTML);
+    const styledHtml = `<div style="font-size: 8px;">${this.content.nativeElement.innerHTML}</div>`;
+    const html = htmlToPdfmake(styledHtml);
 
-    if (this.currentDogovorClientFiz) {
-      let docDefinition = {
-        content: [html],
-      };
+   if (this.currentDogovorClientFiz)
+   {
+     let docDefinition = {
+       content: [html],
+     };
 
-      pdfMake.createPdf(docDefinition).download();
-    }
+     pdfMake.createPdf(docDefinition).download();
+   }
 
   }
 }

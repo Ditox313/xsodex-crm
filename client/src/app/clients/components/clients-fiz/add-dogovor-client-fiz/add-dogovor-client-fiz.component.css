@@ -9,9 +9,15 @@
 }
 
 
+:host ::ng-deep * {
+    font-size: 11px;
+}
 
-
-
+@media print {
+    :host ::ng-deep * {
+      font-size: 11px !important;
+    }
+  }
 
 label {
     font-size: 13px;
@@ -135,5 +141,7 @@ button:disabled {
 .submit {
     margin-top: 10px;
 }
+
+
 
 
