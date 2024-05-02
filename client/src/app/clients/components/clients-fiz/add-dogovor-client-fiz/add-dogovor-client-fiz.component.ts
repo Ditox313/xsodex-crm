@@ -100,7 +100,7 @@ export class AddDogovorClientFizComponent {
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
 
     // Задаем значения даты действия договора.Для физ лиц 365 дней
-    this.xs_actual_date = this.datePipe.transform(Date.now(), 'dd-MM-yyyy');
+    this.xs_actual_date = this.datePipe.transform(Date.now(), 'dd.MM.yyyy');
     this.yearDate = new Date(this.xs_actual_date);
     this.yearDate.setDate(this.yearDate.getDate() + 365);
 
