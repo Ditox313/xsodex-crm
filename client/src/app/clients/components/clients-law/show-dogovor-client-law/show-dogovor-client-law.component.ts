@@ -82,14 +82,15 @@ export class ShowDogovorClientLawComponent {
 
   // Генерируем PDF
   generatePDF() {
-    var html = htmlToPdfmake(this.content.nativeElement.innerHTML);
+    const styledHtml = `<div style="font-size: 8px;">${this.currentDogovorClientLaw ? this.currentDogovorClientLaw.content : ''}</div>`;
+    const html = htmlToPdfmake(styledHtml);
 
     if (this.currentDogovorClientLaw) {
       let docDefinition = {
         content: [html],
       };
 
-      pdfMake.createPdf(docDefinition).download();
+      pdfMake.createPdf(docDefinition).download('Договор аренды транспортного средства без экипажа для ЮЛ');
     }
 
   }

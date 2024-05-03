@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, RendererFactory2, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
@@ -48,18 +48,21 @@ export class AddDogovorClientFizComponent {
   xs_actual_time_min: any;
   xs_actual_time_sec: any;
   @ViewChild('content') content!: ElementRef | any;
+  private renderer!: Renderer2;
 
 
 
 
-  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute, private renderer: Renderer2) { }
+
+  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute, private rendererFactory: RendererFactory2) { 
+    this.renderer = rendererFactory.createRenderer(null, null);
+  }
 
 
   ngOnInit(): void {
     this.getParams()
     this.initForm()
     this.initValues()
-    
   }
 
   ngOnDestroy(): void {
@@ -147,24 +150,56 @@ export class AddDogovorClientFizComponent {
        content: [html],
      };
 
-     pdfMake.createPdf(docDefinition).download('Договор для клиента ' + this.currentClientFiz.surname + '-' + this.currentClientFiz.name + '-' + this.currentClientFiz.lastname + '.pdf');
+     pdfMake.createPdf(docDefinition).download('Договор для клиента' + this.currentClientFiz.surname + ' ' + this.currentClientFiz.name + ' ' + this.currentClientFiz.lastname + '.pdf');
    }
 
+
+   console.log(this.cleanHtmlContent());
+   
    
     
   } 
 
 
 
+  // Отчищаем сохраняемый контент от служебных тегов Angular(ng-content и тд)
+  cleanHtmlContent(): string {
+    if (!this.content || !this.content.nativeElement) {
+      return '';
+    }
+  
+    const tempEl = this.renderer.createElement('div');
+    this.renderer.appendChild(tempEl, this.content.nativeElement.cloneNode(true));
+  
+    const allElements = tempEl.getElementsByTagName('*');
+    for (let i = 0; i < allElements.length; i++) {
+      const element = allElements[i];
+      const attributes = element.attributes;
+  
+      for (let j = attributes.length - 1; j >= 0; j--) {
+        const attrName = attributes[j].name;
+        if (attrName.startsWith('ng-') || attrName.startsWith('_ng')) {
+          element.removeAttribute(attrName);
+        }
+      }
+    }
+  
+    return tempEl.innerHTML;
+  }
+
+
+
   // Создаем договор
   createDogovor() {
+    const cleanedContent = this.cleanHtmlContent();
+    
     const dogovor = {
       date_start: this.xs_actual_date,
       dogovor_number: this.xs_actual_date + '/СТС-' + this.datePipe.transform(this.xs_actual_date, 'd-M-y') ,
       date_end: this.datePipe.transform(this.yearDate, 'yyyy-MM-dd'),
       client: this.currentClientFiz?._id,
       administrator: this.currentUser?._id,
-      content: this.content.nativeElement.innerHTML,
+      content: cleanedContent,
       state: 'active'
     }
 

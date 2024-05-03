@@ -3,9 +3,9 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { clientFizDogovorGetCurrent, clientFizGetCurrentReset } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { clientFizDogovorGetCurrent, clientFizGetCurrent, clientFizGetCurrentReset } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 import { getCurrentDogovorClientFizSelector, isLoadingSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
-import { Dogovor } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
+import { ClientFiz, Dogovor } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 
 
 // Для корректной работы необходимо установить отдельный пакет типов для каждой библиотеки(см ошибку) и в tsconfig в compilerOptions 
@@ -84,7 +84,7 @@ export class ShowDogovorClientFizComponent {
 
   // Генерируем PDF
   generatePDF() {
-    const styledHtml = `<div style="font-size: 8px;">${this.content.nativeElement.innerHTML}</div>`;
+    const styledHtml = `<div style="font-size: 8px;">${this.currentDogovorClientFiz ? this.currentDogovorClientFiz.content : ''}</div>`;
     const html = htmlToPdfmake(styledHtml);
 
    if (this.currentDogovorClientFiz)
@@ -93,8 +93,7 @@ export class ShowDogovorClientFizComponent {
        content: [html],
      };
 
-     pdfMake.createPdf(docDefinition).download();
+     pdfMake.createPdf(docDefinition).download('Договор аренды транспортного средства без экипажа ');
    }
-
   }
 }

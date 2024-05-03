@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, RendererFactory2, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { ClientLaw } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
@@ -38,12 +38,18 @@ export class AddDogovorClientLawComponent {
   currentUser!: UserResponceRegister | null | undefined
   yearDate: any;
   xs_actual_date: any;
+  xs_actual_time_hour: any;
+  xs_actual_time_min: any;
+  xs_actual_time_sec: any;
   @ViewChild('content') content!: ElementRef | any;
+  private renderer!: Renderer2;
 
 
 
 
-  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute) { }
+  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute,  private rendererFactory: RendererFactory2) { 
+    this.renderer = rendererFactory.createRenderer(null, null);
+  }
 
 
   ngOnInit(): void {
@@ -73,7 +79,6 @@ export class AddDogovorClientLawComponent {
       }
 
     });
-    console.log(this.clientId);
   }
 
 
@@ -82,7 +87,7 @@ export class AddDogovorClientLawComponent {
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
 
     // Задаем значения даты действия договора.Для физ лиц 365 дней
-    this.xs_actual_date = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+    this.xs_actual_date = this.datePipe.transform(Date.now(), 'dd.MM.yyyy');
     this.yearDate = new Date(this.xs_actual_date);
     this.yearDate.setDate(this.yearDate.getDate() + (365 * 3));
 
@@ -108,11 +113,20 @@ export class AddDogovorClientLawComponent {
         this.currentUser = user
       }
     })
+
+
+
+    
+    // Получаем текущее время для id договора
+    this.xs_actual_time_hour = new Date().getHours()
+    this.xs_actual_time_min = new Date().getMinutes()
+    this.xs_actual_time_sec = new Date().getSeconds()
   }
 
   // Генерируем PDF
  generatePDF() {
-   var html = htmlToPdfmake(this.content.nativeElement.innerHTML);
+  const styledHtml = `<div style="font-size: 8px;">${this.content.nativeElement.innerHTML}</div>`;
+  const html = htmlToPdfmake(styledHtml);
 
    if (this.currentClientLaw)
    {
@@ -120,20 +134,49 @@ export class AddDogovorClientLawComponent {
        content: [html],
      };
 
-     pdfMake.createPdf(docDefinition).download();
+     pdfMake.createPdf(docDefinition).download('Договор для клиента ' + this.currentClientLaw.short_name + ' ' + this.currentClientLaw.name + '.pdf');
    }
     
   } 
 
+
+
+  // Отчищаем сохраняемый контент от служебных тегов Angular(ng-content и тд)
+  cleanHtmlContent(): string {
+    if (!this.content || !this.content.nativeElement) {
+      return '';
+    }
+  
+    const tempEl = this.renderer.createElement('div');
+    this.renderer.appendChild(tempEl, this.content.nativeElement.cloneNode(true));
+  
+    const allElements = tempEl.getElementsByTagName('*');
+    for (let i = 0; i < allElements.length; i++) {
+      const element = allElements[i];
+      const attributes = element.attributes;
+  
+      for (let j = attributes.length - 1; j >= 0; j--) {
+        const attrName = attributes[j].name;
+        if (attrName.startsWith('ng-') || attrName.startsWith('_ng')) {
+          element.removeAttribute(attrName);
+        }
+      }
+    }
+  
+    return tempEl.innerHTML;
+  }
+
   // Создаем договор
   createDogovor() {
+    const cleanedContent = this.cleanHtmlContent();
+
     const dogovor = {
       date_start: this.xs_actual_date,
       dogovor_number: this.xs_actual_date + '/СТС-' + this.datePipe.transform(this.xs_actual_date, 'd-M-y') ,
       date_end: this.datePipe.transform(this.yearDate, 'yyyy-MM-dd'),
       client: this.currentClientLaw?._id,
       administrator: this.currentUser?._id,
-      content: this.content.nativeElement.innerHTML,
+      content: cleanedContent,
       state: 'active'
     }
 
@@ -145,7 +188,5 @@ export class AddDogovorClientLawComponent {
       this.store.dispatch(addClientLawDogovorActionFromBooking({ dogovor: dogovor }));
       this.resultDogovor.emit(true);
     }
-
-    
   }
 }
