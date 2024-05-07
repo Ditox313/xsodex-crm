@@ -152,12 +152,6 @@ export class AddDogovorClientFizComponent {
 
      pdfMake.createPdf(docDefinition).download('Договор для клиента' + this.currentClientFiz.surname + ' ' + this.currentClientFiz.name + ' ' + this.currentClientFiz.lastname + '.pdf');
    }
-
-
-   console.log(this.cleanHtmlContent());
-   
-   
-    
   } 
 
 

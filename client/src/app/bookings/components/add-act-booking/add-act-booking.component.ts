@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Renderer2, RendererFactory2, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
@@ -11,7 +11,7 @@ import { addActBookingAction, bookingGetCurrent, bookingGetCurrentReset, current
 import { Smena } from 'src/app/smena/types/smena.interfaces';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
-import { ClientFiz } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
+import { ClientFiz, ClientFizDogovorsParamsFetch, Dogovor } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 import { ClientLaw } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 import { convert as convertNumberToWordsRu } from 'number-to-words-ru'
 
@@ -30,6 +30,8 @@ import { getCurrentCarSelector } from 'src/app/cars/store/selectors';
 import { SettingAvtopark } from 'src/app/settings/types/settings.interfaces';
 import { settingsAvtoparkListAction, settingsAvtoparkListResetAction } from 'src/app/settings/store/actions/settings.action';
 import { settingsAvtoparkListSelector } from 'src/app/settings/store/selectors';
+import { clientFizDogovorsListAction, clientFizDogovorsListResetAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { clientsFizDogovorsListSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
 
 
 @Component({
@@ -37,8 +39,13 @@ import { settingsAvtoparkListSelector } from 'src/app/settings/store/selectors';
   templateUrl: './add-act-booking.component.html',
   styleUrls: ['./add-act-booking.component.css']
 })
+
+
 export class AddActBookingComponent {
   @ViewChild('content') content!: ElementRef | any;
+  STEP = 1000;
+  offset: number = 0;
+  limit: number = this.STEP;
 
   form!: FormGroup;
   isLoadingSelector$!: Observable<boolean | null>
@@ -66,6 +73,13 @@ export class AddActBookingComponent {
 
 
 
+
+  clientFizListDogovorsSelector!: Observable<Dogovor[] | null | undefined>
+  clientFizListDogovorsSub$!: Subscription
+  clientFizListDogovors: Dogovor[] | null | undefined = [];
+
+
+
   settingsAvtoparkListSelector!: Observable<SettingAvtopark[] | null | undefined>
   settingsAvtoparkListSub$!: Subscription
   settingsAvtoparkList: SettingAvtopark[] | null | undefined = [];
@@ -78,14 +92,19 @@ export class AddActBookingComponent {
   yearDate: any;
   xs_actual_date: any;
   price_ocenka: string  = ''
+  private renderer!: Renderer2;
+  actualDogovorForClientBooking!: Dogovor;
 
 
-  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute) { }
+  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute, private rendererFactory: RendererFactory2) { 
+    this.renderer = rendererFactory.createRenderer(null, null);
+  }
 
   ngOnInit(): void {
     this.initForm()
     this.getParams()
     this.initValues()
+   
   }
 
 
@@ -115,11 +134,20 @@ export class AddActBookingComponent {
       this.settingsAvtoparkListSub$.unsubscribe();
     }
 
+
+    if (this.clientFizListDogovorsSub$) {
+      this.clientFizListDogovorsSub$.unsubscribe();
+    }
+
+
+    
+
     //Отчищаем состояние 
     this.store.dispatch(bookingGetCurrentReset());
     this.store.dispatch(currentClientForActResetAction());
     this.store.dispatch(carGetCurrentReset());
     this.store.dispatch(settingsAvtoparkListResetAction());
+    this.store.dispatch(clientFizDogovorsListResetAction());
   }
 
 
@@ -153,6 +181,7 @@ export class AddActBookingComponent {
     this.store.dispatch(currentClientForActResetAction());
     this.store.dispatch(carGetCurrentReset());
     this.store.dispatch(settingsAvtoparkListResetAction());
+    this.store.dispatch(clientFizDogovorsListResetAction());
 
 
     //Отправляем запрос на получение текущей брони
@@ -162,7 +191,8 @@ export class AddActBookingComponent {
       next: (currentBooking) => {
         if (currentBooking) {
           this.currentBooking = currentBooking
-          console.log('111', this.currentBooking);
+
+          this.getClientFizListDogovors()
           
           this.title = `Создать акт для брони №${currentBooking.order}`
 
@@ -204,8 +234,6 @@ export class AddActBookingComponent {
     this.currentClientSub$ = this.currentClientSelector.subscribe({
       next: (currentClient) => {
         this.currentClient = currentClient
-        console.log('222', this.currentClient);
-        
       }
     })
 
@@ -233,31 +261,102 @@ export class AddActBookingComponent {
         if (settingsAvtoparkList) {
           this.settingsAvtoparkList = settingsAvtoparkList;
           this.settingAvnoprokat = settingsAvtoparkList[0]
-          console.log('666', this.settingAvnoprokat);
           
         }
       }
     });
+
+
+
+
+     // Получаем список договоров для клиента
+    this.clientFizListDogovorsSelector = this.store.pipe(select(clientsFizDogovorsListSelector))
+    this.clientFizListDogovorsSub$ = this.clientFizListDogovorsSelector.subscribe({
+      next: (clientsFizDogovorsList) => {
+        if (clientsFizDogovorsList) {
+          this.clientFizListDogovors = clientsFizDogovorsList;
+          clientsFizDogovorsList.forEach(dogovor => {
+          
+            if(dogovor.state === 'active')
+            {
+              this.actualDogovorForClientBooking = dogovor
+            }
+            
+          })
+        }
+      }
+    });
+
+
     
   }
 
 
 
 
+
+  // Функция для получаения всех договоров для клиента
+  getClientFizListDogovors() {
+    const params: ClientFizDogovorsParamsFetch = {
+      offset: this.offset,
+      limit: this.limit,
+      clientId: this.currentBooking?.client._id
+    };
+
+    // // Отправляем запрос на получения списка физических лиц
+    this.store.dispatch(clientFizDogovorsListAction({ params: params }));
+  }
+
+  
+
+
+  // Отчищаем сохраняемый контент от служебных тегов Angular(ng-content и тд)
+  cleanHtmlContent(): string {
+    if (!this.content || !this.content.nativeElement) {
+      return '';
+    }
+  
+    const tempEl = this.renderer.createElement('div');
+    this.renderer.appendChild(tempEl, this.content.nativeElement.cloneNode(true));
+  
+    const allElements = tempEl.getElementsByTagName('*');
+    for (let i = 0; i < allElements.length; i++) {
+      const element = allElements[i];
+      const attributes = element.attributes;
+  
+      for (let j = attributes.length - 1; j >= 0; j--) {
+        const attrName = attributes[j].name;
+        if (attrName.startsWith('ng-') || attrName.startsWith('_ng')) {
+          element.removeAttribute(attrName);
+        }
+      }
+    }
+  
+    return tempEl.innerHTML;
+  }
+
+
+
+
+
+
+
+
   // Генерируем PDF
   generatePDF() {
-    var html = htmlToPdfmake(this.content.nativeElement.innerHTML);
+    const styledHtml = `<div style="font-size: 8px;">${this.content.nativeElement.innerHTML}</div>`;
+    const html = htmlToPdfmake(styledHtml);
 
     let docDefinition = {
       content: [html],
-      filename: 'Договор для брони'+ '.pdf'
     };
 
-    pdfMake.createPdf(docDefinition).download();
+    pdfMake.createPdf(docDefinition).download('Акт  для брони №' + this.currentBooking?.order + '.pdf');
 
   } 
 
 
+  
 
 
 
@@ -267,10 +366,12 @@ export class AddActBookingComponent {
 
   // Создаем договор
   createAct() {
+    const cleanedContent = this.cleanHtmlContent();
+
     const act: Act = {
       act_number: this.xs_actual_date + '/СТС-' + this.currentClient._id,
       userId: this.currentUser?._id,
-      content: this.content.nativeElement.innerHTML,
+      content: cleanedContent,
       clientId: this.currentClient._id,
       bookingId: this.currentBooking?._id,
       smenaId: this.currentSmema?._id

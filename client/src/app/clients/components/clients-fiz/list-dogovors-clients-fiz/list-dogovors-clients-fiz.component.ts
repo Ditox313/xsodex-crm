@@ -12,7 +12,7 @@ import { ClientFiz, ClientFizDogovorsParamsFetch, Dogovor } from 'src/app/client
   styleUrls: ['./list-dogovors-clients-fiz.component.css']
 })
 export class ListDogovorsClientsFizComponent {
-  STEP = 2;
+  STEP = 30;
   offset: number = 0;
   limit: number = this.STEP;
   title: string = 'Договоры - физические лица'
