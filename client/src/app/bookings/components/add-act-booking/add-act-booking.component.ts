@@ -344,7 +344,7 @@ export class AddActBookingComponent {
 
   // Генерируем PDF
   generatePDF() {
-    const styledHtml = `<div style="font-size: 8px;">${this.content.nativeElement.innerHTML}</div>`;
+    const styledHtml = `<div style="font-size: 9px;">${this.content.nativeElement.innerHTML}</div>`;
     const html = htmlToPdfmake(styledHtml);
 
     let docDefinition = {
