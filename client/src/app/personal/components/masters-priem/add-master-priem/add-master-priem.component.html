@@ -1,0 +1,34 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<!-- <loader *ngIf="isLoadingSelector$ | async"></loader> -->
+
+
+
+<div class="add-master-priem">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+            <div class="add_master-priem_inputs">
+                <fieldset>
+                    <label htmlFor="fio">ФИО</label>
+                    <input pInputText id="fio" formControlName="fio" placeholder="Введите ФИО"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['fio'].invalid && form.controls['fio'].touched}"  style="width: 300px;"/>
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['fio'].invalid && form.controls['fio'].touched">
+                        <p *ngIf="form.controls['fio'].errors && form.controls['fio'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>  
+            </div>
+
+            <!-- <app-upload-file 
+            (dataUpload)="uploadFilesData($event)"
+            [filesSrcRes]="this.filesSrc"  
+            [typePost]="'partner'"
+            ></app-upload-file> -->
+        </div>
+
+        <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+    </form>
+</div>
