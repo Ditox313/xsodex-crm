@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { MastersPriemService } from '../../services/masters-priem.service'
-import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSuccessAction, masterPriemDeleteAction, masterPriemDeleteFailureAction, masterPriemDeleteSuccessAction, masterPriemGetCurrent, masterPriemGetCurrentFailureAction, masterPriemGetCurrentSuccessAction, mastersPriemListAction, mastersPriemListFailureAction, mastersPriemListSuccessAction, noMoreMastersPriemListAction, updateMasterPriemAction, updateMasterPriemFailureAction, updateMasterPriemSuccessAction, updateStateMastersPriemAction, updateStateMastersPriemFailureAction, updateStateMastersPriemSuccessAction } from '../actions/masters-priem.action'
+import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSuccessAction, masterPriemDeleteAction, masterPriemDeleteFailureAction, masterPriemDeleteSuccessAction, masterPriemGetCurrent, masterPriemGetCurrentFailureAction, masterPriemGetCurrentSuccessAction, mastersPriemListAction, mastersPriemListFailureAction, mastersPriemListNoParamsAction, mastersPriemListNoParamsFailureAction, mastersPriemListNoParamsSuccessAction, mastersPriemListSuccessAction, noMoreMastersPriemListAction, updateMasterPriemAction, updateMasterPriemFailureAction, updateMasterPriemSuccessAction, updateStateMastersPriemAction, updateStateMastersPriemFailureAction, updateStateMastersPriemSuccessAction } from '../actions/masters-priem.action'
 
 
 
@@ -84,7 +84,7 @@ export class MastersPriemEffect {
     this.actions$.pipe(
       ofType(masterPriemDeleteAction),
       switchMap((id) => {
-        return this.mastersPriem.delete(id.id).pipe(
+        return this.mastersPriem.deleteMasterPriem(id.id).pipe(
           map((id) => {
             this.messageService.add({ severity: 'success', summary: `Мастер приемщик удален`, detail: 'Успешно!' });
             return masterPriemDeleteSuccessAction({ data: id });
@@ -184,23 +184,23 @@ export class MastersPriemEffect {
 
 
   // Получение всех мастеров приемщиков без параметров
-  // mastersPriemNoParamsList$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(partnersListNoParamsAction),
-  //     concatMap((params) => {
-  //       return this.partners.getAllPartnersNoParams().pipe(
-  //         concatMap((partnersList) => {
-  //           return of(partnersListNoParamsSuccessAction({ data: partnersList }));
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             partnersListNoParamsFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  mastersPriemNoParamsList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(mastersPriemListNoParamsAction),
+      concatMap((params) => {
+        return this.mastersPriem.getAllMastersPriemNoParams().pipe(
+          concatMap((mastersPriemList) => {
+            return of(mastersPriemListNoParamsSuccessAction({ data: mastersPriemList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              mastersPriemListNoParamsFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

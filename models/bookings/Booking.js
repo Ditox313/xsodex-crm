@@ -219,6 +219,13 @@ const bookingSchema = new Schema({
     },
 
 
+    masterPriem: {
+        type: Object,
+        default: {},
+        required: false,
+    },
+
+
     date: {
         type: Date,
         default: Date.now,

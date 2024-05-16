@@ -47,7 +47,7 @@ export class MastersPriemService {
 
 
 
-  // Получаем список всех партнеров без параметров
+  // Получаем список всех мастеров приемщиков без параметров
   getAllMastersPriemNoParams(): Observable<MasterPriem[]> {
     return this.http.get<MasterPriem[]>('/api/personal/masters-priem-list-no-params');
   }
@@ -55,7 +55,7 @@ export class MastersPriemService {
 
 
 
-  // Получаем по Id
+  // Получаем по Id мастера приемщика
   getByIdMasterPriem(id: string): Observable<MasterPriem> {
     return this.http.get<MasterPriem>(`/api/personal/master-priem/${id}`);
   }
@@ -65,8 +65,8 @@ export class MastersPriemService {
   
 
 
-  // Удаление
-  delete(id: any): Observable<any> {
+  // Удаление мастера приемщика
+  deleteMasterPriem(id: any): Observable<any> {
     return this.http.delete<any>(`/api/personal/master-priem-remove/${id}`);
   }
 

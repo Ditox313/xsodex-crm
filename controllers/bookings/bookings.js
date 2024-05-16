@@ -53,6 +53,7 @@ module.exports.create = async function (req, res) {
             status: req.body.status,
             sale: req.body.sale,
             act: req.body.act,
+            masterPriem: req.body.masterPriem,
             userId: req.body.userId,
             order: maxOrder + 1,
         }).save();

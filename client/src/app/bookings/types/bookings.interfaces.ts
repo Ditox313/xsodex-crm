@@ -33,6 +33,7 @@ export interface Booking {
     comment?: string,
     status: string,
     sale: Number,
+    masterPriem?: Object,
     act: '',
     userId: string | undefined,
     order?: Number,
@@ -74,6 +75,7 @@ export interface BookingData {
     arendaGorodMixed: number,
     arendaMejGorodMixed: number,
     arendaRussiaMixed: number,
+    masterPriem?: Object,
 }
 
 

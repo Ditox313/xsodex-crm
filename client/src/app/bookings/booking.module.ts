@@ -36,6 +36,7 @@ import { CloseBookingComponent } from './components/close-booking/close-booking.
 import { EditBookingComponent } from './components/edit-booking/edit-booking.component';
 import { ClientsFizSearchComponent } from './components/clients-fiz-search/clients-fiz-search.component';
 import { ClientsLawSearchComponent } from './components/clients-law-search/clients-law-search.component';
+import { PersonalModule } from '../personal/personal.module';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { ClientsLawSearchComponent } from './components/clients-law-search/clien
     ButtonModule,
     InputTextModule,
     ClientsModule,
+    PersonalModule,
     TableModule,
     DialogModule,
     TabViewModule,

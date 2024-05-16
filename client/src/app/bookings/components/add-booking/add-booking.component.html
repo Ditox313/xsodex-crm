@@ -112,6 +112,8 @@
                     </fieldset>
 
 
+
+
                     <fieldset>
                         <label htmlFor="place_end">Место приема</label>
                         <select id="place_end" formControlName="place_end"
@@ -192,6 +194,22 @@
                             <i class="pi pi-plus"></i>
                         </div>
                     </fieldset>
+
+
+
+
+              
+                    <fieldset>
+                        <label htmlFor="masterPriem">Мастер приемщик</label>
+                        <select id="place_end" formControlName="master_priem"  (ngModelChange)="masterPriemChange($event)">
+                            <option value="" disabled selected>Выбрать ↷</option>
+                            <option value="{{masterPriem.surname}} {{masterPriem.name}} {{masterPriem.lastname}}" *ngFor="let masterPriem of mastersPriemList" >
+                                {{masterPriem.surname}} {{masterPriem.name}} {{masterPriem.lastname}}</option>
+                        </select>
+                    </fieldset>
+
+                    
+
                     
 
                     <!-- Модальное окно выбора физ.клиентов -->

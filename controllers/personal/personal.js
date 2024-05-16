@@ -51,18 +51,18 @@ module.exports.getAllMastersPriem = async function (req, res) {
 
 
 
-// module.exports.getAllPartnersNoParams = async function (req, res) {
-//     try {
+module.exports.getAllMastersPriemNoParams = async function (req, res) {
+    try {
 
-//         const partnersList = await Partner.find({}).sort({ date: -1 })
+        const mastersPriemList = await MasterPriem.find({}).sort({ date: -1 })
 
-//         // Возвращаем пользователю позиции 
-//         res.status(200).json(partnersList);
-//     } catch (e) {
-//         errorHandler(res, e);
-//         return;
-//     }
-// };
+        // Возвращаем пользователю позиции 
+        res.status(200).json(mastersPriemList);
+    } catch (e) {
+        errorHandler(res, e);
+        return;
+    }
+};
 
 
 

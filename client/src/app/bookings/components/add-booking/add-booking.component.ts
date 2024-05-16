@@ -19,6 +19,9 @@ import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { clientsFizFromResetAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 import { clientsLawListResetAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
+import { MasterPriem } from 'src/app/personal/types/masters-priem.interfaces';
+import { mastersPriemListSelector } from 'src/app/personal/store/selectors';
+import { mastersPriemListNoParamsAction, mastersPriemListResetAction } from 'src/app/personal/store/actions/masters-priem.action';
 
 @Component({
   selector: 'app-add-booking',
@@ -60,6 +63,12 @@ export class AddBookingComponent {
   currentUser!: UserResponceRegister | null | undefined
 
 
+
+  mastersPriemSelector!: Observable<MasterPriem[] | null | undefined>
+  mastersPriemListSub$!: Subscription
+  mastersPriemList: MasterPriem[] | null | undefined = [];
+
+
   booking: BookingData = {
     booking_start: '',
     booking_end: '',
@@ -90,7 +99,8 @@ export class AddBookingComponent {
       { name: 'additionally_antiradar', status: false, price: 0},
       { name: 'moyka', price: 0},
     ],
-    additional_services_price: 0
+    additional_services_price: 0,
+    masterPriem: {}
   }
 
 
@@ -128,6 +138,23 @@ export class AddBookingComponent {
       this.currentUserSub$.unsubscribe();
     }
 
+
+    if (this.mastersPriemListSub$) {
+      this.mastersPriemListSub$.unsubscribe();
+    }
+
+
+    if (this.currentSmemaSub$) {
+      this.currentSmemaSub$.unsubscribe();
+    }
+
+
+    if (this.currentClientSub$) {
+      this.currentClientSub$.unsubscribe();
+    }
+
+
+
     
 
     // Отчищаем состояние carsList
@@ -138,6 +165,10 @@ export class AddBookingComponent {
 
     // Отчищаем состояние from (Откуда был создан клиент)
     this.store.dispatch(clientsFizFromResetAction());
+
+
+    // Отчищаем состояние списка мастеров приемщиков
+    this.store.dispatch(mastersPriemListResetAction());
 
   }
 
@@ -172,6 +203,7 @@ export class AddBookingComponent {
       additionally_battery_charger: new FormControl(false),
       additionally_antiradar: new FormControl(false),
       moyka: new FormControl(false),
+      master_priem: new FormControl(''),
       comment: new FormControl('',)
     });
   }
@@ -197,7 +229,6 @@ export class AddBookingComponent {
         }
       }
     });
-
 
 
     // Получаем пользователя
@@ -269,6 +300,25 @@ export class AddBookingComponent {
         }
       }
     })
+
+
+
+    
+
+    // Получаем селектор на получение списка мастеров приемщиков и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
+    // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
+    // Отправляем запрос на получения списка мастеров приемщиков
+    this.store.dispatch(mastersPriemListNoParamsAction());
+    this.mastersPriemSelector = this.store.pipe(select(mastersPriemListSelector))
+    this.mastersPriemListSub$ = this.mastersPriemSelector.subscribe({
+      next: (mastersPriemList) => {
+        console.log('111', mastersPriemList);
+        
+        if (mastersPriemList) {
+          this.mastersPriemList = mastersPriemList;
+        }
+      }
+    });
   }
 
 
@@ -1174,6 +1224,32 @@ export class AddBookingComponent {
       this.isVisibleModalClientLaw = false
     }
   }
+
+
+
+
+
+
+    // При выборе мастера приемщика
+    masterPriemChange(data: any) {
+      let fio = data.split(' ');
+
+      console.log(fio);
+      
+
+      this.mastersPriemList?.forEach(item => {
+        if(fio[0] === item.surname && fio[1] === item.name && fio[2] === item.lastname) 
+          {
+            this.booking.masterPriem = {
+              name: item.name,
+              surname: item.surname,
+              lastname: item.lastname,
+              id: item._id
+            }
+          }
+      })
+      
+    }
  
  
 
@@ -1232,6 +1308,7 @@ export class AddBookingComponent {
       status: 'В ожидании',
       sale: 0,
       act: '',
+      masterPriem: this.booking.masterPriem,
       userId: this.currentUser?._id,
     }
 

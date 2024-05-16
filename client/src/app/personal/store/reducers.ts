@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { MastersPriemStateInterface } from '../types/masters-priem.interfaces';
-import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSuccessAction, masterPriemDeleteAction, masterPriemDeleteFailureAction, masterPriemDeleteSuccessAction, masterPriemGetCurrent, masterPriemGetCurrentFailureAction, masterPriemGetCurrentReset, masterPriemGetCurrentSuccessAction, mastersPriemListAction, mastersPriemListFailureAction, mastersPriemListResetAction, mastersPriemListSuccessAction, noMoreMastersPriemListAction, noMoreMastersPriemListFalseAction, noMoreMastersPriemListTrueAction, updateMasterPriemAction, updateMasterPriemFailureAction, updateMasterPriemSuccessAction, updateStateMastersPriemAction, updateStateMastersPriemFailureAction, updateStateMastersPriemSuccessAction } from './actions/masters-priem.action';
+import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSuccessAction, masterPriemDeleteAction, masterPriemDeleteFailureAction, masterPriemDeleteSuccessAction, masterPriemGetCurrent, masterPriemGetCurrentFailureAction, masterPriemGetCurrentReset, masterPriemGetCurrentSuccessAction, mastersPriemListAction, mastersPriemListFailureAction, mastersPriemListNoParamsAction, mastersPriemListNoParamsFailureAction, mastersPriemListNoParamsResetAction, mastersPriemListNoParamsSuccessAction, mastersPriemListResetAction, mastersPriemListSuccessAction, noMoreMastersPriemListAction, noMoreMastersPriemListFalseAction, noMoreMastersPriemListTrueAction, updateMasterPriemAction, updateMasterPriemFailureAction, updateMasterPriemSuccessAction, updateStateMastersPriemAction, updateStateMastersPriemFailureAction, updateStateMastersPriemSuccessAction } from './actions/masters-priem.action';
 
 
 
@@ -123,39 +123,39 @@ const mastersPriemReducer = createReducer(
 
 
 
-  // on(
-  //   partnersListNoParamsAction,
-  //   (state): MastersPriemStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    mastersPriemListNoParamsAction,
+    (state): MastersPriemStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   partnersListNoParamsSuccessAction,
-  //   (state, action): MastersPriemStateInterface => ({
-  //     ...state,
-  //     partnersList: action.data,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //   })
-  // ),
-  // on(
-  //   partnersListNoParamsFailureAction,
-  //   (state, action): MastersPriemStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   partnersListNoParamsResetAction,
-  //   (state): MastersPriemStateInterface => ({
-  //     ...state,
-  //     partnersList: null,
-  //   })
-  // ),
+  on(
+    mastersPriemListNoParamsSuccessAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      mastersPriemList: action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    mastersPriemListNoParamsFailureAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    mastersPriemListNoParamsResetAction,
+    (state): MastersPriemStateInterface => ({
+      ...state,
+      mastersPriemList: null,
+    })
+  ),
 
 
 

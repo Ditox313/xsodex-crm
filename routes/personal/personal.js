@@ -9,7 +9,7 @@ const passport = require('passport');
 
 
 
-// Роут на create
+// Роут на создание мастера приемщика
 router.post('/master-priem/create', passport.authenticate('jwt', { session: false }), controller.masterPriemCreate);
 
 
@@ -18,11 +18,11 @@ router.post('/master-priem/create', passport.authenticate('jwt', { session: fals
 router.get('/masters-priem-list', passport.authenticate('jwt', { session: false }), controller.getAllMastersPriem);
 
 
-// Роут на Получение всех партнеров без параметров
-// router.get('/partners-list-no-params', passport.authenticate('jwt', { session: false }), controller.getAllPartnersNoParams);
+// Роут на Получение всех мастеров приемщиков без параметров
+router.get('/masters-priem-list-no-params', passport.authenticate('jwt', { session: false }), controller.getAllMastersPriemNoParams);
 
 
-//Роут на удаление партнера
+//Роут на удаление мастера приемщика
 router.delete('/master-priem-remove/:id', passport.authenticate('jwt', { session: false }), controller.removeMasterPriem);
 
 
@@ -30,7 +30,7 @@ router.delete('/master-priem-remove/:id', passport.authenticate('jwt', { session
 router.get('/master-priem/:id', passport.authenticate('jwt', { session: false }), controller.getByIdMasterPriem);
 
 
-// Роут на update
+// Роут на обновление мастера приемщика
 router.patch('/master-priem/update/:id', passport.authenticate('jwt', { session: false }), controller.updateMasterPriem);
 
 

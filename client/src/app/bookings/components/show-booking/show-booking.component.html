@@ -20,6 +20,12 @@
                         <span> {{currentUser.secondName}} {{currentUser.name}} {{currentUser.lastName}}</span>
                     </div>
 
+
+                    <div>
+                        <span>Мастер приемщик:</span>
+                        <span> {{currentBooking.masterPriem.surname}} {{currentBooking.masterPriem.name}} {{currentBooking.masterPriem.lastname}}</span>
+                    </div>
+
                     <div>
                         <span>Статус:</span>
                         <span *ngIf="currentBooking.status === 'В ожидании'"

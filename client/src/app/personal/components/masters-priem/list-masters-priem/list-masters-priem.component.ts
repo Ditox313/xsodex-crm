@@ -53,7 +53,7 @@ export class ListMastersPriemComponent {
 
 
    
-    // Получаем селектор на получение списка партнеров и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
+    // Получаем селектор на получение списка мастеров приемщиков и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
     // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
     this.mastersPriemSelector = this.store.pipe(select(mastersPriemListSelector))
     this.mastersPriemListSub$ = this.mastersPriemSelector.subscribe({
