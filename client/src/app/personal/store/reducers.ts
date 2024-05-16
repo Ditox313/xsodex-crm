@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { MastersPriemStateInterface } from '../types/masters-priem.interfaces';
-import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSuccessAction, updateStateMastersPriemAction, updateStateMastersPriemFailureAction, updateStateMastersPriemSuccessAction } from './actions/masters-priem.action';
+import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSuccessAction, masterPriemDeleteAction, masterPriemDeleteFailureAction, masterPriemDeleteSuccessAction, mastersPriemListAction, mastersPriemListFailureAction, mastersPriemListResetAction, mastersPriemListSuccessAction, noMoreMastersPriemListAction, noMoreMastersPriemListFalseAction, noMoreMastersPriemListTrueAction, updateStateMastersPriemAction, updateStateMastersPriemFailureAction, updateStateMastersPriemSuccessAction } from './actions/masters-priem.action';
 
 
 
@@ -58,63 +58,63 @@ const mastersPriemReducer = createReducer(
 
 
 
-  // on(
-  //   partnersListAction,
-  //   (state): MastersPriemStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    mastersPriemListAction,
+    (state): MastersPriemStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   partnersListSuccessAction,
-  //   (state, action): MastersPriemStateInterface => ({
-  //     ...state,
-  //     partnersList: state.partnersList ? [...state.partnersList, ...action.data] : action.data,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //   })
-  // ),
-  // on(
-  //   partnersListFailureAction,
-  //   (state, action): MastersPriemStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   partnersListResetAction,
-  //   (state): MastersPriemStateInterface => ({
-  //     ...state,
-  //     partnersList: null,
-  //   })
-  // ),
-  // on(
-  //   noMorePartnersListAction,
-  //   (state, action): MastersPriemStateInterface => ({
-  //     ...state,
-  //     noMorePartnersList: action.data,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMorePartnersListFalseAction,
-  //   (state, action): MastersPriemStateInterface => ({
-  //     ...state,
-  //     noMorePartnersList: false,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   noMorePartnersListTrueAction,
-  //   (state, action): MastersPriemStateInterface => ({
-  //     ...state,
-  //     noMorePartnersList: true,
-  //     isLoading: false,
-  //   })
-  // ),
+  on(
+    mastersPriemListSuccessAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      mastersPriemList: state.mastersPriemList ? [...state.mastersPriemList, ...action.data] : action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    mastersPriemListFailureAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    mastersPriemListResetAction,
+    (state): MastersPriemStateInterface => ({
+      ...state,
+      mastersPriemList: null,
+    })
+  ),
+  on(
+    noMoreMastersPriemListAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      noMoreMastersPriemList: action.data,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreMastersPriemListFalseAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      noMoreMastersPriemList: false,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreMastersPriemListTrueAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      noMoreMastersPriemList: true,
+      isLoading: false,
+    })
+  ),
 
 
 
@@ -164,34 +164,34 @@ const mastersPriemReducer = createReducer(
 
 
 
-  // on(
-  //   partnerDeleteAction,
-  //   (state): MastersPriemStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    masterPriemDeleteAction,
+    (state): MastersPriemStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   partnerDeleteSuccessAction,
-  //   (state, action): MastersPriemStateInterface => ({
-  //     ...state,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //     currentPartner: null,
-  //     partnersList: state.partnersList ? state.partnersList.filter((item: { _id: string; }) => item._id !== action.data) : state.partnersList,
-  //   })
-  // ),
-  // on(
-  //   partnerDeleteFailureAction,
-  //   (state, action): MastersPriemStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //     currentPartner: null,
-  //   })
-  // ),
+  on(
+    masterPriemDeleteSuccessAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentMasterPriem: null,
+      mastersPriemList: state.mastersPriemList ? state.mastersPriemList.filter((item: { _id: string; }) => item._id !== action.data) : state.mastersPriemList,
+    })
+  ),
+  on(
+    masterPriemDeleteFailureAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+      currentMasterPriem: null,
+    })
+  ),
 
 
 

@@ -44,24 +44,12 @@ export class MastersPriemService {
       fd.append('lastname', masterPriem.lastname);
 
 
-      // for (let i = 0; i < files.length; i++) {
-      //   fd.append('files', files[i], files[i].name);
-      // }
-
       if (masterPriem._id) {
         fd.append('_id', masterPriem._id);
       }
 
       return this.http.patch<MasterPriem>(`/api/personal/master-priem/update/${masterPriem._id}`, fd);
    }
-
-
-
-
-
-
-
-
 
 
 
@@ -104,33 +92,4 @@ export class MastersPriemService {
   }
 
 
-
-
-
-
-  fileUpload(formData: any) {
-    return this.http.post('/api/partners/upload', formData, {
-      reportProgress: true,
-      observe: 'events'
-    }).pipe(
-      map(event => this.getEventMessage(event)),
-    );
-  }
-
-  
-  private getEventMessage(event:any) {
-    switch (event.type) {
-      case HttpEventType.UploadProgress:
-        return this.fileUploadProgress(event);
-      case HttpEventType.Response:
-        return event.body;
-      default:
-        return `Upload event: ${event.type}.`;
-    }
-  }
-
-  private fileUploadProgress(event: any) {
-    const percentDone = Math.round(100 * event.loaded / event.total);
-    return { progress: percentDone, files: [] };
-  }
 }

@@ -5,6 +5,7 @@ import { MasterPriem } from '../../../types/masters-priem.interfaces';
 import { DatePipe } from '@angular/common';
 import { Store, select } from '@ngrx/store';
 import { addMasterPriemAction } from 'src/app/personal/store/actions/masters-priem.action';
+import { isLoadingSelector } from 'src/app/personal/store/selectors';
 
 @Component({
   selector: 'app-add-master-priem',
@@ -36,7 +37,7 @@ export class AddMasterPriemComponent {
 
 
   initValues() {
-    // this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
+    this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
   }
 
 
@@ -60,8 +61,6 @@ export class AddMasterPriemComponent {
 
     
     this.store.dispatch(addMasterPriemAction({ masterPriem: masterPriem}))
-
-    console.log(masterPriem);
     
   }
 }

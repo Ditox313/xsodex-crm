@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { MastersPriemService } from '../../services/masters-priem.service'
-import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSuccessAction, mastersPriemListAction, updateStateMastersPriemAction, updateStateMastersPriemFailureAction, updateStateMastersPriemSuccessAction } from '../actions/masters-priem.action'
+import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSuccessAction, masterPriemDeleteAction, masterPriemDeleteFailureAction, masterPriemDeleteSuccessAction, mastersPriemListAction, mastersPriemListFailureAction, mastersPriemListSuccessAction, noMoreMastersPriemListAction, updateStateMastersPriemAction, updateStateMastersPriemFailureAction, updateStateMastersPriemSuccessAction } from '../actions/masters-priem.action'
 
 
 
@@ -54,51 +54,51 @@ export class MastersPriemEffect {
 
 
   // Получение всех мастеров приемщиков
-  // mastersPriemList$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(mastersPriemListAction),
-  //     concatMap((params) => {
-  //       return this.mastersPriem.getAllPartners({ params }).pipe(
-  //         concatMap((partnersList) => {
-  //           if (partnersList.length === 0) {
-  //             return of(noMorePartnersListAction({ data: true }));
-  //           }
-  //           return of(partnersListSuccessAction({ data: partnersList }));
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             partnersListFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  mastersPriemList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(mastersPriemListAction),
+      concatMap((params) => {
+        return this.mastersPriem.getAllMastersPriem({ params }).pipe(
+          concatMap((mastersPriemList) => {
+            if (mastersPriemList.length === 0) {
+              return of(noMoreMastersPriemListAction({ data: true }));
+            }
+            return of(mastersPriemListSuccessAction({ data: mastersPriemList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              mastersPriemListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
 
 
   // Удаление мастера приемщика
-  // masterPriemDelete$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(partnerDeleteAction),
-  //     switchMap((id) => {
-  //       return this.partners.delete(id.id).pipe(
-  //         map((id) => {
-  //           this.messageService.add({ severity: 'success', summary: `Партнер удален`, detail: 'Успешно!' });
-  //           return partnerDeleteSuccessAction({ data: id });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `Ошибка удаления партнера`, detail: 'Попробуйте позже!' });
-  //           return of(
-  //             partnerDeleteFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  masterPriemDelete$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(masterPriemDeleteAction),
+      switchMap((id) => {
+        return this.mastersPriem.delete(id.id).pipe(
+          map((id) => {
+            this.messageService.add({ severity: 'success', summary: `Мастер приемщик удален`, detail: 'Успешно!' });
+            return masterPriemDeleteSuccessAction({ data: id });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления мастера приемщика`, detail: 'Попробуйте позже!' });
+            return of(
+              masterPriemDeleteFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

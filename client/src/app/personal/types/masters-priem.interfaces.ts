@@ -8,6 +8,7 @@ export interface MasterPriem {
     phone: string
     doverenostNumber: string
     doverenostDate: string
+    user?: string
     _id?: string
 }
 

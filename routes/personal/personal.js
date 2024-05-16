@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../../controllers/personal/personal.js');
 const passport = require('passport');
-// const upload = require('../../middleware/upload-partner-docs.js');
 
 
 
@@ -11,12 +10,12 @@ const passport = require('passport');
 
 
 // Роут на create
-router.post('/master-priem/create', passport.authenticate('jwt', { session: false }), controller.master_priem_create);
+router.post('/master-priem/create', passport.authenticate('jwt', { session: false }), controller.masterPriemCreate);
 
 
 
-// Роут на Получение всех партнеров
-// router.get('/partners-list', passport.authenticate('jwt', { session: false }), controller.getAllPartners);
+// Роут на Получение всех мастеров приемщиков
+router.get('/masters-priem-list', passport.authenticate('jwt', { session: false }), controller.getAllMastersPriem);
 
 
 // Роут на Получение всех партнеров без параметров
@@ -24,7 +23,7 @@ router.post('/master-priem/create', passport.authenticate('jwt', { session: fals
 
 
 //Роут на удаление партнера
-// router.delete('/partner-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
+router.delete('/master-priem-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 
 
 // Роут на получение партнера по Id

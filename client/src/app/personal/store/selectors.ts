@@ -4,7 +4,7 @@ import { MastersPriemStateInterface } from '../types/masters-priem.interfaces';
 
 
 
-export const mastersPriemFeatureSelector = createFeatureSelector<MastersPriemStateInterface>('partners');
+export const mastersPriemFeatureSelector = createFeatureSelector<MastersPriemStateInterface>('masters-priem');
 
 
 

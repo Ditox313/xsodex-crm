@@ -7,7 +7,7 @@ const path = require('path');
 
 
 // Контроллер для create master-priem
-module.exports.master_priem_create = async function (req, res) {
+module.exports.masterPriemCreate = async function (req, res) {
     try {
 
         const master_priem = await new MasterPriem({
@@ -33,20 +33,20 @@ module.exports.master_priem_create = async function (req, res) {
 
 
 
-// module.exports.getAllPartners = async function (req, res) {
-//     try {
+module.exports.getAllMastersPriem = async function (req, res) {
+    try {
 
-//         const partnersList = await Partner.find({}).sort({ date: -1 })
-//             .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
-//             .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+        const mastersPriemList = await MasterPriem.find({}).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
 
-//         // Возвращаем пользователю позиции 
-//         res.status(200).json(partnersList);
-//     } catch (e) {
-//         errorHandler(res, e);
-//         return;
-//     }
-// };
+        // Возвращаем пользователю позиции 
+        res.status(200).json(mastersPriemList);
+    } catch (e) {
+        errorHandler(res, e);
+        return;
+    }
+};
 
 
 
@@ -69,37 +69,23 @@ module.exports.master_priem_create = async function (req, res) {
 
 
 // Контроллер для remove
-// module.exports.remove = async function (req, res) {
-//     try {
-
-//         const partner = await Partner.findOne({ _id: req.params.id });
-
-//         partner.files.forEach(file => {
-//             fs.unlink(file, (err) => {
-//                 if (err) {
-//                     console.error(err);
-//                     return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-//                 }
-//             });
-//         });
-        
-
-
-//         // Удаляем партнера
-//         const result = await Partner.deleteOne({ _id: req.params.id });
-//         if (result.deletedCount === 1) {
-//             res.status(200).json(req.params.id);
-//         } else {
-//             return error
-//         }
+module.exports.remove = async function (req, res) {
+    try {
+        // Удаляем мастера приемщика
+        const result = await MasterPriem.deleteOne({ _id: req.params.id });
+        if (result.deletedCount === 1) {
+            res.status(200).json(req.params.id);
+        } else {
+            return error
+        }
 
 
         
-//     } catch (e) {
-//         errorHandler(res, e);
-//         return;
-//     }
-// };
+    } catch (e) {
+        errorHandler(res, e);
+        return;
+    }
+};
 
 
 

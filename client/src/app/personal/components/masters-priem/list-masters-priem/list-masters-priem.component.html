@@ -3,8 +3,8 @@
 <loader *ngIf="isLoadingSelector | async"></loader>
 
 
-<div class="partners" >
-    <p-table  styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }">
+<div class="partners" *ngIf="mastersPriemList">
+    <p-table [value]="mastersPriemList" styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="add_new" [routerLink]="['/add-master-priem']">
                 <p-button icon="pi pi-plus"></p-button>
@@ -13,29 +13,27 @@
         <ng-template pTemplate="header">
             <tr>
                 <th>ФИО</th>
-                <th>Телефон №1</th>
-                <th>Телефон №2</th>
+                <th>Телефон</th>
                 <th></th>
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-partner>
-            <!-- <tr [routerLink]="['/show-partner',partner._id]">
-                <td><strong>{{partner.surname}} {{partner.name}} {{partner.lastname}}</strong></td>
-                <td>{{partner.phone_1}}</td>
-                <td>{{partner.phone_2}}</td>
-                <td style="cursor: pointer; text-align: center;" (click)="onDeletePartner($event, partner)"><i
+        <ng-template pTemplate="body" let-masterPriem>
+            <tr [routerLink]="['/show-master-priem',masterPriem._id]">
+                <td><strong>{{masterPriem.surname}} {{masterPriem.name}} {{masterPriem.lastname}}</strong></td>
+                <td>{{masterPriem.phone}}</td>
+                <td style="cursor: pointer; text-align: center;" (click)="onDeleteMasterPriem($event, masterPriem)"><i
                         class="pi pi-trash"></i></td>
-            </tr> -->
+            </tr>
         </ng-template>
     </p-table>
 
-    <!-- <div *ngIf="partnersList.length === 0" class="noMorePartnersList">
-        <h2>Нет партнеров...</h2>
-    </div> -->
+    <div *ngIf="mastersPriemList.length === 0" class="noMoreMastersPriemList">
+        <h2>Нет мастеров приемщиков...</h2>
+    </div>
 
     <div class="btn">
-        <p-button label="Загрузить еще..." *ngIf="!(noMorePartnersList | async)" (click)="loadmore()"></p-button>
+        <p-button label="Загрузить еще..." *ngIf="!(noMoreMastersPriemList | async)" (click)="loadmore()"></p-button>
     </div>
 </div>
 
