@@ -58,7 +58,6 @@ export class ListMastersPriemComponent {
     this.mastersPriemSelector = this.store.pipe(select(mastersPriemListSelector))
     this.mastersPriemListSub$ = this.mastersPriemSelector.subscribe({
       next: (mastersPriemList) => {
-        console.log('111',mastersPriemList);
         
         if (mastersPriemList) {
           this.mastersPriemList = mastersPriemList;

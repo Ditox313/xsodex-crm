@@ -24,13 +24,15 @@ import { UploadFileModule } from '../shared/modules/upload-file/upload-file.modu
 import { ListMastersPriemComponent } from './components/masters-priem/list-masters-priem/list-masters-priem.component';
 import { AddMasterPriemComponent } from './components/masters-priem/add-master-priem/add-master-priem.component';
 import { MastersPriemService } from './services/masters-priem.service';
+import { ShowMasterPriemComponent } from './components/masters-priem/show-master-priem/show-master-priem.component';
 
 
 
 @NgModule({
   declarations: [
     ListMastersPriemComponent,
-    AddMasterPriemComponent
+    AddMasterPriemComponent,
+    ShowMasterPriemComponent,
   ],
   imports: [
     CommonModule,

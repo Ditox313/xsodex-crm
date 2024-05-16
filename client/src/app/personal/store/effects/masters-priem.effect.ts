@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { MastersPriemService } from '../../services/masters-priem.service'
-import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSuccessAction, masterPriemDeleteAction, masterPriemDeleteFailureAction, masterPriemDeleteSuccessAction, mastersPriemListAction, mastersPriemListFailureAction, mastersPriemListSuccessAction, noMoreMastersPriemListAction, updateStateMastersPriemAction, updateStateMastersPriemFailureAction, updateStateMastersPriemSuccessAction } from '../actions/masters-priem.action'
+import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSuccessAction, masterPriemDeleteAction, masterPriemDeleteFailureAction, masterPriemDeleteSuccessAction, masterPriemGetCurrent, masterPriemGetCurrentFailureAction, masterPriemGetCurrentSuccessAction, mastersPriemListAction, mastersPriemListFailureAction, mastersPriemListSuccessAction, noMoreMastersPriemListAction, updateMasterPriemAction, updateMasterPriemFailureAction, updateMasterPriemSuccessAction, updateStateMastersPriemAction, updateStateMastersPriemFailureAction, updateStateMastersPriemSuccessAction } from '../actions/masters-priem.action'
 
 
 
@@ -128,23 +128,23 @@ export class MastersPriemEffect {
 
 
   // Получение текущего мастера приемщика
-  // getMasterPriem$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(partnerGetCurrent),
-  //     switchMap((id) => {
-  //       return this.partners.getById(id.id).pipe(
-  //         map((car) => {
-  //           return partnerGetCurrentSuccessAction({ data: car });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           return of(
-  //             partnerGetCurrentFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+  getMasterPriem$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(masterPriemGetCurrent),
+      switchMap((id) => {
+        return this.mastersPriem.getByIdMasterPriem(id.id).pipe(
+          map((masterPriem) => {
+            return masterPriemGetCurrentSuccessAction({ data: masterPriem });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              masterPriemGetCurrentFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
@@ -152,38 +152,26 @@ export class MastersPriemEffect {
 
 
   // Обновление мастера приемщика
-  // UpdateMasterPriem$ =  createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(updatePartnerAction),
-  //     switchMap(({ partner, files }) => {
-  //       return this.partners.update(partner, files).pipe(
-  //         map((data) => {
-  //           this.messageService.add({ severity: 'success', summary: `Партнер обновлен`, detail: 'Успешно!' });
+  UpdateMasterPriem$ =  createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateMasterPriemAction),
+      switchMap(({ masterPriem}) => {
+        return this.mastersPriem.updateMasterPriem(masterPriem).pipe(
+          map((data) => {
+            this.messageService.add({ severity: 'success', summary: `Мастер приемщик обновлен`, detail: 'Успешно!' });
 
-  //           // Если при обновлении загружаем файлы то делаем редирект
-  //           // if(files && files.length > 0)
-  //           // {
-  //           //   let currentUrl = this.router.url;
-
-  //           //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-  //           //     this.router.navigateByUrl(currentUrl);
-  //           //   });
-
-
-  //           // }
-            
-  //           return updatePartnerSuccessAction({ data: data });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
-  //           return of(
-  //             updatePartnerFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+            return updateMasterPriemSuccessAction({ data: data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
+            return of(
+              updateMasterPriemFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 
@@ -195,7 +183,7 @@ export class MastersPriemEffect {
 
 
 
-  // Получение всех vfcnthjd ghbtvobrjd без параметров
+  // Получение всех мастеров приемщиков без параметров
   // mastersPriemNoParamsList$ = createEffect(() =>
   //   this.actions$.pipe(
   //     ofType(partnersListNoParamsAction),

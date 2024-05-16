@@ -23,15 +23,15 @@ router.get('/masters-priem-list', passport.authenticate('jwt', { session: false 
 
 
 //Роут на удаление партнера
-router.delete('/master-priem-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
+router.delete('/master-priem-remove/:id', passport.authenticate('jwt', { session: false }), controller.removeMasterPriem);
 
 
-// Роут на получение партнера по Id
-// router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
+// Роут на получение мастера приемщика по Id
+router.get('/master-priem/:id', passport.authenticate('jwt', { session: false }), controller.getByIdMasterPriem);
 
 
 // Роут на update
-// router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'files', maxCount: 10 }]), controller.update);
+router.patch('/master-priem/update/:id', passport.authenticate('jwt', { session: false }), controller.updateMasterPriem);
 
 
 

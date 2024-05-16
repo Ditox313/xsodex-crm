@@ -68,8 +68,8 @@ module.exports.getAllMastersPriem = async function (req, res) {
 
 
 
-// Контроллер для remove
-module.exports.remove = async function (req, res) {
+// Контроллер для removeMasterPriem
+module.exports.removeMasterPriem = async function (req, res) {
     try {
         // Удаляем мастера приемщика
         const result = await MasterPriem.deleteOne({ _id: req.params.id });
@@ -90,16 +90,16 @@ module.exports.remove = async function (req, res) {
 
 
 
-// Контроллер для getById
-// module.exports.getById = async function (req, res) {
-//     try {
-//         const car = await Partner.findById(req.params.id); //Ищем категорию по id из переданных параметров
-//         res.status(200).json(car);
-//     } catch (e) {
-//         errorHandler(res, e);
-//         return;
-//     }
-// };
+// Контроллер для getByIdMasterPriem
+module.exports.getByIdMasterPriem = async function (req, res) {
+    try {
+        const masterPriem = await MasterPriem.findById(req.params.id); //Ищем категорию по id из переданных параметров
+        res.status(200).json(masterPriem);
+    } catch (e) {
+        errorHandler(res, e);
+        return;
+    }
+};
 
 
 
@@ -108,39 +108,26 @@ module.exports.remove = async function (req, res) {
 
 
 // Контроллер для update
-// module.exports.update = async function (req, res) {
-//     try {
+module.exports.updateMasterPriem = async function (req, res) {
+    try {
 
-//         const updated = req.body;
+        const updated = req.body;
         
+    
 
-//         // Находим партнера и добавляем картинки если они есть
-//         const partner = await Partner.findOne({ _id: req.body._id });
-        
+        // Находим и обновляем позицию. 
+        const masterPriemUpdate = await MasterPriem.findOneAndUpdate({ _id: updated._id }, //Ищем по id
+            { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
+            { new: true } //обновит позицию и верет нам уже обновленную
+        );
 
-//         // Если есть загруженные файлы
-//         if(req.files.files && req.files.files.length > 0)
-//         {
-//             const files = req.files.files.map(file => file.path);
-//             updated.files = [...partner.files, ...files]
-//         }
-     
-        
-
-
-//         // Находим и обновляем позицию. 
-//         const partnerUpdate = await Partner.findOneAndUpdate({ _id: updated._id }, //Ищем по id
-//             { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
-//             { new: true } //обновит позицию и верет нам уже обновленную
-//         );
-
-//         // Возвращаем пользователю обновленную позицию 
-//         res.status(200).json(partnerUpdate);
-//     } catch (e) {
-//         errorHandler(res, e);
-//         return;
-//     }
-// };
+        // Возвращаем пользователю обновленную позицию 
+        res.status(200).json(masterPriemUpdate);
+    } catch (e) {
+        errorHandler(res, e);
+        return;
+    }
+};
 
 
 

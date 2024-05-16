@@ -168,7 +168,7 @@ export const masterPriemGetCurrentReset = createAction(
 // Update MasterPriem 
 export const updateMasterPriemAction = createAction(
   ActionTypes.UPDATE_MASTER_PRIEM,
-  props<{ partner: MasterPriem, files?:Array<File>}>()
+  props<{ masterPriem: MasterPriem}>()
 )
 
 

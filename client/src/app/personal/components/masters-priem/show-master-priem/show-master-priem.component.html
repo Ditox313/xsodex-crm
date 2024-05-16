@@ -1,0 +1,70 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
+
+
+
+<div class="show-master-priem">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+            <div class="show-master-priem_inputs">
+                <fieldset>
+                    <label htmlFor="fio">ФИО</label>
+                    <input pInputText id="fio" formControlName="fio" placeholder="Введите ФИО"
+                        [ngClass]="{'ng-invalid ng-dirty': form.controls['fio'].invalid && form.controls['fio'].touched}"  style="width: 300px;"/>
+                
+                
+                    <div class="errorValidate" *ngIf="form.controls['fio'].invalid && form.controls['fio'].touched">
+                        <p *ngIf="form.controls['fio'].errors && form.controls['fio'].errors['required']">
+                            Поле не должно быть пустым
+                        </p>
+                    </div>
+                </fieldset>  
+
+
+
+                <fieldset>
+                    <label htmlFor="fio">Телефон</label>
+                    <input pInputText formControlName="phone"  placeholder="Введите Телефон" [ngClass]="{'ng-invalid ng-dirty': form.controls['phone'].invalid && form.controls['phone'].touched}" />
+    
+                    <div class="errorValidate" *ngIf="form.controls['phone'].invalid && form.controls['phone'].touched">
+                        <p *ngIf="form.controls['phone'].errors && form.controls['phone'].errors['required']">
+                            Телефон не должен быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+    
+    
+    
+                <fieldset>
+                    <label htmlFor="fio">Номер доверенности</label>
+                    <input pInputText formControlName="doverenostNumber" placeholder="Номер доверенности" [ngClass]="{'ng-invalid ng-dirty': form.controls['doverenostNumber'].invalid && form.controls['doverenostNumber'].touched}" />
+    
+                    <div class="errorValidate" *ngIf="form.controls['doverenostNumber'].invalid && form.controls['doverenostNumber'].touched">
+                        <p *ngIf="form.controls['doverenostNumber'].errors && form.controls['doverenostNumber'].errors['required']">
+                            Номер не должен быть пустым
+                        </p>
+                    </div>
+                </fieldset>
+    
+                <fieldset>
+                    <label htmlFor="fio">Дата выдачи доверенности</label>
+                    <input type="date" pInputText formControlName="doverenostDate" placeholder="Дата доверенности" [ngClass]="{'ng-invalid ng-dirty': form.controls['doverenostDate'].invalid && form.controls['doverenostDate'].touched}" />
+    
+                    <div class="errorValidate"
+                        *ngIf="form.controls['doverenostDate'].invalid && form.controls['doverenostDate'].touched">
+                        <p *ngIf="form.controls['doverenostDate'].errors && form.controls['doverenostDate'].errors['required']">
+                            Введите дату
+                        </p>
+                    </div>
+                </fieldset> 
+            </div>
+        </div>
+
+        <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+    </form>
+
+    <div class="edit" (click)="initEdit()" [ngClass]="{edit_active: edit}">
+        <p-button icon="pi pi-pencil" styleClass="p-button-sm"></p-button>
+    </div>
+</div>

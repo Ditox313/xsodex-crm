@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { MastersPriemStateInterface } from '../types/masters-priem.interfaces';
-import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSuccessAction, masterPriemDeleteAction, masterPriemDeleteFailureAction, masterPriemDeleteSuccessAction, mastersPriemListAction, mastersPriemListFailureAction, mastersPriemListResetAction, mastersPriemListSuccessAction, noMoreMastersPriemListAction, noMoreMastersPriemListFalseAction, noMoreMastersPriemListTrueAction, updateStateMastersPriemAction, updateStateMastersPriemFailureAction, updateStateMastersPriemSuccessAction } from './actions/masters-priem.action';
+import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSuccessAction, masterPriemDeleteAction, masterPriemDeleteFailureAction, masterPriemDeleteSuccessAction, masterPriemGetCurrent, masterPriemGetCurrentFailureAction, masterPriemGetCurrentReset, masterPriemGetCurrentSuccessAction, mastersPriemListAction, mastersPriemListFailureAction, mastersPriemListResetAction, mastersPriemListSuccessAction, noMoreMastersPriemListAction, noMoreMastersPriemListFalseAction, noMoreMastersPriemListTrueAction, updateMasterPriemAction, updateMasterPriemFailureAction, updateMasterPriemSuccessAction, updateStateMastersPriemAction, updateStateMastersPriemFailureAction, updateStateMastersPriemSuccessAction } from './actions/masters-priem.action';
 
 
 
@@ -225,41 +225,39 @@ const mastersPriemReducer = createReducer(
 
 
 
-  // on(
-  //   partnerGetCurrent,
-  //   (state): MastersPriemStateInterface => ({
-  //     ...state,
-  //     validationErrors: null,
-  //     isLoading: true
-  //   })
-  // ),
+  on(
+    masterPriemGetCurrent,
+    (state): MastersPriemStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
 
-  // on(
-  //   partnerGetCurrentSuccessAction,
-  //   (state, action): MastersPriemStateInterface => ({
-  //     ...state,
-  //     isLoading: false,
-  //     validationErrors: null,
-  //     currentPartner: action.data
-  //   })
-  // ),
-  // on(
-  //   partnerGetCurrentFailureAction,
-  //   (state, action): MastersPriemStateInterface => ({
-  //     ...state,
-  //     validationErrors: action.errors,
-  //     isLoading: false,
-  //   })
-  // ),
-  // on(
-  //   partnerGetCurrentReset,
-  //   (state): MastersPriemStateInterface => ({
-  //     ...state,
-  //     currentPartner: null
-  //   })
-  // ),
-
-
+  on(
+    masterPriemGetCurrentSuccessAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentMasterPriem: action.data
+    })
+  ),
+  on(
+    masterPriemGetCurrentFailureAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    masterPriemGetCurrentReset,
+    (state): MastersPriemStateInterface => ({
+      ...state,
+      currentMasterPriem: null
+    })
+  ),
 
 
 
@@ -268,32 +266,34 @@ const mastersPriemReducer = createReducer(
 
 
 
-//   on(
-//     updatePartnerAction,
-//     (state): MastersPriemStateInterface => ({
-//       ...state,
-//       validationErrors: null,
-//       isLoading: true
-//     })
-//   ),
 
-//   on(
-//     updatePartnerSuccessAction,
-//     (state, action): MastersPriemStateInterface => ({
-//       ...state,
-//       isLoading: false,
-//       validationErrors: null,
-//       currentPartner: action.data
-//     })
-//   ),
-//   on(
-//     updatePartnerFailureAction,
-//     (state, action): MastersPriemStateInterface => ({
-//       ...state,
-//       validationErrors: action.errors,
-//       isLoading: false,
-//     })
-//   ),
+
+  on(
+    updateMasterPriemAction,
+    (state): MastersPriemStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    updateMasterPriemSuccessAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentMasterPriem: action.data
+    })
+  ),
+  on(
+    updateMasterPriemFailureAction,
+    (state, action): MastersPriemStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
 
 );
 

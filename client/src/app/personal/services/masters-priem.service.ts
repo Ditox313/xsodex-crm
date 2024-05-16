@@ -12,21 +12,12 @@ export class MastersPriemService {
 
   constructor(private http: HttpClient ) {}
 
+
+  // Создаем мастера приемщика
     createMasterPriem(
       masterPriem: MasterPriem,
       files?: any
     ): Observable<MasterPriem> {
-      const fd = new FormData();
-      fd.append('name', masterPriem.name);
-      fd.append('surname', masterPriem.surname);
-      fd.append('lastname', masterPriem.lastname);
-
-
-
-      
-
-
-
       return this.http.post<MasterPriem>(`/api/personal/master-priem/create`, masterPriem);
     }
 
@@ -34,21 +25,9 @@ export class MastersPriemService {
 
 
 
-    
-    update(masterPriem: MasterPriem,
-      files: any): Observable<MasterPriem> {
-      const fd = new FormData();
-      
-      fd.append('name', masterPriem.name);
-      fd.append('surname', masterPriem.surname);
-      fd.append('lastname', masterPriem.lastname);
-
-
-      if (masterPriem._id) {
-        fd.append('_id', masterPriem._id);
-      }
-
-      return this.http.patch<MasterPriem>(`/api/personal/master-priem/update/${masterPriem._id}`, fd);
+    // Создаем мастера приемщика
+    updateMasterPriem(masterPriem: MasterPriem, ): Observable<MasterPriem> {
+      return this.http.patch<MasterPriem>(`/api/personal/master-priem/update/${masterPriem._id}`, masterPriem);
    }
 
 
@@ -77,7 +56,7 @@ export class MastersPriemService {
 
 
   // Получаем по Id
-  getById(id: string): Observable<MasterPriem> {
+  getByIdMasterPriem(id: string): Observable<MasterPriem> {
     return this.http.get<MasterPriem>(`/api/personal/master-priem/${id}`);
   }
 
