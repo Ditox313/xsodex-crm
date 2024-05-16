@@ -21,7 +21,7 @@
                     </div>
 
 
-                    <div>
+                    <div *ngIf="currentBooking.masterPriem.name.length > 0">
                         <span>Мастер приемщик:</span>
                         <span> {{currentBooking.masterPriem.surname}} {{currentBooking.masterPriem.name}} {{currentBooking.masterPriem.lastname}}</span>
                     </div>
