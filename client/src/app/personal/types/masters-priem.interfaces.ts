@@ -5,7 +5,9 @@ export interface MasterPriem {
     name: string
     surname: string
     lastname: string
-    // files?: Array<any>,
+    phone: string
+    doverenostNumber: string
+    doverenostDate: string
     _id?: string
 }
 

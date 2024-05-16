@@ -16,15 +16,10 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { getRoutes } from './routes/personal.route';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
-// import { ListPartnersComponent } from './components/list-partners/list-partners.component';
-// import { AddPartnerComponent } from './components/add-partner/add-partner.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-// import { reducers } from './store/reducers';
-// import { PartnersEffect } from './store/effects/partners.effect';
-// import { ShowPartnerComponent } from './components/show-partner/show-partner.component';
-// import { PartnersService } from './services/partners.service';
-import {FileUploadModule} from 'primeng/fileupload';
+import { reducers } from './store/reducers';
+import { MastersPriemEffect } from './store/effects/masters-priem.effect';
 import { UploadFileModule } from '../shared/modules/upload-file/upload-file.module';
 import { ListMastersPriemComponent } from './components/masters-priem/list-masters-priem/list-masters-priem.component';
 import { AddMasterPriemComponent } from './components/masters-priem/add-master-priem/add-master-priem.component';
@@ -34,8 +29,6 @@ import { MastersPriemService } from './services/masters-priem.service';
 
 @NgModule({
   declarations: [
-    // AddPartnerComponent,
-    // ShowPartnerComponent
     ListMastersPriemComponent,
     AddMasterPriemComponent
   ],
@@ -57,8 +50,8 @@ import { MastersPriemService } from './services/masters-priem.service';
     TreeSelectModule,
     InputMaskModule,
     UploadFileModule,
-    // StoreModule.forFeature('partners', reducers),
-    // EffectsModule.forFeature([PartnersEffect]),
+    StoreModule.forFeature('masters-priem', reducers),
+    EffectsModule.forFeature([MastersPriemEffect]),
   ],
   providers: [MessageService, DatePipe, MastersPriemService]
 })

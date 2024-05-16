@@ -14,7 +14,7 @@ import { addMasterPriemAction, addMasterPriemFailureAction, addMasterPriemSucces
 
 
 @Injectable()
-export class PartnersEffect {
+export class MastersPriemEffect {
 
   
   constructor(
@@ -31,8 +31,8 @@ export class PartnersEffect {
   addMasterPriem$ = createEffect(() =>
   this.actions$.pipe(
     ofType(addMasterPriemAction), 
-    switchMap(({ masterPriem, files }) => {
-      return this.mastersPriem.create(masterPriem, files).pipe(
+    switchMap(({ masterPriem }) => {
+      return this.mastersPriem.createMasterPriem(masterPriem).pipe(
         map((masterPriem) => {
           this.messageService.add({ severity: 'success', summary: `Мастер приемщик создан`, detail: 'Успешно!' });
           this.router.navigate(['/list-masters-priem']);

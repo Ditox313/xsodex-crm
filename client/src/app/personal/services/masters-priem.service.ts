@@ -12,9 +12,9 @@ export class MastersPriemService {
 
   constructor(private http: HttpClient ) {}
 
-    create(
+    createMasterPriem(
       masterPriem: MasterPriem,
-      files: any
+      files?: any
     ): Observable<MasterPriem> {
       const fd = new FormData();
       fd.append('name', masterPriem.name);
@@ -22,13 +22,12 @@ export class MastersPriemService {
       fd.append('lastname', masterPriem.lastname);
 
 
-      // Загрузка файлов
-      // for (let i = 0; i < files.length; i++) {
-      //   fd.append('files', files[i], files[i].name);
-      // }
-    
 
-      return this.http.post<MasterPriem>(`/api/personal/master-priem/create`, fd);
+      
+
+
+
+      return this.http.post<MasterPriem>(`/api/personal/master-priem/create`, masterPriem);
     }
 
 
