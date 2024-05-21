@@ -100,7 +100,12 @@ export class AddBookingComponent {
       { name: 'moyka', price: 0},
     ],
     additional_services_price: 0,
-    masterPriem: {}
+    masterPriem: {
+      name: '',
+      surname: '',
+      lastname: '',
+      id: ''
+    }
   }
 
 

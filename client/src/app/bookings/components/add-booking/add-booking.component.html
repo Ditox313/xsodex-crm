@@ -10,7 +10,7 @@
             <div>
                 <div class="group_1">
                     <fieldset>
-                        <label htmlFor="booking_start">Дата начала брони</label>
+                        <label htmlFor="booking_start">Дата начала брони <span style="color:red;">*</span></label>
                         <input type="datetime-local"  pInputText id="booking_start" formControlName="booking_start"
                             placeholder="Введите значение"
                             [min]="minDate"
@@ -28,7 +28,7 @@
                     </fieldset>
 
                     <fieldset>
-                        <label htmlFor="booking_end">Дата окончания брони</label>
+                        <label htmlFor="booking_end">Дата окончания брони <span style="color:red;">*</span></label>
                         <input type="datetime-local" pInputText id="booking_end" formControlName="booking_end"
                             placeholder="Введите значение"
                             [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_end'].invalid && form.controls['booking_end'].touched}"
@@ -47,7 +47,7 @@
 
 
                     <fieldset>
-                        <label htmlFor="car">Автомобиль</label>
+                        <label htmlFor="car">Автомобиль <span style="color:red;">*</span></label>
                         <select id="car" formControlName="car"
                             [ngClass]="{'invalid': form.controls['car'].invalid && form.controls['car'].touched}"
                             (ngModelChange)="checkedCar($event)">
@@ -68,7 +68,7 @@
 
 
                     <fieldset>
-                        <label htmlFor="tarif">Тариф</label>
+                        <label htmlFor="tarif">Тариф <span style="color:red;">*</span></label>
                         <select id="tarif" formControlName="tarif"
                             [ngClass]="{'invalid': form.controls['tarif'].invalid && form.controls['tarif'].touched}"
                             (ngModelChange)="checkedTarif($event)">
@@ -89,7 +89,7 @@
                     </fieldset>
 
                     <fieldset>
-                        <label htmlFor="place_start">Место выдачи</label>
+                        <label htmlFor="place_start">Место подачи <span style="color:red;">*</span></label>
                         <select id="place_start" formControlName="place_start"
                             [ngClass]="{'invalid': form.controls['place_start'].invalid && form.controls['place_start'].touched}"
                             (ngModelChange)="placeStart($event)">
@@ -115,7 +115,7 @@
 
 
                     <fieldset>
-                        <label htmlFor="place_end">Место приема</label>
+                        <label htmlFor="place_end">Место приема <span style="color:red;">*</span></label>
                         <select id="place_end" formControlName="place_end"
                             [ngClass]="{'invalid': form.controls['place_end'].invalid && form.controls['place_end'].touched}"
                             (ngModelChange)="placeEnd($event)">
@@ -185,7 +185,7 @@
                     </fieldset>
 
                     <fieldset class="client" (click)="modalClientClick()" icon="pi pi-external-link" label="Show">
-                        <label htmlFor="#">Клиент</label>
+                        <label htmlFor="#">Клиент <span style="color:red;">*</span></label>
                         <div style="display: flex;">
                             <span class="client_input" *ngIf="!currentClient">Выбор клиента...</span>
                             <span class="client_input" *ngIf="currentClient && currentClient.surname">{{currentClient.surname}}
@@ -202,7 +202,7 @@
                     <fieldset>
                         <label htmlFor="masterPriem">Мастер приемщик</label>
                         <select id="place_end" formControlName="master_priem"  (ngModelChange)="masterPriemChange($event)">
-                            <option value="" disabled selected>Выбрать ↷</option>
+                            <option value=""  selected>Выбрать ↷</option>
                             <option value="{{masterPriem.surname}} {{masterPriem.name}} {{masterPriem.lastname}}" *ngFor="let masterPriem of mastersPriemList" >
                                 {{masterPriem.surname}} {{masterPriem.name}} {{masterPriem.lastname}}</option>
                         </select>
