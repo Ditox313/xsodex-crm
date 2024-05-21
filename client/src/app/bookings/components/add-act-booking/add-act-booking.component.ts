@@ -32,6 +32,9 @@ import { settingsAvtoparkListAction, settingsAvtoparkListResetAction } from 'src
 import { settingsAvtoparkListSelector } from 'src/app/settings/store/selectors';
 import { clientFizDogovorsListAction, clientFizDogovorsListResetAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 import { clientsFizDogovorsListSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
+import { masterPriemGetCurrent, masterPriemGetCurrentReset } from 'src/app/personal/store/actions/masters-priem.action';
+import { MasterPriem } from 'src/app/personal/types/masters-priem.interfaces';
+import { getCurrentMasterPriemSelector } from 'src/app/personal/store/selectors';
 
 
 @Component({
@@ -73,6 +76,12 @@ export class AddActBookingComponent {
 
 
 
+  currentMasterPriemSelector!: Observable<MasterPriem | null | undefined>
+  currentMasterPriemSub$!: Subscription
+  currentMasterPriem!: Car | null | undefined
+
+
+
 
   clientFizListDogovorsSelector!: Observable<Dogovor[] | null | undefined>
   clientFizListDogovorsSub$!: Subscription
@@ -94,6 +103,12 @@ export class AddActBookingComponent {
   price_ocenka: string  = ''
   private renderer!: Renderer2;
   actualDogovorForClientBooking!: Dogovor;
+  masterPriem: any = {
+    name: '',
+    surname: '',
+    lastname: '',
+    id: ''
+  }
 
 
   constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute, private rendererFactory: RendererFactory2) { 
@@ -124,6 +139,14 @@ export class AddActBookingComponent {
       this.currentSmemaSub$.unsubscribe();
     }
 
+    if (this.currentCarSub$) {
+      this.currentCarSub$.unsubscribe();
+    }
+
+    if (this.currentMasterPriemSub$) {
+      this.currentMasterPriemSub$.unsubscribe();
+    }
+
     if (this.currentClientSub$) {
       this.currentClientSub$.unsubscribe();
     }
@@ -146,6 +169,7 @@ export class AddActBookingComponent {
     this.store.dispatch(bookingGetCurrentReset());
     this.store.dispatch(currentClientForActResetAction());
     this.store.dispatch(carGetCurrentReset());
+    this.store.dispatch(masterPriemGetCurrentReset());
     this.store.dispatch(settingsAvtoparkListResetAction());
     this.store.dispatch(clientFizDogovorsListResetAction());
   }
@@ -182,6 +206,7 @@ export class AddActBookingComponent {
     this.store.dispatch(carGetCurrentReset());
     this.store.dispatch(settingsAvtoparkListResetAction());
     this.store.dispatch(clientFizDogovorsListResetAction());
+    this.store.dispatch(masterPriemGetCurrentReset());
 
 
     //Отправляем запрос на получение текущей брони
@@ -191,6 +216,9 @@ export class AddActBookingComponent {
       next: (currentBooking) => {
         if (currentBooking) {
           this.currentBooking = currentBooking
+          this.masterPriem = currentBooking.masterPriem 
+
+          
 
           this.getClientFizListDogovors()
           
@@ -205,6 +233,15 @@ export class AddActBookingComponent {
 
           //Отправляем запрос на получение текущего автомобиля
           this.store.dispatch(carGetCurrent({ id: this.currentBooking?.car._id }));
+
+
+          //Отправляем запрос на получение текущего мастера приемщика если он указан в брони
+          if(this.masterPriem.name !== '')
+          {
+            this.store.dispatch(masterPriemGetCurrent({ id: this.masterPriem.id }));
+          }
+         
+          
         }
       }
     })
@@ -286,6 +323,18 @@ export class AddActBookingComponent {
         }
       }
     });
+
+
+
+
+
+    // Получаем текущего мастера приемщика
+    this.currentMasterPriemSelector = this.store.pipe(select(getCurrentMasterPriemSelector))
+    this.currentMasterPriemSub$ = this.currentMasterPriemSelector.subscribe({
+      next: (masterPriem) => {
+       this.masterPriem = masterPriem
+      }
+    })
 
 
     
