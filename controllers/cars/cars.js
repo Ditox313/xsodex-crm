@@ -44,8 +44,16 @@ module.exports.create = async function (req, res) {
             tarif_mejgorod: JSON.parse(req.body.tarif_mejgorod),
             tarif_russia: JSON.parse(req.body.tarif_russia),
             user: req.user._id,
-            avatar: req.file ? req.file.path : '', //Если файл загружен то задаем путь до файла
-        }).save();
+            avatar: '', //Если файл загружен то задаем путь до файла
+        })
+
+        if (req.file) {
+            const imageBuffer = fs.readFileSync(req.file.path);
+            const base64Image = imageBuffer.toString('base64');
+            car.avatar = `data:${req.file.mimetype};base64,${base64Image}`;
+        }
+      
+        await car.save();
 
         // Возвращаем пользователю позицию которую создали 
         res.status(201).json(car);
@@ -134,41 +142,47 @@ module.exports.getById = async function (req, res) {
 // Контроллер для update
 module.exports.update = async function (req, res) {
     try {
-
-        const updated = req.body;
-        updated.tarif_gorod = JSON.parse(req.body.tarif_gorod)
-        updated.tarif_mejgorod = JSON.parse(req.body.tarif_mejgorod)
-        updated.tarif_russia = JSON.parse(req.body.tarif_russia)
-        
-
-
-
-        // Если объект file есть,то заполняем параметр путем фала
-        if (req.file) {
-            // Находим нужный автомобиль и удаляем аватарку автомобиля
-            const car = await Car.findOne({ _id: req.body._id });
+      const updated = req.body;
+      updated.tarif_gorod = JSON.parse(req.body.tarif_gorod);
+      updated.tarif_mejgorod = JSON.parse(req.body.tarif_mejgorod);
+      updated.tarif_russia = JSON.parse(req.body.tarif_russia);
+  
+      // Находим существующий объект автомобиля в базе данных
+      const car = await Car.findOne({ _id: req.body._id });
+  
+      // Если объект file есть, обрабатываем файл
+      if (req.file) {
+        // Удаляем старую аватарку автомобиля, если она существует
+        if (car.avatar) {
+          if (car.avatar.startsWith('data:')) {
+            // Если картинка хранится в формате base64, не нужно удалять файл
+          } else {
             fs.unlink(car.avatar, (err) => {
-                if (err) {
-                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
-                }
+              if (err) {
+                return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+              }
             });
-
-            updated.avatar = req.file.path;
+          }
         }
-
-
-
-        // Находим и обновляем позицию. 
-        const carUpdate = await Car.findOneAndUpdate({ _id: updated._id }, //Ищем по id
-            { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
-            { new: true } //обновит позицию и верет нам уже обновленную
-        );
-
-        // Возвращаем пользователю обновленную позицию 
-        res.status(200).json(carUpdate);
+  
+        // Обновляем аватар новым файлом
+        const imageBuffer = fs.readFileSync(req.file.path);
+        const base64Image = imageBuffer.toString('base64');
+        updated.avatar = `data:${req.file.mimetype};base64,${base64Image}`;
+      }
+  
+      // Находим и обновляем позицию
+      const carUpdate = await Car.findOneAndUpdate(
+        { _id: updated._id },
+        { $set: updated },
+        { new: true }
+      );
+  
+      // Возвращаем пользователю обновленную позицию
+      res.status(200).json(carUpdate);
     } catch (e) {
-        errorHandler(res, e);
+      errorHandler(res, e);
     }
-};
+  };
 
 

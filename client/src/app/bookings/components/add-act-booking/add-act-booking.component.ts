@@ -123,6 +123,7 @@ export class AddActBookingComponent {
   }
 
 
+
   ngOnDestroy(): void {
     if (this.getParamsSub$) {
       this.getParamsSub$.unsubscribe()
@@ -282,6 +283,8 @@ export class AddActBookingComponent {
       next: (currentCar) => {
         this.currentCar = currentCar
 
+        console.log(this.currentCar);
+        
         if (currentCar)
         {
           this.price_ocenka = convertNumberToWordsRu(currentCar.price_ocenka)
@@ -405,16 +408,12 @@ export class AddActBookingComponent {
   } 
 
 
-  
-
-
-
-
 
 
 
   // Создаем договор
   createAct() {
+
     const cleanedContent = this.cleanHtmlContent();
 
     const act: Act = {
