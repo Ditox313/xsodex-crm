@@ -18,12 +18,12 @@
                     средства без экипажа
                    <strong> № {{this.actualDogovorForClientBooking.dogovor_number}} от {{this.actualDogovorForClientBooking.date_start}}</strong><br>
                     г. Тюмень
-                    </td>
+                </td>
               </tr>
             </table>
         </div>
 
-        <div>
+        <div *ngIf="currentBooking.client.type === 'fiz'">
             <div *ngIf="this.masterPriem.name == ''">
                 Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
                 между: <strong>ООО «ВВС-ВЕБ»</strong>
@@ -35,6 +35,24 @@
                 между: <strong>ООО «ВВС-ВЕБ»</strong>
                  в лице Уполномоченного {{this.masterPriem.surname}} {{this.masterPriem.name}} {{this.masterPriem.lastname}} по Доверенности №{{this.masterPriem.doverenostNumber}} от {{this.masterPriem.doverenostDate | date : 'dd.MM.yyyy'}} г, 
                 далее <strong>«Арендодатель»</strong>, и гражданин(ка) РФ, <strong>{{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
+            </div>
+        </div><br>
+
+
+        <div *ngIf="currentBooking.client.type === 'law'">
+            <div *ngIf="this.masterPriem.name == ''">
+                Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
+                между: <strong>ООО «ВВС-ВЕБ»</strong>
+                 в лице Уполномоченного {{this.currentUser.secondName}} {{this.currentUser.name}} {{this.currentUser.lastName}} по Доверенности №{{this.currentUser.doverenostNumber}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, 
+                далее <strong>«Арендодатель»</strong>, <strong>{{this.currentClient.short_name}} {{this.currentClient.name}} в лице {{this.currentClient.boss_role}}а {{this.currentClient.boss_surname}} {{this.currentClient.boss_name}}
+                {{this.currentClient.boss_lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
+            </div><br>
+            <div *ngIf="this.masterPriem.name != ''">
+                Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
+                между: <strong>ООО «ВВС-ВЕБ»</strong>
+                 в лице Уполномоченного {{this.masterPriem.surname}} {{this.masterPriem.name}} {{this.masterPriem.lastname}} по Доверенности №{{this.masterPriem.doverenostNumber}} от {{this.masterPriem.doverenostDate | date : 'dd.MM.yyyy'}} г, 
+                далее <strong>«Арендодатель»</strong>, <strong>{{this.currentClient.short_name}} {{this.currentClient.name}} в лице {{this.currentClient.boss_role}}а {{this.currentClient.boss_surname}} {{this.currentClient.boss_name}}
+                {{this.currentClient.boss_lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
             </div>
         </div><br>
         
