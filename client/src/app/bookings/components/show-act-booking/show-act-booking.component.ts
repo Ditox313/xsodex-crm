@@ -81,7 +81,6 @@ export class ShowActBookingComponent {
     this.currentBookingSelector = this.store.pipe(select(getCurrentBookingSelector))
     this.currentBookingSub$ = this.currentBookingSelector.subscribe({
       next: (currentBooking) => {
-        console.log('111', currentBooking);
         
         if (currentBooking) {
           this.currentBooking = currentBooking
@@ -99,6 +98,7 @@ export class ShowActBookingComponent {
     this.currentActSub$ = this.currentActSelector.subscribe({
       next: (act) => {
         this.currentAct = act
+        
       }
     })
 
@@ -109,13 +109,22 @@ export class ShowActBookingComponent {
 
   // Генерируем PDF
   generatePDF() {
-    var html = htmlToPdfmake(this.content.nativeElement.innerHTML);
+    // var html = htmlToPdfmake(this.content.nativeElement.innerHTML);
 
-    let docDefinition = {
-      content: [html],
-    };
+    const styledHtml = `<div style="font-size: 6px;">${this.currentAct ? this.currentAct.content : ''}</div>`;
+    const html = htmlToPdfmake(styledHtml);
 
-    pdfMake.createPdf(docDefinition).download();
+    if(this.currentAct)
+    {
+      let docDefinition = {
+        content: [html],
+      };
+  
+      pdfMake.createPdf(docDefinition).download('Акт  для брони №' + this.currentBooking?.order + '.pdf');
+    }
+
+    
 
   }
+
 }

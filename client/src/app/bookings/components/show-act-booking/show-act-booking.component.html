@@ -7,7 +7,7 @@
 <div class="show-act-booking" *ngIf="currentAct">
     <form>
 
-        <div [innerHTML]="currentAct.content" id="content" #content></div>
+        <div [innerHTML]="currentAct.content" style="font-size: 8px;" id="content" #content></div>
 
 
         <button type="submit" class="submit" (click)="generatePDF()"><i class="pi pi-download"></i> Скачать</button>
