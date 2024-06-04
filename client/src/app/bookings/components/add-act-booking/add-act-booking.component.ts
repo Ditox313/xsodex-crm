@@ -283,7 +283,6 @@ export class AddActBookingComponent {
       next: (currentCar) => {
         this.currentCar = currentCar
 
-        console.log(this.currentCar);
         
         if (currentCar)
         {

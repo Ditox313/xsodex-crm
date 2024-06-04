@@ -53,6 +53,10 @@ export class ShowActBookingComponent {
       this.currentActSub$.unsubscribe()
     }
 
+    if (this.currentBookingSub$) {
+      this.currentBookingSub$.unsubscribe()
+    }
+
     //Отчищаем состояние currentClientFiz
     this.store.dispatch(currentActResetAction());
     this.store.dispatch(bookingGetCurrentReset());
@@ -97,6 +101,8 @@ export class ShowActBookingComponent {
     this.currentActSelector = this.store.pipe(select(getCurrentActSelector))
     this.currentActSub$ = this.currentActSelector.subscribe({
       next: (act) => {
+        
+        
         this.currentAct = act
         
       }
