@@ -16,9 +16,7 @@ module.exports.create = async function (req, res) {
     try {
 
         // Ищем номер последнего заказа глобального
-        const lastOrder = await Booking.findOne({
-            userId: req.body.userId
-        })
+        const lastOrder = await Booking.findOne()
         .sort({ date: -1 });
         // Если мы нашли предполагаемы последнйи заказ, то устанвливает поле order
         const maxOrder = lastOrder ? lastOrder.order : 0;
