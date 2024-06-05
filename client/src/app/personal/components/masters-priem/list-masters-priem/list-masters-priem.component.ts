@@ -12,7 +12,7 @@ import { masterPriemDeleteAction, mastersPriemListAction, mastersPriemListResetA
   styleUrls: ['./list-masters-priem.component.css']
 })
 export class ListMastersPriemComponent {
-  STEP = 30;
+  STEP = 25;
   offset: number = 0;
   limit: number = this.STEP;
   title: string = 'Мастера-приемщики'

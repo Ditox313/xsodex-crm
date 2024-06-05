@@ -11,7 +11,7 @@ import { ClientLaw, ClientsLawParamsFetch } from 'src/app/clients/types/clientsL
   styleUrls: ['./list-clients-law.component.css']
 })
 export class ListClientsLawComponent {
-  STEP = 30;
+  STEP = 25;
   offset: number = 0;
   limit: number = this.STEP;
   title: string = 'Клиенты - юридические лица'

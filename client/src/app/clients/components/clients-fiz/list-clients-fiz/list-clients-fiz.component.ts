@@ -11,7 +11,7 @@ import { ClientFiz, ClientsFizParamsFetch } from 'src/app/clients/types/clientsF
   styleUrls: ['./list-clients-fiz.component.css']
 })
 export class ListClientsFizComponent {
-  STEP = 30;
+  STEP = 25;
   offset: number = 0;
   limit: number = this.STEP;
   title: string = 'Клиенты - физические лица'

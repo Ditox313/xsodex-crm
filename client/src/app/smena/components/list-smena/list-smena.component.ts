@@ -11,7 +11,7 @@ import { isLoadingSelector, isOpenedSmenaSelector, noMoreSmenaList, smenaListSel
   styleUrls: ['./list-smena.component.css']
 })
 export class ListSmenaComponent implements OnInit {
-  STEP = 3;
+  STEP = 25;
   offset: number = 0;
   limit: number = this.STEP;
   title: string = 'Смены'

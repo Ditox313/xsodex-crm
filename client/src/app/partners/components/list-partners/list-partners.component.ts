@@ -11,7 +11,7 @@ import { noMorePartnersListFalseAction, noMorePartnersListTrueAction, partnerDel
   styleUrls: ['./list-partners.component.css']
 })
 export class ListPartnersComponent implements OnInit, OnDestroy {
-  STEP = 2;
+  STEP = 25;
   offset: number = 0;
   limit: number = this.STEP;
   title: string = 'Партнеры'

@@ -11,7 +11,7 @@ import { carDeleteAction, carsListAction, carsListResetAction, noMoreCarsListFal
   styleUrls: ['./list-cars.component.css']
 })
 export class ListCarsComponent implements OnInit, OnDestroy {
-  STEP = 2;
+  STEP = 25;
   offset: number = 0;
   limit: number = this.STEP;
   title: string = 'Автопарк'

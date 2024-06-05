@@ -13,7 +13,7 @@ import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
   styleUrls: ['./list-bookings.component.css']
 })
 export class ListBookingsComponent implements OnInit, OnDestroy {
-  STEP = 50;
+  STEP = 25;
   offset: number = 0;
   limit: number = this.STEP;
   title: string = 'Брони'
