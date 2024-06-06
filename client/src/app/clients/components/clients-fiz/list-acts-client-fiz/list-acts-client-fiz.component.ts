@@ -45,6 +45,10 @@ export class ListActsClientFizComponent {
       this.getParamsSub$.unsubscribe();
     }
 
+    if (this.currentClientFizSub$) {
+      this.currentClientFizSub$.unsubscribe();
+    }
+
     // Отчищаем состояние 
     this.store.dispatch(actsListForClientFizResetAction());
   }
