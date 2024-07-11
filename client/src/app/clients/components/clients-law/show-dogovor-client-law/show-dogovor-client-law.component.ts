@@ -82,7 +82,7 @@ export class ShowDogovorClientLawComponent {
 
   // Генерируем PDF
   generatePDF() {
-    const styledHtml = `<div style="font-size: 8px;">${this.currentDogovorClientLaw ? this.currentDogovorClientLaw.content : ''}</div>`;
+    const styledHtml = `<div style="font-size: 12px;">${this.currentDogovorClientLaw ? this.currentDogovorClientLaw.content : ''}</div>`;
     const html = htmlToPdfmake(styledHtml);
 
     if (this.currentDogovorClientLaw) {

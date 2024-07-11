@@ -117,7 +117,7 @@ export class ShowActBookingComponent {
   generatePDF() {
     // var html = htmlToPdfmake(this.content.nativeElement.innerHTML);
 
-    const styledHtml = `<div style="font-size: 6px;">${this.currentAct ? this.currentAct.content : ''}</div>`;
+    const styledHtml = `<div style="font-size: 10px;">${this.currentAct ? this.currentAct.content : ''}</div>`;
     const html = htmlToPdfmake(styledHtml);
 
     if(this.currentAct)

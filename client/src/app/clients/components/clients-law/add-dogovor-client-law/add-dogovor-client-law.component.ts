@@ -125,7 +125,7 @@ export class AddDogovorClientLawComponent {
 
   // Генерируем PDF
  generatePDF() {
-  const styledHtml = `<div style="font-size: 8px;">${this.content.nativeElement.innerHTML}</div>`;
+  const styledHtml = `<div style="font-size: 12px;">${this.content.nativeElement.innerHTML}</div>`;
   const html = htmlToPdfmake(styledHtml);
 
    if (this.currentClientLaw)

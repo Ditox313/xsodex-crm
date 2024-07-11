@@ -84,7 +84,7 @@ export class ShowDogovorClientFizComponent {
 
   // Генерируем PDF
   generatePDF() {
-    const styledHtml = `<div style="font-size: 8px;">${this.currentDogovorClientFiz ? this.currentDogovorClientFiz.content : ''}</div>`;
+    const styledHtml = `<div style="font-size: 12px;">${this.currentDogovorClientFiz ? this.currentDogovorClientFiz.content : ''}</div>`;
     const html = htmlToPdfmake(styledHtml);
 
    if (this.currentDogovorClientFiz)
