@@ -46,6 +46,10 @@ export class ListActsClientLawComponent {
       this.getParamsSub$.unsubscribe();
     }
 
+    if (this.currentClientLawSub$) {
+      this.currentClientLawSub$.unsubscribe();
+    }
+
     // Отчищаем состояние 
     this.store.dispatch(actsListForClientLawResetAction());
   }

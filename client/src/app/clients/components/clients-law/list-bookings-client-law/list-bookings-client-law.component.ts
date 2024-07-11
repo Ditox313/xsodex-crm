@@ -46,6 +46,10 @@ export class ListBookingsClientLawComponent {
       this.getParamsSub$.unsubscribe();
     }
 
+    if (this.currentClientLawSub$) {
+      this.currentClientLawSub$.unsubscribe();
+    }
+
     // Отчищаем состояние 
     this.store.dispatch(bookingsListForClientLawResetAction());
   }
