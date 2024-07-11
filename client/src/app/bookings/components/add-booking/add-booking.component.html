@@ -30,6 +30,7 @@
                     <fieldset>
                         <label htmlFor="booking_end">Дата окончания брони <span style="color:red;">*</span></label>
                         <input type="datetime-local" pInputText id="booking_end" formControlName="booking_end"
+                            [min]="minDate"
                             placeholder="Введите значение"
                             [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_end'].invalid && form.controls['booking_end'].touched}"
                             (change)="checkedEndBookingDate($event)" />

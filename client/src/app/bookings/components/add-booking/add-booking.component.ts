@@ -329,6 +329,17 @@ export class AddBookingComponent {
   // При выборе даты старта брони
   checkedStartBookingDate(e: any) {
 
+    const startDate = new Date(e.target.value);
+    const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000); // Добавляем 24 часа
+  
+    // Форматируем дату в строку, подходящую для input type="datetime-local"
+    const endDateString = this.formatDateToLocalDateTime(startDate);
+
+    // Устанавливаем значение в форму
+    this.form.patchValue({
+      booking_end: endDateString
+    });
+
 
     // // Получаем и устанавливаем  начало  аренды
     this.booking.booking_start = e.target.value
@@ -346,6 +357,25 @@ export class AddBookingComponent {
 
     this.form.controls['booking_end'].enable();
   }
+
+
+  
+// Вспомогательная функция для форматирования даты
+private formatDateToLocalDateTime(date: Date): string {
+  return date.getFullYear() +
+    '-' + this.pad(date.getMonth() + 1) +
+    '-' + this.pad(date.getDate()) +
+    'T' + this.pad(date.getHours()) +
+    ':' + this.pad(date.getMinutes());
+}
+
+
+// Вспомогательная функция для добавления ведущего нуля
+private pad(number: number): string {
+  return number < 10 ? '0' + number : number.toString();
+}
+
+
 
 
   // При выборе даты окончания брони
