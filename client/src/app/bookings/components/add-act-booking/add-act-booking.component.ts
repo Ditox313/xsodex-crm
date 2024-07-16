@@ -16,6 +16,10 @@ import { ClientLaw } from 'src/app/clients/types/clientsLaw/clientsLaw.interface
 import { convert as convertNumberToWordsRu } from 'number-to-words-ru'
 
 
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
+
 
 
 // Для корректной работы необходимо установить отдельный пакет типов для каждой библиотеки(см ошибку) и в tsconfig в compilerOptions 
@@ -114,6 +118,9 @@ export class AddActBookingComponent {
   constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute, private rendererFactory: RendererFactory2) { 
     this.renderer = rendererFactory.createRenderer(null, null);
   }
+
+
+
 
   ngOnInit(): void {
     this.initForm()
@@ -391,8 +398,6 @@ export class AddActBookingComponent {
 
 
 
-
-
   // Генерируем PDF
   generatePDF() {
     const styledHtml = `<div style="font-size: 10px;">${this.content.nativeElement.innerHTML}</div>`;
@@ -400,11 +405,53 @@ export class AddActBookingComponent {
 
     let docDefinition = {
       content: [html],
+      pageMargins: [20, 20, 20, 20] as [number, number, number, number],
     };
 
     pdfMake.createPdf(docDefinition).download('Акт  для брони №' + this.currentBooking?.order + '.pdf');
 
   } 
+
+
+
+
+
+
+  // Генерируем PDF(V2)
+  generatePdf(elementRef: ElementRef, filename: string): void {
+    const element = elementRef.nativeElement;
+    if (!element) {
+      console.error('Element not found');
+      return;
+    }
+
+    html2canvas(element).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+
+      let position = 0;
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.autoPrint(); // Автоматически открывает окно печати
+      window.open(pdf.output('bloburl'), '_blank'); // Открывает PDF в новом окне
+    });
+  }
+  
+
+
+  
 
 
 

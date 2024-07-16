@@ -4,12 +4,13 @@
 
 
 
-<div class="show-act-booking" *ngIf="currentAct">
+<div class="add-act-booking" *ngIf="currentAct">
     <form>
 
-        <div [innerHTML]="currentAct.content" style="font-size: 8px;" id="content" #content></div>
+        <div [innerHTML]="currentAct.content" id="content" #content></div>
 
 
-        <button type="submit" class="submit" (click)="generatePDF()"><i class="pi pi-download"></i> Скачать</button>
+        <!-- <button type="submit" class="submit" (click)="generatePDF()"><i class="pi pi-download"></i> Скачать</button> -->
+        <button type="submit" class="submit" (click)="generatePdf(this.content,'doc.pdf')"><i class="pi pi-download"></i> Скачать</button>
     </form>
 </div>

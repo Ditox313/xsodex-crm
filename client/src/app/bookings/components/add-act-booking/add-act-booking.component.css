@@ -9,15 +9,38 @@
 }
 
 
-:host ::ng-deep * {
-    font-size: 11px;
+.add-act-booking
+{
+    padding: 20px 40px;
 }
 
-@media print {
-    :host ::ng-deep * {
-      font-size: 11px !important;
-    }
-  }
+table
+{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+td
+{
+    width: 50%;
+    border: 1px solid #000;
+    padding: 5px;
+    line-height: 110%;
+    font-size: 18px;
+}
+
+.xs_table_div
+{
+    border: 1px solid #000;
+    padding: 5px;
+    line-height: 110%;
+    font-size: 21px;
+    width: 99.8%;
+    margin: 0 auto;
+    margin-top: 5px;
+    
+}
+
 
 label {
     font-size: 13px;
@@ -50,49 +73,10 @@ label {
     display: none;
 }
 
-select {
-    color: #495057;
-    background: #ffffff;
-    padding: 0.75rem 0.75rem;
-    border: 1px solid #ced4da;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: 6px;
-    margin-right: 15px;
-    margin-top: 15px;
-    outline: none;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif !important;
-    font-size: 16px;
-    cursor: pointer;
-    width: 200px;
-}
 
-input {
-    color: #495057;
-    background: #ffffff;
-    padding: 11px;
-    border: 1px solid #ced4da;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: 6px;
-    margin-right: 15px;
-    margin-top: 15px;
-    outline: none;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif !important;
-    font-size: 16px;
-    cursor: pointer;
-    width: 200px;
-    height: 47px;
-}
 
-p-inputMask {
-    margin-right: 15px;
-    margin-top: 15px;
-}
+
+
 
 p-togglebutton {
     margin-right: 15px;
@@ -145,3 +129,39 @@ button:disabled {
 
 
 
+.xs_block_5_t_1 td
+{
+    width: 33%;
+}
+
+
+
+.xs_block_6_t td
+{
+    width: 20%;
+}
+
+
+
+.xs_block_7_t_1 td
+{
+    width: 10% ;
+}
+
+
+.xs_block_6_t td:first-child
+{
+    width: 5%;
+}
+
+
+.xs_block_6_t tbody tr
+{
+    height: 35px;
+}
+
+
+.xs_block_8 tr
+{
+    height: 35px;
+}

@@ -1,8 +1,105 @@
-.show-act-booking {
+.add-dogovor-clientFiz {
     padding: 0 20px;
+    overflow: hidden;
 }
 
 
+.add-dogovor-clientFiz form>div {
+    margin-bottom: 40px;
+}
+
+
+.add-act-booking
+{
+    padding: 20px 40px;
+}
+
+table
+{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+td
+{
+    width: 50%;
+    border: 1px solid #000;
+    padding: 5px;
+    line-height: 110%;
+    font-size: 18px;
+}
+
+.xs_table_div
+{
+    border: 1px solid #000;
+    padding: 5px;
+    line-height: 110%;
+    font-size: 21px;
+    width: 99.8%;
+    margin: 0 auto;
+    margin-top: 5px;
+    
+}
+
+
+label {
+    font-size: 13px;
+    margin-bottom: 5px;
+    display: inline-block;
+}
+
+
+
+.add_clientFiz_inputs fieldset {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.errorValidate {
+    display: inline-block;
+    color: #fff;
+    padding-left: 0px;
+    color: #FF2400;
+    text-align: left;
+    font-size: 12px;
+    margin-right: 10px;
+    position: absolute;
+    top: 16px;
+}
+
+
+.dn {
+    display: none;
+}
+
+
+
+
+
+
+p-togglebutton {
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+/* p-togglebutton > div
+{
+    height: 45px !important;
+} */
+
+input::-webkit-datetime-edit-day-field:focus,
+input::-webkit-datetime-edit-month-field:focus,
+input::-webkit-datetime-edit-year-field:focus {
+    background-color: transparent;
+    color: #495057;
+    outline: none;
+}
+
+
+fieldset {
+    margin-bottom: 30px;
+}
 
 
 
@@ -26,5 +123,45 @@ button:disabled {
 }
 
 .submit {
-    margin-top: 30px;
+    margin-top: 10px;
+}
+
+
+
+
+.xs_block_5_t_1 td
+{
+    width: 33%;
+}
+
+
+
+.xs_block_6_t td
+{
+    width: 20%;
+}
+
+
+
+.xs_block_7_t_1 td
+{
+    width: 10% ;
+}
+
+
+.xs_block_6_t td:first-child
+{
+    width: 5%;
+}
+
+
+.xs_block_6_t tbody tr
+{
+    height: 35px;
+}
+
+
+.xs_block_8 tr
+{
+    height: 35px;
 }

@@ -6,216 +6,247 @@
 <form [formGroup]="form" (ngSubmit)="createAct()">
     <div class="add-act-booking" #content *ngIf="currentBooking && currentClient && currentCar && currentUser">
 
-        <div class="xs_doc_file_title" style="margin-top: 30px; font-size: 1cqmin;">
-            <table style="border: none;" width="100%">
-              <tr>
-                <td align="left"  width="23.3%" style="vertical-align: middle; width: 33%; border: none;"><img width="180px" src="data:image/png;base64,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"></td>
-                <td align="center" width="33.3%" style=" font-size: 10px; text-align: center; width: 33%; margin-left: 40px; vertical-align: middle;  border: none;">
-                    АКТ
-                    приема/передачи транспортного средства без экипажа                    
-                </td>
-                <td align="right" *ngIf="this.actualDogovorForClientBooking" width="33.3%" style=" font-size: 6px; text-align: right; width: 33%; vertical-align: middle;  border: none;" >Приложение №1 к Договору проката транспортного
-                    средства без экипажа
-                   <strong> № {{this.actualDogovorForClientBooking.dogovor_number}} от {{this.actualDogovorForClientBooking.date_start}}</strong><br>
-                    г. Тюмень
-                </td>
-              </tr>
-            </table>
-        </div>
-
-        <div *ngIf="currentBooking.client.type === 'fiz'">
-            <div *ngIf="this.masterPriem.name == ''">
-                Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
-                между: <strong>ООО «ВВС-ВЕБ»</strong>
-                 в лице Уполномоченного {{this.currentUser.secondName}} {{this.currentUser.name}} {{this.currentUser.lastName}} по Доверенности №{{this.currentUser.doverenostNumber}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, 
-                далее <strong>«Арендодатель»</strong>, и гражданин(ка) РФ, <strong>{{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
-            </div>
-            <div *ngIf="this.masterPriem.name != ''">
-                Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
-                между: <strong>ООО «ВВС-ВЕБ»</strong>
-                 в лице Уполномоченного {{this.masterPriem.surname}} {{this.masterPriem.name}} {{this.masterPriem.lastname}} по Доверенности №{{this.masterPriem.doverenostNumber}} от {{this.masterPriem.doverenostDate | date : 'dd.MM.yyyy'}} г, 
-                далее <strong>«Арендодатель»</strong>, и гражданин(ка) РФ, <strong>{{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
-            </div>
-        </div>
-
-
-        <div *ngIf="currentBooking.client.type === 'law'">
-            <div *ngIf="this.masterPriem.name == ''">
-                Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
-                между: <strong>ООО «ВВС-ВЕБ»</strong>
-                 в лице Уполномоченного {{this.currentUser.secondName}} {{this.currentUser.name}} {{this.currentUser.lastName}} по Доверенности №{{this.currentUser.doverenostNumber}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, 
-                далее <strong>«Арендодатель»</strong>, <strong>{{this.currentClient.short_name}} {{this.currentClient.name}} в лице {{this.currentClient.boss_role}}а {{this.currentClient.boss_surname}} {{this.currentClient.boss_name}}
-                {{this.currentClient.boss_lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
-            </div>
-            <div *ngIf="this.masterPriem.name != ''">
-                Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
-                между: <strong>ООО «ВВС-ВЕБ»</strong>
-                 в лице Уполномоченного {{this.masterPriem.surname}} {{this.masterPriem.name}} {{this.masterPriem.lastname}} по Доверенности №{{this.masterPriem.doverenostNumber}} от {{this.masterPriem.doverenostDate | date : 'dd.MM.yyyy'}} г, 
-                далее <strong>«Арендодатель»</strong>, <strong>{{this.currentClient.short_name}} {{this.currentClient.name}} в лице {{this.currentClient.boss_role}}а {{this.currentClient.boss_surname}} {{this.currentClient.boss_name}}
-                {{this.currentClient.boss_lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
-            </div>
-        </div>
-        
-
-
-
-        <br>
-        <div>
-            <table width="942" cellpadding="9" cellspacing="0">
-                <colgroup>
-                    <col width="6" />
-                    <col width="190" />
-                    <col width="6" />
-                    <col width="195" />
-                    <col width="5452" />
-                    <col width="5458" />
-                    <col width="198" />
-                    <col width="6" />
-                    <col width="191" />
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <td colspan="5" width="459">
-                            <div align="left">
-                                <strong>Марка/Модель: </strong>
-                                {{currentCar.marka}} {{currentCar.model}}
-                            </div>
-                        </td>
-                        <td colspan="4" width="445">
-                            <div align="right">
-                                <strong>VIN</strong>
-                                <strong>: </strong>
-                                {{currentCar.vin}}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" width="459">
-                            <div align="left">
-                                <strong>Цвет: </strong>
-                                {{currentCar.color}}
-                            </div>
-                        </td>
-                        <td colspan="4" width="445">
-                            <div align="left">
-                                <strong>Год выпуска: </strong>
-                                {{currentCar.year_production}} г
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" width="459">
-                            <div align="left">
-                                <strong>Свидетельство: </strong>
-                                {{currentCar.sts_seria}} № {{currentCar.sts_number}} от
-                                {{currentCar.sts_date | date : 'dd.MM.yyyy'}}
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                        </td>
-                        <td colspan="4" width="445">
-                            <div align="left">
-                                <strong>Стоимость ТС: </strong> - 
-                                <u>{{currentCar.price_ocenka}} руб ({{price_ocenka}}) рублей.</u>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" width="459">
-                            <div align="left">
-                                <a name="_GoBack"></a>
-                                <strong>Гос. Номер: </strong>
-                                {{currentCar.number}}
-                            </div>
-                        </td>
-                        <td colspan="4" width="445">
-                           
-
-                            <div align="right">
-                                <strong>Номер кузова: </strong>
-                                {{currentCar.kuzov_number}}
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" width="459">
-                            <div align="left">
-                                <strong>Трансмиссия: </strong>
-                                {{currentCar.transmission}}
-                            </div>
-                        </td>
-                        <td colspan="4" width="445">
-                            
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-
-
-
-        <div>
+        <div class="xs_block_1">
             <table>
-                <thead>
-                    <tr>
-                        <th><strong>Тарифы на аренду</strong></th>
-                        <th><strong>Тарифы на доп. услуги</strong></th>
-                        <th>Изображение автиомобиля</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <div><strong>Город (от города до 100км):</strong></div>
-                            <div *ngFor="let item of currentCar.tarif_gorod.slice(0, currentCar.tarif_gorod.length - 2); let i = index;">
-                                <span *ngIf="item[0] !== ''" style="margin-bottom: 3px; ">
-                                    ____ {{item[1]}} руб <strong>({{item[0]}} суток) </strong>
-                                </span>
-                            </div>
+                <tr>
+                    <td style=" text-align: center; font-weight: 600;">
+                        АКТ приема/передачи транспортного<br> средства без экипажа   
+                    </td>
+
+                    <td style="text-align: right;">
+                        Приложение №1 к Договору проката транспортного<br> 
+                        средства без экипажа<br> 
+                        № {{this.actualDogovorForClientBooking.dogovor_number}} от {{this.actualDogovorForClientBooking.date_start}}<br>
+                        г. Тюмень
+                    </td>
+                </tr>
+            </table>
+
+            <div *ngIf="currentBooking.client.type === 'fiz'" class="xs_table_div">
+                <div *ngIf="this.masterPriem.name == ''">
+                    Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
+                    между: <strong>ООО «ВВС-ВЕБ»</strong>
+                     в лице Уполномоченного {{this.currentUser.secondName}} {{this.currentUser.name}} {{this.currentUser.lastName}} по Доверенности №{{this.currentUser.doverenostNumber}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, 
+                    далее <strong>«Арендодатель»</strong>, и гражданин(ка) РФ, <strong>{{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
+                </div>
+                <div *ngIf="this.masterPriem.name != ''">
+                    Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
+                    между: <strong>ООО «ВВС-ВЕБ»</strong>
+                     в лице Уполномоченного {{this.masterPriem.surname}} {{this.masterPriem.name}} {{this.masterPriem.lastname}} по Доверенности №{{this.masterPriem.doverenostNumber}} от {{this.masterPriem.doverenostDate | date : 'dd.MM.yyyy'}} г, 
+                    далее <strong>«Арендодатель»</strong>, и гражданин(ка) РФ, <strong>{{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
+                </div>
+            </div>
+    
+    
+            <div *ngIf="currentBooking.client.type === 'law'">
+                <div *ngIf="this.masterPriem.name == ''">
+                    Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
+                    между: <strong>ООО «ВВС-ВЕБ»</strong>
+                     в лице Уполномоченного {{this.currentUser.secondName}} {{this.currentUser.name}} {{this.currentUser.lastName}} по Доверенности №{{this.currentUser.doverenostNumber}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, 
+                    далее <strong>«Арендодатель»</strong>, <strong>{{this.currentClient.short_name}} {{this.currentClient.name}} в лице {{this.currentClient.boss_role}}а {{this.currentClient.boss_surname}} {{this.currentClient.boss_name}}
+                    {{this.currentClient.boss_lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
+                </div>
+                <div *ngIf="this.masterPriem.name != ''">
+                    Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
+                    между: <strong>ООО «ВВС-ВЕБ»</strong>
+                     в лице Уполномоченного {{this.masterPriem.surname}} {{this.masterPriem.name}} {{this.masterPriem.lastname}} по Доверенности №{{this.masterPriem.doverenostNumber}} от {{this.masterPriem.doverenostDate | date : 'dd.MM.yyyy'}} г, 
+                    далее <strong>«Арендодатель»</strong>, <strong>{{this.currentClient.short_name}} {{this.currentClient.name}} в лице {{this.currentClient.boss_role}}а {{this.currentClient.boss_surname}} {{this.currentClient.boss_name}}
+                    {{this.currentClient.boss_lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
+                </div>
+            </div>
+        </div>
 
 
-                            <div style="margin-top: 15px; "><strong>Межгород (от города до 390км):</strong></div>
-                            <div *ngFor="let item of currentCar.tarif_mejgorod.slice(0, currentCar.tarif_mejgorod.length - 2); let i = index;">
-                                <span *ngIf="item[0] !== ''" style="margin-bottom: 3px;">
-                                    ____ {{item[1]}} руб <strong>({{item[0]}} суток) </strong>
-                                </span>
-                            </div>
 
-                            <div style="margin-top: 15px; "><strong>Россия (цена/удаленность по согласованию):</strong></div>
-                            <div *ngFor="let item of currentCar.tarif_russia.slice(0, currentCar.tarif_russia.length - 2); let i = index;">
-                                <span *ngIf="item[0] !== ''" style="margin-bottom: 3px;">
-                                    ____ {{item[1]}} руб <strong>({{item[0]}} суток) </strong>
-                                </span>
-                            </div>
+        <div class="xs_block_2">
+            <div class="xs_table_div" style="text-align: center;">
+                <strong>АВТОМОБИЛЬ</strong>
+            </div>
 
-                            <div style="margin-top: 15px;"><strong>Залог:</strong></div>
-                            <span style="margin-bottom: 3px;">
-                                {{currentBooking.zalog}} руб
-                            </span>
-                        </td>
+            <table>
+                <tr>
+                    <td>
+                        <strong>Марка/Модель: </strong>
+                        {{currentCar.marka}} {{currentCar.model}}
+                    </td>
+                    <td>
+                        <strong>VIN</strong>
+                        <strong>: </strong>
+                        {{currentCar.vin}}
+                    </td>
+                </tr>
 
-                        <td>
-                            <div><strong *ngIf="currentBooking.additional_services[5].status"> &nbsp;{{currentBooking.additional_services[5].price}} р.&nbsp; мойка</strong></div>
-                            <div><strong>&nbsp;&nbsp; {{currentBooking.place_start_price}} р. подача авто</strong></div>
-                            <div><strong>&nbsp;&nbsp; {{currentBooking.place_start_price}} р. прием авто</strong></div>
-                            <div *ngIf="currentBooking.additional_services[0].status"><strong>&nbsp;&nbsp; {{currentBooking.additional_services[0].price}} р. дет.сресло</strong></div>
-                            <div *ngIf="currentBooking.additional_services[1].status"><strong>&nbsp;&nbsp; {{currentBooking.additional_services[1].price}} р. бустер</strong></div>
-                            <div *ngIf="currentBooking.additional_services[2].status"><strong>&nbsp;&nbsp; {{currentBooking.additional_services[2].price}} р. Видеорегистратор</strong></div>
-                            <div *ngIf="currentBooking.additional_services[3].status"><strong>&nbsp;&nbsp; {{currentBooking.additional_services[3].price}} р. Антирадар</strong></div>
-                            <div *ngIf="currentBooking.additional_services[4].status"><strong>&nbsp;&nbsp; {{currentBooking.additional_services[4].price}} р. З/У</strong></div>
-                        </td>
+                <tr>
+                    <td>
+                        <strong>Цвет: </strong>
+                        {{currentCar.color}}
+                    </td>
+                    <td>
+                        <strong>Год выпуска: </strong>
+                        {{currentCar.year_production}} г
+                    </td>
+                </tr>
 
-                    
-                        <td><img src="{{this.currentCar.avatar}}" style="width: 240px;" alt="Изображение"></td>
-                    </tr>
 
-                    
-                </tbody>
+                <tr>
+                    <td>
+                        <strong>Свидетельство: </strong>
+                        {{currentCar.sts_seria}} № {{currentCar.sts_number}} от
+                        {{currentCar.sts_date | date : 'dd.MM.yyyy'}}
+                    </td>
+                    <td>
+                        <strong>Стоимость ТС: </strong> - 
+                        <u>{{currentCar.price_ocenka}} руб ({{price_ocenka}}) рублей.</u>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td >
+                        <strong>Гос. Номер: </strong>
+                        {{currentCar.number}}
+                    </td>
+                    <td >
+                        <strong>Номер кузова: </strong>
+                        {{currentCar.kuzov_number}}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>
+                        <strong>Трансмиссия: </strong>
+                        {{currentCar.transmission}}
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div class="xs_block_3">
+            <div class="xs_table_div" style="text-align: center;">
+                <strong>Тарифы и стоимость доп. услуг</strong>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td><strong>Город</strong></td>
+                                <td><strong>Сумма</strong></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <div *ngFor="let item of currentCar.tarif_gorod.slice(0, currentCar.tarif_gorod.length - 2); let i = index;">
+                                        <span *ngIf="item[0] !== ''" style="margin-bottom: 3px; ">
+                                            <input type="checkbox" style="width: 20px; height: 20px;">
+                                            {{item[1]}} руб <strong>({{item[0]}} суток) </strong>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="currentBooking.additional_services[5].status">{{currentBooking.additional_services[5].price}} р</div>
+                                    <div>{{currentBooking.place_start_price}} р.</div>
+                                    <div>{{currentBooking.place_start_price}} р</div>
+                                    <div *ngIf="currentBooking.additional_services[0].status">{{currentBooking.additional_services[0].price}} р</div>
+                                    <div *ngIf="currentBooking.additional_services[1].status"> {{currentBooking.additional_services[1].price}} р</div>
+                                    <div *ngIf="currentBooking.additional_services[2].status">{{currentBooking.additional_services[2].price}} р</div>
+                                    <div *ngIf="currentBooking.additional_services[3].status"> {{currentBooking.additional_services[3].price}} р</div>
+                                    <div *ngIf="currentBooking.additional_services[4].status">{{currentBooking.additional_services[4].price}} р</div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong style="margin-bottom: 10px; display: block;">Межгород</strong>
+                                    <div *ngFor="let item of currentCar.tarif_mejgorod.slice(0, currentCar.tarif_mejgorod.length - 2); let i = index;">
+                                        
+                                        <span *ngIf="item[0] !== ''" style="margin-bottom: 3px;">
+                                            <input type="checkbox" style="width: 20px; height: 20px;">
+                                            {{item[1]}} руб <strong>({{item[0]}} суток) </strong>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <strong style="margin-bottom: 10px; display: block;">Россия</strong>
+                                    <div *ngFor="let item of currentCar.tarif_russia.slice(0, currentCar.tarif_russia.length - 2); let i = index;">
+                                        <span *ngIf="item[0] !== ''" style="margin-bottom: 3px;">
+                                            <input type="checkbox" style="width: 20px; height: 20px;">
+                                            {{item[1]}} руб <strong>({{item[0]}} суток) </strong>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td>
+                        <table>
+                            <tr>
+                                <td><strong>Услуга</strong></td>
+                                <td><strong>Фото автомобиля</strong></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <div *ngIf="currentBooking.additional_services[5].status">Мойка</div>
+                                    <div>Подача авто</div>
+                                    <div>Прием авто</div>
+                                    <div *ngIf="currentBooking.additional_services[0].status">Дет.сресло</div>
+                                    <div *ngIf="currentBooking.additional_services[1].status">Бустер</div>
+                                    <div *ngIf="currentBooking.additional_services[2].status">Видеорегистратор</div>
+                                    <div *ngIf="currentBooking.additional_services[3].status">Антирадар</div>
+                                    <div *ngIf="currentBooking.additional_services[4].status">З/У</div>
+                                </td>
+
+                                <td style="text-align: center;"><img src="{{this.currentCar.avatar}}" style="width: 240px;" alt="Изображение"></td>
+                            </tr>
+
+                            <tr style="height: 73px;">
+                                <td>
+                                    
+                                </td>
+                                <td></td>
+                            </tr>
+
+                            <tr style="height: 73px;">
+                                <td>
+                                    
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div class="xs_block_4">
+            <div class="xs_table_div" style="text-align: center;">
+                <strong>Залоговый депозит</strong>
+            </div>
+
+            <table>
+                <tr>
+                    <td style="width: 30%;">
+                        {{currentCar.tarif_gorod[10][1]}}
+                    </td>
+                    <td style="width: 30%;"> 
+                        {{currentCar.tarif_mejgorod[10][1]}}
+                    </td>
+                    <td style="width: 30%;">
+                        {{currentCar.tarif_russia[10][1]}}
+                    </td>
+                </tr>
             </table>
 
             <table>
@@ -228,325 +259,344 @@
                 </tbody>
             </table>
         </div>
-        
 
-        <div>
-            <p><strong style="font-size: 12px;">Передача и возврат автомобиля производится только при условии чистого кузова.</strong></p>
+
+        <div class="xs_block_5">
             <table>
+                <tr>
+                    <td>
+                        <strong style="display: block; margin-bottom: 5px; text-align: center;">Арендодатель передал а Арендатор принял а/м</strong>
+                        <table class="xs_block_5_t_1">
+                            <tr>
+                                <td>Дата и время передачи: </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 40%;">Состояние салона:  </td>
+                                <td style="width: 30%;">Чистый</td>
+                                <td style="width: 30%;">Грязный</td>
+                            </tr>
+
+                            <tr>
+                                <td>Наличие иного запаха: </td>
+                                <td>Имеется</td>
+                                <td>Нет</td>
+                            </tr>
+
+                            <tr>
+                                <td>Чистота кузова а/м: </td>
+                                <td>Чистый</td>
+                                <td>Грязный</td>
+                            </tr>
+
+                            <tr>
+                                <td>Пробег одометра:  </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>Уровень топлива: </td>
+                                <td>Полный бак</td>
+                                <td>Нет (фото) </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                    <td>
+                        <strong style="display: block; margin-bottom: 5px; text-align: center;">Арендодатель принял а Арендатор передал а/м</strong>
+                        <table class="xs_block_5_t_1">
+                            <tr>
+                                <td>Дата и время приема: </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td style="width: 40%;">Состояние салона:  </td>
+                                <td style="width: 30%;">Чистый</td>
+                                <td style="width: 30%;">Грязный</td>
+                            </tr>
+
+                            <tr>
+                                <td>Наличие иного запаха: </td>
+                                <td>Имеется</td>
+                                <td>Нет</td>
+                            </tr>
+
+                            <tr>
+                                <td>Чистота кузова а/м: </td>
+                                <td>Чистый</td>
+                                <td>Грязный</td>
+                            </tr>
+
+                            <tr>
+                                <td>Пробег одометра:  </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>Уровень топлива: </td>
+                                <td>Полный бак</td>
+                                <td>Нет (фото) </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div class="xs_block_6">
+            <div class="xs_table_div" style="text-align: center;">
+                <strong>Лица допущенные к управлению а/м</strong>
+            </div>
+
+            <table class="xs_block_6_t">
                 <thead>
                     <tr>
-                        <th><strong>Арендодатель передал, а Арендатор принял автомобиль: </strong> </th>
-                        <th><strong>Арендатор вернул, а Арендодатель принял автомобиль:</strong></th>
+                        <td>№</td>
+                        <td>ФИО</td>
+                        <td>Серия и № вод.Уд</td>
+                        <td>Кем выдано</td>
+                        <td>Дата выдачи</td>
+                        <td>Действительно до</td>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr>
-                        <td>
-                            <strong>Дата передачи: _____________________ г.  Расчетное время: ________:________</strong>
-                        </td>
-
-                        <td>
-                            <strong>Дата возврата: _____________________г.   Время возврата:  ________:________</strong>
-                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
-
-                    <tr>
-                        <td>
-                            <strong>Состояние салона: </strong>_____Чистый  _____Грязный
-                        </td>
-                        <td>
-                            <strong>Состояние салона: </strong>_____Чистый  _____Грязный
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <strong>Наличие едкого/сигаретного/иного запаха: </strong> _____Без замечаний
-                        </td>
-
-                        <td>
-                            <strong>Наличие едкого/сигаретного/иного запаха: </strong> _____Без замечаний
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <strong>Кузов ТС: </strong> _____Чистый   _____Грязный
-                        </td>
-                        <td>
-                            <strong>Кузов ТС: </strong> _____Чистый   _____Грязный
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <strong>Пробег: </strong> ____________
-                        </td>
-                        <td>
-                            <strong>Пробег: </strong> ____________
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <strong>Уровень топлива: </strong> _____Полный бак  _____Уровень топлива в баке зафиксирован на фото/видео
-                        </td>
-                        <td>
-                            <strong>Уровень топлива: </strong> _____Полный бак  _____Уровень топлива в баке зафиксирован на фото/видео
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <strong>Сверка пломб-наклеек</strong>
-                            Наличие:  _____ДА  _____НЕТ  Целостность:   _____ДА  _____НЕТ 
-                           
-                        </td>
-
-
-                        <td>
-                            <strong>Сверка пломб-наклеек</strong>
-                            Наличие:  _____ДА  _____НЕТ  Целостность:   _____ДА  _____НЕТ 
-                        </td>
-            
-                    </tr>
-
-
-                    <tr>
-                        <td>
-                            <strong>Комплектация автомобиля</strong>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Наименование комплектующего</th>
-                                        <th>Колличество (штук)</th>
-                                        <th>Стоимость шт. (рублей)</th>
-                                        <th>Наличие(ДА/НЕТ)</th>
-                                    </tr>
-                                </thead>
-                
-                                <tbody>
-                                    <tr>
-                                        <td>Запасное колесо </td>
-                                        <td>1 </td>
-                                        <td>10000 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Домкрат </td>
-                                        <td>1 </td>
-                                        <td>3500 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Балонный ключ </td>
-                                        <td>1 </td>
-                                        <td>450 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Щетка для чистки кузова </td>
-                                        <td>1 </td>
-                                        <td>350 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Ключ замка зажигания </td>
-                                        <td>1 </td>
-                                        <td>20000 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Свидетельство регистрации </td>
-                                        <td>1 </td>
-                                        <td>2000 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Салонный коврик </td>
-                                        <td>1 </td>
-                                        <td>2000 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Коврик багажника</td>
-                                        <td>1 </td>
-                                        <td>5000 </td>
-                                        <td>ДА </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-
-                        <td>
-                            <strong>Комплектация автомобиля</strong>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Наименование<br> комплектующего </th>
-                                        <th>Колличество (штук)</th>
-                                        <th>Наличие(ДА/НЕТ)</th>
-                                    </tr>
-                                </thead>
-                
-                                <tbody>
-                                    <tr>
-                                        <td>Запасное колесо </td>
-                                        <td>1 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Домкрат </td>
-                                        <td>1 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Балонный ключ </td>
-                                        <td>1 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Щетка для чистки кузова автомобиля </td>
-                                        <td>1 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Ключ замка зажигания автомобиля </td>
-                                        <td>1 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Свидетельство регистрации автомобиля </td>
-                                        <td>1 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Салонный коврик </td>
-                                        <td>1 </td>
-                                        <td>ДА </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Коврик багажника</td>
-                                        <td>1 </td>
-                                        <td>ДА </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>
-                            <strong>Дополнительные примечания:</strong>
-                            _____________________________________________________________
-                            _____________________________________________________________
-
-                        </td>
-
-                        <td>
-                            <strong>Дополнительные примечания:</strong>
-                            _____________________________________________________________
-                            _____________________________________________________________
-
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>
-                            Выявленные замечания согласованы и зафиксированы на фото/видео камеру в присутствии обеих сторон.
-                        </td>
-                        <td>
-                            Выявленные замечания согласованы и зафиксированы на фото/видео камеру в присутствии обеих сторон.
-                        </td>
-                    </tr>
-
                 </tbody>
             </table>
-            
-            <p><strong style="font-size: 10px;">Лица допущенные к управлению (таблица №1)</strong></p>
-            <table>
-                <tr>
-                    <th>№</th>
-                    <th>ФИО</th>
-                    <th>Серия и № водительского. удостоверения</th>
-                    <th>Кем выдано удостоверение</th>
-                    <th>Дата выдачи удостоверения</th>
-                    <th>Действительна до</th>
-                </tr>
-                <tr>
-                    <td>_______</td>
-                    <td>____________________</td>
-                    <td>____________________</td>
-                    <td>____________________</td>
-                    <td>____________________</td>
-                    <td>____________________</td>
-                </tr>
-                <tr>
-                    <td>_______</td>
-                    <td>____________________</td>
-                    <td>____________________</td>
-                    <td>____________________</td>
-                    <td>____________________</td>
-                    <td>____________________</td>
-                </tr>
-            </table>
-
-            <div>
-                В случае возврата автомобиля не прошедшего предварительную мойку, Арендодатель вправе предъявить требования о возмещении ущерба Арендатору в течение 48 часов при наличии скрытых повреждений лакокрасочного покрытия автомобиля, загрязнения салона, неисправности агрегатов, обнаруженных Арендодателем  в процессе дополнительного осмотра с составлением соответствующего акта.
+        </div>
+        
+        <div class="xs_block_7">
+            <div class="xs_table_div" style="text-align: center;">
+                <strong>Комплектация автомобиля</strong>
             </div>
 
-            <p><strong style="font-size: 12px;">Подписи сторон</strong></p>
+            <table >
+                <tr>
+                    <td>
+                        <table class="xs_block_7_t_1">
+                            <thead>
+                                <tr>
+                                    <td>Наименование</td>
+                                    <td >Кол-во</td>
+                                    <td>Стоимость</td>
+                                    <td>Наличие</td>
+                                </tr>
+                            </thead>
+            
+                            <tbody>
+                                <tr>
+                                    <td>Запасное колесо</td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td>ДА</td>
+                                </tr>
+            
+                                <tr>
+                                    <td>Домкрат</td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td>ДА</td>
+                                </tr>
+            
+                                <tr>
+                                    <td>Балонный ключ </td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td>ДА</td>
+                                </tr>
+            
+                                <tr>
+                                    <td>Щетка чистки кузова</td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td>ДА</td>
+                                </tr>
+            
+                                <tr>
+                                    <td>Ключ зажигания (смарт)</td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td>ДА</td>
+                                </tr>
+            
+            
+                                <tr>
+                                    <td>Свидетельство ТС</td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td>ДА</td>
+                                </tr>
+            
+                                <tr>
+                                    <td>Салонный коврик</td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td>ДА</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+
+
+
+                    <td>
+                        <table class="xs_block_7_t_1">
+                            <thead>
+                                <tr>
+                                    <td>Наименование</td>
+                                    <td >Кол-во</td>
+                                    <td>Стоимость</td>
+                                    <td>Наличие</td>
+                                </tr>
+                            </thead>
+            
+                            <tbody>
+                                <tr>
+                                    <td>Запасное колесо</td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td></td>
+                                </tr>
+            
+                                <tr>
+                                    <td>Домкрат</td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td></td>
+                                </tr>
+            
+                                <tr>
+                                    <td>Балонный ключ </td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td></td>
+                                </tr>
+            
+                                <tr>
+                                    <td>Щетка чистки кузова</td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td></td>
+                                </tr>
+            
+                                <tr>
+                                    <td>Ключ зажигания (смарт)</td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td></td>
+                                </tr>
+            
+            
+                                <tr>
+                                    <td>Свидетельство ТС</td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td></td>
+                                </tr>
+            
+                                <tr>
+                                    <td>Салонный коврик</td>
+                                    <td>1</td>
+                                    <td>5 000 рублей</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div class="xs_block_8">
+            <div class="xs_table_div" style="text-align: center;">
+                <strong>Дополнительные примечания по автомобилю</strong>
+            </div>
+
             <table>
-                <tbody>
-                    <tr>
-                        <td>
-                            <strong>Арендодатель автомобиль передал: ___________________________/_____________________________________________________/ 
-                                </strong>
-                        </td>
-
-                        <td>
-                            <strong>Арендодатель автомобиль принял: ___________________________/_____________________________________________________/  
-                                </strong>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <strong>Арендодатель автомобиль передал: ___________________________/_____________________________________________________/  
-                                </strong>
-                        </td>
-
-                        <td>
-                            <strong>Арендодатель автомобиль принял: ___________________________/_____________________________________________________/ 
-                                </strong>
-                        </td>
-                    </tr>
-                </tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
             </table>
 
+            <div class="xs_table_div" style="text-align: center;">
+                <strong>Выявленные замечания согласованы и зафиксированы на фото/видео камеру в присутствии обеих сторон</strong>
+            </div>
+
+            <div class="xs_table_div" style="text-align: center;">
+                <strong>
+                    В случае возврата автомобиля не прошедшего предварительную мойку, Арендодатель вправе предъявить требования о возмещении ущерба Арендатору в течение 48
+                    часов при наличии скрытых повреждений лакокрасочного покрытия автомобиля, загрязнения салона, неисправности агр
+                </strong>
+            </div>
         </div>
+
+
+        <div class="xs_block_9">
+            <div class="xs_table_div" style="text-align: center;">
+                <strong>Подписи сторон</strong>
+            </div>
+
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Арендодатель а/м передал:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
+                                <td><br> <small style="font-size: 12px;"></small></td>
+                            </tr>
+
+                            <tr>
+                                <td>Арендатор а/м принял:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
+                                <td><br> <small style="font-size: 12px;"></small></td>
+                            </tr>
+                        </table>
+                    </td>
+
+
+                    <td>
+                        <table>
+                            <tr>
+                                <td>Арендодатель а/м принял:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
+                                <td><br> <small style="font-size: 12px;"></small></td>
+                            </tr>
+
+                            <tr>
+                                <td>Арендатор а/м передал:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
+                                <td><br> <small style="font-size: 12px;"></small></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
     </div>
 
 
-    <div style="padding: 0 20px;">
-        <button type="submit" class="submit" [disabled]="form.invalid" (click)="generatePDF()"><i
+    <div style="padding: 0 40px;">
+        <button type="submit" class="submit" [disabled]="form.invalid" (click)="generatePdf(this.content,'Акт  для брони №' + this.currentBooking?.order + '.pdf')"><i
                 class="pi pi-check"></i>Сохранить</button>
     </div>
 
