@@ -7,7 +7,6 @@
 <div class="add-act-booking show-act-booking" *ngIf="currentAct" style="padding: 40px 40px;">
     <form>
 
-        <!-- Если не нужно отключать инкапсуляцию то использую safeHtml -->
         <div [innerHTML]="currentAct.content" id="content" #content></div>
 
 

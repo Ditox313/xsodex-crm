@@ -43,8 +43,8 @@ export class ShowActBookingComponent {
   title: string = ''
   bookingId: string = '';
   @ViewChild('content') content!: ElementRef | any;
-  private htmlString: any = ''
-  safeHtml!: any
+  // private htmlString: any = ''
+  // safeHtml!: any
 
 
 
@@ -118,32 +118,29 @@ export class ShowActBookingComponent {
         
         
         this.currentAct = act
-        if(act)
-        {
-          this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(act?.content);
-          this.getHtmlElement()
-        }
-        
-        
-        
+        // if(act)
+        // {
+        //   this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(act?.content);
+        //   this.getHtmlElement()
+        // }
       }
     })
 
   }
 
   // Преобразовываем контент который получили в нормальный Html что бы корректно рендерелся
-  getHtmlElement(): HTMLElement {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = this.htmlString;
-    return tempDiv.firstElementChild as HTMLElement;
-  }
+  // getHtmlElement(): HTMLElement {
+  //   const tempDiv = document.createElement('div');
+  //   tempDiv.innerHTML = this.htmlString;
+  //   return tempDiv.firstElementChild as HTMLElement;
+  // }
 
 
   // Если вам нужно получить строку HTML обратно
-  getHtmlString(): string {
-    const element = this.getHtmlElement();
-    return element.outerHTML;
-  }
+  // getHtmlString(): string {
+  //   const element = this.getHtmlElement();
+  //   return element.outerHTML;
+  // }
 
 
 
@@ -168,41 +165,59 @@ export class ShowActBookingComponent {
 
 
 
-    // Генерируем PDF(V2)
-    generatePdf(content: string, filename: string): void {
-      // Создаем временный div элемент
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = content;
-    
-      // Добавляем временный div в DOM (это нужно для корректной работы html2canvas)
-      document.body.appendChild(tempDiv);
-    
-      html2canvas(tempDiv).then(canvas => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        const imgWidth = 210;
-        const pageHeight = 295;
-        const imgHeight = canvas.height * imgWidth / canvas.width;
-        let heightLeft = imgHeight;
-    
-        let position = 0;
+  // Генерируем PDF(V2)
+  generatePdf(content: string, filename: string): void {
+   // Создаем временный div элемент
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = content;
+
+  // Устанавливаем шрифт 23px для всех элементов <td>
+  const tdElements = tempDiv.getElementsByTagName('td');
+  for (let i = 0; i < tdElements.length; i++) {
+    tdElements[i].style.fontSize = '23px';
+    tdElements[i].style.padding = '5px';
+    tdElements[i].style.lineHeight = '110%';
+  }
+
+
+
+   // Устанавливаем шрифт 23px для всех элементов <div> с классом .xs_table_div
+   const divElements = tempDiv.querySelectorAll('div');
+   for (let i = 0; i < divElements.length; i++) {
+     divElements[i].style.fontSize = '23px';
+   }
+
+  
+
+  // Добавляем временный div в DOM (это нужно для корректной работы html2canvas)
+  document.body.appendChild(tempDiv);
+  
+    html2canvas(tempDiv).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+  
+      let position = 0;
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+  
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
-    
-        while (heightLeft >= 0) {
-          position = heightLeft - imgHeight;
-          pdf.addPage();
-          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-          heightLeft -= pageHeight;
-        }
-    
-        // Удаляем временный div из DOM
-        document.body.removeChild(tempDiv);
-    
-        pdf.autoPrint(); // Автоматически открывает окно печати
-        window.open(pdf.output('bloburl'), '_blank'); // Открывает PDF в новом окне
-      });
-    }
+      }
+  
+      // Удаляем временный div из DOM
+      document.body.removeChild(tempDiv);
+  
+      pdf.autoPrint(); // Автоматически открывает окно печати
+      window.open(pdf.output('bloburl'), '_blank'); // Открывает PDF в новом окне
+    });
+  }
 
 
 
