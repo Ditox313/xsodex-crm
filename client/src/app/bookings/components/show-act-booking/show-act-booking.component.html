@@ -12,7 +12,7 @@
 
         <div style="padding: 40px 0px;">
             <!-- <button type="submit" class="submit" (click)="generatePDF()"><i class="pi pi-download"></i> Скачать</button> -->
-            <button type="submit" class="submit" (click)="generatePdf(currentAct.content,'doc.pdf')"><i class="pi pi-download"></i> Скачать</button>
+            <button type="submit" class="submit" (click)="generatePdf(currentAct.content,'Акт  для брони №' + this.currentBooking?.order + '.pdf')"><i class="pi pi-download"></i> Скачать</button>
         </div>
        
     </form>

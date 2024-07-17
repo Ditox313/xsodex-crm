@@ -444,8 +444,9 @@ export class AddActBookingComponent {
         heightLeft -= pageHeight;
       }
 
-      pdf.autoPrint(); // Автоматически открывает окно печати
-      window.open(pdf.output('bloburl'), '_blank'); // Открывает PDF в новом окне
+      // pdf.autoPrint(); // Автоматически открывает окно печати
+      // window.open(pdf.output('bloburl'), '_blank'); // Открывает PDF в новом окне
+      pdf.save(filename); // Сохраняем PDF с указанным именем файла
     });
   }
   

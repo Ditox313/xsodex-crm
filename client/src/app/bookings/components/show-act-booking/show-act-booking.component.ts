@@ -214,8 +214,9 @@ export class ShowActBookingComponent {
       // Удаляем временный div из DOM
       document.body.removeChild(tempDiv);
   
-      pdf.autoPrint(); // Автоматически открывает окно печати
-      window.open(pdf.output('bloburl'), '_blank'); // Открывает PDF в новом окне
+      // pdf.autoPrint(); // Автоматически открывает окно печати
+      // window.open(pdf.output('bloburl'), '_blank'); // Открывает PDF в новом окне
+      pdf.save(filename); // Сохраняем PDF с указанным именем файла
     });
   }
 
