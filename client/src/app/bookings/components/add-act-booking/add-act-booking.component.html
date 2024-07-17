@@ -4,16 +4,17 @@
 
 
 <form [formGroup]="form" (ngSubmit)="createAct()">
+    
     <div class="add-act-booking" #content *ngIf="currentBooking && currentClient && currentCar && currentUser">
 
-        <div class="xs_block_1">
-            <table>
+        <div class="xs_block_1" style="padding: 20px 40px 0 40px">
+            <table style="width: 100%;">
                 <tr>
-                    <td style=" text-align: center; font-weight: 600;">
+                    <td style=" text-align: center; font-weight: 600; border: 1px solid #000; padding: 5px; font-size: 18px;">
                         АКТ приема/передачи транспортного<br> средства без экипажа   
                     </td>
 
-                    <td style="text-align: right;">
+                    <td style="text-align: right; border: 1px solid #000; padding: 5px; font-size: 18px;">
                         Приложение №1 к Договору проката транспортного<br> 
                         средства без экипажа<br> 
                         № {{this.actualDogovorForClientBooking.dogovor_number}} от {{this.actualDogovorForClientBooking.date_start}}<br>
@@ -58,18 +59,18 @@
 
 
 
-        <div class="xs_block_2">
+        <div class="xs_block_2" style="padding: 0px 40px;">
             <div class="xs_table_div" style="text-align: center;">
                 <strong>АВТОМОБИЛЬ</strong>
             </div>
 
-            <table>
+            <table style="width: 100%;">
                 <tr>
-                    <td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                         <strong>Марка/Модель: </strong>
                         {{currentCar.marka}} {{currentCar.model}}
                     </td>
-                    <td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                         <strong>VIN</strong>
                         <strong>: </strong>
                         {{currentCar.vin}}
@@ -77,11 +78,11 @@
                 </tr>
 
                 <tr>
-                    <td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                         <strong>Цвет: </strong>
                         {{currentCar.color}}
                     </td>
-                    <td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                         <strong>Год выпуска: </strong>
                         {{currentCar.year_production}} г
                     </td>
@@ -89,12 +90,12 @@
 
 
                 <tr>
-                    <td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                         <strong>Свидетельство: </strong>
                         {{currentCar.sts_seria}} № {{currentCar.sts_number}} от
                         {{currentCar.sts_date | date : 'dd.MM.yyyy'}}
                     </td>
-                    <td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                         <strong>Стоимость ТС: </strong> - 
                         <u>{{currentCar.price_ocenka}} руб ({{price_ocenka}}) рублей.</u>
                     </td>
@@ -102,11 +103,11 @@
 
 
                 <tr>
-                    <td >
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                         <strong>Гос. Номер: </strong>
                         {{currentCar.number}}
                     </td>
-                    <td >
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                         <strong>Номер кузова: </strong>
                         {{currentCar.kuzov_number}}
                     </td>
@@ -114,32 +115,32 @@
 
 
                 <tr>
-                    <td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                         <strong>Трансмиссия: </strong>
                         {{currentCar.transmission}}
                     </td>
-                    <td></td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                 </tr>
             </table>
         </div>
 
 
-        <div class="xs_block_3">
+        <div class="xs_block_3" style="padding: 0px 40px;">
             <div class="xs_table_div" style="text-align: center;">
                 <strong>Тарифы и стоимость доп. услуг</strong>
             </div>
 
-            <table>
+            <table style="width: 100%;">
                 <tr>
-                    <td>
-                        <table>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
+                        <table style="width: 100%;">
                             <tr>
-                                <td><strong>Город</strong></td>
-                                <td><strong>Сумма</strong></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"><strong>Город</strong></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"><strong>Сумма</strong></td>
                             </tr>
 
-                            <tr>
-                                <td>
+                            <tr style="height: 184.3px;">
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     <div *ngFor="let item of currentCar.tarif_gorod.slice(0, currentCar.tarif_gorod.length - 2); let i = index;">
                                         <span *ngIf="item[0] !== ''" style="margin-bottom: 3px; ">
                                             <input type="checkbox" style="width: 20px; height: 20px;">
@@ -147,7 +148,7 @@
                                         </span>
                                     </div>
                                 </td>
-                                <td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     <div *ngIf="currentBooking.additional_services[5].status">{{currentBooking.additional_services[5].price}} р</div>
                                     <div>{{currentBooking.place_start_price}} р.</div>
                                     <div>{{currentBooking.place_start_price}} р</div>
@@ -160,7 +161,7 @@
                             </tr>
 
                             <tr>
-                                <td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     <strong style="margin-bottom: 10px; display: block;">Межгород</strong>
                                     <div *ngFor="let item of currentCar.tarif_mejgorod.slice(0, currentCar.tarif_mejgorod.length - 2); let i = index;">
                                         
@@ -170,11 +171,11 @@
                                         </span>
                                     </div>
                                 </td>
-                                <td></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                             </tr>
 
                             <tr>
-                                <td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     <strong style="margin-bottom: 10px; display: block;">Россия</strong>
                                     <div *ngFor="let item of currentCar.tarif_russia.slice(0, currentCar.tarif_russia.length - 2); let i = index;">
                                         <span *ngIf="item[0] !== ''" style="margin-bottom: 3px;">
@@ -183,20 +184,20 @@
                                         </span>
                                     </div>
                                 </td>
-                                <td></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                             </tr>
                         </table>
                     </td>
 
-                    <td>
-                        <table>
+                    <td style="display: flex; justify-content: space-between; width: 100%; border: 1px solid #000; padding: 5px; font-size: 18px;">
+                        <table style="width: 100%;">
                             <tr>
-                                <td><strong>Услуга</strong></td>
-                                <td><strong>Фото автомобиля</strong></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"><strong>Услуга</strong></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"><strong>Фото автомобиля</strong></td>
                             </tr>
 
-                            <tr>
-                                <td>
+                            <tr style="height: 184.3px;">
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     <div *ngIf="currentBooking.additional_services[5].status">Мойка</div>
                                     <div>Подача авто</div>
                                     <div>Прием авто</div>
@@ -207,21 +208,21 @@
                                     <div *ngIf="currentBooking.additional_services[4].status">З/У</div>
                                 </td>
 
-                                <td style="text-align: center;"><img src="{{this.currentCar.avatar}}" style="width: 240px;" alt="Изображение"></td>
+                                <td style="text-align: center; border: 1px solid #000; padding: 5px; font-size: 18px;"><img src="{{this.currentCar.avatar}}" style="width: 240px;" alt="Изображение"></td>
                             </tr>
 
-                            <tr style="height: 73px;">
-                                <td>
+                            <tr style="height: 68px;">
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     
                                 </td>
-                                <td></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                             </tr>
 
-                            <tr style="height: 73px;">
-                                <td>
+                            <tr style="height: 68px;">
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     
                                 </td>
-                                <td></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                             </tr>
                         </table>
                     </td>
@@ -230,29 +231,29 @@
         </div>
 
 
-        <div class="xs_block_4">
+        <div class="xs_block_4" style="padding: 0px 40px;">
             <div class="xs_table_div" style="text-align: center;">
                 <strong>Залоговый депозит</strong>
             </div>
 
-            <table>
+            <table style="width: 100%;">
                 <tr>
-                    <td style="width: 30%;">
+                    <td style="width: 30%;  border: 1px solid #000; padding: 5px; font-size: 18px;">
                         {{currentCar.tarif_gorod[10][1]}}
                     </td>
-                    <td style="width: 30%;"> 
+                    <td style="width: 30%;  border: 1px solid #000; padding: 5px; font-size: 18px;"> 
                         {{currentCar.tarif_mejgorod[10][1]}}
                     </td>
-                    <td style="width: 30%;">
+                    <td style="width: 30%;  border: 1px solid #000; padding: 5px; font-size: 18px;">
                         {{currentCar.tarif_russia[10][1]}}
                     </td>
                 </tr>
             </table>
 
-            <table>
+            <table style="width: 100%;">
                 <tbody>
                     <tr>
-                        <td >
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                             * Почасовой прокат оплачивается по тарифу <strong><u>10%</u></strong> от суточной стоимости за каждый час после расчетного времени до <strong>20:00</strong>. После <strong>20:00</strong> оплата проката взимается за одни полные сутки.
                         </td>
                     </tr>
@@ -261,87 +262,87 @@
         </div>
 
 
-        <div class="xs_block_5">
-            <table>
+        <div class="xs_block_5" style="padding: 0px 40px;">
+            <table style="width: 100%;">
                 <tr>
-                    <td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                         <strong style="display: block; margin-bottom: 5px; text-align: center;">Арендодатель передал а Арендатор принял а/м</strong>
-                        <table class="xs_block_5_t_1">
+                        <table class="xs_block_5_t_1" style="width: 100%;">
                             <tr>
-                                <td>Дата и время передачи: </td>
-                                <td></td>
-                                <td></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Дата и время передачи: </td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                             </tr>
 
                             <tr>
-                                <td style="width: 40%;">Состояние салона:  </td>
-                                <td style="width: 30%;">Чистый</td>
-                                <td style="width: 30%;">Грязный</td>
+                                <td style="width: 40%; border: 1px solid #000; padding: 5px; font-size: 18px;">Состояние салона:  </td>
+                                <td style="width: 30%; border: 1px solid #000; padding: 5px; font-size: 18px;">Чистый</td>
+                                <td style="width: 30%; border: 1px solid #000; padding: 5px; font-size: 18px;">Грязный</td>
                             </tr>
 
                             <tr>
-                                <td>Наличие иного запаха: </td>
-                                <td>Имеется</td>
-                                <td>Нет</td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Наличие иного запаха: </td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Имеется</td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Нет</td>
                             </tr>
 
                             <tr>
-                                <td>Чистота кузова а/м: </td>
-                                <td>Чистый</td>
-                                <td>Грязный</td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Чистота кузова а/м: </td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Чистый</td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Грязный</td>
                             </tr>
 
                             <tr>
-                                <td>Пробег одометра:  </td>
-                                <td></td>
-                                <td></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Пробег одометра:  </td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                             </tr>
 
                             <tr>
-                                <td>Уровень топлива: </td>
-                                <td>Полный бак</td>
-                                <td>Нет (фото) </td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Уровень топлива: </td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Полный бак</td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Нет (фото) </td>
                             </tr>
                         </table>
                     </td>
 
-                    <td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                         <strong style="display: block; margin-bottom: 5px; text-align: center;">Арендодатель принял а Арендатор передал а/м</strong>
-                        <table class="xs_block_5_t_1">
+                        <table class="xs_block_5_t_1" style="width: 100%;">
                             <tr>
-                                <td>Дата и время приема: </td>
-                                <td></td>
-                                <td></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Дата и время приема: </td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                             </tr>
 
                             <tr>
-                                <td style="width: 40%;">Состояние салона:  </td>
-                                <td style="width: 30%;">Чистый</td>
-                                <td style="width: 30%;">Грязный</td>
+                                <td style="width: 40%; border: 1px solid #000; padding: 5px; font-size: 18px">Состояние салона:  </td>
+                                <td style="width: 30%; border: 1px solid #000; padding: 5px; font-size: 18px">Чистый</td>
+                                <td style="width: 30%; border: 1px solid #000; padding: 5px; font-size: 18px">Грязный</td>
                             </tr>
 
                             <tr>
-                                <td>Наличие иного запаха: </td>
-                                <td>Имеется</td>
-                                <td>Нет</td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Наличие иного запаха: </td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Имеется</td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Нет</td>
                             </tr>
 
                             <tr>
-                                <td>Чистота кузова а/м: </td>
-                                <td>Чистый</td>
-                                <td>Грязный</td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Чистота кузова а/м: </td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Чистый</td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Грязный</td>
                             </tr>
 
                             <tr>
-                                <td>Пробег одометра:  </td>
-                                <td></td>
-                                <td></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Пробег одометра:  </td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                             </tr>
 
                             <tr>
-                                <td>Уровень топлива: </td>
-                                <td>Полный бак</td>
-                                <td>Нет (фото) </td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Уровень топлива: </td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Полный бак</td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Нет (фото) </td>
                             </tr>
                         </table>
                     </td>
@@ -350,103 +351,103 @@
         </div>
 
 
-        <div class="xs_block_6">
+        <div class="xs_block_6" style="padding: 0px 40px;">
             <div class="xs_table_div" style="text-align: center;">
                 <strong>Лица допущенные к управлению а/м</strong>
             </div>
 
-            <table class="xs_block_6_t">
+            <table class="xs_block_6_t" style="width: 100%;">
                 <thead>
                     <tr>
-                        <td>№</td>
-                        <td>ФИО</td>
-                        <td>Серия и № вод.Уд</td>
-                        <td>Кем выдано</td>
-                        <td>Дата выдачи</td>
-                        <td>Действительно до</td>
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">№</td>
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">ФИО</td>
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Серия и № вод.Уд</td>
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Кем выдано</td>
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Дата выдачи</td>
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Действительно до</td>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                        <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         
-        <div class="xs_block_7">
+        <div class="xs_block_7" style="padding: 0px 40px;">
             <div class="xs_table_div" style="text-align: center;">
                 <strong>Комплектация автомобиля</strong>
             </div>
 
-            <table >
+            <table style="width: 100%;">
                 <tr>
-                    <td>
-                        <table class="xs_block_7_t_1">
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
+                        <table class="xs_block_7_t_1" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <td>Наименование</td>
-                                    <td >Кол-во</td>
-                                    <td>Стоимость</td>
-                                    <td>Наличие</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Наименование</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Кол-во</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Стоимость</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Наличие</td>
                                 </tr>
                             </thead>
             
                             <tbody>
                                 <tr>
-                                    <td>Запасное колесо</td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td>ДА</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Запасное колесо</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">ДА</td>
                                 </tr>
             
                                 <tr>
-                                    <td>Домкрат</td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td>ДА</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Домкрат</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">ДА</td>
                                 </tr>
             
                                 <tr>
-                                    <td>Балонный ключ </td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td>ДА</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Балонный ключ </td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">ДА</td>
                                 </tr>
             
                                 <tr>
-                                    <td>Щетка чистки кузова</td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td>ДА</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Щетка чистки кузова</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">ДА</td>
                                 </tr>
             
                                 <tr>
-                                    <td>Ключ зажигания (смарт)</td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td>ДА</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Ключ зажигания (смарт)</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">ДА</td>
                                 </tr>
             
             
                                 <tr>
-                                    <td>Свидетельство ТС</td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td>ДА</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Свидетельство ТС</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">ДА</td>
                                 </tr>
             
                                 <tr>
-                                    <td>Салонный коврик</td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td>ДА</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Салонный коврик</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">ДА</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -455,65 +456,65 @@
 
 
                     <td>
-                        <table class="xs_block_7_t_1">
+                        <table class="xs_block_7_t_1" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <td>Наименование</td>
-                                    <td >Кол-во</td>
-                                    <td>Стоимость</td>
-                                    <td>Наличие</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Наименование</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Кол-во</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Стоимость</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Наличие</td>
                                 </tr>
                             </thead>
             
                             <tbody>
                                 <tr>
-                                    <td>Запасное колесо</td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td></td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Запасное колесо</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                                 </tr>
             
                                 <tr>
-                                    <td>Домкрат</td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td></td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Домкрат</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                                 </tr>
             
                                 <tr>
-                                    <td>Балонный ключ </td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td></td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Балонный ключ </td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                                 </tr>
             
                                 <tr>
-                                    <td>Щетка чистки кузова</td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td></td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Щетка чистки кузова</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                                 </tr>
             
                                 <tr>
-                                    <td>Ключ зажигания (смарт)</td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td></td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Ключ зажигания (смарт)</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                                 </tr>
             
             
                                 <tr>
-                                    <td>Свидетельство ТС</td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td></td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Свидетельство ТС</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                                 </tr>
             
                                 <tr>
-                                    <td>Салонный коврик</td>
-                                    <td>1</td>
-                                    <td>5 000 рублей</td>
-                                    <td></td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" >Салонный коврик</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">1</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">5 000 рублей</td>
+                                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -523,19 +524,19 @@
         </div>
 
 
-        <div class="xs_block_8">
+        <div class="xs_block_8" style="padding: 0px 40px;">
             <div class="xs_table_div" style="text-align: center;">
                 <strong>Дополнительные примечания по автомобилю</strong>
             </div>
 
-            <table>
+            <table style="width: 100%;">
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                 </tr>
             </table>
 
@@ -552,38 +553,38 @@
         </div>
 
 
-        <div class="xs_block_9">
+        <div class="xs_block_9" style="padding: 0px 40px;">
             <div class="xs_table_div" style="text-align: center;">
                 <strong>Подписи сторон</strong>
             </div>
 
-            <table>
+            <table style="width: 100%;">
                 <tr>
-                    <td>
-                        <table>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;">
+                        <table style="width: 100%;">
                             <tr>
-                                <td>Арендодатель а/м передал:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
-                                <td><br> <small style="font-size: 12px;"></small></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;">Арендодатель а/м передал:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;"><br> <small style="font-size: 12px;"></small></td>
                             </tr>
 
                             <tr>
-                                <td>Арендатор а/м принял:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
-                                <td><br> <small style="font-size: 12px;"></small></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Арендатор а/м принял:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"><br> <small style="font-size: 12px;"></small></td>
                             </tr>
                         </table>
                     </td>
 
 
-                    <td>
-                        <table>
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;">
+                        <table style="width: 100%;">
                             <tr>
-                                <td>Арендодатель а/м принял:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
-                                <td><br> <small style="font-size: 12px;"></small></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;">Арендодатель а/м принял:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;"><br> <small style="font-size: 12px;"></small></td>
                             </tr>
 
                             <tr>
-                                <td>Арендатор а/м передал:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
-                                <td><br> <small style="font-size: 12px;"></small></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;">Арендатор а/м передал:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;"><br> <small style="font-size: 12px;"></small></td>
                             </tr>
                         </table>
                     </td>

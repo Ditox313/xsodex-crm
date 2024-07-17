@@ -9,21 +9,21 @@
 }
 
 
-.add-act-booking
+.show-act-booking
 {
     padding: 20px 40px;
 }
 
-table
+.add-act-booking table
 {
-    width: 100%;
+    width: 100% !important;
     margin: 0;
     padding: 0;
 }
-td
+.add-act-booking td
 {
     width: 50%;
-    border: 1px solid #000;
+    border: 1px solid #000 !important;
     padding: 5px;
     line-height: 110%;
     font-size: 18px;

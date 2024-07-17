@@ -9,18 +9,18 @@
 }
 
 
-.add-act-booking
+/* .add-act-booking
 {
     padding: 20px 40px;
-}
+} */
 
-table
+.add-act-booking table
 {
     width: 100%;
     margin: 0;
     padding: 0;
 }
-td
+.add-act-booking td
 {
     width: 50%;
     border: 1px solid #000;

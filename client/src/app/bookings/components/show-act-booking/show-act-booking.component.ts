@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Act, Booking } from '../../types/bookings.interfaces';
 import { DatePipe } from '@angular/common';
@@ -19,12 +19,14 @@ import * as  pdfFonts from "pdfmake/build/vfs_fonts";
 import htmlToPdfmake from "html-to-pdfmake"
 import { getCurrentActSelector, getCurrentBookingSelector, isLoadingSelector } from '../../store/selectors';
 import { bookingGetCurrent, bookingGetCurrentReset, currentActAction, currentActResetAction } from '../../store/actions/bookings.action';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @Component({
   selector: 'app-show-act-booking',
   templateUrl: './show-act-booking.component.html',
-  styleUrls: ['./show-act-booking.component.css']
+  styleUrls: ['./show-act-booking.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ShowActBookingComponent {
   isLoadingSelector$!: Observable<boolean | null>
@@ -41,9 +43,15 @@ export class ShowActBookingComponent {
   title: string = ''
   bookingId: string = '';
   @ViewChild('content') content!: ElementRef | any;
+  private htmlString: any = ''
+  safeHtml!: any
 
 
-  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute,) { }
+
+
+  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute,private sanitizer: DomSanitizer) { 
+    
+  }
 
 
   ngOnInit(): void {
@@ -110,10 +118,31 @@ export class ShowActBookingComponent {
         
         
         this.currentAct = act
+        if(act)
+        {
+          this.safeHtml = this.sanitizer.bypassSecurityTrustHtml(act?.content);
+          this.getHtmlElement()
+        }
+        
+        
         
       }
     })
 
+  }
+
+  // Преобразовываем контент который получили в нормальный Html что бы корректно рендерелся
+  getHtmlElement(): HTMLElement {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = this.htmlString;
+    return tempDiv.firstElementChild as HTMLElement;
+  }
+
+
+  // Если вам нужно получить строку HTML обратно
+  getHtmlString(): string {
+    const element = this.getHtmlElement();
+    return element.outerHTML;
   }
 
 
@@ -140,32 +169,36 @@ export class ShowActBookingComponent {
 
 
     // Генерируем PDF(V2)
-    generatePdf(elementRef: ElementRef| any, filename: string): void {
-      const element = elementRef.nativeElement;
-      if (!element) {
-        console.error('Element not found');
-        return;
-      }
-  
-      html2canvas(element).then(canvas => {
+    generatePdf(content: string, filename: string): void {
+      // Создаем временный div элемент
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = content;
+    
+      // Добавляем временный div в DOM (это нужно для корректной работы html2canvas)
+      document.body.appendChild(tempDiv);
+    
+      html2canvas(tempDiv).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF('p', 'mm', 'a4');
         const imgWidth = 210;
         const pageHeight = 295;
         const imgHeight = canvas.height * imgWidth / canvas.width;
         let heightLeft = imgHeight;
-  
+    
         let position = 0;
         pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
         heightLeft -= pageHeight;
-  
+    
         while (heightLeft >= 0) {
           position = heightLeft - imgHeight;
           pdf.addPage();
           pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
-  
+    
+        // Удаляем временный div из DOM
+        document.body.removeChild(tempDiv);
+    
         pdf.autoPrint(); // Автоматически открывает окно печати
         window.open(pdf.output('bloburl'), '_blank'); // Открывает PDF в новом окне
       });

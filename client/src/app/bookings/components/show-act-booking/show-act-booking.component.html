@@ -4,13 +4,17 @@
 
 
 
-<div class="add-act-booking" *ngIf="currentAct">
+<div class="add-act-booking show-act-booking" *ngIf="currentAct" style="padding: 40px 40px;">
     <form>
 
+        <!-- Если не нужно отключать инкапсуляцию то использую safeHtml -->
         <div [innerHTML]="currentAct.content" id="content" #content></div>
 
 
-        <!-- <button type="submit" class="submit" (click)="generatePDF()"><i class="pi pi-download"></i> Скачать</button> -->
-        <button type="submit" class="submit" (click)="generatePdf(this.content,'doc.pdf')"><i class="pi pi-download"></i> Скачать</button>
+        <div style="padding: 40px 0px;">
+            <!-- <button type="submit" class="submit" (click)="generatePDF()"><i class="pi pi-download"></i> Скачать</button> -->
+            <button type="submit" class="submit" (click)="generatePdf(currentAct.content,'doc.pdf')"><i class="pi pi-download"></i> Скачать</button>
+        </div>
+       
     </form>
 </div>

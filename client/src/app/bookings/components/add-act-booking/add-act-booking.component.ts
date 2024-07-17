@@ -460,12 +460,12 @@ export class AddActBookingComponent {
   // Создаем договор
   createAct() {
 
-    const cleanedContent = this.cleanHtmlContent();
+    // const cleanedContent = this.cleanHtmlContent();
 
     const act: Act = {
       act_number: this.xs_actual_date + '/СТС-' + this.currentClient._id,
       userId: this.currentUser?._id,
-      content: cleanedContent,
+      content: this.content.nativeElement.innerHTML,
       clientId: this.currentClient._id,
       bookingId: this.currentBooking?._id,
       smenaId: this.currentSmema?._id
