@@ -165,7 +165,7 @@
                                     <strong style="margin-bottom: 10px; display: block;">Межгород</strong>
                                     <div *ngFor="let item of currentCar.tarif_mejgorod.slice(0, currentCar.tarif_mejgorod.length - 2); let i = index;">
                                         
-                                        <span *ngIf="item[0] !== ''" style="margin-bottom: 10px; display: flex; ">
+                                        <span *ngIf="item[0] !== ''" style=" display: flex; ">
                                             {{item[1]}} руб <strong style="margin-left: 15px;">({{item[0]}} суток) </strong>
                                             <input type="checkbox" style="width: 20px; height: 20px; margin-left: auto;">
                                         </span>
@@ -178,7 +178,7 @@
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     <strong style="margin-bottom: 10px; display: block;">Россия</strong>
                                     <div *ngFor="let item of currentCar.tarif_russia.slice(0, currentCar.tarif_russia.length - 2); let i = index;">
-                                        <span *ngIf="item[0] !== ''" style="margin-bottom: 10px; display: flex;">
+                                        <span *ngIf="item[0] !== ''" style=" display: flex;">
                                             {{item[1]}} руб <strong style="margin-left: 15px;">({{item[0]}} суток) </strong>
                                             <input type="checkbox" style="width: 20px; height: 20px; margin-left: auto;">
                                         </span>
