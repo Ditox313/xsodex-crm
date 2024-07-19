@@ -184,7 +184,7 @@ export class ShowActBookingComponent {
    // Устанавливаем шрифт 23px для всех элементов <div> с классом .xs_table_div
    const divElements = tempDiv.querySelectorAll('div');
    for (let i = 0; i < divElements.length; i++) {
-     divElements[i].style.fontSize = '23px';
+     divElements[i].style.fontSize = '25px';
    }
 
   

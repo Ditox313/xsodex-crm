@@ -24,13 +24,13 @@
             </table>
 
             <div *ngIf="currentBooking.client.type === 'fiz'" class="xs_table_div">
-                <div *ngIf="this.masterPriem.name == ''">
+                <div *ngIf="this.masterPriem.name == ''" style="font-size: 23px;">
                     Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
                     между: <strong>ООО «ВВС-ВЕБ»</strong>
                      в лице Уполномоченного {{this.currentUser.secondName}} {{this.currentUser.name}} {{this.currentUser.lastName}} по Доверенности №{{this.currentUser.doverenostNumber}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, 
                     далее <strong>«Арендодатель»</strong>, и гражданин(ка) РФ, <strong>{{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
                 </div>
-                <div *ngIf="this.masterPriem.name != ''">
+                <div *ngIf="this.masterPriem.name != ''" style="font-size: 23px;">
                     Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
                     между: <strong>ООО «ВВС-ВЕБ»</strong>
                      в лице Уполномоченного {{this.masterPriem.surname}} {{this.masterPriem.name}} {{this.masterPriem.lastname}} по Доверенности №{{this.masterPriem.doverenostNumber}} от {{this.masterPriem.doverenostDate | date : 'dd.MM.yyyy'}} г, 
@@ -142,9 +142,9 @@
                             <tr style="height: 184.3px;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     <div *ngFor="let item of currentCar.tarif_gorod.slice(0, currentCar.tarif_gorod.length - 2); let i = index;">
-                                        <span *ngIf="item[0] !== ''" style="margin-bottom: 3px; ">
-                                            <input type="checkbox" style="width: 20px; height: 20px;">
-                                            {{item[1]}} руб <strong>({{item[0]}} суток) </strong>
+                                        <span *ngIf="item[0] !== ''" style="margin-bottom: 10px; display: flex; ">
+                                            {{item[1]}} руб <strong style="margin-left: 15px;">({{item[0]}} суток) </strong>
+                                            <input type="checkbox" style="width: 20px; height: 20px; margin-left: auto;">
                                         </span>
                                     </div>
                                 </td>
@@ -165,9 +165,9 @@
                                     <strong style="margin-bottom: 10px; display: block;">Межгород</strong>
                                     <div *ngFor="let item of currentCar.tarif_mejgorod.slice(0, currentCar.tarif_mejgorod.length - 2); let i = index;">
                                         
-                                        <span *ngIf="item[0] !== ''" style="margin-bottom: 3px;">
-                                            <input type="checkbox" style="width: 20px; height: 20px;">
-                                            {{item[1]}} руб <strong>({{item[0]}} суток) </strong>
+                                        <span *ngIf="item[0] !== ''" style="margin-bottom: 10px; display: flex; ">
+                                            {{item[1]}} руб <strong style="margin-left: 15px;">({{item[0]}} суток) </strong>
+                                            <input type="checkbox" style="width: 20px; height: 20px; margin-left: auto;">
                                         </span>
                                     </div>
                                 </td>
@@ -178,9 +178,9 @@
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     <strong style="margin-bottom: 10px; display: block;">Россия</strong>
                                     <div *ngFor="let item of currentCar.tarif_russia.slice(0, currentCar.tarif_russia.length - 2); let i = index;">
-                                        <span *ngIf="item[0] !== ''" style="margin-bottom: 3px;">
-                                            <input type="checkbox" style="width: 20px; height: 20px;">
-                                            {{item[1]}} руб <strong>({{item[0]}} суток) </strong>
+                                        <span *ngIf="item[0] !== ''" style="margin-bottom: 10px; display: flex;">
+                                            {{item[1]}} руб <strong style="margin-left: 15px;">({{item[0]}} суток) </strong>
+                                            <input type="checkbox" style="width: 20px; height: 20px; margin-left: auto;">
                                         </span>
                                     </div>
                                 </td>
@@ -294,13 +294,13 @@
 
                             <tr>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Пробег одометра:  </td>
-                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
-                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px; border-right: 1px solid #fff;"></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px; border-left: 1px solid #fff;"></td>
                             </tr>
 
                             <tr>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Уровень топлива: </td>
-                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Полный бак</td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px; ">Полный бак</td>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Нет (фото) </td>
                             </tr>
                         </table>
@@ -335,8 +335,8 @@
 
                             <tr>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Пробег одометра:  </td>
-                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
-                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px; border-right: 1px solid #fff;"></td>
+                                <td style="border: 1px solid #000; padding: 5px; font-size: 18px; border-left: 1px solid #fff;"></td>
                             </tr>
 
                             <tr>
@@ -530,11 +530,11 @@
             </div>
 
             <table style="width: 100%;">
-                <tr>
+                <tr style="height: 100px;">
                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                 </tr>
-                <tr>
+                <tr style="height: 100px;">
                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                 </tr>
@@ -560,14 +560,14 @@
 
             <table style="width: 100%;">
                 <tr>
-                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;">
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%; ">
                         <table style="width: 100%;">
-                            <tr>
+                            <tr style="height: 100px;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;">Арендодатель а/м передал:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;"><br> <small style="font-size: 12px;"></small></td>
                             </tr>
 
-                            <tr>
+                            <tr style="height: 100px;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Арендатор а/м принял:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"><br> <small style="font-size: 12px;"></small></td>
                             </tr>
@@ -575,14 +575,14 @@
                     </td>
 
 
-                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;">
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%; height: 100px;">
                         <table style="width: 100%;">
-                            <tr>
+                            <tr style="height: 100px;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;">Арендодатель а/м принял:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;"><br> <small style="font-size: 12px;"></small></td>
                             </tr>
 
-                            <tr>
+                            <tr style="height: 100px;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;">Арендатор а/м передал:<br><small style="font-size: 12px;">Подпись, печать (при наличии)</small></td>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%;"><br> <small style="font-size: 12px;"></small></td>
                             </tr>
