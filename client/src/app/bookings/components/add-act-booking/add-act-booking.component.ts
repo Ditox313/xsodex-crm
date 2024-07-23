@@ -342,6 +342,8 @@ export class AddActBookingComponent {
     this.currentMasterPriemSub$ = this.currentMasterPriemSelector.subscribe({
       next: (masterPriem) => {
        this.masterPriem = masterPriem
+       console.log(this.masterPriem);
+       
       }
     })
 
@@ -450,6 +452,25 @@ export class AddActBookingComponent {
     });
   }
   
+
+
+
+formatName(lastName: string, firstName?: string, middleName?: string): string {
+    if (!lastName) {
+      return '';
+    }
+  
+    const firstInitial = firstName ? firstName.charAt(0).toUpperCase() : '';
+    const middleInitial = middleName ? middleName.charAt(0).toUpperCase() : '';
+  
+    if (firstInitial && middleInitial) {
+      return `${lastName} ${firstInitial}.${middleInitial}.`;
+    } else if (firstInitial) {
+      return `${lastName} ${firstInitial}.`;
+    } else {
+      return lastName;
+    }
+  }
 
 
   

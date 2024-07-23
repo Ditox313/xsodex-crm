@@ -8,10 +8,49 @@
     margin-bottom: 40px;
 }
 
+.xs_tarif_gorod span
+{
+    display: inline-block;
+    margin-bottom: 10px !important;
+}
+
+.xs_block_5_align
+{
+    text-align: right;
+    font-weight: 700;
+}
+
+.xs_block_5_align_center
+{
+    text-align: center;
+}
+
+
+.show-act-booking .xs_usluga_item
+{
+    margin-top: 0.1px !important;
+}
+
+
+.show-act-booking .xs_summa_item
+{
+    margin-top: 0px !important;
+}
 
 .show-act-booking
 {
     padding: 20px 40px;
+}
+
+.xs_empty_tr
+{
+    height: 68px;
+}
+
+.tarif_name
+{
+    margin-bottom: 10px; 
+    display: block;
 }
 
 .add-act-booking table
@@ -30,12 +69,18 @@
 }
 
 
+.xs_table_block_height
+{
+    height: 184.3px;
+}
+
+
 .xs_table_div
 {
     border: 1px solid #000;
     padding: 5px;
     line-height: 110%;
-    font-size: 23px !important;
+    font-size: 21px !important;
     width: 99.8%;
     margin: 0 auto;
     margin-top: 5px;
@@ -79,15 +124,6 @@ label {
 
 
 
-p-togglebutton {
-    margin-right: 15px;
-    margin-top: 15px;
-}
-
-/* p-togglebutton > div
-{
-    height: 45px !important;
-} */
 
 input::-webkit-datetime-edit-day-field:focus,
 input::-webkit-datetime-edit-month-field:focus,
@@ -97,10 +133,6 @@ input::-webkit-datetime-edit-year-field:focus {
     outline: none;
 }
 
-
-fieldset {
-    margin-bottom: 30px;
-}
 
 
 
