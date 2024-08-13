@@ -356,6 +356,9 @@ module.exports.currentClientForAct = async function (req, res) {
 module.exports.addActBooking = async function (req, res) {
     try {
 
+        // Удаляем все существующие акты для данной брони а потом сохраняем новый
+        await Act.deleteMany({ bookingId: req.body.bookingId });
+
         const act = await new Act({
             act_number: req.body.act_number,
             userId: req.body.userId,
