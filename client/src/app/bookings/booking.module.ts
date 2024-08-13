@@ -37,6 +37,7 @@ import { EditBookingComponent } from './components/edit-booking/edit-booking.com
 import { ClientsFizSearchComponent } from './components/clients-fiz-search/clients-fiz-search.component';
 import { ClientsLawSearchComponent } from './components/clients-law-search/clients-law-search.component';
 import { PersonalModule } from '../personal/personal.module';
+import { ThousandsSeparatorPipe } from '../shared/pipes/thousands-separator.pipe';
 
 
 @NgModule({
@@ -52,6 +53,7 @@ import { PersonalModule } from '../personal/personal.module';
     EditBookingComponent,
     ClientsFizSearchComponent,
     ClientsLawSearchComponent,
+    ThousandsSeparatorPipe,
   ],
   imports: [
     CommonModule,

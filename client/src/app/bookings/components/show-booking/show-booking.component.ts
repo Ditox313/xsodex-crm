@@ -11,6 +11,7 @@ import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { Smena } from 'src/app/smena/types/smena.interfaces';
 import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
+import { ThousandsSeparatorPipe } from '../../../shared/pipes/thousands-separator.pipe';
 
 @Component({
   selector: 'app-show-booking',

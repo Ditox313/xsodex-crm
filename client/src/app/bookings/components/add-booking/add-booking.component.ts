@@ -331,11 +331,18 @@ export class AddBookingComponent {
 
     // Вставляем дату старта в дату конца брони
     const startDate = new Date(e.target.value);
-    // const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000); // Добавляем 24 часа
     const endDateString = this.formatDateToLocalDateTime(startDate);
     this.form.patchValue({
       booking_end: endDateString
     });
+
+    // Код для установки + 1 день
+    // const startDate = new Date(e.target.value);
+    // const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000); // Добавляем 24 часа
+    // const endDateString = this.formatDateToLocalDateTime(endDate);
+    // this.form.patchValue({
+    //   booking_end: endDateString
+    // });
 
 
     // // Получаем и устанавливаем  начало  аренды

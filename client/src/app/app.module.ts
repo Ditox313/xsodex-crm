@@ -18,6 +18,7 @@ import { ClientsModule } from './clients/clients.module';
 import { SettingsModule } from './settings/settings.module';
 import { BookingsModule } from './bookings/booking.module';
 import { PersonalModule } from './personal/personal.module';
+import { ThousandsSeparatorPipe } from './shared/pipes/thousands-separator.pipe';
 
 
 
