@@ -88,8 +88,13 @@ export class AddDogovorClientLawComponent {
 
     // Задаем значения даты действия договора.Для физ лиц 365 дней
     this.xs_actual_date = this.datePipe.transform(Date.now(), 'dd.MM.yyyy');
-    this.yearDate = new Date(this.xs_actual_date);
-    this.yearDate.setDate(this.yearDate.getDate() + (365 * 3));
+    // Преобразование строки в объект Date
+    const parts = this.xs_actual_date.split('.');
+    const date = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
+
+    // Прибавление 365 дней
+    this.yearDate = new Date(date);
+    this.yearDate.setDate(this.yearDate.getDate() + 365 * 3);
 
     //Отправляем запрос на получение текущего юридического лица
     this.store.dispatch(clientLawGetCurrent({ id: this.clientLawId }));
@@ -172,7 +177,7 @@ export class AddDogovorClientLawComponent {
 
     const dogovor = {
       date_start: this.xs_actual_date,
-      dogovor_number: this.xs_actual_date + '/СТС-' + this.datePipe.transform(this.xs_actual_date, 'd-M-y') ,
+      dogovor_number: this.xs_actual_date + '/СТС-' + this.xs_actual_date ,
       date_end: this.datePipe.transform(this.yearDate, 'yyyy-MM-dd'),
       client: this.currentClientLaw?._id,
       administrator: this.currentUser?._id,
