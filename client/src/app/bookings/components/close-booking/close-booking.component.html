@@ -278,6 +278,12 @@
                     <fieldset>
                         <label htmlFor="probeg_old">Новый пробег</label>
                         <input type="text" pInputText id="probeg" formControlName="probeg" placeholder="Введите значение" />
+
+                        <div class="errorValidate" *ngIf="currentCar &&  (currentCar.probeg > this.form.value.probeg)">
+                            <p>
+                                Не корректное значение
+                            </p>
+                        </div>
                     </fieldset>
                 </div>
 

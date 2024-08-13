@@ -287,7 +287,7 @@ export class AddCarComponent implements OnInit {
 
     }
     
-    console.log(car);
+
     
     this.store.dispatch(addCarAction({ car: car, avatar: this.uploadFile }))
   }

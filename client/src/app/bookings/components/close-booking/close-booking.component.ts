@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { Booking, Pay } from '../../types/bookings.interfaces';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Car } from 'src/app/cars/types/cars.interfaces';
 import { getCurrentCarSelector } from 'src/app/cars/store/selectors';
 import { carGetCurrent } from 'src/app/cars/store/actions/cars.action';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-close-booking',
@@ -43,7 +44,7 @@ export class CloseBookingComponent {
 
 
 
-  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute) { }
+  constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute, private messageService: MessageService, ) { }
 
   ngOnInit(): void {
     this.initForm()
@@ -84,7 +85,7 @@ export class CloseBookingComponent {
     this.form = new FormGroup({
       booking_end: new FormControl('',),
       probeg_old: new FormControl(0),
-      probeg: new FormControl(0),
+      probeg: new FormControl(0, [Validators.required]),
       isCarClean: new FormControl(false),
       isCarFuel: new FormControl(false),
       outputZalog: new FormControl(0),
@@ -116,7 +117,6 @@ export class CloseBookingComponent {
     this.currentBookingSub$ = this.currentBookingSelector.subscribe({
       next: (currentBooking) => {
         this.currentBooking = currentBooking
-        console.log('111', this.currentBooking);
         if (currentBooking) {
           this.title = `Закрыть бронь №${currentBooking.order}`
           this.store.dispatch(carGetCurrent({ id: this.currentBooking?.car._id }));
@@ -133,7 +133,6 @@ export class CloseBookingComponent {
     this.currentCarSub$ = this.currentCarSelector.subscribe({
       next: (currentCar) => {
         this.currentCar = currentCar
-        console.log(this.currentCar);
 
         this.form.patchValue({
           booking_end: this.currentBooking?.booking_end,
@@ -233,11 +232,14 @@ export class CloseBookingComponent {
     }
 
 
-    console.log(data);
-    
+    if(this.currentCar &&  (this.currentCar.probeg < this.form.value.probeg))
+    {
+      this.store.dispatch(closeBookingAction({ data: data}))
+    }
+    else{
+      this.messageService.add({ severity: 'error', summary: `Некорректный пробег`, detail: 'Исправьте значение!' });
+    }
 
-
-    this.store.dispatch(closeBookingAction({ data: data}))
 
   }
 }
