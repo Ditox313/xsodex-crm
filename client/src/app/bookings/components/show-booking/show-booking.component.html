@@ -294,7 +294,7 @@
 
                             <tr *ngIf="pay.type === 'Залог'" style="background-color: #008000; color: #fff;">
                                 <td>{{pay.date | date : 'dd.MM.yyyy HH:mm'}}</td>
-                                <td>{{pay.pricePay}} руб</td>
+                                <td>{{pay.pricePay | thousandsSeparator}} руб</td>
                                 <td>{{pay.typeMoney}}</td>
                                 <td>{{pay.type}}</td>
                             </tr>
