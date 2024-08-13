@@ -17,7 +17,7 @@
                               <td width="33.3%" style=" font-size: 10px; text-align: center; vertical-align: middle;  border: none;">Договор аренды транспортного средства без экипажа №
                                 {{xs_actual_date}}/СТС-{{this.xs_actual_time_hour}}.{{this.xs_actual_time_min}}.{{this.xs_actual_time_sec}}
                               </td>
-                              <td width="43.3%" style=" font-size: 10px; text-align: center; vertical-align: middle;  border: none;">г.Тюмень<br><br>{{xs_actual_date | date : 'MM.dd.yyyy'}}.г</td>
+                              <td *ngIf="xs_actual_date " width="43.3%" style=" font-size: 10px; text-align: center; vertical-align: middle;  border: none;">г.Тюмень<br><br>{{xs_actual_date}}.г</td>
                             </tr>
                           </table>
                     </div>

@@ -104,8 +104,16 @@ export class AddDogovorClientFizComponent {
 
     // Задаем значения даты действия договора.Для физ лиц 365 дней
     this.xs_actual_date = this.datePipe.transform(Date.now(), 'dd.MM.yyyy');
-    this.yearDate = new Date(this.xs_actual_date);
+    
+    
+    // Преобразование строки в объект Date
+    const parts = this.xs_actual_date.split('.');
+    const date = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
+
+    // Прибавление 365 дней
+    this.yearDate = new Date(date);
     this.yearDate.setDate(this.yearDate.getDate() + 365);
+    
 
     //Отправляем запрос на получение текущего физического лица
     this.store.dispatch(clientFizGetCurrent({ id: this.clientFizId }));
@@ -189,13 +197,14 @@ export class AddDogovorClientFizComponent {
     
     const dogovor = {
       date_start: this.xs_actual_date,
-      dogovor_number: this.xs_actual_date + '/СТС-' + this.datePipe.transform(this.xs_actual_date, 'd-M-y') ,
+      dogovor_number: this.xs_actual_date + '/СТС-' + this.xs_actual_date ,
       date_end: this.datePipe.transform(this.yearDate, 'yyyy-MM-dd'),
       client: this.currentClientFiz?._id,
       administrator: this.currentUser?._id,
       content: cleanedContent,
       state: 'active'
     }
+    
 
     // Проверяем откуда мы создаем договор
     if (this.clientId === '')
@@ -207,6 +216,6 @@ export class AddDogovorClientFizComponent {
       this.store.dispatch(addClientFizDogovorActionFromBooking({ dogovor: dogovor }));
       this.resultDogovor.emit(true);
     }
-    
   }
+
 }
