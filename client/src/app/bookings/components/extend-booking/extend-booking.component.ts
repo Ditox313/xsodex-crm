@@ -188,8 +188,10 @@ export class ExtendBookingComponent {
           //Отправляем запрос на получение текущего автомобиля
           this.store.dispatch(carGetCurrent({ id: this.currentBooking?.car._id }));
 
-
-          console.log('1', this.booking)
+          this.form.patchValue({
+            custome_zalog_value: currentBooking.zalog,
+          })
+          
         }
       }
     })
@@ -224,7 +226,7 @@ export class ExtendBookingComponent {
       this.tarifRussia()
     }
 
-    console.log('Сработал выбор конца аренды',this.booking);
+    this.checkedTarif(this.form.value.tarif)
     
   }
 
@@ -260,10 +262,6 @@ export class ExtendBookingComponent {
       this.tarifMixed()
       this.form.controls['custome_zalog_value'].disable();
     }
-
-
-    console.log('Сработал выбор тарифа', this.booking);
-
     
   }
 
