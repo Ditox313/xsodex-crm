@@ -187,10 +187,6 @@ export class ExtendBookingComponent {
 
           //Отправляем запрос на получение текущего автомобиля
           this.store.dispatch(carGetCurrent({ id: this.currentBooking?.car._id }));
-
-          // this.form.patchValue({
-          //   custome_zalog_value: currentBooking.zalog,
-          // })
           
         }
       }
