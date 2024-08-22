@@ -188,9 +188,9 @@ export class ExtendBookingComponent {
           //Отправляем запрос на получение текущего автомобиля
           this.store.dispatch(carGetCurrent({ id: this.currentBooking?.car._id }));
 
-          this.form.patchValue({
-            custome_zalog_value: currentBooking.zalog,
-          })
+          // this.form.patchValue({
+          //   custome_zalog_value: currentBooking.zalog,
+          // })
           
         }
       }
@@ -236,23 +236,37 @@ export class ExtendBookingComponent {
     if (e === 'Город') {
       this.booking.tarifCheked = e
       this.tarifGorod()
-      this.form.patchValue({
-        pay: this.booking.arenda
-      })
+      if(this.currentBooking)
+        {
+          this.form.patchValue({
+            custome_zalog_value: this.booking?.zalog,
+            pay: this.booking.arenda + (this.booking.zalog - +this.currentBooking?.zalog)
+          })
+        }
     }
     else if (e === 'Межгород') {
       this.booking.tarifCheked = e
       this.tarifMejGorod()
-      this.form.patchValue({
-        pay: this.booking.arenda
-      })
+      if(this.currentBooking)
+      {
+        this.form.patchValue({
+          custome_zalog_value: this.booking?.zalog,
+          pay: this.booking.arenda + (this.booking.zalog - +this.currentBooking?.zalog)
+        })
+      }
+
+
     }
     else if (e === 'Россия') {
       this.booking.tarifCheked = e
       this.tarifRussia()
-      this.form.patchValue({
-        pay: this.booking.arenda
-      })
+      if(this.currentBooking)
+        {
+          this.form.patchValue({
+            custome_zalog_value: this.booking?.zalog,
+            pay: this.booking.arenda + (this.booking.zalog - +this.currentBooking?.zalog)
+          })
+        }
     }
     else if (e === 'Смешанный') {
       this.booking.tarifCheked = e
@@ -262,6 +276,7 @@ export class ExtendBookingComponent {
       this.tarifMixed()
       this.form.controls['custome_zalog_value'].disable();
     }
+
     
   }
 
@@ -340,7 +355,6 @@ export class ExtendBookingComponent {
     });
 
 
-    console.log('3', this.booking);
     
   }
 
@@ -390,7 +404,6 @@ export class ExtendBookingComponent {
       }
     });
 
-    console.log('3', this.booking);
   }
 
 
@@ -818,6 +831,9 @@ export class ExtendBookingComponent {
 
     if(this.currentBooking && this.booking.zalog > this.currentBooking?.zalog)
     {
+
+ 
+      
       pay_2 = {
         type: 'Залог',
         pricePay: this.booking.zalog - +this.currentBooking?.zalog,
@@ -871,10 +887,10 @@ export class ExtendBookingComponent {
 
 
       this.store.dispatch(extendBookingAction({ data }))
-      console.log(data);
       
     }
     else if (this.currentBooking && this.booking.zalog < this.currentBooking?.zalog) {
+      
       pay_2 = {
         type: 'Залог',
         pricePay: this.booking.zalog - +this.currentBooking?.zalog,
@@ -928,7 +944,6 @@ export class ExtendBookingComponent {
 
 
       this.store.dispatch(extendBookingAction({ data }))
-      console.log(data);
     }
     else if (this.currentBooking && this.booking.zalog === this.currentBooking?.zalog)
     {
