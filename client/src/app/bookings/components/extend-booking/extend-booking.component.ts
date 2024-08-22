@@ -184,6 +184,10 @@ export class ExtendBookingComponent {
             booking_end: currentBooking.booking_end,
           })
 
+          // this.form.patchValue({
+          //   custome_zalog_value: currentBooking?.zalog,
+          // })
+
 
           //Отправляем запрос на получение текущего автомобиля
           this.store.dispatch(carGetCurrent({ id: this.currentBooking?.car._id }));
@@ -827,9 +831,6 @@ export class ExtendBookingComponent {
 
     if(this.currentBooking && this.booking.zalog > this.currentBooking?.zalog)
     {
-
- 
-      
       pay_2 = {
         type: 'Залог',
         pricePay: this.booking.zalog - +this.currentBooking?.zalog,
@@ -888,8 +889,8 @@ export class ExtendBookingComponent {
     else if (this.currentBooking && this.booking.zalog < this.currentBooking?.zalog) {
       
       pay_2 = {
-        type: 'Залог',
-        pricePay: this.booking.zalog - +this.currentBooking?.zalog,
+        type: 'Возврат залога',
+        pricePay:  this.booking.zalog - +this.currentBooking?.zalog,
         typeMoney: this.form.value.typePayArenda,
         bookingId: this.currentBooking?._id,
         smenaId: this.currentSmema?._id,
@@ -994,6 +995,7 @@ export class ExtendBookingComponent {
 
       this.store.dispatch(extendBookingAction({ data }))
     }
+ 
 
     
   }
