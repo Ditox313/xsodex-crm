@@ -16,6 +16,7 @@ import { ClientLaw } from 'src/app/clients/types/clientsLaw/clientsLaw.interface
 import { convert as convertNumberToWordsRu } from 'number-to-words-ru'
 
 
+// Новый способо печати
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -474,9 +475,6 @@ formatName(lastName: string, firstName?: string, middleName?: string): string {
 
 
   
-
-
-
 
 
   // Создаем договор

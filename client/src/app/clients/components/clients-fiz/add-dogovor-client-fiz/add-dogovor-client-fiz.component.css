@@ -1,8 +1,13 @@
 .add-dogovor-clientFiz {
-    padding: 0 20px;
+    padding: 0 10px;
     overflow: hidden;
 }
 
+
+/* .xs_generate_docs__content
+{
+    width: 1557px !important;
+} */
 
 .add-dogovor-clientFiz form>div {
     margin-bottom: 40px;
