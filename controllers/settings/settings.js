@@ -64,7 +64,7 @@ module.exports.create_setting_sklad = async function (req, res) {
 
 
 
-
+// Получаем все настройки автопарка
 module.exports.getAllSettingsAvtopark = async function (req, res) {
     try {
 
@@ -79,6 +79,24 @@ module.exports.getAllSettingsAvtopark = async function (req, res) {
     }
 };
 
+
+
+
+
+// Получаем все настройки склада
+module.exports.getAllSettingsSklad = async function (req, res) {
+    try {
+
+        const settingsSkladList = await SettingsSklad.find({}).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+        // Возвращаем пользователю позиции 
+        res.status(200).json(settingsSkladList);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 

@@ -33,6 +33,16 @@ export class SettingsService {
   }
 
 
+  // Получаем список всех настроек склада
+  getAllSettingsSklad(params: any = {}): Observable<SettingSklad[]> {
+    return this.http.get<SettingSklad[]>('/api/settings/settings-sklad-list', {
+      params: new HttpParams({
+        fromObject: params.params.params
+      })
+    });
+  }
+
+
   // Получаем настройки автопарка
   getByIdSettingsAvtopark(id: string): Observable<SettingAvtopark> {
     return this.http.get<SettingAvtopark>(`/api/settings/get-settings-avtopark/${id}`);

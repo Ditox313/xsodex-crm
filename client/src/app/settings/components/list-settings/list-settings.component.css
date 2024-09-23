@@ -1,6 +1,14 @@
 .settings {
     padding: 0 20px;
+    margin-bottom: 150px;
 }
+
+
+.disabled
+{
+    opacity: 0.3 !important;
+}
+
 
 .btn {
     margin-top: 20px;
@@ -14,4 +22,15 @@ td {
     cursor: pointer;
     padding-bottom: 15px !important;
     padding-top: 15px !important;
+}
+
+.add_new_wrap
+{
+    display: flex;
+}
+
+.add_new
+{
+    margin-right: 30px;
+    display: inline-block;
 }

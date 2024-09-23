@@ -92,6 +92,59 @@ export const noMoreSettingsAvtoparkListTrueAction = createAction(
 
 
 
+
+
+
+
+
+
+// Settings sklad List
+export const settingsSkladListAction = createAction(
+  ActionTypes.SETTINGS_SKLAD_LIST,
+  props<{ params?: SettingsParamsFetch  | {}}>()
+);
+
+
+export const settingsSkladListSuccessAction = createAction(
+  ActionTypes.SETTINGS_SKLAD_LIST_SUCCES,
+  props<{ data: SettingSklad[] }>()
+);
+
+
+export const settingsSkladListFailureAction = createAction(
+  ActionTypes.SETTINGS_SKLAD_LIST_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const settingsSkladListResetAction = createAction(
+  ActionTypes.SETTINGS_SKLAD_LIST_RESET,
+);
+
+
+
+
+
+// No more Settings sklad List
+
+export const noMoreSettingsSkladListAction = createAction(
+  ActionTypes.NO_MORE_SETTINGS_SKLAD_LIST,
+  props<{ data: boolean }>()
+);
+
+export const noMoreSettingsSkladListFalseAction = createAction(
+  ActionTypes.NO_MORE_SETTINGS_SKLAD_LIST_FALSE,
+);
+
+export const noMoreSettingsSkladListTrueAction = createAction(
+  ActionTypes.NO_MORE_SETTINGS_SKLAD_LIST_TRUE,
+);
+
+
+
+
+
+
 // Setting avtopark delete
 export const settingAvtoparkDeleteAction = createAction(
   ActionTypes.SETTING_AVTOPARK_DELETE,

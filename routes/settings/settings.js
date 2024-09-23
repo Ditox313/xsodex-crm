@@ -18,6 +18,10 @@ router.post('/create_setting_sklad', passport.authenticate('jwt', { session: fal
 router.get('/settings-avtopark-list', passport.authenticate('jwt', { session: false }), controller.getAllSettingsAvtopark);
 
 
+// Роут на Получение всех настроект склада
+router.get('/settings-sklad-list', passport.authenticate('jwt', { session: false }), controller.getAllSettingsSklad);
+
+
 // Роут на Получение всех партнеров без параметров
 // router.get('/partners-list-no-params', passport.authenticate('jwt', { session: false }), controller.getAllPartnersNoParams);
 

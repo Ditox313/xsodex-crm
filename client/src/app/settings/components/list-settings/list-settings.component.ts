@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { SettingAvtopark, SettingsParamsFetch } from '../../types/settings.interfaces';
 import { Store, select } from '@ngrx/store';
-import { isLoadingSelector, noMoreSettingsAvtoparkList, settingsAvtoparkListSelector } from '../../store/selectors';
-import { noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, settingAvtoparkDeleteAction, settingsAvtoparkListAction, settingsAvtoparkListResetAction } from '../../store/actions/settings.action';
+import { isLoadingSelector, noMoreSettingsAvtoparkList, noMoreSettingsSkladList, settingsAvtoparkListSelector, settingsSkladListSelector } from '../../store/selectors';
+import { noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, noMoreSettingsSkladListFalseAction, noMoreSettingsSkladListTrueAction, settingAvtoparkDeleteAction, settingsAvtoparkListAction, settingsAvtoparkListResetAction, settingsSkladListAction, settingsSkladListResetAction } from '../../store/actions/settings.action';
 
 @Component({
   selector: 'app-list-settings',
@@ -21,6 +21,11 @@ export class ListSettingsComponent {
   settingsAvtoparkListSub$!: Subscription
   settingsAvtoparkList: SettingAvtopark[] | null | undefined = [];
 
+  noMoreSettingsSkladList!: Observable<boolean | null>
+  settingsSkladListSelector!: Observable<SettingAvtopark[] | null | undefined>
+  settingsSkladListSub$!: Subscription
+  settingsSkladList: SettingAvtopark[] | null | undefined = [];
+
 
   constructor(private store: Store) { }
   ngOnInit(): void {
@@ -33,13 +38,23 @@ export class ListSettingsComponent {
       this.settingsAvtoparkListSub$.unsubscribe();
     }
 
+    if (this.settingsSkladListSub$) {
+      this.settingsSkladListSub$.unsubscribe();
+    }
+
     // Отчищаем состояние settingsAvtoparkList если не хотим сохранять список авто  в состояние
     this.store.dispatch(settingsAvtoparkListResetAction());
+
+    // Отчищаем состояние settingsSkladList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsSkladListResetAction());
   }
 
   initValues() {
     // Отчищаем состояние settingsAvtoparkList если не хотим сохранять список авто  в состояние
     this.store.dispatch(settingsAvtoparkListResetAction());
+
+     // Отчищаем состояние settingsSkladList если не хотим сохранять список авто  в состояние
+     this.store.dispatch(settingsSkladListResetAction());
 
 
     // Получаем селектор loader
@@ -50,10 +65,13 @@ export class ListSettingsComponent {
     this.noMoreSettingsAvtoparkList = this.store.pipe(select(noMoreSettingsAvtoparkList))
 
 
+    // Получаем селектор noMoresettingsSkladList
+    this.noMoreSettingsSkladList = this.store.pipe(select(noMoreSettingsSkladList))
 
 
-    // Получаем селектор на получение списка settingsAvtoparkList и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
-    // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
+
+
+    // Получаем селектор на получение списка settingsAvtoparkList и подписываемся на него.
     this.settingsAvtoparkListSelector = this.store.pipe(select(settingsAvtoparkListSelector))
     this.settingsAvtoparkListSub$ = this.settingsAvtoparkListSelector.subscribe({
       next: (settingsAvtoparkList) => {
@@ -72,6 +90,30 @@ export class ListSettingsComponent {
         }
       }
     });
+
+
+
+
+    // Получаем селектор на получение списка settingsSkladList и подписываемся на него.
+    this.settingsSkladListSelector = this.store.pipe(select(settingsSkladListSelector))
+    this.settingsSkladListSub$ = this.settingsSkladListSelector.subscribe({
+      next: (settingsSkladList) => {
+        if (settingsSkladList) {
+          this.settingsSkladList = settingsSkladList;
+
+
+
+          if (this.settingsSkladList.length >= this.STEP) {
+            // Изменяем значение settingsAvtoparkList в состоянии на false что бы открыть кнопку загрузить ещё
+            this.store.dispatch(noMoreSettingsSkladListFalseAction());
+          }
+          else {
+            // Изменяем значение settingsAvtoparkList в состоянии на true что бы скрыть кнопку загрузить ещё
+            this.store.dispatch(noMoreSettingsSkladListTrueAction());
+          }
+        }
+      }
+    });
   }
 
 
@@ -81,8 +123,11 @@ export class ListSettingsComponent {
       limit: this.limit,
     };
 
-    // Отправляем запрос на получения списка настроек
+    // Отправляем запрос на получения списка настроек автопарка
     this.store.dispatch(settingsAvtoparkListAction({ params: params }));
+
+     // Отправляем запрос на получения списка настроек склада
+     this.store.dispatch(settingsSkladListAction({ params: params }));
   }
 
 
