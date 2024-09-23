@@ -25,6 +25,7 @@ import { SettingsEffect } from './store/effects/settings.effect';
 import { AddSettingAvtoparkComponent } from './components/add-setting-avtopark/add-setting-avtopark.component';
 import { ShowSettingsAvtoparkComponent } from './components/show-settings-avtopark/show-settings-avtopark.component';
 import { AddSettingSkladComponent } from './components/setting-sklad/add-setting-sklad/add-setting-sklad.component';
+import { ShowSettingSkladComponent } from './components/setting-sklad/show-setting-sklad/show-setting-sklad.component';
 
 
 
@@ -34,6 +35,7 @@ import { AddSettingSkladComponent } from './components/setting-sklad/add-setting
     AddSettingAvtoparkComponent,
     ShowSettingsAvtoparkComponent,
     AddSettingSkladComponent,
+    ShowSettingSkladComponent,
   ],
   imports: [
     CommonModule,

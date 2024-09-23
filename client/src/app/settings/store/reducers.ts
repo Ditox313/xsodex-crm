@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { SettingsStateInterface } from '../types/settings.interfaces';
-import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, addSettingSkladFailureAction, addSettingSkladkAction, addSettingSkladSuccessAction, noMoreSettingsAvtoparkListAction, noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentReset, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListResetAction, settingsAvtoparkListSuccessAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from './actions/settings.action';
+import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, addSettingSkladFailureAction, addSettingSkladkAction, addSettingSkladSuccessAction, noMoreSettingsAvtoparkListAction, noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentReset, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListResetAction, settingsAvtoparkListSuccessAction, settingsSkladGetCurrent, settingsSkladGetCurrentFailureAction, settingsSkladGetCurrentReset, settingsSkladGetCurrentSuccessAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from './actions/settings.action';
 
 
 
@@ -15,8 +15,8 @@ const initialState: SettingsStateInterface = {
   noMoreSettingsAvtoparkList: true,
   currentSettingAvtopark: null,
   settingsSkladList: null,
-  noMoreSettingsSkladListList: true,
-  currentSettingSkladList: null,
+  noMoreSettingsSkladList: true,
+  currentSettingSklad: null,
 };
 
 
@@ -215,7 +215,10 @@ const settingsReducer = createReducer(
       validationErrors: action.data.settings.validationErrors,
       settingsAvtoparkList: action.data.settings.settingsAvtoparkList ,
       noMoreSettingsAvtoparkList: action.data.settings.noMoreSettingsAvtoparkList,
-      currentSettingAvtopark: action.data.settings.currentSettingAvtopark
+      currentSettingAvtopark: action.data.settings.currentSettingAvtopark,
+      settingsSkladList: action.data.settings.settingsSkladList ,
+      noMoreSettingsSkladList: action.data.settings.noMoreSettingsSkladList,
+      currentSettingSklad: action.data.settings.currentSettingSklad
     }),
   ),
   on(
@@ -263,6 +266,48 @@ const settingsReducer = createReducer(
     (state): SettingsStateInterface => ({
       ...state,
       currentSettingAvtopark: null
+    })
+  ),
+
+
+
+
+
+
+
+
+
+  on(
+    settingsSkladGetCurrent,
+    (state): SettingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    settingsSkladGetCurrentSuccessAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentSettingSklad: action.data
+    })
+  ),
+  on(
+    settingsSkladGetCurrentFailureAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    settingsSkladGetCurrentReset,
+    (state): SettingsStateInterface => ({
+      ...state,
+      currentSettingSklad: null
     })
   ),
 

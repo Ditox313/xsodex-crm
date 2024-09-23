@@ -30,9 +30,16 @@ router.delete('/setting-avtopark-remove/:id', passport.authenticate('jwt', { ses
 router.get('/get-settings-avtopark/:id', passport.authenticate('jwt', { session: false }), controller.getByIdSettingsAvtopark);
 
 
+// Роут на получение настройки склада по Id
+router.get('/get-settings-sklad/:id', passport.authenticate('jwt', { session: false }), controller.getByIdSettingsSklad);
+
+
 // Роут на обновление настроек автопарка
 router.patch('/update-settings-avtopark/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'file_1' }, { name: 'file_2' }]), controller.updateSettingsAvtopark);
 
+
+// Роут на обновление настроек склада
+router.patch('/update-settings-sklad/:id', passport.authenticate('jwt', { session: false }), controller.updateSettingsSklad);
 
 
 

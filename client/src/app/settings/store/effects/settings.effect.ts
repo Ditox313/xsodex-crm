@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { SettingsService } from '../../services/settings.service'
-import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, addSettingSkladFailureAction, addSettingSkladkAction, addSettingSkladSuccessAction, noMoreSettingsAvtoparkListAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListSuccessAction, updateSettingsAvtoparkAction, updateSettingsAvtoparkFailureAction, updateSettingsAvtoparkSuccessAction, updateStateSettingsAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from '../actions/settings.action'
+import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, addSettingSkladFailureAction, addSettingSkladkAction, addSettingSkladSuccessAction, noMoreSettingsAvtoparkListAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListSuccessAction, settingsSkladGetCurrent, settingsSkladGetCurrentFailureAction, settingsSkladGetCurrentSuccessAction, updateSettingsAvtoparkAction, updateSettingsAvtoparkFailureAction, updateSettingsAvtoparkSuccessAction, updateSettingsSkladAction, updateSettingsSkladFailureAction, updateSettingsSkladSuccessAction, updateStateSettingsAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from '../actions/settings.action'
 
 
 
@@ -146,7 +146,7 @@ export class SettingsEffect {
 
 
 
-  // Получение настрокт автопарка
+  // Получение настроек автопарка
   getSettingsAvtopark$ = createEffect(() =>
     this.actions$.pipe(
       ofType(settingsAvtoparkGetCurrent),
@@ -158,6 +158,30 @@ export class SettingsEffect {
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               settingsAvtoparkGetCurrentFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+
+  // Получение настроек склада
+  getSettingsSklad$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(settingsSkladGetCurrent),
+      switchMap((id) => {
+        return this.settings.getByIdSettingsSklad(id.id).pipe(
+          map((setting) => {
+            return settingsSkladGetCurrentSuccessAction({ data: setting });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              settingsSkladGetCurrentFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );
@@ -184,6 +208,33 @@ export class SettingsEffect {
             this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
             return of(
               updateSettingsAvtoparkFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+
+  
+  // Обновление настроек склада
+  UpdateSettingsSklad$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateSettingsSkladAction),
+      switchMap(({ settingSklad }) => {
+        return this.settings.updateSettingsSklad(settingSklad).pipe(
+          map((data) => {
+            this.messageService.add({ severity: 'success', summary: `Настройки обновлены`, detail: 'Успешно!' });
+            return updateSettingsSkladSuccessAction({ data: data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
+            return of(
+              updateSettingsSkladFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

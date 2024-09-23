@@ -33,15 +33,30 @@ export class SettingsService {
   }
 
 
+  // Получаем настройки автопарка
   getByIdSettingsAvtopark(id: string): Observable<SettingAvtopark> {
     return this.http.get<SettingAvtopark>(`/api/settings/get-settings-avtopark/${id}`);
   }
 
 
+  
+  // Получаем настройки склада
+  getByIdSettingsSklad(id: string): Observable<SettingSklad> {
+    return this.http.get<SettingSklad>(`/api/settings/get-settings-sklad/${id}`);
+  }
 
+
+ // Обновляем настройки автопарка
   updateSettingsAvtopark(settingAvtopark: SettingAvtopark): Observable<SettingAvtopark> {
     return this.http.patch<SettingAvtopark>(`/api/settings/update-settings-avtopark/${settingAvtopark._id}`, settingAvtopark);
    }
+
+
+   // Обновляем настройки склада
+  updateSettingsSklad(settingSklad: SettingSklad): Observable<SettingSklad> {
+    return this.http.patch<SettingSklad>(`/api/settings/update-settings-sklad/${settingSklad._id}`, settingSklad);
+   }
+
 
 
 

@@ -43,8 +43,8 @@ export interface SettingsStateInterface {
     currentSettingAvtopark: SettingAvtopark | null | undefined | any,
 
     settingsSkladList?: SettingSklad[] | null | undefined | any,
-    noMoreSettingsSkladListList: boolean
-    currentSettingSkladList: SettingAvtopark | null | undefined | any,
+    noMoreSettingsSkladList: boolean
+    currentSettingSklad: SettingAvtopark | null | undefined | any,
 }
 
 

@@ -35,3 +35,28 @@ export const getCurrentSettingAvtoparkSelector = createSelector(
 
 
 
+
+
+export const settingsSkladListSelector = createSelector(
+    settingsFeatureSelector,
+    (state: SettingsStateInterface) => state.settingsSkladList
+)
+
+
+export const noMoreSettingsSkladList = createSelector(
+    settingsFeatureSelector,
+    (state: SettingsStateInterface) => state.noMoreSettingsSkladList
+)
+
+
+export const getCurrentSettingSkladSelector = createSelector(
+    settingsFeatureSelector,
+    (state: SettingsStateInterface) => state.currentSettingSklad
+)
+
+
+
+
+
+
+

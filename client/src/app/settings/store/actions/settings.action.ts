@@ -170,8 +170,38 @@ export const settingsAvtoparkGetCurrentReset = createAction(
 
 
 
+// Get SettingsSklad Current
+export const settingsSkladGetCurrent = createAction(
+  ActionTypes.SETTINGS_SKLAD_GET_CURRENT,
+  props<{ id: string }>()
+);
 
-// Update Partner
+
+export const settingsSkladGetCurrentSuccessAction = createAction(
+  ActionTypes.SETTINGS_SKLAD_GET_CURRENT_SUCCES,
+  props<{ data: SettingSklad }>()
+);
+
+
+export const settingsSkladGetCurrentFailureAction = createAction(
+  ActionTypes.SETTINGS_SKLAD_GET_CURRENT_FAILURE,
+  props<{ errors: any }>()
+);
+
+export const settingsSkladGetCurrentReset = createAction(
+  ActionTypes.SETTINGS_SKLAD_GET_CURRENT_RESET,
+);
+
+
+
+
+
+
+
+
+
+
+// Update Setting avtopark
 export const updateSettingsAvtoparkAction = createAction(
   ActionTypes.UPDATE_SETTINS_AVTOPARK,
   props<{ settingAvtopark: SettingAvtopark}>()
@@ -188,6 +218,31 @@ export const updateSettingsAvtoparkSuccessAction = createAction(
 
 export const updateSettingsAvtoparkFailureAction = createAction(
   ActionTypes.UPDATE_SSETTINS_AVTOPARK_FAILURE,
+  props<{ errors: any }>()
+)
+
+
+
+
+
+
+// Update Setting sklad
+export const updateSettingsSkladAction = createAction(
+  ActionTypes.UPDATE_SETTINS_SKLAD,
+  props<{ settingSklad: SettingSklad}>()
+)
+
+
+export const updateSettingsSkladSuccessAction = createAction(
+  ActionTypes.UPDATE_SETTINS_SKLAD_SUCCESS,
+  props<{ data: SettingSklad }>()
+);
+
+
+
+
+export const updateSettingsSkladFailureAction = createAction(
+  ActionTypes.UPDATE_SSETTINS_SKLAD_FAILURE,
   props<{ errors: any }>()
 )
 

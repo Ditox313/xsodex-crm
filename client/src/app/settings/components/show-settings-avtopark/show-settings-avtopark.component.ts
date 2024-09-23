@@ -92,7 +92,7 @@ export class ShowSettingsAvtoparkComponent {
         this.currentSettingsAvtopark = currentSettingsAvtopark
 
         if (currentSettingsAvtopark) {
-          this.title = `Просмотр настроек - ${currentSettingsAvtopark.title}`
+          this.title = `${currentSettingsAvtopark.title}`
           this.pathValueSettingsAvtopark(currentSettingsAvtopark)
         }
 

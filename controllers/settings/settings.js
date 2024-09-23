@@ -130,12 +130,23 @@ module.exports.getByIdSettingsAvtopark = async function (req, res) {
 };
 
 
+// Контроллер для getByIdSettingsSklad
+module.exports.getByIdSettingsSklad = async function (req, res) {
+    try {
+        const settingsSklad = await SettingsSklad.findById(req.params.id); //Ищем категорию по id из переданных параметров
+        res.status(200).json(settingsSklad);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 
 
 
-// Контроллер для update
+
+
+// Контроллер для update setting avtopark
 module.exports.updateSettingsAvtopark = async function (req, res) {
     try {
 
@@ -148,6 +159,27 @@ module.exports.updateSettingsAvtopark = async function (req, res) {
 
         // Возвращаем пользователю обновленную позицию 
         res.status(200).json(settingsAvtoparkUpdate);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
+
+// Контроллер для update setting sklad
+module.exports.updateSettingsSklad = async function (req, res) {
+    try {
+
+        const updated = req.body;
+        // Находим и обновляем позицию. 
+        const settingsSkladUpdate = await SettingsSklad.findOneAndUpdate({ _id: updated._id }, //Ищем по id
+            { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
+            { new: true } //обновит позицию и верет нам уже обновленную
+        );
+
+        // Возвращаем пользователю обновленную позицию 
+        res.status(200).json(settingsSkladUpdate);
     } catch (e) {
         errorHandler(res, e);
     }
