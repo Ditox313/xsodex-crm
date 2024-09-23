@@ -6,8 +6,12 @@ const upload = require('../../middleware/upload-partner-docs.js');
 
 
 
-// Роут на create
+// Роут на create setting avtopark
 router.post('/create_setting_avtopark', passport.authenticate('jwt', { session: false }), controller.create_setting_avtopark);
+
+
+// Роут на create setting sklad
+router.post('/create_setting_sklad', passport.authenticate('jwt', { session: false }), controller.create_setting_sklad);
 
 
 // Роут на Получение всех настроект автопарка

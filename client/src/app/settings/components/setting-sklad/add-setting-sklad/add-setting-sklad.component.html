@@ -1,0 +1,95 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
+
+
+
+<div class="add-setting-sklad">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    
+        <h2>Введите наименования</h2>
+
+        <div class="add-setting-sklad-items">
+            <div>
+               <fieldset>
+                    <input pInputText id="sklad_name_1" formControlName="sklad_name_1" placeholder="Введите наименование"
+                       [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_1'].invalid && form.controls['sklad_name_1'].touched}" />
+               </fieldset>
+       
+              <fieldset>
+                   <input pInputText id="sklad_name_2" formControlName="sklad_name_2" placeholder="Введите наименование"
+                      [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_2'].invalid && form.controls['sklad_name_2'].touched}" />
+              </fieldset>
+       
+              <fieldset>
+               <input pInputText id="sklad_name_3" formControlName="sklad_name_3" placeholder="Введите наименование"
+                  [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_3'].invalid && form.controls['sklad_name_3'].touched}" />
+              </fieldset>
+       
+              <fieldset>
+               <input pInputText id="sklad_name_4" formControlName="sklad_name_4" placeholder="Введите наименование"
+                  [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_4'].invalid && form.controls['sklad_name_4'].touched}" />
+              </fieldset>
+       
+              <fieldset>
+               <input pInputText id="sklad_name_5" formControlName="sklad_name_5" placeholder="Введите наименование"
+                  [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_5'].invalid && form.controls['sklad_name_5'].touched}" />
+              </fieldset>
+       
+              <fieldset>
+               <input pInputText id="sklad_name_6" formControlName="sklad_name_6" placeholder="Введите наименование"
+                  [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_6'].invalid && form.controls['sklad_name_6'].touched}" />
+              </fieldset>
+       
+              <fieldset>
+               <input pInputText id="sklad_name_7" formControlName="sklad_name_7" placeholder="Введите наименование"
+                  [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_7'].invalid && form.controls['sklad_name_7'].touched}" />
+              </fieldset>
+       
+              <fieldset>
+               <input pInputText id="sklad_name_8" formControlName="sklad_name_8" placeholder="Введите наименование"
+                  [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_8'].invalid && form.controls['sklad_name_8'].touched}" />
+              </fieldset>
+       
+              <fieldset>
+               <input pInputText id="sklad_name_9" formControlName="sklad_name_9" placeholder="Введите наименование"
+                  [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_9'].invalid && form.controls['sklad_name_9'].touched}" />
+              </fieldset>
+       
+              <fieldset>
+               <input pInputText id="sklad_name_10" formControlName="sklad_name_10" placeholder="Введите наименование"
+                  [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_10'].invalid && form.controls['sklad_name_10'].touched}" />
+              </fieldset>
+
+              <fieldset>
+                <input pInputText id="sklad_name_11" formControlName="sklad_name_11" placeholder="Введите наименование"
+                   [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_11'].invalid && form.controls['sklad_name_11'].touched}" />
+               </fieldset>
+        
+               <fieldset>
+                <input pInputText id="sklad_name_12" formControlName="sklad_name_12" placeholder="Введите наименование"
+                   [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_12'].invalid && form.controls['sklad_name_12'].touched}" />
+               </fieldset>
+        
+               <fieldset>
+                <input pInputText id="sklad_name_13" formControlName="sklad_name_13" placeholder="Введите наименование"
+                   [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_13'].invalid && form.controls['sklad_name_13'].touched}" />
+               </fieldset>
+        
+               <fieldset>
+                <input pInputText id="sklad_name_14" formControlName="sklad_name_14" placeholder="Введите наименование"
+                   [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_14'].invalid && form.controls['sklad_name_14'].touched}" />
+               </fieldset>
+        
+               <fieldset>
+                <input pInputText id="sklad_name_15" formControlName="sklad_name_15" placeholder="Введите наименование"
+                   [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_15'].invalid && form.controls['sklad_name_15'].touched}" />
+               </fieldset>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+        </div>
+    </form>
+</div>

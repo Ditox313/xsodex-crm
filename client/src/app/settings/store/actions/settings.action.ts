@@ -1,10 +1,10 @@
 import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { ActionTypes } from '../actionTypes';
-import { SettingAvtopark, SettingsParamsFetch } from '../../types/settings.interfaces';
+import { SettingAvtopark, SettingSklad, SettingsParamsFetch } from '../../types/settings.interfaces';
 
 
-// Add partner
+// Add setting avtopark
 export const addSettingAvtoparkAction = createAction(
   ActionTypes.ADD_SETTING_AVTOPARK,
   props<{ setting: SettingAvtopark}>()
@@ -17,6 +17,24 @@ export const addSettingAvtoparkSuccessAction = createAction(
 
 export const addSettingAvtoparkFailureAction = createAction(
   ActionTypes.ADD_SETTING_AVTOPARK_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+
+// Add setting sklad
+export const addSettingSkladkAction = createAction(
+  ActionTypes.ADD_SETTING_SKLAD,
+  props<{ setting: SettingSklad}>()
+);
+
+export const addSettingSkladSuccessAction = createAction(
+  ActionTypes.ADD_SETTING_SKLAD_SUCCESS,
+);
+
+
+export const addSettingSkladFailureAction = createAction(
+  ActionTypes.ADD_SETTING_SKLAD_FAILURE,
   props<{ errors: any }>()
 );
 

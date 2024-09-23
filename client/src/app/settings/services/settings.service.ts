@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SettingAvtopark } from '../types/settings.interfaces';
+import { SettingAvtopark, SettingSklad } from '../types/settings.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +11,17 @@ export class SettingsService {
   constructor(private http: HttpClient) {}
 
 
+  // Создаем настройку автопроката
   create_setting_avtopark(settings: SettingAvtopark,): Observable<SettingAvtopark> {
     return this.http.post<SettingAvtopark>(`/api/settings/create_setting_avtopark`, settings);
   }
+
+
+  // Создаем настройку склада
+  create_setting_sklad(settings: SettingSklad): Observable<SettingSklad> {
+    return this.http.post<SettingSklad>(`/api/settings/create_setting_sklad`, settings);
+  }
+
 
   // Получаем список всех настроек автопарка
   getAllSettingsAvtopark(params: any = {}): Observable<SettingAvtopark[]> {

@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { SettingsService } from '../../services/settings.service'
-import { addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, noMoreSettingsAvtoparkListAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListSuccessAction, updateSettingsAvtoparkAction, updateSettingsAvtoparkFailureAction, updateSettingsAvtoparkSuccessAction, updateStateSettingsAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from '../actions/settings.action'
+import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, addSettingSkladFailureAction, addSettingSkladkAction, addSettingSkladSuccessAction, noMoreSettingsAvtoparkListAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListSuccessAction, updateSettingsAvtoparkAction, updateSettingsAvtoparkFailureAction, updateSettingsAvtoparkSuccessAction, updateStateSettingsAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from '../actions/settings.action'
 
 
 
@@ -23,7 +23,7 @@ export class SettingsEffect {
   ) {}
 
 
-  // Создание настройки
+  // Создание настройки автопарка
   addSetting$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addSettingAvtoparkAction), 
@@ -37,6 +37,30 @@ export class SettingsEffect {
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               addSettingAvtoparkFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+  
+  // Создание настройки склада
+  addSettingSklad$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addSettingSkladkAction), 
+      switchMap(({ setting }) => {
+        return this.settings.create_setting_sklad(setting).pipe(
+          map((setting) => {
+            this.messageService.add({ severity: 'success', summary: `Настройки для склада создана`, detail: 'Успешно!' });
+            this.router.navigate(['/list-settings']);
+            return addSettingSkladSuccessAction(); 
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              addSettingSkladFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

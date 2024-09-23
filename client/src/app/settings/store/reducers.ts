@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { SettingsStateInterface } from '../types/settings.interfaces';
-import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, noMoreSettingsAvtoparkListAction, noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentReset, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListResetAction, settingsAvtoparkListSuccessAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from './actions/settings.action';
+import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, addSettingSkladFailureAction, addSettingSkladkAction, addSettingSkladSuccessAction, noMoreSettingsAvtoparkListAction, noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentReset, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListResetAction, settingsAvtoparkListSuccessAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from './actions/settings.action';
 
 
 
@@ -13,8 +13,14 @@ const initialState: SettingsStateInterface = {
   validationErrors: null,
   settingsAvtoparkList: null,
   noMoreSettingsAvtoparkList: true,
-  currentSettingAvtopark: null
+  currentSettingAvtopark: null,
+  settingsSkladList: null,
+  noMoreSettingsSkladListList: true,
+  currentSettingSkladList: null,
 };
+
+
+
 
 
 
@@ -41,6 +47,42 @@ const settingsReducer = createReducer(
   ),
   on(
     addSettingAvtoparkFailureAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+
+
+
+
+
+
+
+
+
+
+
+  on(
+    addSettingSkladkAction,
+    (state): SettingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true,
+    })
+  ),
+
+  on(
+    addSettingSkladSuccessAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: false,
+    })
+  ),
+  on(
+    addSettingSkladFailureAction,
     (state, action): SettingsStateInterface => ({
       ...state,
       validationErrors: action.errors,

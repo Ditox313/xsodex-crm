@@ -81,19 +81,19 @@ export class ListSettingsComponent {
       limit: this.limit,
     };
 
-    // Отправляем запрос на получения списка партнеров
+    // Отправляем запрос на получения списка настроек
     this.store.dispatch(settingsAvtoparkListAction({ params: params }));
   }
 
 
-  // Подгружаем партнеров
+  // Подгружаем настрройку
   loadmore() {
     this.offset += this.STEP;
     this.getSettingsAvtoparkList();
   }
 
 
-  // Удаление партнера
+  // Удаление настройку
   onDeleteSettingsAvtopark(event: Event, setting: any) {
     event.stopPropagation();
     const dicision = window.confirm(`Удалить Настройки автопарка?`);

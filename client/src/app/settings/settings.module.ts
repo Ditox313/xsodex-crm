@@ -24,6 +24,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { SettingsEffect } from './store/effects/settings.effect';
 import { AddSettingAvtoparkComponent } from './components/add-setting-avtopark/add-setting-avtopark.component';
 import { ShowSettingsAvtoparkComponent } from './components/show-settings-avtopark/show-settings-avtopark.component';
+import { AddSettingSkladComponent } from './components/setting-sklad/add-setting-sklad/add-setting-sklad.component';
+
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import { ShowSettingsAvtoparkComponent } from './components/show-settings-avtopa
     ListSettingsComponent,
     AddSettingAvtoparkComponent,
     ShowSettingsAvtoparkComponent,
+    AddSettingSkladComponent,
   ],
   imports: [
     CommonModule,

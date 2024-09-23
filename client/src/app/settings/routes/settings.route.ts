@@ -5,6 +5,7 @@ import { AuthGuard } from "../../shared/guards/auth.guard";
 import { ListSettingsComponent } from "../components/list-settings/list-settings.component";
 import { AddSettingAvtoparkComponent } from "../components/add-setting-avtopark/add-setting-avtopark.component";
 import { ShowSettingsAvtoparkComponent } from "../components/show-settings-avtopark/show-settings-avtopark.component";
+import { AddSettingSkladComponent } from "../components/setting-sklad/add-setting-sklad/add-setting-sklad.component";
 
 
 
@@ -27,6 +28,11 @@ export function getRoutes(): Route[] {
                 {
                     path: 'show-settings-avtopark/:id', 
                     component: ShowSettingsAvtoparkComponent,
+                },
+
+                {
+                    path: 'add-setting-sklad',
+                    component: AddSettingSkladComponent,
                 },
             ],
         },
