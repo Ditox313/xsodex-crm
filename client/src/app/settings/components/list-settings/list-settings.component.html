@@ -64,7 +64,7 @@
         <ng-template pTemplate="body" let-settingAvtopark>
             <tr [routerLink]="['/show-settings-sklad',this.settingsSkladList[0]._id ? this.settingsSkladList[0]._id : '']">
                 <td>{{settingsSkladList[0].title}}</td>
-                <td style="cursor: pointer; text-align: center;" (click)="onDeleteSettingsAvtopark($event, settingsSkladList[0])"><i
+                <td style="cursor: pointer; text-align: center;" (click)="onDeleteSettingsSklad($event, settingsSkladList[0])"><i
                         class="pi pi-trash"></i></td>
             </tr>
         </ng-template>

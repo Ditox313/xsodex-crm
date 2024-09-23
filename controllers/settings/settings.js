@@ -137,6 +137,27 @@ module.exports.removeSettingAvtopark = async function (req, res) {
 
 
 
+// Контроллер для remove settingSklad
+module.exports.removeSettingSklad = async function (req, res) {
+    try {
+
+        // Удаляем settingAvtopark
+        const result = await SettingsSklad.deleteOne({ _id: req.params.id });
+        if (result.deletedCount === 1) {
+            res.status(200).json(req.params.id);
+        } else {
+            return error
+        }
+
+
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
+
 // Контроллер для getByIdSettingsAvtopark
 module.exports.getByIdSettingsAvtopark = async function (req, res) {
     try {

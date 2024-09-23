@@ -74,4 +74,9 @@ export class SettingsService {
   deleteSettingAvtopark(id: any): Observable<any> {
     return this.http.delete<any>(`/api/settings/setting-avtopark-remove/${id}`);
   }
+
+    // Удаление настроек склада
+    deleteSettingSklad(id: any): Observable<any> {
+      return this.http.delete<any>(`/api/settings/setting-sklad-remove/${id}`);
+    }
 }

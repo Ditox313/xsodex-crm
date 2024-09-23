@@ -168,6 +168,29 @@ export const settingAvtoparkDeleteFailureAction = createAction(
 
 
 
+// Setting sklad delete
+export const settingSkladDeleteAction = createAction(
+  ActionTypes.SETTING_SKLAD_DELETE,
+  props<{ id: string | undefined }>()
+);
+
+
+export const settingSkladDeleteSuccessAction = createAction(
+  ActionTypes.SETTING_SKLAD_DELETE_SUCCES,
+  props<{ data: string }>()
+);
+
+
+export const settingSkladDeleteFailureAction = createAction(
+  ActionTypes.SETTING_SKLAD_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+
+
+
+
 
 
 // Update State Settings

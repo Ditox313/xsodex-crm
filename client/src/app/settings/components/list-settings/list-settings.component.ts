@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { SettingAvtopark, SettingsParamsFetch } from '../../types/settings.interfaces';
 import { Store, select } from '@ngrx/store';
 import { isLoadingSelector, noMoreSettingsAvtoparkList, noMoreSettingsSkladList, settingsAvtoparkListSelector, settingsSkladListSelector } from '../../store/selectors';
-import { noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, noMoreSettingsSkladListFalseAction, noMoreSettingsSkladListTrueAction, settingAvtoparkDeleteAction, settingsAvtoparkListAction, settingsAvtoparkListResetAction, settingsSkladListAction, settingsSkladListResetAction } from '../../store/actions/settings.action';
+import { noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, noMoreSettingsSkladListFalseAction, noMoreSettingsSkladListTrueAction, settingAvtoparkDeleteAction, settingsAvtoparkListAction, settingsAvtoparkListResetAction, settingSkladDeleteAction, settingsSkladListAction, settingsSkladListResetAction } from '../../store/actions/settings.action';
 
 @Component({
   selector: 'app-list-settings',
@@ -138,13 +138,24 @@ export class ListSettingsComponent {
   }
 
 
-  // Удаление настройку
+  // Удаление настройку автопарка
   onDeleteSettingsAvtopark(event: Event, setting: any) {
     event.stopPropagation();
     const dicision = window.confirm(`Удалить Настройки автопарка?`);
 
     if (dicision) {
       this.store.dispatch(settingAvtoparkDeleteAction({ id: setting._id }))
+    }
+  }
+
+
+  // Удаление настройку склада
+  onDeleteSettingsSklad(event: Event, setting: any) {
+    event.stopPropagation();
+    const dicision = window.confirm(`Удалить Настройки склада?`);
+
+    if (dicision) {
+      this.store.dispatch(settingSkladDeleteAction({ id: setting._id }))
     }
   }
 }

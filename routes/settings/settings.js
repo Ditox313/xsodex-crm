@@ -30,6 +30,10 @@ router.get('/settings-sklad-list', passport.authenticate('jwt', { session: false
 router.delete('/setting-avtopark-remove/:id', passport.authenticate('jwt', { session: false }), controller.removeSettingAvtopark);
 
 
+//Роут на удаление настройки склада
+router.delete('/setting-sklad-remove/:id', passport.authenticate('jwt', { session: false }), controller.removeSettingSklad);
+
+
 // Роут на получение настройки автопарка по Id
 router.get('/get-settings-avtopark/:id', passport.authenticate('jwt', { session: false }), controller.getByIdSettingsAvtopark);
 
