@@ -38,6 +38,7 @@ export class AddDogovorClientLawComponent {
   currentUser!: UserResponceRegister | null | undefined
   yearDate: any;
   xs_actual_date: any;
+  xs_actual_date_for_dogovor_number: any;
   xs_actual_time_hour: any;
   xs_actual_time_min: any;
   xs_actual_time_sec: any;
@@ -88,6 +89,7 @@ export class AddDogovorClientLawComponent {
 
     // Задаем значения даты действия договора.Для физ лиц 365 дней
     this.xs_actual_date = this.datePipe.transform(Date.now(), 'dd.MM.yyyy');
+    this.xs_actual_date_for_dogovor_number = this.xs_actual_date.replace(/\./g, '');
     // Преобразование строки в объект Date
     const parts = this.xs_actual_date.split('.');
     const date = new Date(parseInt(parts[2], 10), parseInt(parts[1], 10) - 1, parseInt(parts[0], 10));
@@ -124,7 +126,7 @@ export class AddDogovorClientLawComponent {
     
     // Получаем текущее время для id договора
     this.xs_actual_time_hour = new Date().getHours()
-    this.xs_actual_time_min = new Date().getMinutes()
+    this.xs_actual_time_min = ('0' + new Date().getMinutes()).slice(-2);
     this.xs_actual_time_sec = new Date().getSeconds()
   }
 
@@ -177,8 +179,8 @@ export class AddDogovorClientLawComponent {
 
     const dogovor = {
       date_start: this.xs_actual_date,
-      dogovor_number: this.xs_actual_date + '/СТС-' + this.xs_actual_date ,
-      date_end: this.datePipe.transform(this.yearDate, 'yyyy-MM-dd'),
+      dogovor_number: this.xs_actual_date_for_dogovor_number + '/' + this.xs_actual_time_hour + this.xs_actual_time_min,
+      date_end: this.datePipe.transform(this.yearDate, 'yyyy.MM.dd'),
       client: this.currentClientLaw?._id,
       administrator: this.currentUser?._id,
       content: cleanedContent,
