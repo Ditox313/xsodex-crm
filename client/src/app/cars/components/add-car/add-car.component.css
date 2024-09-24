@@ -175,3 +175,29 @@ button:disabled
 {
     display: none;
 }
+
+.komplekt fieldset
+{
+    display: flex;
+    align-items: center;
+    height: 43.16px;
+    width: 50%;
+}
+
+.komplekt fieldset input
+{
+    margin-top: 0;
+    margin-right: 0;
+}
+
+.komplekt fieldset > span
+{
+    margin: 0 15px;
+}
+
+
+.komplekt
+{
+    display: flex;
+    flex-wrap: wrap;
+}

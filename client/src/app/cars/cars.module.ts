@@ -25,6 +25,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CarsEffect } from './store/effects/cars.effect';
 import { ShowCarComponent } from './components/show-car/show-car.component';
 import { UploadFileModule } from '../shared/modules/upload-file/upload-file.module';
+import { CheckboxModule } from 'primeng/checkbox';
 
 
 
@@ -51,6 +52,7 @@ import { UploadFileModule } from '../shared/modules/upload-file/upload-file.modu
     TabViewModule,
     TreeSelectModule,
     InputMaskModule,
+    CheckboxModule,
     UploadFileModule,
     StoreModule.forFeature('cars', reducers),
     EffectsModule.forFeature([CarsEffect]),

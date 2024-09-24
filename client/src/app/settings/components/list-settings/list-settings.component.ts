@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { SettingAvtopark, SettingsParamsFetch } from '../../types/settings.interfaces';
+import { SettingAvtopark, SettingSklad, SettingsParamsFetch } from '../../types/settings.interfaces';
 import { Store, select } from '@ngrx/store';
 import { isLoadingSelector, noMoreSettingsAvtoparkList, noMoreSettingsSkladList, settingsAvtoparkListSelector, settingsSkladListSelector } from '../../store/selectors';
 import { noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, noMoreSettingsSkladListFalseAction, noMoreSettingsSkladListTrueAction, settingAvtoparkDeleteAction, settingsAvtoparkListAction, settingsAvtoparkListResetAction, settingSkladDeleteAction, settingsSkladListAction, settingsSkladListResetAction } from '../../store/actions/settings.action';
@@ -22,9 +22,9 @@ export class ListSettingsComponent {
   settingsAvtoparkList: SettingAvtopark[] | null | undefined = [];
 
   noMoreSettingsSkladList!: Observable<boolean | null>
-  settingsSkladListSelector!: Observable<SettingAvtopark[] | null | undefined>
+  settingsSkladListSelector!: Observable<SettingSklad[] | null | undefined>
   settingsSkladListSub$!: Subscription
-  settingsSkladList: SettingAvtopark[] | null | undefined = [];
+  settingsSkladList: SettingSklad[] | null | undefined = [];
 
 
   constructor(private store: Store) { }

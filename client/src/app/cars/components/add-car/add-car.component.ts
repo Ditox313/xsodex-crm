@@ -12,6 +12,9 @@ import { Partner } from 'src/app/partners/types/partners.interfaces';
 import { partnersListSelector } from 'src/app/partners/store/selectors';
 import { partnersListAction, partnersListNoParamsAction, partnersListNoParamsResetAction } from 'src/app/partners/store/actions/partners.action';
 import { clientsFizListAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { SettingSklad, SettingsParamsFetch } from 'src/app/settings/types/settings.interfaces';
+import { settingsSkladListAction, settingsSkladListResetAction } from 'src/app/settings/store/actions/settings.action';
+import { settingsSkladListSelector } from 'src/app/settings/store/selectors';
 
 @Component({
   selector: 'app-add-car',
@@ -19,6 +22,9 @@ import { clientsFizListAction } from 'src/app/clients/store/actions/actionsClien
   styleUrls: ['./add-car.component.css']
 })
 export class AddCarComponent implements OnInit {
+  STEP = 2;
+  offset: number = 0;
+  limit: number = this.STEP;
   title: string = 'Добавить автомобиль'
   form!: FormGroup;
   uploadFile!: File
@@ -29,9 +35,15 @@ export class AddCarComponent implements OnInit {
   currentUserSelector$!: Observable<UserResponceRegister | null | undefined>
   currentUser!: UserResponceRegister | null | undefined
   currentUserSub$!: Subscription
+
   partnersListSelector!: Observable<Partner[] | null | undefined>
   partnersListSub$!: Subscription
   partnersList: Partner[] | null | undefined = [];
+
+
+  settingsSkladListSelector!: Observable<SettingSklad[] | null | undefined>
+  settingsSkladListSub$!: Subscription
+  settingsSkladList: SettingSklad[] | null | undefined = [];
 
 
   constructor(public datePipe: DatePipe, private store: Store,) { }
@@ -39,6 +51,27 @@ export class AddCarComponent implements OnInit {
   ngOnInit(): void {
     this.initForm()
     this.initValues()
+    this.getSettingsSkladList()
+  }
+
+  
+  ngOnDestroy(): void {
+    if (this.currentUserSub$) {
+      this.currentUserSub$.unsubscribe()
+    }
+    if (this.partnersListSub$) {
+      this.partnersListSub$.unsubscribe()
+    }
+
+    if (this.settingsSkladListSub$) {
+      this.settingsSkladListSub$.unsubscribe()
+    }
+
+    // Отчищаем состояние currentpartnersListNoParams
+    this.store.dispatch(partnersListNoParamsResetAction());
+
+    // Отчищаем состояние settingsSkladList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsSkladListResetAction());
   }
 
   initForm() {
@@ -140,11 +173,49 @@ export class AddCarComponent implements OnInit {
       russia_value_10: new FormControl('',),
       russia_value_zalog: new FormControl('',),
       russia_value_dop_hour: new FormControl('',),
+
+
+      sklad_name_1: new FormControl('',),
+      sklad_name_1_check: new FormControl('',),
+      sklad_name_2: new FormControl('',),
+      sklad_name_2_check: new FormControl('',),
+      sklad_name_3: new FormControl('',),
+      sklad_name_3_check: new FormControl('',),
+      sklad_name_4: new FormControl('',),
+      sklad_name_4_check: new FormControl('',),
+      sklad_name_5: new FormControl('',),
+      sklad_name_5_check: new FormControl('',),
+      sklad_name_6: new FormControl('',),
+      sklad_name_6_check: new FormControl('',),
+      sklad_name_7: new FormControl('',),
+      sklad_name_7_check: new FormControl('',),
+      sklad_name_8: new FormControl('',),
+      sklad_name_8_check: new FormControl('',),
+      sklad_name_9: new FormControl('',),
+      sklad_name_9_check: new FormControl('',),
+      sklad_name_10: new FormControl('',),
+      sklad_name_10_check: new FormControl('',),
+      sklad_name_11: new FormControl('',),
+      sklad_name_11_check: new FormControl('',),
+      sklad_name_12: new FormControl('',),
+      sklad_name_12_check: new FormControl('',),
+      sklad_name_13: new FormControl('',),
+      sklad_name_13_check: new FormControl('',),
+      sklad_name_14: new FormControl('',),
+      sklad_name_14_check: new FormControl('',),
+      sklad_name_15: new FormControl('',),
+      sklad_name_15_check: new FormControl('',),
+
+
     });
   }
 
 
+
   initValues() {
+    // Отчищаем состояние settingsSkladList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsSkladListResetAction());
+
     this.currentUserSelector$ = this.store.pipe(select(currentUserSelector))
     this.currentUserSub$ = this.currentUserSelector$.subscribe({
       next: (user) => {
@@ -168,20 +239,37 @@ export class AddCarComponent implements OnInit {
         }
       }
     });
+
+
+
+      // Получаем селектор на получение списка settingsSkladList и подписываемся на него.
+      this.settingsSkladListSelector = this.store.pipe(select(settingsSkladListSelector))
+      this.settingsSkladListSub$ = this.settingsSkladListSelector.subscribe({
+        next: (settingsSkladList) => {
+          if (settingsSkladList) {
+            this.settingsSkladList = settingsSkladList;
+
+            console.log('222', this.settingsSkladList);
+            
+  
+          }
+        }
+      });
   }
 
 
-  ngOnDestroy(): void {
-    if (this.currentUserSub$) {
-      this.currentUserSub$.unsubscribe()
-    }
-    if (this.partnersListSub$) {
-      this.partnersListSub$.unsubscribe()
-    }
+  // Получаем настройки склада
+  getSettingsSkladList() {
+    const params: SettingsParamsFetch = {
+      offset: this.offset,
+      limit: this.limit,
+    };
 
-    // Отчищаем состояние currentpartnersListNoParams
-    this.store.dispatch(partnersListNoParamsResetAction());
+     // Отправляем запрос на получения списка настроек склада
+     this.store.dispatch(settingsSkladListAction({ params: params }));
   }
+
+
 
 
 

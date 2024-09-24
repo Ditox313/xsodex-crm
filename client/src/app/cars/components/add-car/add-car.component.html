@@ -325,7 +325,6 @@
 
 
 
-
             <p-tabPanel header="Техобслуживание">
                 <div class="tab_wrapper">
                     <div class="add_car_page">
@@ -660,8 +659,126 @@
                 </div>
                 <button type="submit" class="submit" style="margin-top: 25px;" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
             </p-tabPanel>
-        </p-tabView>
 
-        
+
+
+            <p-tabPanel header="Комплектация">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="komplekt">
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_1 !== ''">
+                            <p-checkbox  formControlName="sklad_name_1_check"  value="true" inputId="sklad_name_1_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_1}}</span>
+                            <input pInputText id="sklad_name_1" formControlName="sklad_name_1"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_1_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_1'].invalid && form.controls['sklad_name_1'].touched}" />
+                        </fieldset>
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_2 !== ''">
+                            <p-checkbox  formControlName="sklad_name_2_check"  value="true" inputId="sklad_name_2_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_2}}</span>
+                            <input pInputText id="sklad_name_2" formControlName="sklad_name_2"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_2_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_2'].invalid && form.controls['sklad_name_2'].touched}" />
+                        </fieldset>
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_3 !== ''">
+                            <p-checkbox  formControlName="sklad_name_3_check"  value="true" inputId="sklad_name_3_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_3}}</span>
+                            <input pInputText id="sklad_name_3" formControlName="sklad_name_3"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_3_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_3'].invalid && form.controls['sklad_name_3'].touched}" />
+                        </fieldset>
+
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_4 !== ''">
+                            <p-checkbox  formControlName="sklad_name_4_check"  value="true" inputId="sklad_name_4_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_4}}</span>
+                            <input pInputText id="sklad_name_4" formControlName="sklad_name_4"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_4_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_4'].invalid && form.controls['sklad_name_4'].touched}" />
+                        </fieldset>
+
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_5 !== ''">
+                            <p-checkbox  formControlName="sklad_name_5_check"  value="true" inputId="sklad_name_5_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_2}}</span>
+                            <input pInputText id="sklad_name_5" formControlName="sklad_name_5"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_5_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_5'].invalid && form.controls['sklad_name_5'].touched}" />
+                        </fieldset>
+
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_6 !== ''">
+                            <p-checkbox  formControlName="sklad_name_6_check"  value="true" inputId="sklad_name_6_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_6}}</span>
+                            <input pInputText id="sklad_name_6" formControlName="sklad_name_6"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_6_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_6'].invalid && form.controls['sklad_name_6'].touched}" />
+                        </fieldset>
+
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_7 !== ''">
+                            <p-checkbox  formControlName="sklad_name_7_check"  value="true" inputId="sklad_name_7_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_7}}</span>
+                            <input pInputText id="sklad_name_7" formControlName="sklad_name_7"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_7_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_7'].invalid && form.controls['sklad_name_7'].touched}" />
+                        </fieldset>
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_8 !== ''">
+                            <p-checkbox  formControlName="sklad_name_8_check"  value="true" inputId="sklad_name_8_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_8}}</span>
+                            <input pInputText id="sklad_name_8" formControlName="sklad_name_8"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_8_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_8'].invalid && form.controls['sklad_name_8'].touched}" />
+                        </fieldset>
+
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_9 !== ''">
+                            <p-checkbox  formControlName="sklad_name_9_check"  value="true" inputId="sklad_name_9_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_9}}</span>
+                            <input pInputText id="sklad_name_9" formControlName="sklad_name_9"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_9_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_9'].invalid && form.controls['sklad_name_9'].touched}" />
+                        </fieldset>
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_10 !== ''">
+                            <p-checkbox  formControlName="sklad_name_10_check"  value="true" inputId="sklad_name_10_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_10}}</span>
+                            <input pInputText id="sklad_name_10" formControlName="sklad_name_10"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_10_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_10'].invalid && form.controls['sklad_name_10'].touched}" />
+                        </fieldset>
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_11 !== ''">
+                            <p-checkbox  formControlName="sklad_name_11_check"  value="true" inputId="sklad_name_11_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_11}}</span>
+                            <input pInputText id="sklad_name_11" formControlName="sklad_name_11"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_11_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_11'].invalid && form.controls['sklad_name_11'].touched}" />
+                        </fieldset>
+
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_12 !== ''">
+                            <p-checkbox  formControlName="sklad_name_12_check"  value="true" inputId="sklad_name_12_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_12}}</span>
+                            <input pInputText id="sklad_name_12" formControlName="sklad_name_12"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_12_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_12'].invalid && form.controls['sklad_name_12'].touched}" />
+                        </fieldset>
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_13 !== ''">
+                            <p-checkbox  formControlName="sklad_name_13_check"  value="true" inputId="sklad_name_13_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_13}}</span>
+                            <input pInputText id="sklad_name_13" formControlName="sklad_name_13"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_13_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_13'].invalid && form.controls['sklad_name_13'].touched}" />
+                        </fieldset>
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_14 !== ''">
+                            <p-checkbox  formControlName="sklad_name_14_check"  value="true" inputId="sklad_name_14_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_14}}</span>
+                            <input pInputText id="sklad_name_14" formControlName="sklad_name_14"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_14_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_14'].invalid && form.controls['sklad_name_14'].touched}" />
+                        </fieldset>
+
+
+                        <fieldset *ngIf="settingsSkladList && settingsSkladList[0].sklad_name_15 !== ''">
+                            <p-checkbox  formControlName="sklad_name_15_check"  value="true" inputId="sklad_name_15_check"></p-checkbox>
+                            <span> {{ this.settingsSkladList && settingsSkladList[0].sklad_name_15}}</span>
+                            <input pInputText id="sklad_name_15" formControlName="sklad_name_15"  placeholder="Введите цену" *ngIf="this.form.value.sklad_name_15_check[0]"
+                                [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_15'].invalid && form.controls['sklad_name_15'].touched}" />
+                        </fieldset>
+                    </div>   
+                </form>
+            </p-tabPanel>
+        </p-tabView>
     </form>
 </div>
