@@ -777,6 +777,8 @@
                                 [ngClass]="{'ng-invalid ng-dirty': form.controls['sklad_name_15'].invalid && form.controls['sklad_name_15'].touched}" />
                         </fieldset>
                     </div>   
+
+                    <button type="submit" class="submit" style="margin-top: 25px;" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
                 </form>
             </p-tabPanel>
         </p-tabView>

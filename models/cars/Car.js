@@ -165,6 +165,13 @@ const carSchema = new Schema({
         type: Array,
         required: true,
     },
+
+    komplekt: {
+        type: Array,
+        required: false,
+    },
+
+    
     date: {
         type: Date,
         default: Date.now,

@@ -7,7 +7,6 @@ const path = require('path');
 
 
 // Контроллер для create
-// Контроллер для create
 module.exports.create = async function (req, res) {
     try {
         const car = await new Car({
@@ -43,6 +42,7 @@ module.exports.create = async function (req, res) {
             tarif_gorod: JSON.parse(req.body.tarif_gorod),
             tarif_mejgorod: JSON.parse(req.body.tarif_mejgorod),
             tarif_russia: JSON.parse(req.body.tarif_russia),
+            komplekt: JSON.parse(req.body.komplekt),
             user: req.user._id,
             // avatar: '', 
             avatar: req.file ? req.file.path : '', //Если файл загружен то задаем путь до файла

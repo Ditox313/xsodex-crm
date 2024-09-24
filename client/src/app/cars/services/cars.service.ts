@@ -49,6 +49,7 @@ constructor(private http: HttpClient) { }
       fd.append('tarif_gorod', JSON.stringify(car.tarif_gorod) );
       fd.append('tarif_mejgorod', JSON.stringify(car.tarif_mejgorod));
       fd.append('tarif_russia', JSON.stringify(car.tarif_russia));
+      fd.append('komplekt', JSON.stringify(car.komplekt));
 
 
       if (car.userId)
