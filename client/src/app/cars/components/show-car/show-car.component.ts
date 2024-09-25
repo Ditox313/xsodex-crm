@@ -11,6 +11,9 @@ import { getCurrentSmenaSelector } from 'src/app/smena/store/selectors';
 import { Partner } from 'src/app/partners/types/partners.interfaces';
 import { partnersListNoParamsAction, partnersListNoParamsResetAction } from 'src/app/partners/store/actions/partners.action';
 import { partnersListSelector } from 'src/app/partners/store/selectors';
+import { SettingSklad, SettingsParamsFetch } from 'src/app/settings/types/settings.interfaces';
+import { settingsSkladListAction, settingsSkladListResetAction } from 'src/app/settings/store/actions/settings.action';
+import { settingsSkladListSelector } from 'src/app/settings/store/selectors';
 
 @Component({
   selector: 'app-show-car',
@@ -18,6 +21,9 @@ import { partnersListSelector } from 'src/app/partners/store/selectors';
   styleUrls: ['./show-car.component.css']
 })
 export class ShowCarComponent implements OnInit, OnDestroy {
+  STEP = 2;
+  offset: number = 0;
+  limit: number = this.STEP;
   title: string = ''
   getParamsSub$!: Subscription
   isLoadingSelector!: Observable<boolean | null>
@@ -27,12 +33,16 @@ export class ShowCarComponent implements OnInit, OnDestroy {
   carId!: string
   form!: FormGroup;
   uploadFile!: File
-  avatar: string | ArrayBuffer | undefined | null = 'https://phonoteka.org/uploads/posts/2023-03/1680212136_phonoteka-org-p-dmitrii-razvarov-art-instagram-90.jpg';
+  avatar: string | ArrayBuffer | undefined | null = '';
   @ViewChild('upload') upload!: ElementRef;
   edit: boolean = false
   partnersListSelector!: Observable<Partner[] | null | undefined>
   partnersListSub$!: Subscription
   partnersList: Partner[] | null | undefined = [];
+
+  settingsSkladListSelector!: Observable<SettingSklad[] | null | undefined>
+  settingsSkladListSub$!: Subscription
+  settingsSkladList: SettingSklad[] | null | undefined = [];
   
 
 
@@ -49,6 +59,7 @@ export class ShowCarComponent implements OnInit, OnDestroy {
     this.getParams()
     this.initForm()
     this.initValues()
+    this.getSettingsSkladList()
   }
 
   ngOnDestroy(): void {
@@ -59,11 +70,19 @@ export class ShowCarComponent implements OnInit, OnDestroy {
       this.currentCarSub$.unsubscribe()
     }
 
+    if (this.settingsSkladListSub$) {
+      this.settingsSkladListSub$.unsubscribe()
+    }
+
     // Отчищаем состояние currentCar
     this.store.dispatch(carGetCurrentReset());
 
     // Отчищаем состояние currentpartnersListNoParams
     this.store.dispatch(partnersListNoParamsResetAction());
+
+
+    // Отчищаем состояние settingsSkladList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsSkladListResetAction());
 
   }
 
@@ -169,6 +188,40 @@ export class ShowCarComponent implements OnInit, OnDestroy {
       russia_value_10: new FormControl('',),
       russia_value_zalog: new FormControl('',),
       russia_value_dop_hour: new FormControl('',),
+
+
+
+
+      sklad_name_1: new FormControl('',),
+      sklad_name_1_check: new FormControl('',),
+      sklad_name_2: new FormControl('',),
+      sklad_name_2_check: new FormControl('',),
+      sklad_name_3: new FormControl('',),
+      sklad_name_3_check: new FormControl('',),
+      sklad_name_4: new FormControl('',),
+      sklad_name_4_check: new FormControl('',),
+      sklad_name_5: new FormControl('',),
+      sklad_name_5_check: new FormControl('',),
+      sklad_name_6: new FormControl('',),
+      sklad_name_6_check: new FormControl('',),
+      sklad_name_7: new FormControl('',),
+      sklad_name_7_check: new FormControl('',),
+      sklad_name_8: new FormControl('',),
+      sklad_name_8_check: new FormControl('',),
+      sklad_name_9: new FormControl('',),
+      sklad_name_9_check: new FormControl('',),
+      sklad_name_10: new FormControl('',),
+      sklad_name_10_check: new FormControl('',),
+      sklad_name_11: new FormControl('',),
+      sklad_name_11_check: new FormControl('',),
+      sklad_name_12: new FormControl('',),
+      sklad_name_12_check: new FormControl('',),
+      sklad_name_13: new FormControl('',),
+      sklad_name_13_check: new FormControl('',),
+      sklad_name_14: new FormControl('',),
+      sklad_name_14_check: new FormControl('',),
+      sklad_name_15: new FormControl('',),
+      sklad_name_15_check: new FormControl('',),
     });
 
     this.form.disable();
@@ -183,6 +236,9 @@ export class ShowCarComponent implements OnInit, OnDestroy {
 
 
   initValues() {
+
+     // Отчищаем состояние settingsSkladList если не хотим сохранять список авто  в состояние
+     this.store.dispatch(settingsSkladListResetAction());
 
     // Отчищаем состояние currentSmena
     this.store.dispatch(carGetCurrentReset());
@@ -218,9 +274,37 @@ export class ShowCarComponent implements OnInit, OnDestroy {
       }
     })
 
+
+
+
+    // Получаем селектор на получение списка settingsSkladList и подписываемся на него.
+    this.settingsSkladListSelector = this.store.pipe(select(settingsSkladListSelector))
+    this.settingsSkladListSub$ = this.settingsSkladListSelector.subscribe({
+      next: (settingsSkladList) => {
+        if (settingsSkladList) {
+          this.settingsSkladList = settingsSkladList;
+        }
+      }
+    });
+
+    
+
     // Получаем селектор loader
     this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))
   }
+
+
+   // Получаем настройки склада
+   getSettingsSkladList() {
+    const params: SettingsParamsFetch = {
+      offset: this.offset,
+      limit: this.limit,
+    };
+
+     // Отправляем запрос на получения списка настроек склада
+     this.store.dispatch(settingsSkladListAction({ params: params }));
+  }
+
 
 
 
@@ -325,6 +409,40 @@ export class ShowCarComponent implements OnInit, OnDestroy {
       russia_value_10: car?.tarif_russia[9][1],
       russia_value_zalog: car?.tarif_russia[10][1],
       russia_value_dop_hour: car?.tarif_russia[11][1],
+
+
+
+
+      sklad_name_1: car.komplekt?.[0]?.[1],
+      sklad_name_1_check: [car.komplekt?.[0]?.[2]],
+      sklad_name_2: car.komplekt?.[1]?.[1],
+      sklad_name_2_check: [car.komplekt?.[1]?.[2]],
+      sklad_name_3: car.komplekt?.[2]?.[1],
+      sklad_name_3_check: [car.komplekt?.[2]?.[2]],
+      sklad_name_4: car.komplekt?.[3]?.[1],
+      sklad_name_4_check: [car.komplekt?.[3]?.[2]],
+      sklad_name_5: car.komplekt?.[4]?.[1],
+      sklad_name_5_check: [car.komplekt?.[4]?.[2]],
+      sklad_name_6: car.komplekt?.[5]?.[1],
+      sklad_name_6_check: [car.komplekt?.[5]?.[2]],
+      sklad_name_7: car.komplekt?.[6]?.[1],
+      sklad_name_7_check: [car.komplekt?.[6]?.[2]],
+      sklad_name_8: car.komplekt?.[7]?.[1],
+      sklad_name_8_check: [car.komplekt?.[7]?.[2]],
+      sklad_name_9: car.komplekt?.[8]?.[1],
+      sklad_name_9_check: [car.komplekt?.[8]?.[2]],
+      sklad_name_10: car.komplekt?.[9]?.[1],
+      sklad_name_10_check: [car.komplekt?.[9]?.[2]],
+      sklad_name_11: car.komplekt?.[10]?.[1],
+      sklad_name_11_check: [car.komplekt?.[10]?.[2]],
+      sklad_name_12: car.komplekt?.[11]?.[1],
+      sklad_name_12_check: [car.komplekt?.[11]?.[2]],
+      sklad_name_13: car.komplekt?.[12]?.[1],
+      sklad_name_13_check:[car.komplekt?.[12]?.[2]] ,
+      sklad_name_14: car.komplekt?.[13]?.[1],
+      sklad_name_14_check: [car.komplekt?.[13]?.[2]],
+      sklad_name_15: car.komplekt?.[14]?.[1],
+      sklad_name_15_check: [car.komplekt?.[14]?.[2]],
     });
 
     this.avatar = car.avatar
@@ -374,7 +492,52 @@ export class ShowCarComponent implements OnInit, OnDestroy {
 
 
 
+
+
+    // Подгатавливаем массив с комплектацией для сохранения.исключаем пустые элементы и не отмеченные чекбоксом
+    prepareKomplektArray() {
+      const komplekt = [
+        [this.settingsSkladList?.[0]?.sklad_name_1, this.form.value.sklad_name_1, this.form.value.sklad_name_1_check[0] || '', 'sklad_name_1'],
+        [this.settingsSkladList?.[0]?.sklad_name_2, this.form.value.sklad_name_2, this.form.value.sklad_name_2_check[0] || '', 'sklad_name_2'],
+        [this.settingsSkladList?.[0]?.sklad_name_3, this.form.value.sklad_name_3, this.form.value.sklad_name_3_check[0] || '', 'sklad_name_3'],
+        [this.settingsSkladList?.[0]?.sklad_name_4, this.form.value.sklad_name_4, this.form.value.sklad_name_4_check[0] || '', 'sklad_name_4'],
+        [this.settingsSkladList?.[0]?.sklad_name_5, this.form.value.sklad_name_5, this.form.value.sklad_name_5_check[0] || '', 'sklad_name_5'],
+        [this.settingsSkladList?.[0]?.sklad_name_6, this.form.value.sklad_name_6, this.form.value.sklad_name_6_check[0] || '', 'sklad_name_6'],
+        [this.settingsSkladList?.[0]?.sklad_name_7, this.form.value.sklad_name_7, this.form.value.sklad_name_7_check[0] || '', 'sklad_name_7'],
+        [this.settingsSkladList?.[0]?.sklad_name_8, this.form.value.sklad_name_8, this.form.value.sklad_name_8_check[0] || '', 'sklad_name_8'],
+        [this.settingsSkladList?.[0]?.sklad_name_9, this.form.value.sklad_name_9, this.form.value.sklad_name_9_check[0] || '', 'sklad_name_9'],
+        [this.settingsSkladList?.[0]?.sklad_name_10, this.form.value.sklad_name_10, this.form.value.sklad_name_10_check[0] || '', 'sklad_name_10'],
+        [this.settingsSkladList?.[0]?.sklad_name_11, this.form.value.sklad_name_11, this.form.value.sklad_name_11_check[0] || '', 'sklad_name_11'],
+        [this.settingsSkladList?.[0]?.sklad_name_12, this.form.value.sklad_name_12, this.form.value.sklad_name_12_check[0] || '', 'sklad_name_12'],
+        [this.settingsSkladList?.[0]?.sklad_name_13, this.form.value.sklad_name_13, this.form.value.sklad_name_13_check[0] || '', 'sklad_name_13'],
+        [this.settingsSkladList?.[0]?.sklad_name_14, this.form.value.sklad_name_14, this.form.value.sklad_name_14_check[0] || '', 'sklad_name_14'],
+        [this.settingsSkladList?.[0]?.sklad_name_15, this.form.value.sklad_name_15, this.form.value.sklad_name_15_check[0] || '', 'sklad_name_15'],
+      ];
+
+    
+      console.log('Значение при отправке', this.form.value.sklad_name_15_check[0]);
+      
+      return komplekt;
+    }
+
+
+
+
+    onChange(e: any) {
+      console.log(e.checked[1]);
+      
+      this.form.patchValue({
+        sklad_name_15_check: [e.checked[1]],
+      })
+    }
+
+    
+
+
+
   onSubmit() {
+    const komplekt = this.prepareKomplektArray()
+    
     const car: Car = {
       _id: this.currentCar?._id,
       marka: this.form.value.marka,
@@ -447,7 +610,12 @@ export class ShowCarComponent implements OnInit, OnDestroy {
         ['zalog', this.form.value.russia_value_zalog],
         ['dop_hour', this.form.value.russia_value_dop_hour],
       ],
+      komplekt
     }
+
+
+    console.log(car);
+    
 
     this.store.dispatch(updateCarAction({ car: car, avatar: this.uploadFile }))
   }

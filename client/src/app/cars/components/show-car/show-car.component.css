@@ -199,3 +199,43 @@ select:disabled {
 {
     display: none;
 }
+
+
+
+
+.komplekt fieldset
+{
+    display: flex;
+    align-items: center;
+    height: 43.16px;
+    width: 50%;
+}
+
+.komplekt fieldset input
+{
+    margin-top: 0;
+    margin-right: 0;
+}
+
+.komplekt fieldset > span
+{
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+
+.komplekt
+{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.komplekt label
+{
+    display: flex;
+    align-items: center;
+    height: 43.16px;
+    width: 50%;
+    margin-top: 10px;
+}

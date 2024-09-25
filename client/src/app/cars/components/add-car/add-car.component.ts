@@ -299,28 +299,28 @@ export class AddCarComponent implements OnInit {
   // Подгатавливаем массив с комплектацией для сохранения.исключаем пустые элементы и не отмеченные чекбоксом
   prepareKomplektArray() {
     const komplekt = [
-      [this.settingsSkladList?.[0]?.sklad_name_1, this.form.value.sklad_name_1, this.form.value.sklad_name_1_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_2, this.form.value.sklad_name_2, this.form.value.sklad_name_2_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_3, this.form.value.sklad_name_3, this.form.value.sklad_name_3_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_4, this.form.value.sklad_name_4, this.form.value.sklad_name_4_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_5, this.form.value.sklad_name_5, this.form.value.sklad_name_5_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_6, this.form.value.sklad_name_6, this.form.value.sklad_name_6_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_7, this.form.value.sklad_name_7, this.form.value.sklad_name_7_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_8, this.form.value.sklad_name_8, this.form.value.sklad_name_8_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_9, this.form.value.sklad_name_9, this.form.value.sklad_name_9_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_10, this.form.value.sklad_name_10, this.form.value.sklad_name_10_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_11, this.form.value.sklad_name_11, this.form.value.sklad_name_11_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_12, this.form.value.sklad_name_12, this.form.value.sklad_name_12_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_13, this.form.value.sklad_name_13, this.form.value.sklad_name_13_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_14, this.form.value.sklad_name_14, this.form.value.sklad_name_14_check[0] || false],
-      [this.settingsSkladList?.[0]?.sklad_name_15, this.form.value.sklad_name_15, this.form.value.sklad_name_15_check[0] || false],
+      [this.settingsSkladList?.[0]?.sklad_name_1, this.form.value.sklad_name_1, this.form.value.sklad_name_1_check[0] || '', 'sklad_name_1'],
+      [this.settingsSkladList?.[0]?.sklad_name_2, this.form.value.sklad_name_2, this.form.value.sklad_name_2_check[0] || '', 'sklad_name_2'],
+      [this.settingsSkladList?.[0]?.sklad_name_3, this.form.value.sklad_name_3, this.form.value.sklad_name_3_check[0] || '', 'sklad_name_3'],
+      [this.settingsSkladList?.[0]?.sklad_name_4, this.form.value.sklad_name_4, this.form.value.sklad_name_4_check[0] || '', 'sklad_name_4'],
+      [this.settingsSkladList?.[0]?.sklad_name_5, this.form.value.sklad_name_5, this.form.value.sklad_name_5_check[0] || '', 'sklad_name_5'],
+      [this.settingsSkladList?.[0]?.sklad_name_6, this.form.value.sklad_name_6, this.form.value.sklad_name_6_check[0] || '', 'sklad_name_6'],
+      [this.settingsSkladList?.[0]?.sklad_name_7, this.form.value.sklad_name_7, this.form.value.sklad_name_7_check[0] || '', 'sklad_name_7'],
+      [this.settingsSkladList?.[0]?.sklad_name_8, this.form.value.sklad_name_8, this.form.value.sklad_name_8_check[0] || '', 'sklad_name_8'],
+      [this.settingsSkladList?.[0]?.sklad_name_9, this.form.value.sklad_name_9, this.form.value.sklad_name_9_check[0] || '', 'sklad_name_9'],
+      [this.settingsSkladList?.[0]?.sklad_name_10, this.form.value.sklad_name_10, this.form.value.sklad_name_10_check[0] || '', 'sklad_name_10'],
+      [this.settingsSkladList?.[0]?.sklad_name_11, this.form.value.sklad_name_11, this.form.value.sklad_name_11_check[0] || '', 'sklad_name_11'],
+      [this.settingsSkladList?.[0]?.sklad_name_12, this.form.value.sklad_name_12, this.form.value.sklad_name_12_check[0] || '', 'sklad_name_12'],
+      [this.settingsSkladList?.[0]?.sklad_name_13, this.form.value.sklad_name_13, this.form.value.sklad_name_13_check[0] || '', 'sklad_name_13'],
+      [this.settingsSkladList?.[0]?.sklad_name_14, this.form.value.sklad_name_14, this.form.value.sklad_name_14_check[0] || '', 'sklad_name_14'],
+      [this.settingsSkladList?.[0]?.sklad_name_15, this.form.value.sklad_name_15, this.form.value.sklad_name_15_check[0] || '', 'sklad_name_15'],
     ];
   
-    const filteredKomplekt = komplekt.filter(subArray => 
-      subArray.every(element => element !== '' && element !== false)
-    );
+    // const filteredKomplekt = komplekt.filter(subArray => 
+    //   subArray.every(element => element !== '' && element !== false)
+    // );
   
-    return filteredKomplekt;
+    return komplekt;
   }
 
 

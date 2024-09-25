@@ -35,7 +35,7 @@ export interface Car {
     tarif_mejgorod?: any
     tarif_russia?: any
     avatar?: string
-    komplekt?: object
+    komplekt?: Array<any>
 }
 
 
