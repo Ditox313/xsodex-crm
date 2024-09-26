@@ -514,10 +514,22 @@ export class ShowCarComponent implements OnInit, OnDestroy {
         [this.settingsSkladList?.[0]?.sklad_name_15, this.form.value.sklad_name_15, this.form.value.sklad_name_15_check[0] || '', 'sklad_name_15'],
       ];
 
-    
-      console.log('Значение при отправке', this.form.value.sklad_name_15_check[0]);
+      const filteredKomplekt = komplekt.map(item => {
+        const [skladName, formValue, checkValue, key] = item;
+        if (skladName === '') {
+          return ['', '', '', key];
+        }
+        return item;
+      });
+
+      console.log('222', filteredKomplekt);
       
-      return komplekt;
+    
+      return filteredKomplekt;
+
+    
+      
+      // return komplekt;
     }
 
 
