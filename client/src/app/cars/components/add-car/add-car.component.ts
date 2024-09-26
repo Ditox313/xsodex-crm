@@ -311,6 +311,19 @@ export class AddCarComponent implements OnInit {
   }
 
 
+
+   // Меняем значение в инпутах и чекбоксах клмплектации
+   onChange(e: any, form_control_name: string, form_control_name_number: string) {
+    
+    if (this.form) {
+      this.form.patchValue({
+        [form_control_name]: '',
+        [form_control_name_number]: '',
+      });
+    }
+  }
+
+
   // Подгатавливаем массив с комплектацией для сохранения.исключаем пустые элементы и не отмеченные чекбоксом
   prepareKomplektArray() {
     const komplekt = [

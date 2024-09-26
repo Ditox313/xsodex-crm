@@ -528,7 +528,6 @@ export class ShowCarComponent implements OnInit, OnDestroy {
 
     
       
-      // return komplekt;
     }
 
 
