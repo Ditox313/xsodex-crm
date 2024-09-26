@@ -181,7 +181,13 @@ button:disabled
     display: flex;
     align-items: center;
     height: 43.16px;
-    width: 50%;
+
+}
+
+.komplekt fieldset input:last-child
+{
+    margin-left: 10px;
+    /* width: 100px; */
 }
 
 .komplekt fieldset input

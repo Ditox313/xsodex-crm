@@ -208,7 +208,6 @@ select:disabled {
     display: flex;
     align-items: center;
     height: 43.16px;
-    width: 50%;
 }
 
 .komplekt fieldset input
@@ -236,6 +235,6 @@ select:disabled {
     display: flex;
     align-items: center;
     height: 43.16px;
-    width: 50%;
+    width: 40%;
     margin-top: 10px;
 }
