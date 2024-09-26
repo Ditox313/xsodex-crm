@@ -523,12 +523,16 @@ export class ShowCarComponent implements OnInit, OnDestroy {
 
 
 
-    onChange(e: any) {
-      console.log(e.checked[1]);
+    // Меняем значение в инпутах и чекбоксах клмплектации
+    onChange(e: any, check_name: string, form_control_name: string) {
+      console.log(e.checked);
       
-      this.form.patchValue({
-        sklad_name_15_check: [e.checked[1]],
-      })
+      if (this.form) {
+        this.form.patchValue({
+          [check_name]: [e.checked[1]],
+          [form_control_name]: ''
+        });
+      }
     }
 
     
@@ -612,9 +616,6 @@ export class ShowCarComponent implements OnInit, OnDestroy {
       ],
       komplekt
     }
-
-
-    console.log(car);
     
 
     this.store.dispatch(updateCarAction({ car: car, avatar: this.uploadFile }))
