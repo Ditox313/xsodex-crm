@@ -238,3 +238,8 @@ select:disabled {
     width: 40%;
     margin-top: 10px;
 }
+
+.komplekt fieldset input:last-child
+{
+    margin-left: 10px;
+}

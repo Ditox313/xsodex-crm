@@ -194,34 +194,49 @@ export class ShowCarComponent implements OnInit, OnDestroy {
 
       sklad_name_1: new FormControl('',),
       sklad_name_1_check: new FormControl('',),
+      sklad_name_1_number: new FormControl('',),
       sklad_name_2: new FormControl('',),
       sklad_name_2_check: new FormControl('',),
+      sklad_name_2_number: new FormControl('',),
       sklad_name_3: new FormControl('',),
       sklad_name_3_check: new FormControl('',),
+      sklad_name_3_number: new FormControl('',),
       sklad_name_4: new FormControl('',),
       sklad_name_4_check: new FormControl('',),
+      sklad_name_4_number: new FormControl('',),
       sklad_name_5: new FormControl('',),
       sklad_name_5_check: new FormControl('',),
+      sklad_name_5_number: new FormControl('',),
       sklad_name_6: new FormControl('',),
       sklad_name_6_check: new FormControl('',),
+      sklad_name_6_number: new FormControl('',),
       sklad_name_7: new FormControl('',),
       sklad_name_7_check: new FormControl('',),
+      sklad_name_7_number: new FormControl('',),
       sklad_name_8: new FormControl('',),
       sklad_name_8_check: new FormControl('',),
+      sklad_name_8_number: new FormControl('',),
       sklad_name_9: new FormControl('',),
       sklad_name_9_check: new FormControl('',),
+      sklad_name_9_number: new FormControl('',),
       sklad_name_10: new FormControl('',),
       sklad_name_10_check: new FormControl('',),
+      sklad_name_10_number: new FormControl('',),
       sklad_name_11: new FormControl('',),
       sklad_name_11_check: new FormControl('',),
+      sklad_name_11_number: new FormControl('',),
       sklad_name_12: new FormControl('',),
       sklad_name_12_check: new FormControl('',),
+      sklad_name_12_number: new FormControl('',),
       sklad_name_13: new FormControl('',),
       sklad_name_13_check: new FormControl('',),
+      sklad_name_13_number: new FormControl('',),
       sklad_name_14: new FormControl('',),
       sklad_name_14_check: new FormControl('',),
+      sklad_name_14_number: new FormControl('',),
       sklad_name_15: new FormControl('',),
       sklad_name_15_check: new FormControl('',),
+      sklad_name_15_number: new FormControl('',),
     });
 
     this.form.disable();
@@ -415,34 +430,63 @@ export class ShowCarComponent implements OnInit, OnDestroy {
 
       sklad_name_1: car.komplekt?.[0]?.[1],
       sklad_name_1_check: [car.komplekt?.[0]?.[2]],
+      sklad_name_1_number: car.komplekt?.[0]?.[4],
+
       sklad_name_2: car.komplekt?.[1]?.[1],
       sklad_name_2_check: [car.komplekt?.[1]?.[2]],
+      sklad_name_2_number: car.komplekt?.[1]?.[4],
+
       sklad_name_3: car.komplekt?.[2]?.[1],
       sklad_name_3_check: [car.komplekt?.[2]?.[2]],
+      sklad_name_3_number: car.komplekt?.[2]?.[4],
+
       sklad_name_4: car.komplekt?.[3]?.[1],
       sklad_name_4_check: [car.komplekt?.[3]?.[2]],
+      sklad_name_4_number: car.komplekt?.[3]?.[4],
+
       sklad_name_5: car.komplekt?.[4]?.[1],
       sklad_name_5_check: [car.komplekt?.[4]?.[2]],
+      sklad_name_5_number: car.komplekt?.[4]?.[4],
+
       sklad_name_6: car.komplekt?.[5]?.[1],
       sklad_name_6_check: [car.komplekt?.[5]?.[2]],
+      sklad_name_6_number: car.komplekt?.[5]?.[4],
+
       sklad_name_7: car.komplekt?.[6]?.[1],
       sklad_name_7_check: [car.komplekt?.[6]?.[2]],
+      sklad_name_7_number: car.komplekt?.[6]?.[4],
+
       sklad_name_8: car.komplekt?.[7]?.[1],
       sklad_name_8_check: [car.komplekt?.[7]?.[2]],
+      sklad_name_8_number: car.komplekt?.[7]?.[4],
+
       sklad_name_9: car.komplekt?.[8]?.[1],
       sklad_name_9_check: [car.komplekt?.[8]?.[2]],
+      sklad_name_9_number: car.komplekt?.[8]?.[4],
+
       sklad_name_10: car.komplekt?.[9]?.[1],
       sklad_name_10_check: [car.komplekt?.[9]?.[2]],
+      sklad_name_10_number: car.komplekt?.[9]?.[4],
+
       sklad_name_11: car.komplekt?.[10]?.[1],
       sklad_name_11_check: [car.komplekt?.[10]?.[2]],
+      sklad_name_11_number: car.komplekt?.[10]?.[4],
+
       sklad_name_12: car.komplekt?.[11]?.[1],
+      sklad_name_12_number: car.komplekt?.[11]?.[4],
       sklad_name_12_check: [car.komplekt?.[11]?.[2]],
+
       sklad_name_13: car.komplekt?.[12]?.[1],
       sklad_name_13_check:[car.komplekt?.[12]?.[2]] ,
+      sklad_name_13_number: car.komplekt?.[12]?.[4],
+
       sklad_name_14: car.komplekt?.[13]?.[1],
       sklad_name_14_check: [car.komplekt?.[13]?.[2]],
+      sklad_name_14_number: car.komplekt?.[13]?.[4],
+
       sklad_name_15: car.komplekt?.[14]?.[1],
       sklad_name_15_check: [car.komplekt?.[14]?.[2]],
+      sklad_name_15_number: car.komplekt?.[14]?.[4],
     });
 
     this.avatar = car.avatar
@@ -497,21 +541,21 @@ export class ShowCarComponent implements OnInit, OnDestroy {
     // Подгатавливаем массив с комплектацией для сохранения.исключаем пустые элементы и не отмеченные чекбоксом
     prepareKomplektArray() {
       const komplekt = [
-        [this.settingsSkladList?.[0]?.sklad_name_1, this.form.value.sklad_name_1, this.form.value.sklad_name_1_check[0] || '', 'sklad_name_1'],
-        [this.settingsSkladList?.[0]?.sklad_name_2, this.form.value.sklad_name_2, this.form.value.sklad_name_2_check[0] || '', 'sklad_name_2'],
-        [this.settingsSkladList?.[0]?.sklad_name_3, this.form.value.sklad_name_3, this.form.value.sklad_name_3_check[0] || '', 'sklad_name_3'],
-        [this.settingsSkladList?.[0]?.sklad_name_4, this.form.value.sklad_name_4, this.form.value.sklad_name_4_check[0] || '', 'sklad_name_4'],
-        [this.settingsSkladList?.[0]?.sklad_name_5, this.form.value.sklad_name_5, this.form.value.sklad_name_5_check[0] || '', 'sklad_name_5'],
-        [this.settingsSkladList?.[0]?.sklad_name_6, this.form.value.sklad_name_6, this.form.value.sklad_name_6_check[0] || '', 'sklad_name_6'],
-        [this.settingsSkladList?.[0]?.sklad_name_7, this.form.value.sklad_name_7, this.form.value.sklad_name_7_check[0] || '', 'sklad_name_7'],
-        [this.settingsSkladList?.[0]?.sklad_name_8, this.form.value.sklad_name_8, this.form.value.sklad_name_8_check[0] || '', 'sklad_name_8'],
-        [this.settingsSkladList?.[0]?.sklad_name_9, this.form.value.sklad_name_9, this.form.value.sklad_name_9_check[0] || '', 'sklad_name_9'],
-        [this.settingsSkladList?.[0]?.sklad_name_10, this.form.value.sklad_name_10, this.form.value.sklad_name_10_check[0] || '', 'sklad_name_10'],
-        [this.settingsSkladList?.[0]?.sklad_name_11, this.form.value.sklad_name_11, this.form.value.sklad_name_11_check[0] || '', 'sklad_name_11'],
-        [this.settingsSkladList?.[0]?.sklad_name_12, this.form.value.sklad_name_12, this.form.value.sklad_name_12_check[0] || '', 'sklad_name_12'],
-        [this.settingsSkladList?.[0]?.sklad_name_13, this.form.value.sklad_name_13, this.form.value.sklad_name_13_check[0] || '', 'sklad_name_13'],
-        [this.settingsSkladList?.[0]?.sklad_name_14, this.form.value.sklad_name_14, this.form.value.sklad_name_14_check[0] || '', 'sklad_name_14'],
-        [this.settingsSkladList?.[0]?.sklad_name_15, this.form.value.sklad_name_15, this.form.value.sklad_name_15_check[0] || '', 'sklad_name_15'],
+        [this.settingsSkladList?.[0]?.sklad_name_1, this.form.value.sklad_name_1, this.form.value.sklad_name_1_check[0] || '', 'sklad_name_1', this.form.value.sklad_name_1_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_2, this.form.value.sklad_name_2, this.form.value.sklad_name_2_check[0] || '', 'sklad_name_2' , this.form.value.sklad_name_2_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_3, this.form.value.sklad_name_3, this.form.value.sklad_name_3_check[0] || '', 'sklad_name_3' , this.form.value.sklad_name_3_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_4, this.form.value.sklad_name_4, this.form.value.sklad_name_4_check[0] || '', 'sklad_name_4' , this.form.value.sklad_name_4_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_5, this.form.value.sklad_name_5, this.form.value.sklad_name_5_check[0] || '', 'sklad_name_5' , this.form.value.sklad_name_5_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_6, this.form.value.sklad_name_6, this.form.value.sklad_name_6_check[0] || '', 'sklad_name_6' , this.form.value.sklad_name_6_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_7, this.form.value.sklad_name_7, this.form.value.sklad_name_7_check[0] || '', 'sklad_name_7' , this.form.value.sklad_name_7_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_8, this.form.value.sklad_name_8, this.form.value.sklad_name_8_check[0] || '', 'sklad_name_8' , this.form.value.sklad_name_8_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_9, this.form.value.sklad_name_9, this.form.value.sklad_name_9_check[0] || '', 'sklad_name_9' , this.form.value.sklad_name_9_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_10, this.form.value.sklad_name_10, this.form.value.sklad_name_10_check[0] || '', 'sklad_name_10' , this.form.value.sklad_name_10_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_11, this.form.value.sklad_name_11, this.form.value.sklad_name_11_check[0] || '', 'sklad_name_11' , this.form.value.sklad_name_10_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_12, this.form.value.sklad_name_12, this.form.value.sklad_name_12_check[0] || '', 'sklad_name_12' , this.form.value.sklad_name_12_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_13, this.form.value.sklad_name_13, this.form.value.sklad_name_13_check[0] || '', 'sklad_name_13' , this.form.value.sklad_name_13_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_14, this.form.value.sklad_name_14, this.form.value.sklad_name_14_check[0] || '', 'sklad_name_14' , this.form.value.sklad_name_14_number || ''],
+        [this.settingsSkladList?.[0]?.sklad_name_15, this.form.value.sklad_name_15, this.form.value.sklad_name_15_check[0] || '', 'sklad_name_15' , this.form.value.sklad_name_15_number || ''],
       ];
 
       const filteredKomplekt = komplekt.map(item => {
@@ -534,13 +578,14 @@ export class ShowCarComponent implements OnInit, OnDestroy {
 
 
     // Меняем значение в инпутах и чекбоксах клмплектации
-    onChange(e: any, check_name: string, form_control_name: string) {
+    onChange(e: any, check_name: string, form_control_name: string, form_control_name_number: string) {
       console.log(e.checked);
       
       if (this.form) {
         this.form.patchValue({
           [check_name]: [e.checked[1]],
-          [form_control_name]: ''
+          [form_control_name]: '',
+          [form_control_name_number]: '',
         });
       }
     }
