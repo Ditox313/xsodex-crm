@@ -181,6 +181,7 @@ button:disabled
     display: flex;
     align-items: center;
     height: 43.16px;
+    width: 100%;
 
 }
 
@@ -200,6 +201,7 @@ button:disabled
 {
     margin: 0 15px;
     cursor: pointer;
+    margin-right: auto;
 }
 
 
@@ -215,6 +217,6 @@ button:disabled
     display: flex;
     align-items: center;
     height: 43.16px;
-    width: 50%;
+    width: 40%;
     margin-top: 10px;
 }
