@@ -316,9 +316,7 @@ export class AddCarComponent implements OnInit {
       [this.settingsSkladList?.[0]?.sklad_name_15, this.form.value.sklad_name_15, this.form.value.sklad_name_15_check[0] || '', 'sklad_name_15'],
     ];
   
-    // const filteredKomplekt = komplekt.filter(subArray => 
-    //   subArray.every(element => element !== '' && element !== false)
-    // );
+
   
     return komplekt;
   }

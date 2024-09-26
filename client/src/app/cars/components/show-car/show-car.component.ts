@@ -522,7 +522,6 @@ export class ShowCarComponent implements OnInit, OnDestroy {
         return item;
       });
 
-      console.log('222', filteredKomplekt);
       
     
       return filteredKomplekt;

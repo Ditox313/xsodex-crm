@@ -403,7 +403,16 @@
                             </thead>
             
                             <tbody>
-                                <tr>
+
+                                <ng-container *ngFor="let arr of this.currentCar.komplekt">
+                                    <tr *ngIf="arr[0] !== ''">
+                                      <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">{{ arr[0] }}</td>
+                                      <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">1</td>
+                                      <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">{{ arr[1] }} руб</td>
+                                      <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">Да</td>
+                                    </tr>
+                                </ng-container>
+                                <!-- <tr>
                                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Запасное колесо</td>
                                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">1</td>
                                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">5 000 руб</td>
@@ -451,7 +460,7 @@
                                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">1</td>
                                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">5 000 руб</td>
                                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">ДА</td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </td>
@@ -470,7 +479,16 @@
                             </thead>
             
                             <tbody>
-                                <tr>
+
+                                <ng-container *ngFor="let arr of this.currentCar.komplekt">
+                                    <tr *ngIf="arr[0] !== ''">
+                                      <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">{{ arr[0] }}</td>
+                                      <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">1</td>
+                                      <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">{{ arr[1] }} руб</td>
+                                      <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center"></td>
+                                    </tr>
+                                </ng-container>
+                                <!-- <tr>
                                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">Запасное колесо</td>
                                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">1</td>
                                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">5 000 руб</td>
@@ -518,7 +536,7 @@
                                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">1</td>
                                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center">5 000 руб</td>
                                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center"></td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </td>
