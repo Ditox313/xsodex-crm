@@ -6,6 +6,7 @@ import { bookingsListSelector, isLoadingSelector, noMoreBookingsList } from '../
 import { bookingDeleteAction, bookingsListAction, bookingsListResetAction, noMoreBookingsListFalseAction, noMoreBookingsListTrueAction } from '../../store/actions/bookings.action';
 import { Smena } from 'src/app/smena/types/smena.interfaces';
 import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
+import { ElementRef, Renderer2, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-list-bookings',
@@ -13,6 +14,8 @@ import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
   styleUrls: ['./list-bookings.component.css']
 })
 export class ListBookingsComponent implements OnInit, OnDestroy {
+  @ViewChild('bookingsListBtns') bookingsListBtns: ElementRef<any> | undefined;
+
   STEP = 25;
   offset: number = 0;
   limit: number = this.STEP;
@@ -22,12 +25,14 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
   bookingsListSelector!: Observable<Booking[] | null | undefined>
   bookingsListSub$!: Subscription
   bookingsList: Booking[] | null | undefined = [];
+  bookingsListSort: Booking[] | null | undefined = [];
   currentSmemaSelector!: Observable<Smena | null | undefined>
   currentSmemaSub$!: Subscription
   currentSmema!: Smena | null | undefined
 
 
-  constructor(private store: Store) { }
+
+  constructor(private store: Store, private el: ElementRef, private renderer: Renderer2) { }
   ngOnInit(): void {
     this.initValues();
     this.getBookingsList();
@@ -68,6 +73,7 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
       next: (bookingsList) => {
         if (bookingsList) {
           this.bookingsList = bookingsList;
+          this.bookingsListSort = bookingsList;
 
 
           if (this.bookingsList.length >= this.STEP) {
@@ -94,6 +100,43 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
     })
 
   }
+
+
+  // Сортировка броней
+  sortBookings(e:any, type:string) {
+    const sortElements = this.bookingsListBtns?.nativeElement.querySelectorAll('.sort');
+
+    sortElements.forEach((element: HTMLElement) => {
+        this.renderer.removeClass(element, 'active_sort');
+    });
+
+    // Добавьте класс `active_sort` к выбранному элементу
+    this.renderer.addClass(e.target.closest('.sort'), 'active_sort');
+
+    if(type === 'sort_wait')
+    {
+      this.bookingsList = this.bookingsListSort;
+      this.bookingsList = this.bookingsList?.filter(booking => booking.status === 'В ожидании');
+    }
+    else if(type === 'sort_all')
+    {
+      this.bookingsList = this.bookingsListSort;
+      this.bookingsList = this.bookingsListSort;
+    }
+    else if(type === 'sort_arenda')
+    {
+      this.bookingsList = this.bookingsListSort;
+      this.bookingsList = this.bookingsList?.filter(booking => booking.status === 'В аренде');
+    }
+    else if(type === 'sort_close')
+    {
+      this.bookingsList = this.bookingsListSort;
+      this.bookingsList = this.bookingsList?.filter(booking => booking.status === 'Закрыта');
+    }
+
+  }
+
+
 
 
   getBookingsList() {

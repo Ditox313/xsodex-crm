@@ -25,3 +25,57 @@ tr:hover
 {
     background-color: #F8F9FA;
 }
+
+.xs_bookings_list_btns
+{
+    display: flex;
+    align-items: center;
+}
+
+div.sort
+{
+    width: 140px;
+    margin-left: 25px;
+    color: #fff;
+    border-radius: 4px;
+    padding: 10px 0;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 300;
+    opacity: 0.5;
+}
+
+
+div.sort:hover
+{
+    transition: all 0.3s;
+    opacity: 0.6;
+}
+.sort_all
+{
+    background-color: #3B82F6 !important;
+}
+
+
+.sort_arenda
+{
+    background-color: #194A9E !important;
+}
+
+.sort_wait
+{
+    background-color: #FFA500 !important;
+}
+
+.sort_close
+{
+    background-color: #FF2400 !important;
+}
+
+.active_sort
+{
+    transform: scale(1.2);
+    font-weight: 700 !important;
+    opacity: 1 !important;
+}

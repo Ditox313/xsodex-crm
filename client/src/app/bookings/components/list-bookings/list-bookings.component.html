@@ -7,9 +7,29 @@
     <p-table [value]="bookingsList" styleClass="p-datatable-gridlines list_table"
         [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption" *ngIf="currentSmema">
-            <div class="add_new" [routerLink]="['/add-booking']">
-                <p-button icon="pi pi-plus"></p-button>
+            
+
+            <div class="xs_bookings_list_btns" #bookingsListBtns>
+                <div class="add_new" [routerLink]="['/add-booking']">
+                    <p-button icon="pi pi-plus"></p-button>
+                </div>
+                <div class="sort sort_all active_sort" (click)="sortBookings($event, 'sort_all')">
+                    <span>Все</span>
+                </div>
+    
+                <div class="sort sort_arenda " (click)="sortBookings($event, 'sort_arenda')">
+                    <span>В аренде</span>
+                </div>
+
+                <div class="sort sort_wait" (click)="sortBookings($event, 'sort_wait')">
+                    <span>В ожидании</span>
+                </div>
+
+                <div class="sort sort_close" (click)="sortBookings($event, 'sort_close')">
+                    <span>Закрытые</span>
+                </div>
             </div>
+            
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
