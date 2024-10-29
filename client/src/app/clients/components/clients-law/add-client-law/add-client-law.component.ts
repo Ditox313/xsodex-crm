@@ -44,7 +44,7 @@ export class AddClientLawComponent {
       name: new FormControl('', [Validators.required]),
       short_name: new FormControl('', [Validators.required]),
       inn: new FormControl('', [Validators.required]),
-      kpp: new FormControl('', [Validators.required]),
+      kpp: new FormControl('',),
       ogrn: new FormControl('',),
       ogrn_ip: new FormControl('',),
       svidetelstvo_ip: new FormControl('',),

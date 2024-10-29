@@ -22,7 +22,7 @@
 
 .xs_usluga_item
 {
-    margin-top: 9.1px;
+    margin-top: 8.1px;
 }
 
 .xs_block_5_align
@@ -195,4 +195,10 @@ button:disabled {
 .xs_block_8 tr
 {
     height: 35px;
+}
+
+
+small
+{
+    font-size: 11px;
 }

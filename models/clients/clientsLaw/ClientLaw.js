@@ -48,7 +48,7 @@ const clientLawSchema = new Schema({
     kpp: {
         type: String,
         default: '',
-        required: true,
+        required: false,
     },
 
 
