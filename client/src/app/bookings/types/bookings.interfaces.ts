@@ -76,6 +76,8 @@ export interface BookingData {
     arendaMejGorodMixed: number,
     arendaRussiaMixed: number,
     masterPriem?: Object,
+    sale_check?: boolean,
+    sale_value?: string,
 }
 
 

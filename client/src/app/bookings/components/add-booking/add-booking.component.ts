@@ -39,6 +39,7 @@ export class AddBookingComponent {
   isVisibleModalClient: boolean = false
   isVisibleModalClientLaw: boolean = false
   minDate: string = '';
+ 
 
   @ViewChild('myLocalDate') myLocalDate: ElementRef<any> | undefined;
   
@@ -84,6 +85,8 @@ export class AddBookingComponent {
     arendaMejGorodMixed: 0,
     arendaRussiaMixed: 0,
     zalog: 0,
+    sale_check: false,
+    sale_value: '0',
     custome_zalog: false,
     place_start: '',
     place_start_price: 0,
@@ -209,7 +212,9 @@ export class AddBookingComponent {
       additionally_antiradar: new FormControl(false),
       moyka: new FormControl(false),
       master_priem: new FormControl(''),
-      comment: new FormControl('',)
+      comment: new FormControl('',),
+      sale_check: new FormControl(''),
+      sale_value: new FormControl(''),
     });
   }
 
@@ -1275,7 +1280,28 @@ private pad(number: number): string {
       })
       
     }
- 
+
+
+
+
+
+    // Чекбокс для скидки
+     bookingSaleCheck() {
+    // Задаем значение true или false кастомному залогу
+    this.booking.sale_check = !this.booking.sale_check
+    this.booking.sale_value = '0'
+
+
+    //Отчищаем поле значения при клике
+    this.form.controls['sale_value'].reset();
+  }
+
+
+  // Значение для скидки
+   bookingSaleValue(e: any) {
+    this.booking.sale_value = e.target.value
+    console.log(this.booking);
+  }
  
 
 
@@ -1300,7 +1326,8 @@ private pad(number: number): string {
       },
       openInfo: {
         userIdOpen: this.currentUser?._id,
-        smenaIdOpen: this.currentSmema?._id
+        smenaIdOpen: this.currentSmema?._id,
+        saleOnOpen: +this.form.value.sale_value
       },
       booking_start: this.booking.booking_start,
       booking_end: this.booking.booking_end,
@@ -1320,18 +1347,18 @@ private pad(number: number): string {
       place_start_price: this.booking.place_start_price,
       place_end: this.booking.place_end,
       place_end_price: this.booking.place_end_price,
-      arenda: this.booking.arenda,
+      arenda: this.booking.arenda  - +this.form.value.sale_value,
       custome_place_start: this.booking.custome_place_start,
       custome_place_end: this.booking.custome_place_end,
       custome_zalog: this.booking.custome_zalog,
       additional_services: this.booking.additional_services,
       additional_services_price: this.booking.additional_services_price,
       smenaId: this.currentSmema?._id,
-      summaFull: this.booking.arenda + this.booking.zalog + this.booking.place_start_price + this.booking.place_end_price + this.booking.additional_services_price,
-      paidCount: 0,
+      summaFull: this.booking.arenda + this.booking.zalog + this.booking.place_start_price + this.booking.place_end_price + this.booking.additional_services_price - +this.form.value.sale_value,
+      paidCount: 0 ,
       comment: this.form.value.comment,
       status: 'В ожидании',
-      sale: 0,
+      sale: 0 +  +this.form.value.sale_value,
       act: '',
       masterPriem: this.booking.masterPriem,
       userId: this.currentUser?._id,

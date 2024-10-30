@@ -273,3 +273,39 @@ h4
     margin-top: 26px;
     margin-right: 20px;
 }
+
+
+.booking_sale
+{
+    margin-top: 20px;
+}
+
+.booking_sale label
+{
+    font-size: 16px;
+    color: #fff;
+    transition: all 0.3s;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+
+
+.booking_sale label:hover
+{
+    opacity: 0.8;
+    transition: all 0.3s;
+}
+
+.sale_check
+{
+    margin-top: -2px;
+}
+
+.booking_sale input
+{
+    margin: 0;
+    width: 150px;
+    font-size: 14px;
+    padding: 7px;
+}

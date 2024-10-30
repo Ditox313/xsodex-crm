@@ -241,6 +241,11 @@
                             <span>{{currentBooking.closeInfo.moyka | thousandsSeparator}} руб</span>
                         </div>
 
+                        <div *ngIf="currentBooking.openInfo.saleOnOpen && currentBooking.openInfo.saleOnOpen > 0">
+                            <span>Индивидуальная скидка: </span>
+                            <span>{{currentBooking.openInfo.saleOnOpen | thousandsSeparator}} руб</span>
+                        </div>
+
                         <div>
                             <span>Итого: </span>
                             <span>{{+currentBooking.summaFull | thousandsSeparator }} руб</span>
