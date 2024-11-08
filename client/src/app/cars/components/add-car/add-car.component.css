@@ -220,3 +220,19 @@ button:disabled
     width: 40%;
     margin-top: 10px;
 }
+
+.custome_wash 
+{
+    margin-top: 30px;
+}
+
+.custome_wash fieldset
+{
+    display: flex;
+    align-items: center;
+}
+
+.custome_wash fieldset input
+{
+    margin-top: 0;
+}

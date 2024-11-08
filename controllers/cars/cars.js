@@ -39,6 +39,7 @@ module.exports.create = async function (req, res) {
             stoa_name: req.body.stoa_name,
             stoa_phone: req.body.stoa_phone,
             stoa_phone: req.body.stoa_phone,
+            custome_wash: req.body.custome_wash,
             tarif_gorod: JSON.parse(req.body.tarif_gorod),
             tarif_mejgorod: JSON.parse(req.body.tarif_mejgorod),
             tarif_russia: JSON.parse(req.body.tarif_russia),

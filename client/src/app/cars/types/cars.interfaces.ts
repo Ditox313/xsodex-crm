@@ -31,11 +31,12 @@ export interface Car {
     stoa_name: string,
     stoa_phone: string,
     userId?: string | undefined,
-    tarif_gorod?: any
-    tarif_mejgorod?: any
-    tarif_russia?: any
-    avatar?: string
-    komplekt?: Array<any>
+    tarif_gorod?: any,
+    tarif_mejgorod?: any,
+    tarif_russia?: any,
+    avatar?: string,
+    komplekt?: Array<any>,
+    custome_wash?: string,
 }
 
 

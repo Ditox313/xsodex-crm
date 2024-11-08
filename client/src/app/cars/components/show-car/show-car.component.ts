@@ -237,6 +237,9 @@ export class ShowCarComponent implements OnInit, OnDestroy {
       sklad_name_15: new FormControl('',),
       sklad_name_15_check: new FormControl('',),
       sklad_name_15_number: new FormControl('',),
+
+
+      custome_wash: new FormControl('',),
     });
 
     this.form.disable();
@@ -487,6 +490,9 @@ export class ShowCarComponent implements OnInit, OnDestroy {
       sklad_name_15: car.komplekt?.[14]?.[1],
       sklad_name_15_check: [car.komplekt?.[14]?.[2]],
       sklad_name_15_number: car.komplekt?.[14]?.[4],
+
+      
+      custome_wash: car.custome_wash
     });
 
     this.avatar = car.avatar
@@ -669,7 +675,8 @@ export class ShowCarComponent implements OnInit, OnDestroy {
         ['zalog', this.form.value.russia_value_zalog],
         ['dop_hour', this.form.value.russia_value_dop_hour],
       ],
-      komplekt
+      komplekt,
+      custome_wash: this.form.value.custome_wash || '0'
     }
     
 

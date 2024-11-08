@@ -208,6 +208,9 @@ export class ShowBookingComponent {
 
 
 
+
+
+
  onSubmit() {
 
     // Создаем платежи

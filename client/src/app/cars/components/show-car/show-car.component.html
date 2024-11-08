@@ -662,6 +662,16 @@
                         </fieldset>
                     </div>
                 </div>
+
+                <div class="custome_wash">
+                    <label htmlFor="custome_wash_check">
+                        <fieldset style="width: 100%; display: flex; align-items: center; margin-left:0;">
+                            <span style="width: 239px; font-size: 20px;">Мойка: </span>
+                            <input pInputText id="custome_wash" formControlName="custome_wash" placeholder="Введите цену" />
+                        </fieldset>
+                    </label>
+                </div>
+                
                 <button type="submit" class="submit" style="margin-top: 25px;" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
             </p-tabPanel>
 

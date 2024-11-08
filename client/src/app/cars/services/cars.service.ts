@@ -45,6 +45,9 @@ constructor(private http: HttpClient) { }
       fd.append('stoa_name', car.stoa_name);
       fd.append('stoa_phone', car.stoa_phone);
 
+    
+      
+
 
       fd.append('tarif_gorod', JSON.stringify(car.tarif_gorod) );
       fd.append('tarif_mejgorod', JSON.stringify(car.tarif_mejgorod));
@@ -61,7 +64,14 @@ constructor(private http: HttpClient) { }
       if (avatar) {
          fd.append('avatar', avatar, avatar.name);
       }
-      
+
+
+        
+      if(car.custome_wash)
+      {
+         fd.append('custome_wash', car.custome_wash);
+      }
+   
 
       return this.http.post<Car>('/api/cars/create/', fd);
    }
@@ -134,6 +144,12 @@ constructor(private http: HttpClient) { }
 
       if (car._id) {
          fd.append('_id', car._id);
+      }
+
+
+      if(car.custome_wash)
+      {
+         fd.append('custome_wash', car.custome_wash);
       }
 
       return this.http.patch<Car>(`/api/cars/update/${car._id}`, fd);

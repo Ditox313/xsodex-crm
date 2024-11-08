@@ -222,6 +222,9 @@ export class AddCarComponent implements OnInit {
       sklad_name_15_number: new FormControl('',),
 
 
+      custome_wash: new FormControl('',),
+
+
     });
   }
 
@@ -351,6 +354,13 @@ export class AddCarComponent implements OnInit {
 
 
 
+
+
+
+
+
+
+
   onSubmit() {
 
     // const test = this.form
@@ -429,7 +439,8 @@ export class AddCarComponent implements OnInit {
         ['zalog', this.form.value.russia_value_zalog],
         ['dop_hour', this.form.value.russia_value_dop_hour],
       ],
-      komplekt
+      komplekt,
+      custome_wash: this.form.value.custome_wash || '0'
     }
     
     

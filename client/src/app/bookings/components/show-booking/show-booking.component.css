@@ -291,3 +291,16 @@ td
     color: #194A9E;
     padding: 0 5px;
 }
+
+
+.xs_pensil
+{
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+
+.xs_pensil i
+{
+    font-size: 12px;
+}

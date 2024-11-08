@@ -171,6 +171,12 @@ const carSchema = new Schema({
         required: false,
     },
 
+    custome_wash: {
+        type: String,
+        required: false,
+        default: ''
+    },
+
     
     date: {
         type: Date,
