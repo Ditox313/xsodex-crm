@@ -423,14 +423,40 @@ private pad(number: number): string {
       this.booking.additional_services[2].price = Number(this.settingAvnoprokat.additionally_avto.videoregister)
       this.booking.additional_services[3].price = Number(this.settingAvnoprokat.additionally_avto.battery_charger)
       this.booking.additional_services[4].price = Number(this.settingAvnoprokat.additionally_avto.antiradar)
+
+
+      // Задаем цену мойки сходя из того, заполнено ли поле кастомная мойка в авто
       if (this.booking.car?.category === 'Бизнес') {
-        this.booking.additional_services[5].price = Number(this.settingAvnoprokat.washing_avto.business)
+        if((this.booking.car?.custome_wash) === '0')
+        {
+          this.booking.additional_services[5].price = Number(this.settingAvnoprokat.washing_avto.business)
+        }
+        else
+        {
+          this.booking.additional_services[5].price = Number(this.booking.car.custome_wash)
+        }
+        
       }
       else if (this.booking.car?.category === 'Комфорт') {
-        this.booking.additional_services[5].price = Number(this.settingAvnoprokat.washing_avto.komfort)
+        if((this.booking.car?.custome_wash) === '0')
+        {
+          this.booking.additional_services[5].price = Number(this.settingAvnoprokat.washing_avto.komfort)
+        }
+        else
+        {
+          this.booking.additional_services[5].price = Number(this.booking.car.custome_wash)
+        }
+       
       }
       else if (this.booking.car?.category === 'Премиум') {
-        this.booking.additional_services[5].price = Number(this.settingAvnoprokat.washing_avto.premium)
+        if((this.booking.car?.custome_wash) === '0')
+        {
+          this.booking.additional_services[5].price = Number(this.settingAvnoprokat.washing_avto.premium)
+        }
+        else
+        {
+          this.booking.additional_services[5].price = Number(this.booking.car.custome_wash)
+        }
       }
 
     }
