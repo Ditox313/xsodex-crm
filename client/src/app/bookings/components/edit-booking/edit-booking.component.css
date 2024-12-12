@@ -102,8 +102,8 @@ textarea {
     width: 300px;
     height: 45px;
 }
-
-.client_input {
+.client_input
+{
     color: #495057;
     background: #ffffff;
     padding: 11px;
@@ -122,7 +122,6 @@ textarea {
     width: 300px;
     height: 45px;
 }
-
 p-inputMask {
     margin-right: 15px;
     margin-top: 15px;
@@ -167,57 +166,68 @@ button:disabled {
 }
 
 
-.add_booking_content {
+.add_booking_content
+{
     display: flex;
     justify-content: space-between;
 }
 
-.add_booking_content>div:first-child {
+.add_booking_content > div:first-child
+{
     width: 70%;
 }
 
-.add_booking_content>div:last-child {
+.add_booking_content > div:last-child
+{
     width: 30%;
 }
 
-.mixed_tarif>div>div>label:first-child {
+.mixed_tarif > div > div> label:first-child
+{
     margin-right: 20px;
     display: inline-block;
 }
 
-.errorValidTarifMixedDays {
+.errorValidTarifMixedDays
+{
     background-color: #FF2400;
     color: #fff;
     padding: 10px 15px;
     margin-top: 30px;
 }
 
-.dop_service>div {
+.dop_service > div
+{
     width: 100%;
     display: flex;
 }
 
-h4 {
+h4
+{
     font-size: 21px;
 }
 
-.dop_service>div>div {
+.dop_service > div > div
+{
     margin-right: 45px;
-
+    
 }
 
-.dop_service>div>div:last-child {
+.dop_service > div > div:last-child
+{
     margin-right: 0px;
 }
 
-.dop_service>div>div label {
+.dop_service>div>div label
+{
     display: inline-block;
     line-height: 22px;
     margin-bottom: 0;
     cursor: pointer;
 }
 
-.calc {
+.calc
+{
     font-size: 16px;
     background-color: #3B82F6;
     color: #fff;
@@ -225,14 +235,16 @@ h4 {
     padding: 10px 15px;
     border-radius: 4px;
     width: 100%;
+    
+} 
 
-}
-
-.group_2 {
+.group_2
+{
     margin-top: 25px;
 }
 
-.booking_info_element {
+.booking_info_element
+{
     display: inline-block;
     background-color: #fff;
     padding: 2px 4px;
@@ -240,7 +252,8 @@ h4 {
     color: #3B82F6;
 }
 
-.booking_info_element_summ {
+.booking_info_element_summ
+{
     display: inline-block;
     background-color: #fff;
     padding: 2px 4px;
@@ -248,13 +261,51 @@ h4 {
     color: #3B82F6;
 }
 
-.calc>div>div {
+.calc>div>div
+{
     margin-bottom: 5px;
 }
 
-.client i {
+.client i
+{
     font-size: 22px;
     cursor: pointer;
     margin-top: 26px;
     margin-right: 20px;
+}
+
+
+.booking_sale
+{
+    margin-top: 20px;
+}
+
+.booking_sale label
+{
+    font-size: 16px;
+    color: #fff;
+    transition: all 0.3s;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+
+
+.booking_sale label:hover
+{
+    opacity: 0.8;
+    transition: all 0.3s;
+}
+
+.sale_check
+{
+    margin-top: -2px;
+}
+
+.booking_sale input
+{
+    margin: 0;
+    width: 150px;
+    font-size: 14px;
+    padding: 7px;
 }

@@ -10,9 +10,10 @@
             <div>
                 <div class="group_1">
                     <fieldset>
-                        <label htmlFor="booking_start">Дата начала брони</label>
-                        <input type="datetime-local" pInputText id="booking_start" formControlName="booking_start"
+                        <label htmlFor="booking_start">Дата начала брони <span style="color:red;">*</span></label>
+                        <input type="datetime-local"  pInputText id="booking_start" formControlName="booking_start"
                             placeholder="Введите значение"
+                            [min]="minDate"
                             [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_start'].invalid && form.controls['booking_start'].touched}"
                             (change)="checkedStartBookingDate($event)" />
 
@@ -27,8 +28,9 @@
                     </fieldset>
 
                     <fieldset>
-                        <label htmlFor="booking_end">Дата окончания брони</label>
+                        <label htmlFor="booking_end">Дата окончания брони <span style="color:red;">*</span></label>
                         <input type="datetime-local" pInputText id="booking_end" formControlName="booking_end"
+                            [min]="minDate"
                             placeholder="Введите значение"
                             [ngClass]="{'ng-invalid ng-dirty': form.controls['booking_end'].invalid && form.controls['booking_end'].touched}"
                             (change)="checkedEndBookingDate($event)" />
@@ -46,7 +48,7 @@
 
 
                     <fieldset>
-                        <label htmlFor="car">Автомобиль</label>
+                        <label htmlFor="car">Автомобиль <span style="color:red;">*</span></label>
                         <select id="car" formControlName="car"
                             [ngClass]="{'invalid': form.controls['car'].invalid && form.controls['car'].touched}"
                             (ngModelChange)="checkedCar($event)">
@@ -67,7 +69,7 @@
 
 
                     <fieldset>
-                        <label htmlFor="tarif">Тариф</label>
+                        <label htmlFor="tarif">Тариф <span style="color:red;">*</span></label>
                         <select id="tarif" formControlName="tarif"
                             [ngClass]="{'invalid': form.controls['tarif'].invalid && form.controls['tarif'].touched}"
                             (ngModelChange)="checkedTarif($event)">
@@ -88,7 +90,7 @@
                     </fieldset>
 
                     <fieldset>
-                        <label htmlFor="place_start">Место выдачи</label>
+                        <label htmlFor="place_start">Место подачи <span style="color:red;">*</span></label>
                         <select id="place_start" formControlName="place_start"
                             [ngClass]="{'invalid': form.controls['place_start'].invalid && form.controls['place_start'].touched}"
                             (ngModelChange)="placeStart($event)">
@@ -111,8 +113,10 @@
                     </fieldset>
 
 
+
+
                     <fieldset>
-                        <label htmlFor="place_end">Место приема</label>
+                        <label htmlFor="place_end">Место приема <span style="color:red;">*</span></label>
                         <select id="place_end" formControlName="place_end"
                             [ngClass]="{'invalid': form.controls['place_end'].invalid && form.controls['place_end'].touched}"
                             (ngModelChange)="placeEnd($event)">
@@ -144,7 +148,7 @@
                                     </label>
 
                                     <label>
-                                        <input type="number" placeholder="..." formControlName="tarif_mixed_gorod_days"
+                                        <input type="number"  placeholder="..." formControlName="tarif_mixed_gorod_days"
                                             style="width: 90px;" (ngModelChange)="tarifMixedGorodDays($event)">
                                     </label>
                                 </div>
@@ -182,41 +186,63 @@
                     </fieldset>
 
                     <fieldset class="client" (click)="modalClientClick()" icon="pi pi-external-link" label="Show">
-                        <label htmlFor="#">Клиент</label>
+                        <label htmlFor="#">Клиент <span style="color:red;">*</span></label>
                         <div style="display: flex;">
                             <span class="client_input" *ngIf="!currentClient">Выбор клиента...</span>
-                            <span class="client_input"
-                                *ngIf="currentClient && currentClient.surname">{{currentClient.surname}}
+                            <span class="client_input" *ngIf="currentClient && currentClient.surname">{{currentClient.surname}}
                                 {{currentClient.name}} {{currentClient.lastname}}</span>
-                            <span class="client_input"
-                                *ngIf="currentClient && currentClient.short_name">{{currentClient.name}}</span>
+                            <span class="client_input" *ngIf="currentClient && currentClient.short_name">{{currentClient.name}}</span>
                             <i class="pi pi-plus"></i>
                         </div>
                     </fieldset>
 
-                    <p-dialog [(visible)]="isVisibleModalClient" [style]="{width: '90vw'}" [modal]="true"
-                        [maximizable]="true">
-                        <app-all-clients-search></app-all-clients-search>
-                    </p-dialog>
 
+
+
+              
                     <fieldset>
-                        <label htmlFor="comment">Комментарий</label>
-                        <textarea type="text" rows="1" cols="10" placeholder="Комментарий"
-                            formControlName="comment"></textarea>
+                        <label htmlFor="master_priem">Мастер приемщик</label>
+                        <select id="master_priem" formControlName="master_priem"  (ngModelChange)="masterPriemChange($event)">
+                            <option value=""  selected>Выбрать ↷</option>
+                            <option value="{{masterPriem.surname}} {{masterPriem.name}} {{masterPriem.lastname}}" *ngFor="let masterPriem of mastersPriemList" >
+                                {{masterPriem.surname}} {{masterPriem.name}} {{masterPriem.lastname}}</option>
+                        </select>
                     </fieldset>
 
+                    
 
+                    
+
+                    <!-- Модальное окно выбора физ.клиентов -->
+                    <p-dialog [(visible)]="isVisibleModalClient" [style]="{width: '100vw', height: '100vh'}" [modal]="true" [maximizable]="true">
+                        <app-clients-fiz-search (toggleOnLaw)="toggleClientsLaw($event)"></app-clients-fiz-search>
+                    </p-dialog>
+
+
+                    <!-- Модальное окно выбора юр.клиентов -->
+                    <p-dialog [(visible)]="isVisibleModalClientLaw" [style]="{width: '100vw', height: '100vh'}" [modal]="true" [maximizable]="true">
+                        <app-clients-law-search (toggleOnFiz)="toggleClientsFiz($event)"></app-clients-law-search>
+                    </p-dialog>
+
+
+                    
+                    <fieldset>
+                        <label htmlFor="comment">Комментарий</label>
+                        <textarea type="text" rows="1" cols="10" placeholder="Комментарий" formControlName="comment"></textarea>
+                    </fieldset>
+
+                    
                 </div>
 
 
                 <div class="group_2">
                     <h4>Произвольные настройки</h4>
-
+                    
                     <fieldset style="display: inline-block; margin-right: 30px; ">
                         <label htmlFor="om">Произвольный залог</label>
                         <div style="display: flex; height: 43px; margin-top: 5px;">
                             <p-checkbox formControlName="custome_zalog" (click)="customeZalogCheck()" value="true"
-                                inputId="custome_zalog"></p-checkbox>
+                                inputId="custome_zalog" [binary]="true"></p-checkbox>
 
                             <input *ngIf="this.booking.custome_zalog" type="text" placeholder="Введите сумму"
                                 formControlName="custome_zalog_value" id="custome_zalog_value" style="margin-left: 15px;
@@ -228,7 +254,7 @@
                         <label htmlFor="custome_place_start">Произвольное место подачи</label>
                         <div style="display: flex; height: 43px; margin-top: 5px;">
                             <p-checkbox formControlName="custome_place_start" (click)="customePlaceStartCheck()"
-                                value="true" inputId="custome_place_start"></p-checkbox>
+                                value="true" inputId="custome_place_start" [binary]="true"></p-checkbox>
 
                             <input *ngIf="this.booking.custome_place_start" type="text" placeholder="Адрес"
                                 formControlName="custome_place_start_value" id="custome_place_start_value" style="margin-left: 15px;
@@ -246,7 +272,7 @@
                         <label htmlFor="custome_place_end">Произвольное место приема</label>
                         <div style="display: flex; height: 43px; margin-top: 5px;">
                             <p-checkbox formControlName="custome_place_end" (click)="customePlaceEndCheck()"
-                                value="true" inputId="custome_place_end"></p-checkbox>
+                                value="true" inputId="custome_place_end" [binary]="true"></p-checkbox>
 
                             <input *ngIf="this.booking.custome_place_end" type="text" placeholder="Адрес"
                                 formControlName="custome_place_end_value" id="custome_place_end_value" style="margin-left: 15px;
@@ -265,18 +291,17 @@
                         <h4>Дополнительная информация:</h4>
 
                         <div style="display: flex;">
-                            <div>
+                            <div >
                                 <label htmlFor="additionally_det_kreslo">
-                                    <p-checkbox formControlName="additionally_det_kreslo" value="true"
-                                        inputId="additionally_det_kreslo"
-                                        (click)="additionally_det_kreslo()"></p-checkbox>
+                                    <p-checkbox formControlName="additionally_det_kreslo" value="false" [binary]="true"
+                                        inputId="additionally_det_kreslo" (click)="additionally_det_kreslo()"></p-checkbox>
                                     <span style="margin-left: 10px;">Детское кресло</span>
                                 </label>
                             </div>
 
                             <div>
                                 <label htmlFor="additionally_buster">
-                                    <p-checkbox formControlName="additionally_buster" value="true"
+                                    <p-checkbox formControlName="additionally_buster" value="false" [binary]="true"
                                         (click)="additionally_buster()" inputId="additionally_buster"></p-checkbox>
                                     <span style="margin-left: 10px;">Бустер</span>
                                 </label>
@@ -284,7 +309,7 @@
 
                             <div>
                                 <label htmlFor="additionally_buster">
-                                    <p-checkbox formControlName="additionally_videoregister" value="true"
+                                    <p-checkbox formControlName="additionally_videoregister" value="false" [binary]="true"
                                         (click)="additionally_videoregister()"
                                         inputId="additionally_videoregister"></p-checkbox>
                                     <span style="margin-left: 10px;">Видеорегистратор</span>
@@ -293,7 +318,7 @@
 
                             <div>
                                 <label htmlFor="additionally_battery_charger">
-                                    <p-checkbox formControlName="additionally_battery_charger" value="true"
+                                    <p-checkbox formControlName="additionally_battery_charger" value="false" [binary]="true"
                                         (click)="additionally_battery_charger()"
                                         inputId="additionally_battery_charger"></p-checkbox>
                                     <span style="margin-left: 10px;">Зарядное устройство</span>
@@ -302,17 +327,17 @@
 
                             <div>
                                 <label htmlFor="additionally_antiradar">
-                                    <p-checkbox formControlName="additionally_antiradar" value="true"
+                                    <p-checkbox formControlName="additionally_antiradar" value="false"
                                         (click)="additionally_antiradar()"
-                                        inputId="additionally_antiradar"></p-checkbox>
+                                        inputId="additionally_antiradar" [binary]="true"></p-checkbox>
                                     <span style="margin-left: 10px;">Антирадар</span>
                                 </label>
                             </div>
 
                             <div>
                                 <label htmlFor="additionally_antiradar">
-                                    <p-checkbox formControlName="moyka" value="true" (click)="additionally_moyka()"
-                                        inputId="moyka"></p-checkbox>
+                                    <p-checkbox formControlName="moyka" value="false" (click)="additionally_moyka()"
+                                        inputId="moyka"  [binary]="true"></p-checkbox>
                                     <span style="margin-left: 10px;">Мойка</span>
                                 </label>
                             </div>
@@ -326,43 +351,41 @@
                     <h4>Рассчеты</h4>
                     <div style="margin-bottom: 30px;">
                         <div>
-                            <span>Дней аренды:</span>
+                            <span>Дней аренды:</span> 
                             <span class="booking_info_element">
-                                {{this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days +
-                                this.booking.tarif[2].booking_days}} д
+                                {{this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days}} д
                             </span>
                         </div>
 
                         <div *ngIf="this.currentClient && this.currentClient.type === 'fiz'">
                             <span>Клиент:</span>
                             <span class="booking_info_element">
-                                {{this.currentClient.surname}} {{this.currentClient.name}}
-                                {{this.currentClient.lastname}}
+                                {{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}}
                             </span>
                         </div>
 
                         <div *ngIf="this.currentClient && this.currentClient.type === 'law'">
                             <span>Клиент:</span>
                             <span class="booking_info_element">
-                                {{this.currentClient.short_name}} {{this.currentClient.name}}
+                                {{this.currentClient.short_name}}  {{this.currentClient.name}}
                             </span>
                         </div>
 
                         <div>
                             <span>Цена аренды:</span>
                             <span class="booking_info_element">
-                                {{this.booking.arenda}} руб
+                                {{(+this.booking.arenda - (this.booking.sale_value ? +this.booking.sale_value : 0))}} руб
                             </span>
                         </div>
 
-                        <div *ngIf="this.booking.car !== null">
+                        <div  *ngIf="this.booking.car !== null"> 
                             <span>Автомобиль:</span>
                             <span class="booking_info_element">
                                 {{this.booking.car.marka}} {{this.booking.car.model}}({{this.booking.car.number}})
                             </span>
                         </div>
-
-                        <div *ngIf="this.booking.tarifCheked !== ''">
+                        
+                        <div  *ngIf="this.booking.tarifCheked !== ''">
                             <span>Тариф:</span>
                             <span class="booking_info_element">
                                 {{this.booking.tarifCheked}}
@@ -370,33 +393,30 @@
                         </div>
 
                         <div *ngIf="this.booking.tarifCheked !== ''">
-                            <span>Цена тарифа(за 1д):</span>
+                            <span>Цена тарифа(за 1д):</span> 
                             <span *ngIf="this.booking.tarifCheked ==='Город'" class="booking_info_element">
-                                {{this.booking.tarif[0].tarif_price}} руб
+                               {{this.booking.tarif[0].tarif_price}} руб 
                             </span>
                             <span *ngIf="this.booking.tarifCheked ==='Межгород'" class="booking_info_element">
-                                {{this.booking.tarif[1].tarif_price}} руб
+                               {{this.booking.tarif[1].tarif_price}} руб 
                             </span>
                             <span *ngIf="this.booking.tarifCheked ==='Россия'" class="booking_info_element">
-                                {{this.booking.tarif[2].tarif_price}} руб
+                               {{this.booking.tarif[2].tarif_price}} руб
                             </span>
                             <span *ngIf="this.booking.tarifCheked ==='Смешанный'" class="booking_info_element">
-                                Гор - {{this.booking.tarif[0].tarif_price}} р, Меж -
-                                {{this.booking.tarif[1].tarif_price}} р, Рос - {{this.booking.tarif[2].tarif_price}} р,
+                                Гор - {{this.booking.tarif[0].tarif_price}} р, Меж - {{this.booking.tarif[1].tarif_price}} р, Рос - {{this.booking.tarif[2].tarif_price}} р,
                             </span>
                         </div>
 
                         <div *ngIf="this.booking.tarifCheked !== '' && this.booking.tarifCheked  !== 'Смешанный'">
-                            <span>Доп.часы:</span>
+                            <span>Доп.часы:</span> 
                             <span class="booking_info_element">
-                                {{this.booking.tarif[0].dop_hours + this.booking.tarif[1].dop_hours +
-                                this.booking.tarif[2].dop_hours}}
+                                {{this.booking.tarif[0].dop_hours + this.booking.tarif[1].dop_hours + this.booking.tarif[2].dop_hours}}
                             </span>
                         </div>
 
-                        <div
-                            *ngIf="this.booking.tarif[0].dop_hours > 0 || this.booking.tarif[1].dop_hours > 0 && this.booking.tarif[2].dop_hours > 0">
-                            <span>Цена за доп.час(1ч):</span>
+                        <div *ngIf="this.booking.tarif[0].dop_hours > 0 || this.booking.tarif[1].dop_hours > 0 && this.booking.tarif[2].dop_hours > 0">
+                            <span>Цена за доп.час(1ч):</span> 
                             <span *ngIf="this.booking.tarifCheked ==='Город'" class="booking_info_element">
                                 {{this.booking.tarif[0].dop_hours_price}} руб
                             </span>
@@ -412,52 +432,39 @@
                         </div>
 
                         <div *ngIf="this.booking.place_start !== ''">
-                            <span>Место падачи:</span>
-                            <span class="booking_info_element">{{this.booking.place_start}} -
-                                {{this.booking.place_start_price}} руб</span>
+                            <span>Место падачи:</span> 
+                            <span class="booking_info_element">{{this.booking.place_start}} - {{this.booking.place_start_price}} руб</span>
                         </div>
 
-                        <div *ngIf="this.booking.place_end !== ''">
-                            <span>Место приема:</span>
-                            <span class="booking_info_element">{{this.booking.place_end}} -
-                                {{this.booking.place_end_price}} руб</span>
+                        <div *ngIf="this.booking.place_end !== ''"> 
+                            <span>Место приема:</span> 
+                            <span class="booking_info_element">{{this.booking.place_end}} - {{this.booking.place_end_price}} руб</span>
                         </div>
 
                         <div>
-                            <span>Залог:</span>
+                            <span>Залог:</span> 
                             <span class="booking_info_element">
                                 {{this.booking.zalog}} руб
                             </span>
                         </div>
 
-                        <div
-                            *ngIf="this.booking.additional_services[0].status || this.booking.additional_services[1].status || this.booking.additional_services[2].status 
+                        <div *ngIf="this.booking.additional_services[0].status || this.booking.additional_services[1].status || this.booking.additional_services[2].status 
                         || this.booking.additional_services[3].status || this.booking.additional_services[4].status || this.booking.additional_services[5].status">
                             <span>Доп.услуги:</span>
-                            <span class="booking_info_element"
-                                *ngIf="this.booking.additional_services[0].status === true">Детское кресло -
-                                {{this.booking.additional_services[0].price}} руб</span><br>
-                            <span class="booking_info_element"
-                                *ngIf="this.booking.additional_services[1].status === true">Бустер -
-                                {{this.booking.additional_services[1].price}} руб</span><br>
-                            <span class="booking_info_element"
-                                *ngIf="this.booking.additional_services[2].status === true">Видеорегистратор -
-                                {{this.booking.additional_services[2].price}} руб</span><br>
-                            <span class="booking_info_element"
-                                *ngIf="this.booking.additional_services[3].status === true">Зарядное устройство -
-                                {{this.booking.additional_services[3].price}} руб</span><br>
-                            <span class="booking_info_element"
-                                *ngIf="this.booking.additional_services[4].status === true">Антирадар -
-                                {{this.booking.additional_services[4].price}} руб</span><br>
-                            <span class="booking_info_element"
-                                *ngIf="this.booking.additional_services[5].status === true">Мойка -
-                                {{this.booking.additional_services[5].price}} руб</span>
+                            <span class="booking_info_element" *ngIf="this.booking.additional_services[0].status === true">Детское кресло - {{this.booking.additional_services[0].price}} руб</span><br>
+                            <span class="booking_info_element" *ngIf="this.booking.additional_services[1].status === true">Бустер - {{this.booking.additional_services[1].price}} руб</span><br>
+                            <span class="booking_info_element" *ngIf="this.booking.additional_services[2].status === true">Видеорегистратор - {{this.booking.additional_services[2].price}} руб</span><br>
+                            <span class="booking_info_element" *ngIf="this.booking.additional_services[3].status === true">Зарядное устройство - {{this.booking.additional_services[3].price}} руб</span><br>
+                            <span class="booking_info_element" *ngIf="this.booking.additional_services[4].status === true">Антирадар - {{this.booking.additional_services[4].price}} руб</span><br>
+                            <span class="booking_info_element" *ngIf="this.booking.additional_services[5].status === true">Мойка - {{this.booking.additional_services[5].price}} руб</span>
                         </div>
 
                         <div>
                             <span>Итого:</span>
                             <span class="booking_info_element_summ">
-                                {{this.booking.arenda +
+                                {{this.booking.arenda -
+
+                                (this.booking.sale_value ? +this.booking.sale_value : 0)  + 
 
 
                                 this.booking.zalog +
@@ -466,8 +473,30 @@
 
                                 this.booking.place_end_price +
 
+
                                 this.booking.additional_services_price}} руб
                             </span>
+                        </div>
+
+                        
+
+
+                        <div class="booking_sale">
+                            <fieldset style="display: inline-block; margin-right: 30px; ">
+                                <div style="display: flex; align-items: center;">
+                                    <label htmlFor="sale">Сделать скидку</label>
+                                    <p-checkbox formControlName="sale_check" class="sale_check" (click)="bookingSaleCheck()" value="true" [binary]="true"
+                                    inputId="custome_zalog"></p-checkbox>
+                                </div>
+                                
+
+                                <div style="display: flex; height: 43px; margin-top: 5px;">
+                                   
+        
+                                    <input *ngIf="this.booking.sale_check" type="text" placeholder="Введите сумму"
+                                        formControlName="sale_value" id="sale_value" (change)="bookingSaleValue($event)">
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
                 </div>

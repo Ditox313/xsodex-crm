@@ -44,6 +44,7 @@
                 <th>Выдача</th>
                 <th>Прием</th>
                 <th></th>
+                <th></th>
             </tr>
         </ng-template>
 
@@ -51,9 +52,9 @@
             <tr [routerLink]="['/show-booking',booking._id]">
                 <td><strong>{{booking.order}}</strong></td>
                 <td>{{booking.date | date : 'dd.MM.yyyy HH:mm'}}</td>
-                <td *ngIf="booking.status === 'В ожидании'" style="background-color: #FFA500; color: #fff;">{{booking.status}}</td>
-                <td *ngIf="booking.status === 'В аренде'" style="background-color: #194A9E; color: #fff;">{{booking.status}}</td>
-                <td *ngIf="booking.status === 'Закрыта'" style="background-color: #FF2400; color: #fff;">{{booking.status}}</td>
+                <td *ngIf="booking.status === 'В ожидании'" style="background-color: #FFA500; color: #fff; min-width: 135px; text-align: center;">{{booking.status}}</td>
+                <td *ngIf="booking.status === 'В аренде'" style="background-color: #194A9E; color: #fff;  min-width: 135px; text-align: center;">{{booking.status}}</td>
+                <td *ngIf="booking.status === 'Закрыта'" style="background-color: #FF2400; color: #fff;  min-width: 135px; text-align: center;">{{booking.status}}</td>
                 <td>{{booking.car.marka}} {{booking.car.model}}({{booking.car.number}})</td>
                 <td *ngIf="booking.client.surname">{{booking.client.surname}} {{booking.client.name}} {{booking.client.lastname}}</td>
                 <td *ngIf="booking.client.short_name">{{booking.client.short_name}} {{booking.client.name}}</td>
@@ -64,8 +65,9 @@
                 <td>{{booking.place_end}}</td>
                 
             
-                <td style="cursor: pointer; text-align: center;" (click)="onDeleteBooking($event, booking)"><i
-                        class="pi pi-trash"></i></td>
+                <td style="cursor: pointer; text-align: center;" (click)="onDeleteBooking($event, booking)"><i class="pi pi-trash"></i></td>
+                <td style="cursor: pointer; text-align: center;" [routerLink]="['/edit-booking', booking._id]"><i class="pi pi-pencil"></i></td>
+
             </tr>
         </ng-template>
     </p-table>
