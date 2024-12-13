@@ -438,6 +438,7 @@ export class EditBookingComponent {
           
           this.booking.additional_services_price = this.currentBooking.additional_services_price
           this.currentClient = this.currentBooking.client
+          this.booking.sale_value = this.currentBooking.openInfo.saleOnOpen
           
 
           if (this.currentBooking.tarifCheked === 'Смешанный') {
@@ -486,6 +487,8 @@ export class EditBookingComponent {
           })
 
 
+
+
           //  Отображаем скидку если она есть
           if(this.currentBooking.openInfo.saleOnOpen > 0)
           {
@@ -517,9 +520,7 @@ export class EditBookingComponent {
          this.booking.additional_services[4].status = this.currentBooking.additional_services[4].status
          this.booking.additional_services[5].price = this.currentBooking.additional_services[5].price
          this.booking.additional_services[5].status = this.currentBooking.additional_services[5].status
-
-
-
+         
         }
       }
     })
