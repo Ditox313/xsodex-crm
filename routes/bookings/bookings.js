@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require('../../controllers/bookings/bookings.js');
 const passport = require('passport');
-// const upload = require('../../middleware/upload-partner-docs.js');
+const upload = require('../../middleware/upload-partner-docs.js');
 
 
 
@@ -20,6 +20,10 @@ router.delete('/booking-remove/:id', passport.authenticate('jwt', { session: fal
 
 // Роут на Получение списка клиентов для поиска
 router.get('/clients-for-search-booking', passport.authenticate('jwt', { session: false }), controller.getAllClientsForSearch);
+
+
+// Роут на update
+router.patch('/edit/:id', passport.authenticate('jwt', { session: false }), upload.single('avatar'), controller.edit);
 
 
 

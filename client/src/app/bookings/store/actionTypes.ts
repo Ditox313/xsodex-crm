@@ -61,4 +61,7 @@ export enum ActionTypes {
   CLOSE_BOOKING = '[Bookings] Close booking',
   CLOSE_BOOKING_SUCCES = '[Bookings] Close booking succes',
   CLOSE_BOOKING_FAILURE = '[Bookings] Close booking failure',
+  EDIT_BOOKING = '[Bookings] Edit booking',
+  EDIT_BOOKING_SUCCES = '[Bookings] Edit booking succes',
+  EDIT_BOOKING_FAILURE = '[Bookings] Edit booking failure',
 }

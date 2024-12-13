@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { BookingsService } from '../../services/bookings.service'
-import { addActBookingAction, addActBookingFailureAction, addActBookingSuccessAction, addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, closeBookingAction, closeBookingFailureAction, closeBookingSuccessAction, currentActAction, currentActFailureAction, currentActSuccessAction, currentClientForActAction, currentClientForActFailureAction, currentClientForActSuccessAction, extendBookingAction, extendBookingFailureAction, extendBookingSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction, paysListAction, paysListFailureAction, paysListSuccessAction, toggleStatusBookingAction, toggleStatusFailureAction, toggleStatusSuccessAction, updateStateBookingsAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from '../actions/bookings.action'
+import { addActBookingAction, addActBookingFailureAction, addActBookingSuccessAction, addBookingAction, addBookingFailureAction, addBookingSuccessAction, bookingCreatePayAction, bookingCreatePayFailureAction, bookingCreatePaySuccessAction, bookingDeleteAction, bookingDeleteFailureAction, bookingDeleteSuccessAction, bookingGetCurrent, bookingGetCurrentFailureAction, bookingGetCurrentSuccessAction, bookingsListAction, bookingsListFailureAction, bookingsListSuccessAction, clientsForSearchListAction, clientsForSearchListFailureAction, clientsForSearchListSuccessAction, clientsSearchAction, clientsSearchFailureAction, clientsSearchSuccessAction, closeBookingAction, closeBookingFailureAction, closeBookingSuccessAction, currentActAction, currentActFailureAction, currentActSuccessAction, currentClientForActAction, currentClientForActFailureAction, currentClientForActSuccessAction, editBookingAction, editBookingFailureAction, editBookingSuccessAction, extendBookingAction, extendBookingFailureAction, extendBookingSuccessAction, noMoreBookingsListAction, noMoreClientsForSearchListAction, paysListAction, paysListFailureAction, paysListSuccessAction, toggleStatusBookingAction, toggleStatusFailureAction, toggleStatusSuccessAction, updateStateBookingsAction, updateStateBookingsFailureAction, updateStateBookingsSuccessAction } from '../actions/bookings.action'
 
 
 
@@ -38,6 +38,32 @@ export class BookingsEffect {
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               addBookingFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+
+    // Редактирования брони
+  editBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(editBookingAction),
+      switchMap(({ booking }) => {
+        return this.bookings.edit(booking).pipe(
+          map((data) => {
+            this.messageService.add({ severity: 'success', summary: `Партнер обновлен`, detail: 'Успешно!' });
+            return editBookingSuccessAction({ booking: data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
+            return of(
+              editBookingFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );
@@ -418,26 +444,7 @@ export class BookingsEffect {
 
 
 
-  // Обновление партнера
-  // UpdatePartner$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(updatePartnerAction),
-  //     switchMap(({ partner, file_1, file_2 }) => {
-  //       return this.partners.update(partner, file_1, file_2).pipe(
-  //         map((data) => {
-  //           this.messageService.add({ severity: 'success', summary: `Партнер обновлен`, detail: 'Успешно!' });
-  //           return updatePartnerSuccessAction({ data: data });
-  //         }),
-  //         catchError((errorResponse: HttpErrorResponse) => {
-  //           this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
-  //           return of(
-  //             updatePartnerFailureAction({ errors: errorResponse.error.errors })
-  //           );
-  //         })
-  //       );
-  //     })
-  //   )
-  // );
+
 
 
 

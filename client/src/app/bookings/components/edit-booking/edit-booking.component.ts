@@ -16,7 +16,7 @@ import { carsListSelector } from 'src/app/cars/store/selectors';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { settingsAvtoparkListSelector } from 'src/app/settings/store/selectors';
 import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
-import { addBookingAction, bookingGetCurrent, bookingGetCurrentReset } from '../../store/actions/bookings.action';
+import { addBookingAction, bookingGetCurrent, bookingGetCurrentReset, editBookingAction } from '../../store/actions/bookings.action';
 import { ActivatedRoute } from '@angular/router';
 import { MasterPriem } from 'src/app/personal/types/masters-priem.interfaces';
 import { clientsFizFromResetAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
@@ -1589,6 +1589,7 @@ private pad(number: number): string {
   onSubmit() {
 
     const booking: Booking = {
+      _id: this.bookingId,
       extends: [],
       closeInfo: {
         date: '',
@@ -1646,7 +1647,7 @@ private pad(number: number): string {
 
     console.log('222', booking);
 
-    // this.store.dispatch(addBookingAction({ booking: booking }))
+    this.store.dispatch(editBookingAction({ booking: booking }))
 
   }
 }

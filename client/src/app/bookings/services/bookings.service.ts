@@ -18,6 +18,78 @@ export class BookingsService {
   }
 
 
+
+
+  
+
+  edit(booking: Booking): Observable<Booking> {
+    const fd = new FormData();
+  
+    // Основные поля брони
+    fd.append('_id', booking._id || '');
+    fd.append('booking_start', booking.booking_start || '');
+    fd.append('booking_end', booking.booking_end || '');
+    fd.append('booking_days', (booking.booking_days || 0).toString());
+  
+    // Проверка и добавление сложных объектов в JSON
+    fd.append('extends', JSON.stringify(booking.extends || []));
+    fd.append('closeInfo', JSON.stringify(booking.closeInfo || {}));
+    fd.append('openInfo', JSON.stringify(booking.openInfo || {}));
+  
+    // Машина
+    if (booking.car && booking.car._id) {
+      fd.append('car', booking.car._id);
+    }
+  
+    // Тарифы
+    fd.append('tarif', JSON.stringify(booking.tarif || []));
+    fd.append('tarifCheked', booking.tarifCheked.toString());
+    fd.append('zalog', (booking.zalog || 0).toString());
+  
+    // Клиент
+    if (booking.client && booking.client._id) {
+      fd.append('client', booking.client._id);
+    }
+  
+    // Остальные поля
+    fd.append('place_start', booking.place_start || '');
+    fd.append('place_start_price', (booking.place_start_price || 0).toString());
+    fd.append('place_end', booking.place_end || '');
+    fd.append('place_end_price', (booking.place_end_price || 0).toString());
+    fd.append('arenda', (booking.arenda || 0).toString());
+    fd.append('custome_place_start', (booking.custome_place_start || 0).toString());
+    fd.append('custome_place_end', (booking.custome_place_end || 0).toString());
+    fd.append('custome_zalog', (booking.custome_zalog || 0).toString());
+  
+    // Дополнительные услуги
+    fd.append('additional_services', JSON.stringify(booking.additional_services || []));
+    fd.append('additional_services_price', (booking.additional_services_price || 0).toString());
+  
+    // Смена и пользователь
+    fd.append('smenaId', booking.smenaId || '');
+    fd.append('summaFull', (booking.summaFull || 0).toString());
+    fd.append('paidCount', (booking.paidCount || 0).toString());
+  
+    // Комментарий
+    fd.append('comment', booking.comment || '');
+  
+    // Статус и скидка
+    fd.append('status', booking.status || '');
+    fd.append('sale', (booking.sale || 0).toString());
+  
+    // Мастер приемщик
+    fd.append('masterPriem', JSON.stringify(booking.masterPriem || {}));
+  
+    // ID пользователя
+    fd.append('userId', booking.userId || '');
+  
+    // Отправка запроса на сервер
+    return this.http.patch<Booking>(`/api/bookings/edit/${booking._id}`, fd);
+  }
+
+
+  
+
   // Получаем список всех броней
   getAllBookings(params: any = {}): Observable<Booking[]> {
     return this.http.get<Booking[]>('/api/bookings/bookings-list', {
@@ -140,38 +212,6 @@ export class BookingsService {
 
 
 
-
-  // update(partner: Partner,
-  //     file_1?: File,
-  //     file_2?: File): Observable<Partner> {
-  //     const fd = new FormData();
-      
-  //     fd.append('name', partner.name);
-  //     fd.append('surname', partner.surname);
-  //     fd.append('lastname', partner.lastname);
-  //     fd.append('passport_seria', partner.passport_seria);
-  //     fd.append('passport_number', partner.passport_number);
-  //     fd.append('passport_date', partner.passport_date);
-  //     fd.append('passport_who_take', partner.passport_who_take);
-  //     fd.append('code_podrazdeleniya', partner.code_podrazdeleniya);
-  //     fd.append('passport_register', partner.passport_register);
-  //     fd.append('phone_1', partner.phone_1);
-  //     fd.append('phone_2', partner.phone_2);
-
-  //     if (file_1) {
-  //       fd.append('file_1', file_1, file_1.name);
-  //     }
-
-  //     if (file_2) {
-  //       fd.append('file_2', file_2, file_2.name);
-  //     }
-
-  //     if (partner._id) {
-  //       fd.append('_id', partner._id);
-  //     }
-
-  //     return this.http.patch<Partner>(`/api/partners/update/${partner._id}`, fd);
-  //  }
 
 
  

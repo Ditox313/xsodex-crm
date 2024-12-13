@@ -151,6 +151,7 @@ constructor(private http: HttpClient) { }
       {
          fd.append('custome_wash', car.custome_wash);
       }
+      
 
       return this.http.patch<Car>(`/api/cars/update/${car._id}`, fd);
    }

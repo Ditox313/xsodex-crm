@@ -29,6 +29,34 @@ export const addBookingFailureAction = createAction(
 
 
 
+// Edit Booking
+export const editBookingAction = createAction(
+  ActionTypes.EDIT_BOOKING,
+  props<{ booking: Booking }>()
+)
+
+
+export const editBookingSuccessAction = createAction(
+  ActionTypes.EDIT_BOOKING_SUCCES,
+  props<{ booking: Booking }>()
+);
+
+
+
+
+export const editBookingFailureAction = createAction(
+  ActionTypes.EDIT_BOOKING_FAILURE,
+  props<{ errors: any }>()
+)
+
+
+
+
+
+
+
+
+
 // Bookings List
 export const bookingsListAction = createAction(
   ActionTypes.BOOKINGS_LIST,
@@ -447,26 +475,6 @@ export const closeBookingFailureAction = createAction(
 
 
 
-
-// Update Partner
-// export const updatePartnerAction = createAction(
-//   ActionTypes.UPDATE_PARTNER,
-//   props<{ partner: Partner, file_1?: File, file_2?: File }>()
-// )
-
-
-// export const updatePartnerSuccessAction = createAction(
-//   ActionTypes.UPDATE_PARTNER_SUCCESS,
-//   props<{ data: Partner }>()
-// );
-
-
-
-
-// export const updatePartnerFailureAction = createAction(
-//   ActionTypes.UPDATE_PARTNER_FAILURE,
-//   props<{ errors: any }>()
-// )
 
 
 
