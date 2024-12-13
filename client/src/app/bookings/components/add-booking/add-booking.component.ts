@@ -462,6 +462,18 @@ private pad(number: number): string {
     }
 
     this.form.controls['tarif'].enable();
+
+
+    
+    if (this.booking.tarif[0].status === 'active') {
+      this.tarifGorod()
+    }
+    else if (this.booking.tarif[1].status === 'active') {
+      this.tarifMejGorod()
+    }
+    else if (this.booking.tarif[2].status === 'active') {
+      this.tarifRussia()
+    }
     
 
   }

@@ -16,7 +16,7 @@ import { carsListSelector } from 'src/app/cars/store/selectors';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { settingsAvtoparkListSelector } from 'src/app/settings/store/selectors';
 import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
-import { addBookingAction, bookingGetCurrent } from '../../store/actions/bookings.action';
+import { addBookingAction, bookingGetCurrent, bookingGetCurrentReset } from '../../store/actions/bookings.action';
 import { ActivatedRoute } from '@angular/router';
 import { MasterPriem } from 'src/app/personal/types/masters-priem.interfaces';
 import { clientsFizFromResetAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
@@ -41,9 +41,14 @@ export class EditBookingComponent {
   minDate: string = '';
   getParamsSub$!: Subscription
   bookingId!: string
+  isEdit: boolean = false
  
 
   @ViewChild('myLocalDate') myLocalDate: ElementRef<any> | undefined;
+  // Получаем иппут для триггера события change при инициализации
+  @ViewChild('bookingStartInput', { static: false }) bookingStartInput: ElementRef<HTMLInputElement> | undefined;
+  @ViewChild('bookingEndInput', { static: false }) bookingEndInput: ElementRef<HTMLInputElement> | undefined;
+
   
   settingsAvtoparkListSelector!: Observable<SettingAvtopark[] | null | undefined>
   settingsAvtoparkListSub$!: Subscription
@@ -127,6 +132,9 @@ export class EditBookingComponent {
 
 
 
+
+
+
   constructor(public datePipe: DatePipe, private store: Store, private messageService: MessageService, private rote: ActivatedRoute) { }
 
 
@@ -135,7 +143,36 @@ export class EditBookingComponent {
     this.initForm()
     this.initValues()
     // this.dasable_controls()
-    this.setMinDate()    
+    this.setMinDate()  
+    
+
+    // Активируем режим редактирования, что бы запретить уведомления при начальной загрузке
+    setTimeout(() => {
+      this.isEdit = !this.isEdit
+    }, 2000)
+    
+  }
+
+  ngAfterViewInit() {
+    if (this.bookingStartInput) {
+      this.triggerChangeEventBookingStart();
+    }
+  }
+
+  triggerChangeEventBookingStart() {
+    if (this.bookingStartInput) {
+      const inputElement = this.bookingStartInput.nativeElement;
+      const event = new Event('change', { bubbles: true });
+      inputElement.dispatchEvent(event);
+    }
+  }
+
+  triggerChangeEventBookingEnd() {
+    if (this.bookingEndInput) {
+      const inputElement = this.bookingEndInput.nativeElement;
+      const event = new Event('change', { bubbles: true });
+      inputElement.dispatchEvent(event);
+    }
   }
 
   getParams() {
@@ -203,6 +240,8 @@ export class EditBookingComponent {
 
     // Отчищаем состояние списка мастеров приемщиков
     this.store.dispatch(mastersPriemListResetAction());
+    
+
 
   }
 
@@ -366,33 +405,40 @@ export class EditBookingComponent {
     this.currentBookingSub$ = this.currentBookingSelector.subscribe({
       next: (currentBooking) => {
         this.currentBooking = currentBooking
-        console.log('222',this.currentBooking);
       
    
         if (currentBooking) {
           this.title = `Редактировать бронь №${currentBooking.order}`
 
+          // this.booking.tarif[0] = this.currentBooking.tarif[0]
+          // this.booking.tarif[1] = this.currentBooking.tarif[1]
+          // this.booking.tarif[1] = this.currentBooking.tarif[1]
 
-        
+          
 
-          this.booking.booking_start = this.currentBooking.booking_start
-          this.booking.booking_end = this.currentBooking.booking_end
-          this.booking.car = this.currentBooking.car
-          this.booking.tarif = this.currentBooking.tarif
-          this.booking.arenda = this.currentBooking.arenda
-          this.booking.zalog = this.currentBooking.zalog
-          this.booking.custome_zalog = this.currentBooking.custome_zalog
-          this.booking.place_start = this.currentBooking.place_start
-          this.booking.place_end = this.currentBooking.place_end
-          this.booking.place_start_price = this.currentBooking.place_start_price
-          this.booking.place_end_price = this.currentBooking.place_end_price
-          this.booking.masterPriem = this.currentBooking.masterPriem
+
          
-          this.booking.custome_place_start = this.currentBooking.custome_place_start
-          this.booking.custome_place_end = this.currentBooking.custome_place_end
-          this.booking.additional_services = this.currentBooking.additional_services
+
+          // this.booking.booking_start = this.currentBooking.booking_start
+          // this.booking.booking_end = this.currentBooking.booking_end
+          // this.booking.car = this.currentBooking.car
+          // this.booking.tarif = this.currentBooking.tarif
+          // this.booking.arenda = this.currentBooking.arenda
+          // this.booking.custome_zalog = this.currentBooking.custome_zalog
+          // this.booking.place_start = this.currentBooking.place_start
+          // this.booking.place_end = this.currentBooking.place_end
+          // this.booking.place_start_price = this.currentBooking.place_start_price
+          // this.booking.place_end_price = this.currentBooking.place_end_price
+          // this.booking.masterPriem = this.currentBooking.masterPriem
+         
+          // this.booking.custome_place_start = this.currentBooking.custome_place_start
+          // this.booking.custome_place_end = this.currentBooking.custome_place_end
+          // this.booking.additional_services = this.currentBooking.additional_services
+
+          
           this.booking.additional_services_price = this.currentBooking.additional_services_price
           this.currentClient = this.currentBooking.client
+          
 
           if (this.currentBooking.tarifCheked === 'Смешанный') {
             this.booking.arendaGorodMixed = this.currentBooking.tarif[0].booking_days
@@ -408,10 +454,8 @@ export class EditBookingComponent {
             this.booking.arendaRussiaMixed = this.currentBooking.tarif[2].booking_days
           }
 
-          
-
-
-
+         
+      
 
           this.form.patchValue({
             booking_start: this.currentBooking.booking_start,
@@ -425,12 +469,12 @@ export class EditBookingComponent {
             custome_zalog: this.currentBooking.custome_zalog ? true : false,
             custome_place_start: this.currentBooking.custome_place_start ? true : false,
             custome_place_end: this.currentBooking.custome_place_end ? true : false,
-            additionally_det_kreslo: this.currentBooking.additional_services[0] ? true : false ,
-            additionally_buster: this.currentBooking.additional_services[1] ? true : false,
-            additionally_videoregister: this.currentBooking.additional_services[2] ? true : false ,
-            additionally_battery_charger: this.currentBooking.additional_services[3] ? true : false ,
-            additionally_antiradar: this.currentBooking.additional_services[4] ? true : false ,
-            moyka: this.currentBooking.additional_services[5] ? true : false,
+            additionally_det_kreslo: this.currentBooking.additional_services[0].status ? true : false ,
+            additionally_buster: this.currentBooking.additional_services[1].status ? true : false,
+            additionally_videoregister: this.currentBooking.additional_services[2].status ? true : false ,
+            additionally_battery_charger: this.currentBooking.additional_services[3].status ? true : false ,
+            additionally_antiradar: this.currentBooking.additional_services[4].status ? true : false ,
+            moyka: this.currentBooking.additional_services[5].status ? true : false,
             custome_zalog_value: this.currentBooking.zalog,
             custome_place_start_value: this.currentBooking.place_start,
             custome_place_start_price: this.currentBooking.place_start_price,
@@ -452,7 +496,29 @@ export class EditBookingComponent {
             this.booking.sale_check = false
           }
 
-          
+
+
+          // Запускаем начало всех расчетов если инициализируем при редактировании
+          this.triggerChangeEventBookingEnd()
+
+
+
+
+          // Задаем дефолтные значения доп услуг при инициализации когда редактируем бронь
+         this.booking.additional_services[0].price = this.currentBooking.additional_services[0].price
+         this.booking.additional_services[0].status = this.currentBooking.additional_services[0].status
+         this.booking.additional_services[1].price = this.currentBooking.additional_services[1].price
+         this.booking.additional_services[1].status = this.currentBooking.additional_services[1].status
+         this.booking.additional_services[2].price = this.currentBooking.additional_services[2].price
+         this.booking.additional_services[2].status = this.currentBooking.additional_services[2].status
+         this.booking.additional_services[3].price = this.currentBooking.additional_services[3].price
+         this.booking.additional_services[3].status = this.currentBooking.additional_services[3].status
+         this.booking.additional_services[4].price = this.currentBooking.additional_services[4].price
+         this.booking.additional_services[4].status = this.currentBooking.additional_services[4].status
+         this.booking.additional_services[5].price = this.currentBooking.additional_services[5].price
+         this.booking.additional_services[5].status = this.currentBooking.additional_services[5].status
+
+
 
         }
       }
@@ -482,13 +548,8 @@ export class EditBookingComponent {
       booking_end: endDateString
     });
 
-    // Код для установки + 1 день
-    // const startDate = new Date(e.target.value);
-    // const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000); // Добавляем 24 часа
-    // const endDateString = this.formatDateToLocalDateTime(endDate);
-    // this.form.patchValue({
-    //   booking_end: endDateString
-    // });
+  
+
 
 
     // // Получаем и устанавливаем  начало  аренды
@@ -505,7 +566,9 @@ export class EditBookingComponent {
       this.tarifRussia()
     }
 
-    this.form.controls['booking_end'].enable();
+    // this.form.controls['booking_end'].enable();
+
+    console.log('booking при начале', this.booking);
   }
 
 
@@ -544,7 +607,7 @@ private pad(number: number): string {
       this.tarifRussia()
     }
 
-    this.form.controls['car'].enable();
+    // this.form.controls['car'].enable();
   }
 
 
@@ -602,7 +665,19 @@ private pad(number: number): string {
 
     }
 
-    this.form.controls['tarif'].enable();
+
+
+    if (this.booking.tarif[0].status === 'active') {
+      this.tarifGorod()
+    }
+    else if (this.booking.tarif[1].status === 'active') {
+      this.tarifMejGorod()
+    }
+    else if (this.booking.tarif[2].status === 'active') {
+      this.tarifRussia()
+    }
+
+    // this.form.controls['tarif'].enable();
     
 
   }
@@ -637,7 +712,7 @@ private pad(number: number): string {
 
 
     this.form.controls['custome_zalog'].enable();
-    // this.form.controls['client'].enable();
+    this.form.controls['client'].enable();
     this.form.controls['place_start'].enable();
     this.form.controls['place_end'].enable();
     this.form.controls['additionally_det_kreslo'].enable();
@@ -728,6 +803,9 @@ private pad(number: number): string {
       }
     });
   }
+
+
+  
 
   // Считаем тариф межгород
   tarifMejGorod() {
@@ -1134,22 +1212,38 @@ private pad(number: number): string {
     if (e === 'Аэропорт') {
       this.booking.place_start = e
       this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.airport_price) 
-      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_start_price } руб`, detail: 'Успешно!' });
+      if(this.isEdit)
+      {
+        this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_start_price } руб`, detail: 'Успешно!' });
+      }
     }
     else if (e === 'Ж/д вокзал') {
       this.booking.place_start = e
       this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.railway_price) 
-      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_start_price} руб`, detail: 'Успешно!' });
+
+      if(this.isEdit)
+      {
+        this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_start_price} руб`, detail: 'Успешно!' });
+      }
+      
     }
     else if (e === 'ТЦ Кристалл') {
       this.booking.place_start = e
       this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.kristal_tc_price) 
-      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_start_price} руб`, detail: 'Успешно!' });
+      if(this.isEdit)
+      {
+        this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_start_price} руб`, detail: 'Успешно!' });
+      }
+  
     }
     else if (e === 'Тц Сити Молл') {
       this.booking.place_start = e
       this.booking.place_start_price = Number(this.settingAvnoprokat?.share_avto.sitymol_tc_price) 
-      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_start_price} руб`, detail: 'Успешно!' });
+      if(this.isEdit)
+      {
+        this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_start_price} руб`, detail: 'Успешно!' });
+      }
+      
     }
     else if (e === 'Офис') {
       this.booking.place_start = e
@@ -1166,22 +1260,39 @@ private pad(number: number): string {
     if (e === 'Аэропорт') {
       this.booking.place_end = e
       this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.airport_price_input)
-      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_end_price} руб`, detail: 'Успешно!' });
+      if(this.isEdit)
+      {
+        this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_end_price} руб`, detail: 'Успешно!' });
+      }
+     
     }
     else if (e === 'Ж/д вокзал') {
       this.booking.place_end = e
       this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.railway_price_input)
-      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_end_price} руб`, detail: 'Успешно!' });
+      if(this.isEdit)
+      {
+        this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_end_price} руб`, detail: 'Успешно!' });
+      }
+     
     }
     else if (e === 'ТЦ Кристалл') {
       this.booking.place_end = e
       this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.kristal_tc_price_input)
-      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_end_price} руб`, detail: 'Успешно!' });
+      if(this.isEdit)
+      {
+        this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_end_price} руб`, detail: 'Успешно!' });
+      }
+
     }
     else if (e === 'Тц Сити Молл') {
       this.booking.place_end = e
       this.booking.place_end_price = Number(this.settingAvnoprokat?.input_avto.sitymol_tc_price_input)
-      this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_end_price} руб`, detail: 'Успешно!' });
+      
+      if(this.isEdit)
+      {
+        this.messageService.add({ severity: 'success', summary: `+ ${this.booking.place_end_price} руб`, detail: 'Успешно!' });
+      }
+
     }
     else if (e === 'Офис') {
       this.booking.place_end = e
@@ -1377,6 +1488,7 @@ private pad(number: number): string {
   additionally_moyka() {
     this.booking.additional_services[5].status = !this.booking.additional_services[5].status
 
+    
     if (this.booking.additional_services[5].status)
     {
       this.booking.additional_services_price += this.booking.additional_services[5].price
@@ -1530,8 +1642,10 @@ private pad(number: number): string {
       userId: this.currentUser?._id,
     }
 
-    this.store.dispatch(addBookingAction({ booking: booking }))
 
-    
+    console.log('222', booking);
+
+    // this.store.dispatch(addBookingAction({ booking: booking }))
+
   }
 }

@@ -72,7 +72,7 @@ export class ShowBookingComponent {
     }
 
     //Отчищаем состояние 
-    this.store.dispatch(bookingGetCurrentReset());
+    // this.store.dispatch(bookingGetCurrentReset());
     this.store.dispatch(paysListResetAction());
 
   }
