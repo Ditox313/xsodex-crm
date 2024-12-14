@@ -32,7 +32,7 @@ export class BookingsService {
     fd.append('booking_days', (booking.booking_days || 0).toString());
   
     // Проверка и добавление сложных объектов в JSON
-    fd.append('extends', JSON.stringify(booking.extends || []));
+    fd.append('extends', JSON.stringify(booking.extends));
     fd.append('closeInfo', JSON.stringify(booking.closeInfo || {}));
     fd.append('openInfo', JSON.stringify(booking.openInfo || {}));
   

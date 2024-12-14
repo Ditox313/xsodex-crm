@@ -92,6 +92,10 @@ module.exports.edit = async function (req, res) {
             updated.openInfo = JSON.parse(updated.openInfo);
         }
 
+        if (updated.extends) {
+            updated.extends = JSON.parse(updated.extends);
+        }
+
         // Важное изменение: полное сохранение client и car
         if (updated.client) {
             updated.client = JSON.parse(updated.client)

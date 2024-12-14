@@ -347,7 +347,7 @@
                             <img src="../../../../assets/img/vernut.png">
                         </span>
 
-                        <span class="edit_avto" title="Редактировать бронь" [routerLink]="['/edit-booking', bookingId]">
+                        <span class="edit_avto" title="Редактировать бронь" *ngIf="currentBooking.status === 'В ожидании'" [routerLink]="['/edit-booking', bookingId]">
                             <img src="../../../../assets/img/edit_avto.png" alt="">
                         </span>
                     </div>  

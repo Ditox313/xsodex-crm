@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { UserResponceRegister } from 'src/app/account/types/account.interfaces';
 import { Car } from 'src/app/cars/types/cars.interfaces';
@@ -85,7 +85,7 @@ export class EditBookingComponent {
   mastersPriemList: MasterPriem[] | null | undefined = [];
 
 
-  booking: BookingData = {
+  booking: BookingData | any = {
     booking_start: '',
     booking_end: '',
     car: null,
@@ -135,14 +135,13 @@ export class EditBookingComponent {
 
 
 
-  constructor(public datePipe: DatePipe, private store: Store, private messageService: MessageService, private rote: ActivatedRoute) { }
+  constructor(public datePipe: DatePipe, private store: Store, private messageService: MessageService, private rote: ActivatedRoute, private cdr: ChangeDetectorRef) { }
 
 
   ngOnInit(): void {
     this.getParams()
     this.initForm()
     this.initValues()
-    // this.dasable_controls()
     this.setMinDate()  
     
 
@@ -150,13 +149,16 @@ export class EditBookingComponent {
     setTimeout(() => {
       this.isEdit = !this.isEdit
     }, 2000)
+
     
   }
 
   ngAfterViewInit() {
     if (this.bookingStartInput) {
       this.triggerChangeEventBookingStart();
+      console.log('ngAfterViewInit',this.booking);
     }
+    
   }
 
   triggerChangeEventBookingStart() {
@@ -224,6 +226,8 @@ export class EditBookingComponent {
     }
 
 
+    
+
 
 
     
@@ -239,8 +243,9 @@ export class EditBookingComponent {
 
 
     // Отчищаем состояние списка мастеров приемщиков
-    this.store.dispatch(mastersPriemListResetAction());
+    // this.store.dispatch(mastersPriemListResetAction());
     
+
 
 
   }
@@ -293,6 +298,7 @@ export class EditBookingComponent {
     // Отправляем запрос на получения списка автомобилей
     this.store.dispatch(carsListResetAction());
     this.store.dispatch(carsListAction({ params: {} }));
+    
 
     // Получаем селектор на получение списка смен и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
     // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
@@ -405,7 +411,10 @@ export class EditBookingComponent {
     this.currentBookingSub$ = this.currentBookingSelector.subscribe({
       next: (currentBooking) => {
         this.currentBooking = currentBooking
-      
+        // this.booking = currentBooking
+
+        console.log('Current booking которое с сервера пришло', currentBooking);
+        
    
         if (currentBooking) {
           this.title = `Редактировать бронь №${currentBooking.order}`
@@ -413,6 +422,11 @@ export class EditBookingComponent {
           // this.booking.tarif[0] = this.currentBooking.tarif[0]
           // this.booking.tarif[1] = this.currentBooking.tarif[1]
           // this.booking.tarif[1] = this.currentBooking.tarif[1]
+
+
+          // this.booking.tarif[0] = { ...this.currentBooking.tarif[0] };
+          // this.booking.tarif[1] = { ...this.currentBooking.tarif[1] };
+          // this.booking.tarif[2] = { ...this.currentBooking.tarif[2] };
 
           
 
@@ -501,8 +515,7 @@ export class EditBookingComponent {
 
 
 
-          // Запускаем начало всех расчетов если инициализируем при редактировании
-          this.triggerChangeEventBookingEnd()
+       
 
 
 
@@ -520,6 +533,12 @@ export class EditBookingComponent {
          this.booking.additional_services[4].status = this.currentBooking.additional_services[4].status
          this.booking.additional_services[5].price = this.currentBooking.additional_services[5].price
          this.booking.additional_services[5].status = this.currentBooking.additional_services[5].status
+
+
+
+            // Запускаем начало всех расчетов если инициализируем при редактировании
+            this.triggerChangeEventBookingEnd()
+
          
         }
       }
