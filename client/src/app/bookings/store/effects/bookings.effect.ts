@@ -57,7 +57,7 @@ export class BookingsEffect {
       switchMap(({ booking }) => {
         return this.bookings.edit(booking).pipe(
           map((data) => {
-            this.messageService.add({ severity: 'success', summary: `Партнер обновлен`, detail: 'Успешно!' });
+            this.messageService.add({ severity: 'success', summary: `Бронь обновлена`, detail: 'Успешно!' });
             return editBookingSuccessAction({ booking: data });
           }),
           catchError((errorResponse: HttpErrorResponse) => {

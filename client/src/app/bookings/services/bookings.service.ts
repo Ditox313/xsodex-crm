@@ -38,7 +38,7 @@ export class BookingsService {
   
     // Машина
     if (booking.car && booking.car._id) {
-      fd.append('car', booking.car._id);
+      fd.append('car', JSON.stringify(booking.car || {}));
     }
   
     // Тарифы
@@ -48,7 +48,7 @@ export class BookingsService {
   
     // Клиент
     if (booking.client && booking.client._id) {
-      fd.append('client', booking.client._id);
+      fd.append('client', JSON.stringify(booking.client || {}));
     }
   
     // Остальные поля

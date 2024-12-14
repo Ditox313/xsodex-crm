@@ -73,11 +73,9 @@ module.exports.create = async function (req, res) {
 // Контроллер для edit брони
 module.exports.edit = async function (req, res) {
     try {
-        const updated = req.body; // Данные из JSON будут здесь
-
-        console.log(updated)
-
-        // Преобразуем строки в объекты, если это необходимо
+        const updated = req.body;
+        
+        // Преобразуем строки в объекты
         if (updated.additional_services) {
             updated.additional_services = JSON.parse(updated.additional_services);
         }
@@ -94,13 +92,21 @@ module.exports.edit = async function (req, res) {
             updated.openInfo = JSON.parse(updated.openInfo);
         }
 
+        // Важное изменение: полное сохранение client и car
+        if (updated.client) {
+            updated.client = JSON.parse(updated.client)
+        }
+
+        if (updated.car) {
+            updated.car = JSON.parse(updated.car)
+        }
+
         // Находим и обновляем бронь
         const bookingUpdate = await Booking.findOneAndUpdate(
             { _id: updated._id },
             { $set: updated },
             { new: true }
         );
-        
 
         // Возвращаем пользователю обновленную бронь
         res.status(200).json(bookingUpdate);
@@ -108,7 +114,6 @@ module.exports.edit = async function (req, res) {
         errorHandler(res, e);
     }
 };
-
 
 
 

@@ -568,8 +568,6 @@ export class EditBookingComponent {
     }
 
     // this.form.controls['booking_end'].enable();
-
-    console.log('booking при начале', this.booking);
   }
 
 
@@ -712,16 +710,16 @@ private pad(number: number): string {
 
 
 
-    this.form.controls['custome_zalog'].enable();
-    this.form.controls['client'].enable();
-    this.form.controls['place_start'].enable();
-    this.form.controls['place_end'].enable();
-    this.form.controls['additionally_det_kreslo'].enable();
-    this.form.controls['additionally_buster'].enable();
-    this.form.controls['additionally_videoregister'].enable();
-    this.form.controls['additionally_battery_charger'].enable();
-    this.form.controls['additionally_antiradar'].enable();
-    this.form.controls['moyka'].enable();
+    // this.form.controls['custome_zalog'].enable();
+    // this.form.controls['client'].enable();
+    // this.form.controls['place_start'].enable();
+    // this.form.controls['place_end'].enable();
+    // this.form.controls['additionally_det_kreslo'].enable();
+    // this.form.controls['additionally_buster'].enable();
+    // this.form.controls['additionally_videoregister'].enable();
+    // this.form.controls['additionally_battery_charger'].enable();
+    // this.form.controls['additionally_antiradar'].enable();
+    // this.form.controls['moyka'].enable();
     
   }
 
