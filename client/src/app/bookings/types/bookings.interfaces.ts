@@ -104,7 +104,7 @@ export interface BookingsStateInterface {
 // Интерфейс для параметров запроса на получение всех броней
 export interface BookingsParamsFetch {
     offset: number | null,
-    limit: number | null
+    limit: number | null,
 }
 
 

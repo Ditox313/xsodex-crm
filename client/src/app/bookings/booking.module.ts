@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule,LOCALE_ID  } from '@angular/core';
+import { CommonModule, } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LayoutsModule } from '../shared/modules/layouts/layouts.module';
@@ -29,6 +29,8 @@ import { AllClientsSearchComponent } from './components/all-clients-search/all-c
 import { ClientsModule } from '../clients/clients.module';
 import { ShowBookingComponent } from './components/show-booking/show-booking.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AddActBookingComponent } from './components/add-act-booking/add-act-booking.component';
 import { ShowActBookingComponent } from './components/show-act-booking/show-act-booking.component';
 import { ExtendBookingComponent } from './components/extend-booking/extend-booking.component';
@@ -38,6 +40,12 @@ import { ClientsFizSearchComponent } from './components/clients-fiz-search/clien
 import { ClientsLawSearchComponent } from './components/clients-law-search/clients-law-search.component';
 import { PersonalModule } from '../personal/personal.module';
 import { ThousandsSeparatorPipe } from '../shared/pipes/thousands-separator.pipe';
+import localeRu from '@angular/common/locales/ru';
+import { registerLocaleData } from '@angular/common';
+
+
+// Регистрируем русскую локаль
+registerLocaleData(localeRu);
 
 
 @NgModule({
@@ -80,7 +88,10 @@ import { ThousandsSeparatorPipe } from '../shared/pipes/thousands-separator.pipe
     CheckboxModule,
     StoreModule.forFeature('bookings', reducers),
     EffectsModule.forFeature([BookingsEffect]),
+    CalendarModule,
+    DropdownModule,
+    AutoCompleteModule
   ],
-  providers: [MessageService, DatePipe, BookingsService]
+  providers: [MessageService, DatePipe, BookingsService, { provide: LOCALE_ID, useValue: 'ru' }]
 })
 export class BookingsModule { }
