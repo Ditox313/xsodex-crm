@@ -23,7 +23,7 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
   @ViewChild('bookingsListBtns') bookingsListBtns: ElementRef<any> | undefined;
 
   // Базовые параметры
-  STEP = 4;
+  STEP = 250;
   offset: number = 0;
   limit: number = this.STEP;
   title: string = 'Брони';

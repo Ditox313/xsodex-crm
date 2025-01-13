@@ -46,7 +46,7 @@ header
 
 .account_info_dn
 {
-    transform: translate(110%);
+    display: none;
     transition: all 0.3s;
 }
 

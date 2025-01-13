@@ -102,6 +102,11 @@ div.sort:hover
     margin-top: -2px;
 }
 
+.filters_item label
+{
+    font-weight: 400;
+}
+
 select
 {
     color: #495057;
