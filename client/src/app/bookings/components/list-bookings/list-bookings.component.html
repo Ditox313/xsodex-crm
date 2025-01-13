@@ -2,11 +2,9 @@
 <p-toast></p-toast>
 <loader *ngIf="isLoadingSelector | async"></loader>
 
-
 <!-- Секция фильтров -->
 <div class="filters-section p-4 bg-white shadow-sm mb-3">
     <div class="grid">
-      <!-- Фильтр по датам -->
       <!-- Фильтр по датам -->
       <div class="col-12 md:col-3">
         <span class="p-float-label">
@@ -37,7 +35,7 @@
         <span class="p-float-label">
           <p-autoComplete [(ngModel)]="clientSearch" [suggestions]="filteredClients"
                        (completeMethod)="filterClients($event)" (onSelect)="onClientFilter()"
-                       [field]="'label'" [showClear]="true" placeholder="Поиск клиента"></p-autoComplete>
+                       field="label" [showClear]="true" placeholder="Поиск клиента"></p-autoComplete>
           <label>Клиент</label>
         </span>
       </div>
@@ -48,14 +46,12 @@
                   styleClass="p-button-secondary"></p-button>
       </div>
     </div>
-  </div>
+</div>
 
 <div class="bookings" *ngIf="bookingsList">
     <p-table [value]="bookingsList" styleClass="p-datatable-gridlines list_table"
         [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption" *ngIf="currentSmema">
-            
-
             <div class="xs_bookings_list_btns" #bookingsListBtns>
                 <div class="add_new" [routerLink]="['/add-booking']">
                     <p-button icon="pi pi-plus"></p-button>
@@ -76,7 +72,6 @@
                     <span>Закрытые</span>
                 </div>
             </div>
-            
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
@@ -110,9 +105,7 @@
                 <td>{{booking.place_start}}</td>
                 <td>{{booking.place_end}}</td>
                 
-            
                 <td style="cursor: pointer; text-align: center;" (click)="onDeleteBooking($event, booking)"><i class="pi pi-trash"></i></td>
-
             </tr>
         </ng-template>
     </p-table>

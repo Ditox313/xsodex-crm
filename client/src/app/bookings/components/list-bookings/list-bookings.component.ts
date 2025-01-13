@@ -1,4 +1,3 @@
-// list-bookings.component.ts
 import { Component, OnDestroy, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -9,7 +8,7 @@ import { Smena } from 'src/app/smena/types/smena.interfaces';
 import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
 import { PrimeNGConfig } from 'primeng/api';
 
-// В компоненте добавьте интерфейс для клиента
+// Интерфейс для клиента
 interface ClientOption {
   label: string;
   value: string;
@@ -24,7 +23,7 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
   @ViewChild('bookingsListBtns') bookingsListBtns: ElementRef<any> | undefined;
 
   // Базовые параметры
-  STEP = 3;
+  STEP = 4;
   offset: number = 0;
   limit: number = this.STEP;
   title: string = 'Брони';
@@ -47,10 +46,8 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
   dateRange: Date[] = [];
   selectedCar: any = null;
   clientSearch: ClientOption | null = null;
-  filteredClients: any[] = [];
+  filteredClients: ClientOption[] = [];
   carOptions: any[] = [];
-
-  
 
   constructor(
     private store: Store,
@@ -74,7 +71,6 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
     }
     this.store.dispatch(bookingsListResetAction());
   }
-  
 
   initValues() {
     // Очищаем состояние
@@ -95,8 +91,6 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
           this.bookingsListSort = bookingsList;
           this.originalBookingsList = bookingsList; // Сохраняем оригинальный список
 
-          console.log(bookingsList);
-
           if (this.bookingsList.length >= this.STEP) {
             this.store.dispatch(noMoreBookingsListFalseAction());
           } else {
@@ -104,6 +98,7 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
           }
 
           this.initializeFilters(); // Инициализируем фильтры
+          this.applyFilters(); // Применяем фильтры после загрузки данных
         }
       }
     });
@@ -133,90 +128,65 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
     }
   }
 
+  // Применение всех фильтров
+  applyFilters(): void {
+    let filteredList = this.originalBookingsList;
 
+    // Фильтрация по дате
+    if (this.dateRange && this.dateRange[0] && this.dateRange[1]) {
+      const startDate = new Date(this.dateRange[0]);
+      startDate.setHours(0, 0, 0, 0);
 
-  onDateFilter(): void {
-    if (!this.dateRange || !this.dateRange[0] || !this.dateRange[1]) {
-      this.bookingsList = this.originalBookingsList;
-      return;
+      const endDate = new Date(this.dateRange[1]);
+      endDate.setHours(23, 59, 59, 999);
+
+      filteredList = filteredList?.filter(booking => {
+        const bookingStartDate = new Date(booking.booking_start);
+        bookingStartDate.setHours(0, 0, 0, 0);
+        return bookingStartDate >= startDate && bookingStartDate <= endDate;
+      });
     }
-  
-    // Устанавливаем начало дня для стартовой даты
-    const startDate = new Date(this.dateRange[0]);
-    startDate.setHours(0, 0, 0, 0);
-  
-    // Устанавливаем конец дня для конечной даты
-    const endDate = new Date(this.dateRange[1]);
-    endDate.setHours(23, 59, 59, 999);
-  
-    this.bookingsList = this.originalBookingsList?.filter(booking => {
-      // Преобразуем строку даты в объект Date
-      const bookingStartDate = new Date(booking.booking_start);
-      bookingStartDate.setHours(0, 0, 0, 0); // Игнорируем время
-  
-      // Проверяем, попадает ли дата в выбранный диапазон
-      return bookingStartDate >= startDate && bookingStartDate <= endDate;
-    });
+
+    // Фильтрация по автомобилю
+    if (this.selectedCar) {
+      filteredList = filteredList?.filter(booking =>
+        `${booking.car.marka} ${booking.car.model} (${booking.car.number})` === this.selectedCar.value
+      );
+    }
+
+    // Фильтрация по клиенту
+    if (this.clientSearch) {
+      filteredList = filteredList?.filter(booking =>
+        booking.client._id === this.clientSearch?.value
+      );
+    }
+
+    // Сохраняем отфильтрованный список
+    this.bookingsList = filteredList;
+  }
+
+  // Фильтрация по дате
+  onDateFilter(): void {
+    this.applyFilters();
   }
 
   // Фильтрация по автомобилю
   onCarFilter(): void {
-    if (!this.selectedCar) return;
-    
-    this.bookingsList = this.originalBookingsList?.filter(booking => 
-      `${booking.car.marka} ${booking.car.model} (${booking.car.number})` === this.selectedCar.value
-    );
-  }
-
-  // Обновите метод автодополнения
-  filterClients(event: any): void {
-    if (!this.originalBookingsList) return;
-    
-    const query = event.query.toLowerCase();
-    const uniqueClients = new Map();
-
-    this.originalBookingsList.forEach(booking => {
-      const clientName = booking.client.surname ? 
-        `${booking.client.surname} ${booking.client.name} ${booking.client.lastname || ''}` :
-        `${booking.client.short_name} ${booking.client.name}`;
-        
-      if (!uniqueClients.has(booking.client._id)) {
-        uniqueClients.set(booking.client._id, {
-          label: clientName,
-          value: booking.client._id
-        });
-      }
-    });
-
-    this.filteredClients = Array.from(uniqueClients.values())
-      .filter(client => client.label.toLowerCase().includes(query));
+    this.applyFilters();
   }
 
   // Фильтрация по клиенту
   onClientFilter(): void {
-    if (!this.clientSearch) {
-      this.bookingsList = this.originalBookingsList;
-      return;
-    }
-    
-    this.bookingsList = this.originalBookingsList?.filter(booking => {
-      return booking.client._id === this.clientSearch?.value;
-    });
+    this.applyFilters();
   }
-
-
 
   // Сброс фильтров
   resetFilters(): void {
     this.dateRange = [];
     this.selectedCar = null;
-    this.clientSearch = null; // теперь null вместо пустой строки
-    this.bookingsList = this.originalBookingsList;
-    this.ngOnInit();
+    this.clientSearch = null;
+    this.applyFilters();
   }
-
-
-
 
   // Сортировка броней
   sortBookings(e: any, type: string) {
@@ -246,7 +216,6 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
       limit: this.limit,
     };
     this.store.dispatch(bookingsListAction({ params: params }));
-
   }
 
   // Загрузка дополнительных броней
@@ -265,11 +234,8 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
     }
   }
 
-
-  // Настраиваем календарь
-  primeNgConfig()
-  {
-    // Настройка локализации PrimeNG
+  // Настройка календаря
+  primeNgConfig() {
     this.primengConfig.setTranslation({
       dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
       dayNamesShort: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
@@ -285,5 +251,29 @@ export class ListBookingsComponent implements OnInit, OnDestroy {
       today: 'Сегодня',
       clear: 'Очистить',
     });
+  }
+
+  // Метод для фильтрации клиентов
+  filterClients(event: any): void {
+    if (!this.originalBookingsList) return;
+
+    const query = event.query.toLowerCase();
+    const uniqueClients = new Map();
+
+    this.originalBookingsList.forEach(booking => {
+      const clientName = booking.client.surname ? 
+        `${booking.client.surname} ${booking.client.name} ${booking.client.lastname || ''}` :
+        `${booking.client.short_name} ${booking.client.name}`;
+
+      if (!uniqueClients.has(booking.client._id)) {
+        uniqueClients.set(booking.client._id, {
+          label: clientName,
+          value: booking.client._id
+        });
+      }
+    });
+
+    this.filteredClients = Array.from(uniqueClients.values())
+      .filter(client => client.label.toLowerCase().includes(query));
   }
 }
