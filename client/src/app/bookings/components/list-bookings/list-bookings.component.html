@@ -2,74 +2,78 @@
 <p-toast></p-toast>
 <loader *ngIf="isLoadingSelector | async"></loader>
 
-<!-- Секция фильтров -->
-<div class="filters-section p-4 bg-white shadow-sm mb-3">
-    <div class="grid">
-      <!-- Фильтр по датам -->
-      <div class="col-12 md:col-3">
-        <span class="p-float-label">
-          <p-calendar [(ngModel)]="dateRange" 
-                    selectionMode="range"
-                    [showTime]="false"
-                    dateFormat="dd.mm.yy"
-                    (onSelect)="onDateFilter()"
-                    [showIcon]="true"
-                    placeholder="Выберите период">
-          </p-calendar>
-          <label>Дата</label>
-        </span>
-      </div>
-  
-      <!-- Фильтр по автомобилю -->
-      <div class="col-12 md:col-3">
-        <span class="p-float-label">
-          <p-dropdown [options]="carOptions" [(ngModel)]="selectedCar" 
-                    optionLabel="label" (onChange)="onCarFilter()"
-                    [showClear]="true" placeholder="Выберите автомобиль"></p-dropdown>
-          <label>Автомобиль</label>
-        </span>
-      </div>
-  
-      <!-- Фильтр по клиенту -->
-      <div class="col-12 md:col-3">
-        <span class="p-float-label">
-          <p-autoComplete [(ngModel)]="clientSearch" [suggestions]="filteredClients"
-                       (completeMethod)="filterClients($event)" (onSelect)="onClientFilter()"
-                       field="label" [showClear]="true" placeholder="Поиск клиента"></p-autoComplete>
-          <label>Клиент</label>
-        </span>
-      </div>
-  
-      <!-- Кнопка сброса фильтров -->
-      <div class="col-12 md:col-3">
-        <p-button label="Сбросить фильтры" (onClick)="resetFilters()" 
-                  styleClass="p-button-secondary"></p-button>
-      </div>
-    </div>
-</div>
+
 
 <div class="bookings" *ngIf="bookingsList">
     <p-table [value]="bookingsList" styleClass="p-datatable-gridlines list_table"
         [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption" *ngIf="currentSmema">
-            <div class="xs_bookings_list_btns" #bookingsListBtns>
-                <div class="add_new" [routerLink]="['/add-booking']">
-                    <p-button icon="pi pi-plus"></p-button>
-                </div>
-                <div class="sort sort_all active_sort" (click)="sortBookings($event, 'sort_all')">
-                    <span>Все</span>
+            <div class="filters_wrap">
+                <div class="xs_bookings_list_btns" #bookingsListBtns>
+                    <div class="add_new" [routerLink]="['/add-booking']">
+                        <p-button icon="pi pi-plus"></p-button>
+                    </div>
+                    <div class="sort sort_all active_sort" (click)="sortBookings($event, 'sort_all')">
+                        <span>Все</span>
+                    </div>
+        
+                    <div class="sort sort_arenda " (click)="sortBookings($event, 'sort_arenda')">
+                        <span>В аренде</span>
+                    </div>
+    
+                    <div class="sort sort_wait" (click)="sortBookings($event, 'sort_wait')">
+                        <span>В ожидании</span>
+                    </div>
+    
+                    <div class="sort sort_close" (click)="sortBookings($event, 'sort_close')">
+                        <span>Закрытые</span>
+                    </div>
                 </div>
     
-                <div class="sort sort_arenda " (click)="sortBookings($event, 'sort_arenda')">
-                    <span>В аренде</span>
-                </div>
-
-                <div class="sort sort_wait" (click)="sortBookings($event, 'sort_wait')">
-                    <span>В ожидании</span>
-                </div>
-
-                <div class="sort sort_close" (click)="sortBookings($event, 'sort_close')">
-                    <span>Закрытые</span>
+                <!-- Секция фильтров -->
+                <div class="filters-section p-4 bg-white shadow-sm mb-3" >
+                    <div class="grid">
+                    <!-- Фильтр по датам -->
+                    <div class="filters_item">
+                        <span class="p-float-label">
+                        <p-calendar [(ngModel)]="dateRange" 
+                                    selectionMode="range"
+                                    [showTime]="false"
+                                    dateFormat="dd.mm.yy"
+                                    (onSelect)="onDateFilter()"
+                                    [showIcon]="true"
+                                    placeholder="Выберите период">
+                        </p-calendar>
+                        <label>Дата</label>
+                        </span>
+                    </div>
+                
+                    <!-- Фильтр по автомобилю -->
+                    <div class="filters_item">
+                        <span class="p-float-label">
+                        <p-dropdown [options]="carOptions" [(ngModel)]="selectedCar" 
+                                    optionLabel="label" (onChange)="onCarFilter()"
+                                    [showClear]="true" placeholder="Выберите автомобиль"></p-dropdown>
+                        <label>Автомобиль</label>
+                        </span>
+                    </div>
+                
+                    <!-- Фильтр по клиенту -->
+                    <div class="filters_item">
+                        <span class="p-float-label">
+                        <p-autoComplete [(ngModel)]="clientSearch" [suggestions]="filteredClients"
+                                    (completeMethod)="filterClients($event)" (onSelect)="onClientFilter()"
+                                    field="label" [showClear]="true" placeholder="Поиск клиента"></p-autoComplete>
+                        <label>Клиент</label>
+                        </span>
+                    </div>
+                
+                    <!-- Кнопка сброса фильтров -->
+                    <div class="reset_filters">
+                        <p-button label="✕"  (onClick)="resetFilters()" 
+                                styleClass="p-button-secondary "></p-button>
+                    </div>
+                    </div>
                 </div>
             </div>
         </ng-template>
