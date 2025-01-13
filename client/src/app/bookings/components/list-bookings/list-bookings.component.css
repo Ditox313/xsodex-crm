@@ -44,6 +44,7 @@ div.sort
     transition: all 0.3s;
     font-weight: 300;
     opacity: 0.5;
+    height: 44px;
 }
 
 
@@ -78,6 +79,7 @@ div.sort:hover
     transform: scale(0.8);
     font-weight: 700 !important;
     opacity: 1 !important;
+    line-height: 23px;
 }
 
 .grid
