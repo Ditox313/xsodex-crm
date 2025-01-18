@@ -84,6 +84,41 @@ export const bookingsListResetAction = createAction(
 
 
 
+
+// bookingsListForSmenaAction
+export const bookingsListForSmenaAction = createAction(
+  ActionTypes.BOOKINGS_LIST_FOR_SMENA,
+  props<{smena_id:string}>()
+);
+
+
+export const bookingsListForSmenaSuccessAction = createAction(
+  ActionTypes.BOOKINGS_LIST_FOR_SMENA_SUCCES,
+  props<{ data: Booking[] }>()
+);
+
+
+export const bookingsListForSmenaFailureAction = createAction(
+  ActionTypes.BOOKINGS_LIST_FOR_SMENA_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const bookingsListForSmenaResetAction = createAction(
+  ActionTypes.BOOKINGS_LIST_FOR_SMENA_RESET,
+);
+
+
+
+
+
+
+
+
+
+
+
+
 // No more Bookings List
 
 export const noMoreBookingsListAction = createAction(

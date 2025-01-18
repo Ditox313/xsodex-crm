@@ -21,6 +21,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { SmenaEffect } from './store/effects/smena.effect';
 import { ShowSmenaComponent } from './components/show-smena/show-smena.component';
+import { BookingsModule } from '../bookings/booking.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ShowSmenaComponent } from './components/show-smena/show-smena.component
     RouterModule,
     BrowserAnimationsModule,
     ToastModule,
+    BookingsModule,
     LoaderModule,
     ButtonModule,
     InputTextModule,

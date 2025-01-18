@@ -100,6 +100,13 @@ export class BookingsService {
   }
 
 
+
+  // Получаем список всех броней по id смены
+  bookingsListForSmenaId(smena_id: any): Observable<Booking[]> {
+    return this.http.get<Booking[]>(`/api/bookings/bookings-list-for-smena/${smena_id.smena_id}`);
+  }
+
+
   // Удаление
   delete(id: any): Observable<any> {
     return this.http.delete<any>(`/api/bookings/booking-remove/${id}`);

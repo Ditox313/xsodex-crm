@@ -87,6 +87,7 @@ export interface BookingsStateInterface {
     isLoading: boolean,
     validationErrors?: any,
     bookingsList?: Booking[] | null | undefined | any,
+    bookingsListSmenaId: Booking[] | null | undefined | any,
     noMoreBookingsList: boolean
     currentBooking: Booking | null | undefined | any,
     clients?: any[] | null | undefined | any,

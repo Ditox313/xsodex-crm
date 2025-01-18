@@ -6,6 +6,12 @@ export enum ActionTypes {
   BOOKINGS_LIST_SUCCES = '[Bookings] Bookings List succes',
   BOOKINGS_LIST_FAILURE = '[Bookings] Bookings List failure',
   BOOKINGS_LIST_RESET = '[Bookings] Bookings List reset',
+
+  BOOKINGS_LIST_FOR_SMENA = '[Bookings] Bookings List for smena',
+  BOOKINGS_LIST_FOR_SMENA_SUCCES = '[Bookings] Bookings List for smena succes',
+  BOOKINGS_LIST_FOR_SMENA_FAILURE = '[Bookings] Bookings List for smena failure',
+  BOOKINGS_LIST_FOR_SMENA_RESET = '[Bookings] Bookings List for smena reset',
+
   NO_MORE_BOOKINGS_LIST = '[Bookings] No more Bookings list',
   NO_MORE_BOOKINGS_LIST_FALSE = '[Bookings] No more Bookings list false',
   NO_MORE_BOOKINGS_LIST_TRUE = '[Bookings] No more Bookings list true',

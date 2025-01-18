@@ -13,3 +13,20 @@ thead th
 tbody td {
     font-size: 16px;
 }
+
+.smena_show_bookings_info
+{
+    margin-top: 50px;
+}
+
+.smena_show_bookings_info td
+{
+    cursor: pointer;
+}
+
+
+.xs_not_booking_list
+{
+    font-size: 18px;
+    margin-top: 30px;
+}

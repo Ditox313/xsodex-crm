@@ -122,7 +122,7 @@ module.exports.edit = async function (req, res) {
 
 
 
-
+// Получаем все брони
 module.exports.getAllBookings = async function (req, res) {
     try {
 
@@ -137,6 +137,23 @@ module.exports.getAllBookings = async function (req, res) {
     }
 };
 
+
+
+
+
+// Получаем все брони по id смены
+module.exports.getAllBookingsForSmena = async function (req, res) {
+    try {
+        const smenaId = req.params.id; // Получаем id смены из параметров запроса
+
+        const bookingsList = await Booking.find({ smenaId: smenaId }) // Фильтруем брони по smena_id
+
+        // Возвращаем пользователю позиции 
+        res.status(200).json(bookingsList);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
 
 
 

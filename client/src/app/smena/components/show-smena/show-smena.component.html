@@ -9,7 +9,7 @@
                 <th>Дата открытия</th>
                 <th>Ответственный</th>
                 <th>Статус</th>
-                <th></th>
+                <th> <span *ngIf="currentSmema.status === 'close'">Дата закрытия</span></th>
             </thead>
 
             <tbody>
@@ -17,8 +17,58 @@
                 <td>{{currentSmema.responsible_secondName}} {{currentSmema.responsible_name}} {{currentSmema.responsible_lastName}}</td>
                 <td *ngIf="currentSmema.status === 'open'" style="color: green; font-weight: 700;">Открыта</td>
                 <td *ngIf="currentSmema.status === 'close'" style="color: red; font-weight: 700;">Закрыта</td>
-                <td><p-button label="Закрыть" styleClass="p-button-danger" (click)="closeSmena($event)"></p-button></td>
+                <td>
+                    <p-button label="Закрыть" styleClass="p-button-danger" (click)="closeSmena($event)" *ngIf="currentSmema.status !== 'close'"></p-button>
+                    <span *ngIf="currentSmema.status === 'close'">{{currentSmema.close_date}}</span>
+                </td>
             </tbody>
         </table>
+    </div>
+
+    <div class="smena_show_bookings_info">
+        <h2>Информация о бронях</h2>
+
+        
+        <div class="bookings" *ngIf="bookingsList">
+            <p-table [value]="bookingsList" styleClass="p-datatable-gridlines list_table"
+                [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>№</th>
+                        <th>Создана</th>
+                        <th>Статус</th>
+                        <th>Автомобиль</th>
+                        <th>Клиент</th>
+                        <th>Начало</th>
+                        <th>Конец</th>
+                        <th>Суток</th>
+                        <th>Выдача</th>
+                        <th>Прием</th>
+                    </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-booking>
+                    <tr [routerLink]="['/show-booking',booking._id]">
+                        <td><strong>{{booking.order}}</strong></td>
+                        <td>{{booking.date | date : 'dd.MM.yyyy HH:mm'}}</td>
+                        <td *ngIf="booking.status === 'В ожидании'" style="background-color: #FFA500; color: #fff; min-width: 135px; text-align: center;">{{booking.status}}</td>
+                        <td *ngIf="booking.status === 'В аренде'" style="background-color: #194A9E; color: #fff;  min-width: 135px; text-align: center;">{{booking.status}}</td>
+                        <td *ngIf="booking.status === 'Закрыта'" style="background-color: #FF2400; color: #fff;  min-width: 135px; text-align: center;">{{booking.status}}</td>
+                        <td>{{booking.car.marka}} {{booking.car.model}}({{booking.car.number}})</td>
+                        <td *ngIf="booking.client.surname">{{booking.client.surname}} {{booking.client.name}} {{booking.client.lastname}}</td>
+                        <td *ngIf="booking.client.short_name">{{booking.client.short_name}} {{booking.client.name}}</td>
+                        <td>{{booking.booking_start | date : 'dd.MM.yyyy HH:mm'}}</td>
+                        <td>{{booking.booking_end | date : 'dd.MM.yyyy HH:mm'}}</td>
+                        <td>{{booking.booking_days}}</td>
+                        <td>{{booking.place_start}}</td>
+                        <td>{{booking.place_end}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+
+            <div *ngIf="bookingsList.length === 0" class="noMoreBookingsList">
+                <p class="xs_not_booking_list">Нет броней...</p>
+            </div>
+        </div>
     </div>
 </div>

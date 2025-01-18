@@ -14,6 +14,10 @@ router.post('/create', passport.authenticate('jwt', { session: false }), control
 router.get('/bookings-list', passport.authenticate('jwt', { session: false }), controller.getAllBookings);
 
 
+// Роут на Получение всех броней по id смены
+router.get('/bookings-list-for-smena/:id', passport.authenticate('jwt', { session: false }), controller.getAllBookingsForSmena);
+
+
 //Роут на удаление брони
 router.delete('/booking-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 

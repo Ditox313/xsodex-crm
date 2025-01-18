@@ -18,6 +18,17 @@ export const bookingsListSelector = createSelector(
     (state: BookingsStateInterface) => state.bookingsList
 )
 
+
+
+export const bookingsListForSmenaIdSelector = createSelector(
+    bookingsFeatureSelector,
+    (state: BookingsStateInterface) => state.bookingsListSmenaId
+)
+
+
+
+
+
 export const clientsForSearchListSelector = createSelector(
     bookingsFeatureSelector,
     (state: BookingsStateInterface) => state.clients
