@@ -22,6 +22,7 @@ tbody td {
 .smena_show_bookings_info td
 {
     cursor: pointer;
+    text-align: center !important;
 }
 
 
@@ -29,4 +30,22 @@ tbody td {
 {
     font-size: 18px;
     margin-top: 30px;
+}
+
+
+.smena_show_pays_info
+{
+    margin-top: 50px;
+}
+
+
+.openSmenaLink
+{
+    display: inline-block;
+    padding: 5px 10px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #3B82F6;
+    color: #fff;
+    border-radius: 3px;
 }

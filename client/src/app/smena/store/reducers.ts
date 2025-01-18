@@ -2,7 +2,7 @@ import {createReducer, on, Action} from '@ngrx/store'
 import { SmenaStateInterface } from '../types/smena.interfaces';
 import {
   OpenedSmenaFailureAction, isOpenedSmenaAction, isOpenedSmenaSuccessAction, noMoreSmenaListAction, noMoreSmenaListFalseAction, noMoreSmenaListTrueAction, openSmenaAction, 
-  openSmenaFailureAction, openSmenaSuccessAction, smenaCloseAction, smenaCloseFailureAction, smenaCloseSuccessAction, smenaDeleteAction, smenaDeleteFailureAction, smenaDeleteSuccessAction, smenaGetCurrent, smenaGetCurrentFailureAction, smenaGetCurrentReset, smenaGetCurrentSuccessAction, smenaListAction, smenaListFailureAction, smenaListResetAction, smenaListSuccessAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from './actions/smena.action';
+  openSmenaFailureAction, openSmenaSuccessAction, paysListForSmenaAction, paysListForSmenaFailureAction, paysListForSmenaResetAction, paysListForSmenaSuccessAction, smenaCloseAction, smenaCloseFailureAction, smenaCloseSuccessAction, smenaDeleteAction, smenaDeleteFailureAction, smenaDeleteSuccessAction, smenaGetCurrent, smenaGetCurrentFailureAction, smenaGetCurrentReset, smenaGetCurrentSuccessAction, smenaListAction, smenaListFailureAction, smenaListResetAction, smenaListSuccessAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from './actions/smena.action';
 
 
 
@@ -13,6 +13,7 @@ const initialState: SmenaStateInterface = {
   isLoading: false,
   validationErrors: null,
   smenaList: null,
+  paysList: null,
   noMoreSmenaList: true,
   currentSmena: null
 };
@@ -60,6 +61,8 @@ const smenaReducer = createReducer(
     (state, action): SmenaStateInterface => ({
       ...state,
       isOpenedSmena: action.data.smena.isOpenedSmena,
+      paysList: action.data.smena.paysList,
+      smenaList: action.data.smena.smenaList,
       validationErrors: action.data.smena.validationErrors,
     }),
   ),
@@ -162,6 +165,46 @@ const smenaReducer = createReducer(
     (state): SmenaStateInterface => ({
       ...state,
       smenaList: null,
+    })
+  ),
+
+
+
+
+
+
+
+
+
+
+  on(
+    paysListForSmenaAction,
+    (state): SmenaStateInterface => ({
+      ...state,
+      validationErrors: null,
+    })
+  ),
+
+  on(
+    paysListForSmenaSuccessAction,
+    (state, action): SmenaStateInterface => ({
+      ...state,
+      paysList: action.data,
+      validationErrors: null,
+    })
+  ),
+  on(
+    paysListForSmenaFailureAction,
+    (state, action): SmenaStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+    })
+  ),
+  on(
+    paysListForSmenaResetAction,
+    (state): SmenaStateInterface => ({
+      ...state,
+      paysList: null,
     })
   ),
 

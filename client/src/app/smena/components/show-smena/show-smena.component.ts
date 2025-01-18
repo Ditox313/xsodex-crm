@@ -4,9 +4,9 @@ import { Store, select } from '@ngrx/store';
 import { Smena } from '../../types/smena.interfaces';
 import { DatePipe } from '@angular/common';
 import { Observable, Subscription } from 'rxjs';
-import { smenaCloseAction, smenaGetCurrent, smenaGetCurrentReset } from '../../store/actions/smena.action';
-import { getCurrentSmenaSelector, isLoadingSelector } from '../../store/selectors';
-import { Booking } from 'src/app/bookings/types/bookings.interfaces';
+import { paysListForSmenaAction, paysListForSmenaResetAction, smenaCloseAction, smenaGetCurrent, smenaGetCurrentReset } from '../../store/actions/smena.action';
+import { getCurrentSmenaSelector, isLoadingSelector, paysListForSmenaSelector } from '../../store/selectors';
+import { Booking, Pay } from 'src/app/bookings/types/bookings.interfaces';
 import { bookingsListAction, bookingsListForSmenaAction, bookingsListForSmenaResetAction, bookingsListResetAction } from 'src/app/bookings/store/actions/bookings.action';
 import { bookingsListForSmenaIdSelector, bookingsListSelector } from 'src/app/bookings/store/selectors';
 
@@ -29,6 +29,12 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
   bookingsListSelector!: Observable<Booking[] | null | undefined>;
   bookingsListSub$!: Subscription;
   bookingsList: Booking[] | null | undefined = [];
+
+
+
+  paysListSelector!: Observable<Pay[] | null | undefined>;
+  paysListForSmenaSub$!: Subscription;
+  paysListForSmena: Pay[] | null | undefined = [];
 
   
 
@@ -59,9 +65,17 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
       this.bookingsListSub$.unsubscribe()
     } 
 
+    if (this.paysListForSmenaSub$) {
+      this.paysListForSmenaSub$.unsubscribe()
+    } 
+
 
     // Очищаем состояние броней для смены
     this.store.dispatch(bookingsListForSmenaResetAction());
+
+
+    // Очищаем состояние платежей для смены
+    this.store.dispatch(paysListForSmenaResetAction());
   }
 
 
@@ -69,6 +83,7 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
     this.getParamsSub$ = this.rote.params.subscribe((params: any) => {
       this.smenaId = params['id'];
       this.getBookingsList(this.smenaId)
+      this.getPaysList(this.smenaId)
     });
   }
 
@@ -98,6 +113,20 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
     });
 
 
+
+     // Подписываемся на список платежей для смены
+     this.paysListSelector = this.store.pipe(select(paysListForSmenaSelector));
+     this.paysListForSmenaSub$ = this.paysListSelector.subscribe({
+       next: (payssList) => {
+         if (payssList) {
+           this.paysListForSmena = payssList;
+           console.log('111', this.paysListForSmena);
+           
+         }
+       }
+     });
+
+
     // Получаем селектор loader
     this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))
   }
@@ -108,6 +137,53 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
   getBookingsList(smena_id: string) {
     this.store.dispatch(bookingsListForSmenaAction({ smena_id }));
   }
+
+
+  // Получение списка платежей для смены
+  getPaysList(smenaId: string) {
+    this.store.dispatch(paysListForSmenaAction({ smenaId }));
+  }
+  
+
+  
+
+  // Метод для получения номера брони по id
+  getBookingOrderById(bookingId: string): any {
+    // Ищем бронь по id
+    if(this.bookingsList)
+    {
+      const booking = this.bookingsList.find((b) => b._id === bookingId);
+
+      if(booking)
+      {
+        return booking.order
+      }
+
+      return
+    }
+
+  }
+
+
+
+
+   // Метод для получения номера брони по id
+   getBookingClientById(clientId: string): any {
+    // Ищем бронь по id
+    if(this.bookingsList)
+    {
+      const booking = this.bookingsList.find((b) => b.client._id === clientId);
+
+      if(booking)
+      {
+        return booking.client.surname + ' ' + booking.client.name + ' ' + booking.client.lastname
+      }
+
+      return
+    }
+
+  }
+
 
 
 
@@ -121,3 +197,4 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
     }));
   }
 }
+

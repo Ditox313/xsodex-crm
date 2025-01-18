@@ -3,6 +3,7 @@ import {createAction, props} from '@ngrx/store'
 import {ActionTypes} from 'src/app/smena/store/actionTypes'
 import { Smena, SmenaParamsFetch } from '../../types/smena.interfaces';
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
+import { Pay } from 'src/app/bookings/types/bookings.interfaces';
 
 
 // Open smena
@@ -98,6 +99,32 @@ export const smenaListResetAction = createAction(
   ActionTypes.SMENA_LIST_RESET,
 );
 
+
+
+
+
+// Pais List for smena
+export const paysListForSmenaAction = createAction(
+  ActionTypes.PAYS_LIST_FOR_SMENA,
+  props<{ smenaId: string }>()
+);
+
+
+export const paysListForSmenaSuccessAction = createAction(
+  ActionTypes.PAYS_LIST_FOR_SMENA_SUCCES,
+  props<{ data: Pay[] }>()
+);
+
+
+export const paysListForSmenaFailureAction = createAction(
+  ActionTypes.PAYS_LIST_FOR_SMENA_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const paysListForSmenaResetAction = createAction(
+  ActionTypes.PAYS_LIST_FOR_SMENA_RESET,
+);
 
 
 

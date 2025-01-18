@@ -1,4 +1,5 @@
 const Smena = require('../../models/smena/Smena.js');
+const Pay = require('../../models/bookings/Pay.js');
 const errorHandler = require('../../Utils/errorHendler.js');
 
 
@@ -49,7 +50,7 @@ module.exports.isOpenSmena = async function (req, res) {
 
 
 
-
+// Получаем список смен
 module.exports.getAllSmena = async function (req, res) {
     try {
 
@@ -63,6 +64,25 @@ module.exports.getAllSmena = async function (req, res) {
         errorHandler(res, e);
     }
 };
+
+
+
+
+
+
+// Получаем платежи для смены
+module.exports.getAllSmenaPays = async function (req, res) {
+    try {
+        const smenaId = req.params.id; 
+
+        const paysList = await Pay.find({ smenaId: smenaId }) 
+
+        res.status(200).json(paysList);
+    } catch(e) {
+        errorHandler(res, e);
+    }
+};
+
 
 
 

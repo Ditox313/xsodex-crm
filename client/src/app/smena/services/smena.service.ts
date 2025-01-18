@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { Smena } from '../types/smena.interfaces';
+import { Pay } from 'src/app/bookings/types/bookings.interfaces';
 
 
 @Injectable({
@@ -26,6 +27,14 @@ export class SmenaService {
       })
     });
   }
+
+
+  getAllSmenaPays(smenaId: any): Observable<Pay[]> {
+    return this.http.get<Pay[]>(`/api/smena/pays-list/${smenaId}`);
+  }
+
+
+
 
   delete(id: string | undefined): Observable<any> {
     return this.http.delete<any>(`/api/smena/remove/${id}`);

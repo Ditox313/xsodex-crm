@@ -1,3 +1,4 @@
+import { Pay } from "src/app/bookings/types/bookings.interfaces"
 
 
 // Интерфейс для Smena
@@ -22,6 +23,7 @@ export interface SmenaStateInterface {
     isLoading: boolean,
     validationErrors?: any,
     smenaList?: Smena[] | null | undefined,
+    paysList?: Pay[] | null | undefined,
     noMoreSmenaList: boolean
     currentSmena: Smena | null | undefined,
 }

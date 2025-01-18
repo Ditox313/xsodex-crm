@@ -17,6 +17,10 @@ router.get('/is-open-smena', passport.authenticate('jwt', { session: false }), c
 router.get('/smena-list', passport.authenticate('jwt', { session: false }), controller.getAllSmena);
 
 
+// Роут на Получение всех платеженй для смены
+router.get('/pays-list/:id', passport.authenticate('jwt', { session: false }), controller.getAllSmenaPays);
+
+
 //Роут на удаление смены
 router.delete('/remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 

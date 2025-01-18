@@ -26,4 +26,9 @@ export enum ActionTypes {
   SMENA_CLOSE = '[Smena] close',
   SMENA_CLOSE_SUCCES = '[Smena] close succes',
   SMENA_CLOSE_FAILURE = '[Smena] close failure',
+
+  PAYS_LIST_FOR_SMENA = '[Smena] Pays List For Smena',
+  PAYS_LIST_FOR_SMENA_SUCCES = '[Smena] Pays List For Smena succes',
+  PAYS_LIST_FOR_SMENA_FAILURE = '[Smena] Pays List For Smena failure',
+  PAYS_LIST_FOR_SMENA_RESET = '[Smena] Pays List For Smena reset',
 }

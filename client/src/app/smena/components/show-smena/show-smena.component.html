@@ -71,4 +71,37 @@
             </div>
         </div>
     </div>
+
+
+    <div class="smena_show_pays_info" *ngIf="paysListForSmena">
+        <h2>Информация о платежах</h2>
+
+
+        <p-table [value]="paysListForSmena" styleClass="p-datatable-gridlines list_table"
+            [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Дата платежа</th>
+                    <th>Сумма</th>
+                    <th>Тип</th>
+                    <th>Вид</th>
+                    <th>Номер брони</th>
+                    <th>Клиент</th>
+                    <th>Ссылка на бронь</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-pay>
+                <tr >
+                    <td><strong>{{pay.date | date : 'dd.MM.yyyy'}}</strong></td>
+                    <td><strong>{{pay.pricePay}} руб</strong></td>
+                    <td><strong>{{pay.typeMoney}}</strong></td>
+                    <td><strong>{{pay.type}}</strong></td>
+                    <td><strong >{{this.getBookingOrderById(pay.bookingId)}}</strong></td>
+                    <td><strong >{{this.getBookingClientById(pay.clientId)}}</strong></td>
+                    <td><strong [routerLink]="['/show-booking',pay.bookingId]" class="openSmenaLink">Открыть</strong></td>
+                </tr>
+            </ng-template>
+    </p-table>
+    </div>
 </div>
