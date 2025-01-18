@@ -104,27 +104,27 @@
                 </ng-template>
         </p-table>
 
-        <table class="xs_striped" style="table-layout: fixed; width: 100%;" >
+        <table class="xs_striped" style="table-layout: fixed; width: 100%;">
             <thead>
-                <tr>
-                    <th>Сумма терминал</th>
-                    <th>Сумма наличные</th>
-                    <th>Сумма на карту</th>
-                    <th>Сумма на р/с</th>
-                    <th>Сумма залогов</th>
-                    <th>Общий приход(<small>Без залогов)</small></th>
-                </tr>
+              <tr>
+                <th>Сумма терминал</th>
+                <th>Сумма наличные</th>
+                <th>Сумма на карту</th>
+                <th>Сумма на р/с</th>
+                <th>Сумма залогов</th>
+                <th>Общий приход (<small>Без залогов</small>)</th>
+              </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>{{ calculateSumByType('Терминал') }} руб</td>
-                    <td>{{ calculateSumByType('Наличные') }} руб</td>
-                    <td>{{ calculateSumByType('На карту') }} руб</td>
-                    <td>{{ calculateSumByType('р/с') }} руб</td>
-                    <td>{{ calculateDeposits() }} руб</td>
-                    <td style="font-size: 23px;">{{ calculateTotalIncome() }} руб</td>
-                </tr>
+              <tr>
+                <td>{{ calculateSumByType('Терминал') }} руб</td>
+                <td>{{ calculateSumByType('Наличные') }} руб</td>
+                <td>{{ calculateSumByType('На карту') }} руб</td>
+                <td>{{ calculateSumByType('р/с') }} руб</td>
+                <td>{{ calculateTotalDeposits() }} руб</td>
+                <td style="font-size: 23px;">{{ calculateTotalIncome() }} руб</td>
+              </tr>
             </tbody>
-        </table>
+          </table>
     </div>
 </div>

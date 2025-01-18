@@ -200,27 +200,41 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
 
 
 
+ 
+
+
+  // Подсчеты
+  // Вспомогательный метод для конвертации цены в число
+  private convertToNumber(price: string | Number): number {
+    return typeof price === 'string' ? Number(price) : price.valueOf();
+  }
+
   // Подсчеты
   calculateSumByType(type: string): number {
     if (!this.paysListForSmena) return 0;
+    
+    // Считаем только не залоговые операции указанного типа
     return this.paysListForSmena
-      .filter(pay => pay.typeMoney === type) // Фильтруем по типу оплаты
-      .reduce((sum, pay) => sum + Number(pay.pricePay), 0); // Суммируем все платежи
+      .filter(pay => pay.typeMoney === type && pay.type !== 'Залог')
+      .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
   }
 
-
-  calculateDeposits(): number {
+  calculateTotalDeposits(): number {
     if (!this.paysListForSmena) return 0;
+    
+    // Считаем все залоги (как положительные, так и отрицательные)
     return this.paysListForSmena
-      .filter(pay => pay.type === 'Залог') // Фильтруем только залоги
-      .reduce((sum, pay) => sum + Number(pay.pricePay), 0); // Суммируем залоги
+      .filter(pay => pay.type === 'Залог')
+      .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
   }
 
   calculateTotalIncome(): number {
     if (!this.paysListForSmena) return 0;
+    
+    // Считаем все платежи кроме залогов
     return this.paysListForSmena
-      .filter(pay => pay.type !== 'Залог') // Исключаем залоги
-      .reduce((sum, pay) => sum + Number(pay.pricePay), 0); // Суммируем все платежи
+      .filter(pay => pay.type !== 'Залог')
+      .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
   }
 }
 
