@@ -49,3 +49,26 @@ tbody td {
     color: #fff;
     border-radius: 3px;
 }
+
+
+.xs_striped
+{
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.xs_striped thead
+{
+    background-color: #EEF2F5;
+}
+
+
+.xs_striped tbody
+{
+    background-color: #EEF2F5;
+}
+
+.xs_striped th, .xs_striped td
+{
+    padding: 5px;
+}

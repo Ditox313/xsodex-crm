@@ -196,5 +196,31 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
       close_date: this.close_date
     }));
   }
+
+
+
+
+  // Подсчеты
+  calculateSumByType(type: string): number {
+    if (!this.paysListForSmena) return 0;
+    return this.paysListForSmena
+      .filter(pay => pay.typeMoney === type) // Фильтруем по типу оплаты
+      .reduce((sum, pay) => sum + Number(pay.pricePay), 0); // Суммируем все платежи
+  }
+
+
+  calculateDeposits(): number {
+    if (!this.paysListForSmena) return 0;
+    return this.paysListForSmena
+      .filter(pay => pay.type === 'Залог') // Фильтруем только залоги
+      .reduce((sum, pay) => sum + Number(pay.pricePay), 0); // Суммируем залоги
+  }
+
+  calculateTotalIncome(): number {
+    if (!this.paysListForSmena) return 0;
+    return this.paysListForSmena
+      .filter(pay => pay.type !== 'Залог') // Исключаем залоги
+      .reduce((sum, pay) => sum + Number(pay.pricePay), 0); // Суммируем все платежи
+  }
 }
 
