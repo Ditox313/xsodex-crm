@@ -86,6 +86,18 @@ module.exports.getAllSmenaPays = async function (req, res) {
 
 
 
+// Получаем платежи для генерального отчета
+module.exports.getAllPaysForGeneralReport = async function (req, res) {
+    try {
+        const paysList = await Pay.find();
+        res.status(200).json(paysList);
+    } catch(e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
 
 
 

@@ -31,4 +31,9 @@ export enum ActionTypes {
   PAYS_LIST_FOR_SMENA_SUCCES = '[Smena] Pays List For Smena succes',
   PAYS_LIST_FOR_SMENA_FAILURE = '[Smena] Pays List For Smena failure',
   PAYS_LIST_FOR_SMENA_RESET = '[Smena] Pays List For Smena reset',
+
+  PAYS_LIST_FOR_GENERAL_REPORT = '[Smena] Pays List for general report',
+  PAYS_LIST_FOR_GENERAL_REPORT_SUCCESS = '[Smena] Pays List for general report Success',
+  PAYS_LIST_FOR_GENERAL_REPORT_FAILURE = '[Smena] Pays List for general report Failure',
+  PPAYS_LIST_FOR_GENERAL_REPORT_RESET = '[Smena] Pays List for general report Reset'
 }

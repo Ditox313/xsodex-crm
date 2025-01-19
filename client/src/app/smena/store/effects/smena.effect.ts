@@ -6,7 +6,10 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { paysListForSmenaFailureAction, isOpenedSmenaAction, isOpenedSmenaSuccessAction, noMoreSmenaListAction, openSmenaAction, openSmenaFailureAction, openSmenaSuccessAction, paysListForSmenaAction, paysListForSmenaSuccessAction, smenaCloseAction, smenaCloseFailureAction, smenaCloseSuccessAction, smenaDeleteAction, smenaDeleteFailureAction, smenaDeleteSuccessAction, smenaGetCurrent, smenaGetCurrentFailureAction, smenaGetCurrentSuccessAction, smenaListAction, 
-  smenaListFailureAction,  smenaListSuccessAction, updateStateSmenaAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from '../actions/smena.action'
+  smenaListFailureAction,  smenaListSuccessAction, updateStateSmenaAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction, 
+  paysListForGeneralReportAction,
+  paysListForGeneralReportSuccessAction,
+  paysListForGeneralReportFailureAction} from '../actions/smena.action'
 import { SmenaService } from '../../services/smena.service'
 
 
@@ -125,6 +128,26 @@ export class SmenaEffect {
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               paysListForSmenaFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+// Получение всех платежей для генерального отчета
+  paysLisForGeneralReport$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(paysListForGeneralReportAction),
+      concatMap(() => {
+        return this.smena.getAllPaysForgeneralReport().pipe(
+          map((paysList) => paysListForGeneralReportSuccessAction({ data: paysList })),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              paysListForGeneralReportFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );

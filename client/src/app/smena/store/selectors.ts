@@ -22,6 +22,12 @@ export const paysListForSmenaSelector = createSelector(
     (state: SmenaStateInterface) => state.paysList
 )
 
+
+export const paysListForGeneralreportSelector = createSelector(
+    smenaFeatureSelector,
+    (state: SmenaStateInterface) => state.paysListForGeneralReport
+)
+
 export const isOpenedSmenaSelector = createSelector(
     smenaFeatureSelector,
     (state: SmenaStateInterface) => state.isOpenedSmena

@@ -1,0 +1,69 @@
+<app-header-app-layout [title]="'Все платежи'"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector | async"></loader>
+
+<span class="xs_download_stat" (click)="generatePdf(this.content, 'Отчет по всем платежам.pdf')">
+    Скачать отчет <i class="pi pi-cloud-download" style="margin-left: 10px;"></i>
+</span>
+
+<div class="pays_list" #content  *ngIf="paysList">
+    <div class="pays_list_info">
+        <h2>Информация о платежах</h2>
+<!-- 
+        <p-table [value]="paysList" styleClass="p-datatable-gridlines list_table"
+            [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Дата платежа</th>
+                    <th>Сумма</th>
+                    <th>Тип</th>
+                    <th>Вид</th>
+                    <th>Номер брони</th>
+                    <th>Клиент</th>
+                    <th>Ссылка на бронь</th>
+                </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-pay>
+                <tr>
+                    <td><strong>{{pay.date | date : 'dd.MM.yyyy'}}</strong></td>
+                    <td><strong>{{pay.pricePay}} руб</strong></td>
+                    <td><strong>{{pay.typeMoney}}</strong></td>
+                    <td><strong>{{pay.type}}</strong></td>
+                    <td><strong>№{{this.getBookingOrderById(pay.bookingId)}}</strong></td>
+                    <td><strong>{{this.getBookingClientById(pay.clientId)}}</strong></td>
+                    <td><strong [routerLink]="['/show-booking',pay.bookingId]" class="openSmenaLink">Открыть</strong></td>
+                </tr>
+            </ng-template>
+        </p-table> -->
+
+        <!-- Итоговая таблица с расчетами -->
+        <table class="xs_striped" style="table-layout: fixed; width: 100%;">
+            <thead>
+                <tr>
+                    <th>Сумма терминал</th>
+                    <th>Сумма наличные</th>
+                    <th>Сумма на карту</th>
+                    <th>Сумма на р/с</th>
+                    <th>Сумма залогов</th>
+                    <th>Общий приход (<small>Без залогов</small>)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ calculateSumByType('Терминал') }} руб</td>
+                    <td>{{ calculateSumByType('Наличные') }} руб</td>
+                    <td>{{ calculateSumByType('На карту') }} руб</td>
+                    <td>{{ calculateSumByType('р/с') }} руб</td>
+                    <td>{{ calculateTotalDeposits() }} руб</td>
+                    <td style="font-size: 23px;">{{ calculateTotalIncome() }} руб</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Сообщение если нет платежей -->
+        <div *ngIf="paysList.length === 0" class="noMorePaysList">
+            <p class="xs_not_pays_list">Нет платежей...</p>
+        </div>
+    </div>
+</div>

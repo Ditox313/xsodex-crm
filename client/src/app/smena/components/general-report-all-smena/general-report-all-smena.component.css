@@ -1,0 +1,68 @@
+/* Основные стили для контейнера */
+.pays_list {
+    padding: 0 20px;
+}
+
+/* Стили для заголовков таблицы */
+.xs_striped thead th {
+    width: 30%;
+    text-align: left;
+    font-size: 16px;
+    background-color: #EEF2F5;
+    padding: 5px;
+}
+
+/* Стили для ячеек таблицы */
+.xs_striped tbody td {
+    font-size: 16px;
+    padding: 5px;
+    background-color: #EEF2F5;
+}
+
+/* Стили для контейнера с информацией о платежах */
+.pays_list_info {
+    margin-top: 50px;
+}
+
+/* Стили для сообщения "Нет платежей" */
+.noMorePaysList {
+    margin-top: 30px;
+}
+
+.xs_not_pays_list {
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Стили для кнопки скачивания отчета */
+.xs_download_stat {
+    display: flex;
+    background-color: #3B82F6;
+    cursor: pointer;
+    color: #fff;
+    padding: 5px 10px;
+    position: absolute;
+    right: 154px;
+    top: 18px;
+    height: 41px;
+    border-radius: 6px;
+    align-items: center;
+}
+
+.xs_download_stat i {
+    margin-left: 10px;
+}
+
+/* Дополнительные стили для таблицы */
+.xs_striped {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Стили для заголовка компонента */
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}

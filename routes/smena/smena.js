@@ -21,6 +21,10 @@ router.get('/smena-list', passport.authenticate('jwt', { session: false }), cont
 router.get('/pays-list/:id', passport.authenticate('jwt', { session: false }), controller.getAllSmenaPays);
 
 
+// Роут на Получение всех платеженй для генерального отчета
+router.get('/pays-list-for-general-report', passport.authenticate('jwt', { session: false }), controller.getAllPaysForGeneralReport);
+
+
 //Роут на удаление смены
 router.delete('/remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 

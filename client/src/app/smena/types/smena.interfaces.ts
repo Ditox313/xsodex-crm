@@ -24,6 +24,7 @@ export interface SmenaStateInterface {
     validationErrors?: any,
     smenaList?: Smena[] | null | undefined,
     paysList?: Pay[] | null | undefined,
+    paysListForGeneralReport?: Pay[] | null | undefined,
     noMoreSmenaList: boolean
     currentSmena: Smena | null | undefined,
 }

@@ -129,6 +129,28 @@ export const paysListForSmenaResetAction = createAction(
 
 
 
+// Pais List for general report
+export const paysListForGeneralReportAction = createAction(
+  ActionTypes.PAYS_LIST_FOR_GENERAL_REPORT
+);
+
+export const paysListForGeneralReportSuccessAction = createAction(
+  ActionTypes.PAYS_LIST_FOR_GENERAL_REPORT_SUCCESS,
+  props<{ data: Pay[] }>()
+);
+
+export const paysListForGeneralReportFailureAction = createAction(
+  ActionTypes.PAYS_LIST_FOR_GENERAL_REPORT_FAILURE,
+  props<{ errors: any }>()
+);
+
+export const paysListForGeneralReportResetAction = createAction(
+  ActionTypes.PPAYS_LIST_FOR_GENERAL_REPORT_RESET
+);
+
+
+
+
 
 
 

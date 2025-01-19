@@ -33,6 +33,10 @@ export class SmenaService {
     return this.http.get<Pay[]>(`/api/smena/pays-list/${smenaId}`);
   }
 
+  
+  getAllPaysForgeneralReport(): Observable<Pay[]> {
+    return this.http.get<Pay[]>(`/api/smena/pays-list-for-general-report`);
+  }
 
 
 

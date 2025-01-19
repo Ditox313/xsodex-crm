@@ -2,7 +2,7 @@ import {createReducer, on, Action} from '@ngrx/store'
 import { SmenaStateInterface } from '../types/smena.interfaces';
 import {
   OpenedSmenaFailureAction, isOpenedSmenaAction, isOpenedSmenaSuccessAction, noMoreSmenaListAction, noMoreSmenaListFalseAction, noMoreSmenaListTrueAction, openSmenaAction, 
-  openSmenaFailureAction, openSmenaSuccessAction, paysListForSmenaAction, paysListForSmenaFailureAction, paysListForSmenaResetAction, paysListForSmenaSuccessAction, smenaCloseAction, smenaCloseFailureAction, smenaCloseSuccessAction, smenaDeleteAction, smenaDeleteFailureAction, smenaDeleteSuccessAction, smenaGetCurrent, smenaGetCurrentFailureAction, smenaGetCurrentReset, smenaGetCurrentSuccessAction, smenaListAction, smenaListFailureAction, smenaListResetAction, smenaListSuccessAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from './actions/smena.action';
+  openSmenaFailureAction, openSmenaSuccessAction, paysListForGeneralReportAction, paysListForGeneralReportFailureAction, paysListForGeneralReportResetAction, paysListForGeneralReportSuccessAction, paysListForSmenaAction, paysListForSmenaFailureAction, paysListForSmenaResetAction, paysListForSmenaSuccessAction, smenaCloseAction, smenaCloseFailureAction, smenaCloseSuccessAction, smenaDeleteAction, smenaDeleteFailureAction, smenaDeleteSuccessAction, smenaGetCurrent, smenaGetCurrentFailureAction, smenaGetCurrentReset, smenaGetCurrentSuccessAction, smenaListAction, smenaListFailureAction, smenaListResetAction, smenaListSuccessAction, updateStateSmenaFailureAction, updateStateSmenaSuccessAction } from './actions/smena.action';
 
 
 
@@ -14,6 +14,7 @@ const initialState: SmenaStateInterface = {
   validationErrors: null,
   smenaList: null,
   paysList: null,
+  paysListForGeneralReport: null,
   noMoreSmenaList: true,
   currentSmena: null
 };
@@ -62,6 +63,7 @@ const smenaReducer = createReducer(
       ...state,
       isOpenedSmena: action.data.smena.isOpenedSmena,
       paysList: action.data.smena.paysList,
+      paysListForGeneralReport: action.data.smena.paysListForGeneralReport,
       smenaList: action.data.smena.smenaList,
       validationErrors: action.data.smena.validationErrors,
     }),
@@ -205,6 +207,47 @@ const smenaReducer = createReducer(
     (state): SmenaStateInterface => ({
       ...state,
       paysList: null,
+    })
+  ),
+
+
+
+
+
+
+
+
+
+
+
+  on(
+    paysListForGeneralReportAction,
+    (state): SmenaStateInterface => ({
+      ...state,
+      validationErrors: null,
+    })
+  ),
+
+  on(
+    paysListForGeneralReportSuccessAction,
+    (state, action): SmenaStateInterface => ({
+      ...state,
+      paysListForGeneralReport: action.data,
+      validationErrors: null,
+    })
+  ),
+  on(
+    paysListForGeneralReportFailureAction,
+    (state, action): SmenaStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+    })
+  ),
+  on(
+    paysListForGeneralReportResetAction,
+    (state): SmenaStateInterface => ({
+      ...state,
+      paysListForGeneralReport: null,
     })
   ),
 

@@ -22,12 +22,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { SmenaEffect } from './store/effects/smena.effect';
 import { ShowSmenaComponent } from './components/show-smena/show-smena.component';
 import { BookingsModule } from '../bookings/booking.module';
+import { GeneralReportAllSmenaComponent } from './components/general-report-all-smena/general-report-all-smena.component';
 
 @NgModule({
   declarations: [
     AddSmenaComponent,
     ListSmenaComponent,
-    ShowSmenaComponent
+    ShowSmenaComponent,
+    GeneralReportAllSmenaComponent
   ],
   imports: [
     CommonModule,
