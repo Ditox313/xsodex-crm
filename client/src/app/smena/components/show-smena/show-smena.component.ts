@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Smena } from '../../types/smena.interfaces';
@@ -10,12 +10,21 @@ import { Booking, Pay } from 'src/app/bookings/types/bookings.interfaces';
 import { bookingsListAction, bookingsListForSmenaAction, bookingsListForSmenaResetAction, bookingsListResetAction } from 'src/app/bookings/store/actions/bookings.action';
 import { bookingsListForSmenaIdSelector, bookingsListSelector } from 'src/app/bookings/store/selectors';
 
+
+
+
+
+// Новый способо печати
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 @Component({
   selector: 'app-show-smena',
   templateUrl: './show-smena.component.html',
   styleUrls: ['./show-smena.component.css']
 })
 export class ShowSmenaComponent implements OnInit, OnDestroy {
+  @ViewChild('content') content!: ElementRef | any;
   title: string = 'Просмотр смены №'
   getParamsSub$!: Subscription
   isLoadingSelector!: Observable<boolean | null>
@@ -200,55 +209,99 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
 
 
 
+
+
+    // Генерируем PDF(V2)
+    generatePdf(elementRef: ElementRef, filename: string): void {
+      const element = elementRef.nativeElement;
+      if (!element) {
+        console.error('Element not found');
+        return;
+      }
+  
+      html2canvas(element).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const imgWidth = 210;
+        const pageHeight = 295;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        let heightLeft = imgHeight;
+
+        // Добавляем отступ сверху (50 пикселей)
+        const paddingTop = 10; // Отступ сверху
+        let position = paddingTop; // Начинаем с отступа
+
+  
+        // let position = 0;
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+  
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+  
+        // pdf.autoPrint(); // Автоматически открывает окно печати
+        // window.open(pdf.output('bloburl'), '_blank'); // Открывает PDF в новом окне
+        pdf.save(filename); // Сохраняем PDF с указанным именем файла
+      });
+    }
+
+
+
+
+
  
 
 
   // Подсчеты
-// Вспомогательный метод для конвертации цены в число
-private convertToNumber(price: string | Number): number {
-  return typeof price === 'string' ? Number(price) : price.valueOf();
-}
+  // Вспомогательный метод для конвертации цены в число
+  private convertToNumber(price: string | Number): number {
+    return typeof price === 'string' ? Number(price) : price.valueOf();
+  }
 
-// Расчет суммы по типу оплаты (с учетом возвратов залогов)
-calculateSumByType(type: string): number {
-  if (!this.paysListForSmena) return 0;
-  
-  const regularPayments = this.paysListForSmena
-    .filter(pay => pay.typeMoney === type && pay.type !== 'Залог')
-    .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
+  // Расчет суммы по типу оплаты (с учетом возвратов залогов)
+  calculateSumByType(type: string): number {
+    if (!this.paysListForSmena) return 0;
+    
+    const regularPayments = this.paysListForSmena
+      .filter(pay => pay.typeMoney === type && pay.type !== 'Залог')
+      .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
 
-  // Находим залоги внесенные данным типом оплаты
-  const depositsReceived = this.paysListForSmena
-    .filter(pay => pay.typeMoney === type && pay.type === 'Залог' && this.convertToNumber(pay.pricePay) > 0)
-    .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
+    // Находим залоги внесенные данным типом оплаты
+    const depositsReceived = this.paysListForSmena
+      .filter(pay => pay.typeMoney === type && pay.type === 'Залог' && this.convertToNumber(pay.pricePay) > 0)
+      .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
 
-  // Находим возвраты залогов этим типом оплаты (независимо от того, как залог был внесен)
-  const depositsReturned = this.paysListForSmena
-    .filter(pay => pay.typeMoney === type && pay.type === 'Залог' && this.convertToNumber(pay.pricePay) < 0)
-    .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
+    // Находим возвраты залогов этим типом оплаты (независимо от того, как залог был внесен)
+    const depositsReturned = this.paysListForSmena
+      .filter(pay => pay.typeMoney === type && pay.type === 'Залог' && this.convertToNumber(pay.pricePay) < 0)
+      .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
 
-  // Суммируем обычные платежи и операции с залогами
-  return regularPayments + depositsReceived + depositsReturned;
-}
+    // Суммируем обычные платежи и операции с залогами
+    return regularPayments + depositsReceived + depositsReturned;
+  }
 
-// Подсчет общей суммы залогов (текущий баланс залогов)
-calculateTotalDeposits(): number {
-  if (!this.paysListForSmena) return 0;
-  
-  // Учитываем все операции с залогами (внесение и возврат)
-  return this.paysListForSmena
-    .filter(pay => pay.type === 'Залог')
-    .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
-}
+  // Подсчет общей суммы залогов (текущий баланс залогов)
+  calculateTotalDeposits(): number {
+    if (!this.paysListForSmena) return 0;
+    
+    // Учитываем все операции с залогами (внесение и возврат)
+    return this.paysListForSmena
+      .filter(pay => pay.type === 'Залог')
+      .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
+  }
 
-// Подсчет общего прихода (без учета залогов)
-calculateTotalIncome(): number {
-  if (!this.paysListForSmena) return 0;
-  
-  // Считаем только не залоговые операции
-  return this.paysListForSmena
-    .filter(pay => pay.type !== 'Залог')
-    .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
-}
+  // Подсчет общего прихода (без учета залогов)
+  calculateTotalIncome(): number {
+    if (!this.paysListForSmena) return 0;
+    
+    // Считаем только не залоговые операции
+    return this.paysListForSmena
+      .filter(pay => pay.type !== 'Залог')
+      .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
+  }
 }
 

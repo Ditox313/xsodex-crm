@@ -2,7 +2,10 @@
 <p-toast></p-toast>
 <loader *ngIf="isLoadingSelector | async"></loader>
 
-<div class="smena_show" *ngIf="this.currentSmema">
+
+<span class="xs_download_stat" (click)="generatePdf(this.content, 'Отчет для смены  №' + this.currentSmema?.order + '.pdf')">Скачать отчет <i class="pi pi-cloud-download" style="margin-left: 10px;"></i></span>
+
+<div class="smena_show" *ngIf="this.currentSmema" #content >
     <div class="smena_show_admin_info">
         <table>
             <thead>
@@ -128,3 +131,4 @@
         </table>
     </div>
 </div>
+

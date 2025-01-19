@@ -1,6 +1,7 @@
 .smena_show
 {
     padding: 0 20px;
+    /* padding-top: 50px; */
 }
 
 thead th
@@ -71,4 +72,19 @@ tbody td {
 .xs_striped th, .xs_striped td
 {
     padding: 5px;
+}
+
+
+.xs_download_stat {
+    display: flex;
+    background-color: #3B82F6;
+    cursor: pointer;
+    color: #fff;
+    padding: 5px 10px;
+    position: absolute;
+    right: 154px;
+    top: 18px;
+    height: 41px;
+    border-radius: 6px;
+    align-items: center;
 }
