@@ -2,9 +2,9 @@
 <p-toast></p-toast>
 <loader *ngIf="isLoadingSelector | async"></loader>
 
-<div class="add_new" [routerLink]="['/pays-list-for-general-report-smena']">
+<span class="xs_download_stat" [routerLink]="['/pays-list-for-general-report-smena']">
     Генеральный отчет
-</div>
+</span>
 
 <div class="list" *ngIf="smenaList">
     <p-table [value]="smenaList" styleClass="p-datatable-gridlines list_table" [tableStyle]="{ 'min-width': '50rem' }" >

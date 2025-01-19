@@ -8,9 +8,9 @@
 
 <div class="pays_list" #content  *ngIf="paysList">
     <div class="pays_list_info">
-        <h2>Информация о платежах</h2>
-<!-- 
-        <p-table [value]="paysList" styleClass="p-datatable-gridlines list_table"
+        <h2>Общая информация о платежах и финансах</h2>
+
+        <!-- <p-table [value]="paysList" styleClass="p-datatable-gridlines list_table"
             [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template pTemplate="header">
                 <tr>
@@ -60,6 +60,7 @@
                 </tr>
             </tbody>
         </table>
+        
 
         <!-- Сообщение если нет платежей -->
         <div *ngIf="paysList.length === 0" class="noMorePaysList">

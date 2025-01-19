@@ -20,6 +20,7 @@ export class GeneralReportAllSmenaComponent implements OnInit, OnDestroy {
   paysListSelector!: Observable<Pay[] | null | undefined>;
   paysListSub$!: Subscription;
   paysList: Pay[] | null | undefined = [];
+  
 
   constructor(private store: Store) {}
 

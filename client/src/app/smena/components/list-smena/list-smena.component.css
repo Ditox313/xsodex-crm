@@ -16,3 +16,19 @@ td
 {
     cursor: pointer;
 }
+
+
+/* Стили для кнопки скачивания отчета */
+.xs_download_stat {
+    display: flex;
+    background-color: #3B82F6;
+    cursor: pointer;
+    color: #fff;
+    padding: 5px 10px;
+    position: absolute;
+    right: 154px;
+    top: 18px;
+    height: 41px;
+    border-radius: 6px;
+    align-items: center;
+}
