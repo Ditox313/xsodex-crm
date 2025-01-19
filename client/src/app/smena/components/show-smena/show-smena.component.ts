@@ -204,37 +204,51 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
 
 
   // Подсчеты
-  // Вспомогательный метод для конвертации цены в число
-  private convertToNumber(price: string | Number): number {
-    return typeof price === 'string' ? Number(price) : price.valueOf();
-  }
+// Вспомогательный метод для конвертации цены в число
+private convertToNumber(price: string | Number): number {
+  return typeof price === 'string' ? Number(price) : price.valueOf();
+}
 
-  // Подсчеты
-  calculateSumByType(type: string): number {
-    if (!this.paysListForSmena) return 0;
-    
-    // Считаем только не залоговые операции указанного типа
-    return this.paysListForSmena
-      .filter(pay => pay.typeMoney === type && pay.type !== 'Залог')
-      .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
-  }
+// Расчет суммы по типу оплаты (с учетом возвратов залогов)
+calculateSumByType(type: string): number {
+  if (!this.paysListForSmena) return 0;
+  
+  const regularPayments = this.paysListForSmena
+    .filter(pay => pay.typeMoney === type && pay.type !== 'Залог')
+    .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
 
-  calculateTotalDeposits(): number {
-    if (!this.paysListForSmena) return 0;
-    
-    // Считаем все залоги (как положительные, так и отрицательные)
-    return this.paysListForSmena
-      .filter(pay => pay.type === 'Залог')
-      .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
-  }
+  // Находим залоги внесенные данным типом оплаты
+  const depositsReceived = this.paysListForSmena
+    .filter(pay => pay.typeMoney === type && pay.type === 'Залог' && this.convertToNumber(pay.pricePay) > 0)
+    .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
 
-  calculateTotalIncome(): number {
-    if (!this.paysListForSmena) return 0;
-    
-    // Считаем все платежи кроме залогов
-    return this.paysListForSmena
-      .filter(pay => pay.type !== 'Залог')
-      .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
-  }
+  // Находим возвраты залогов этим типом оплаты (независимо от того, как залог был внесен)
+  const depositsReturned = this.paysListForSmena
+    .filter(pay => pay.typeMoney === type && pay.type === 'Залог' && this.convertToNumber(pay.pricePay) < 0)
+    .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
+
+  // Суммируем обычные платежи и операции с залогами
+  return regularPayments + depositsReceived + depositsReturned;
+}
+
+// Подсчет общей суммы залогов (текущий баланс залогов)
+calculateTotalDeposits(): number {
+  if (!this.paysListForSmena) return 0;
+  
+  // Учитываем все операции с залогами (внесение и возврат)
+  return this.paysListForSmena
+    .filter(pay => pay.type === 'Залог')
+    .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
+}
+
+// Подсчет общего прихода (без учета залогов)
+calculateTotalIncome(): number {
+  if (!this.paysListForSmena) return 0;
+  
+  // Считаем только не залоговые операции
+  return this.paysListForSmena
+    .filter(pay => pay.type !== 'Залог')
+    .reduce((sum, pay) => sum + this.convertToNumber(pay.pricePay), 0);
+}
 }
 

@@ -97,7 +97,7 @@
                         <td><strong>{{pay.pricePay}} руб</strong></td>
                         <td><strong>{{pay.typeMoney}}</strong></td>
                         <td><strong>{{pay.type}}</strong></td>
-                        <td><strong >{{this.getBookingOrderById(pay.bookingId)}}</strong></td>
+                        <td><strong >№{{this.getBookingOrderById(pay.bookingId)}}</strong></td>
                         <td><strong >{{this.getBookingClientById(pay.clientId)}}</strong></td>
                         <td><strong [routerLink]="['/show-booking',pay.bookingId]" class="openSmenaLink">Открыть</strong></td>
                     </tr>
@@ -125,6 +125,6 @@
                 <td style="font-size: 23px;">{{ calculateTotalIncome() }} руб</td>
               </tr>
             </tbody>
-          </table>
+        </table>
     </div>
 </div>
