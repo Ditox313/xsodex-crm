@@ -5,8 +5,8 @@
 
 
 module.exports = {
-    mongoUri: 'mongodb://127.0.0.1:27017/xsodex-crm',
-    jwt: 'xsodex',
+    mongoUri: '',
+    jwt: '',
 };
 
 
