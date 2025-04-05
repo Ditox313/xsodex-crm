@@ -809,72 +809,157 @@ private pad(number: number): string {
 
 
   // При выборе кол-ва дней смешанного тарифа - межгород
-  tarifMixedMejgorodDays(e: any) {
-    this.booking.tarif[1].booking_days = e | 0
+  // tarifMixedMejgorodDays(e: any) {
+  //   this.booking.tarif[1].booking_days = e | 0
 
-    if(e < 0)
-    {
-      this.form.patchValue({
-        tarif_mixed_mezjgorod_days: 0
-      })
-    }
+  //   if(e < 0)
+  //   {
+  //     this.form.patchValue({
+  //       tarif_mixed_mezjgorod_days: 0
+  //     })
+  //   }
 
-    if (e === null || e === 0) {
-      this.booking.arendaMejGorodMixed = 0
-      this.booking.arenda = this.booking.arendaGorodMixed + this.booking.arendaMejGorodMixed + this.booking.arendaRussiaMixed
-      this.booking.tarif[1].tarif_price = 0
-      this.booking.tarif[1].dop_hours_price = 0
-    }
-    else
-    {
-      if (this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days > this.isBookingdays()) {
-        this.form.patchValue({
-          tarif_mixed_mezjgorod_days: 0
-        })
+  //   if (e === null || e === 0) {
+  //     this.booking.arendaMejGorodMixed = 0
+  //     this.booking.arenda = this.booking.arendaGorodMixed + this.booking.arendaMejGorodMixed + this.booking.arendaRussiaMixed
+  //     this.booking.tarif[1].tarif_price = 0
+  //     this.booking.tarif[1].dop_hours_price = 0
+  //   }
+  //   else
+  //   {
+  //     if (this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days > this.isBookingdays()) {
+  //       this.form.patchValue({
+  //         tarif_mixed_mezjgorod_days: 0
+  //       })
 
-        this.errorValidTarifMixedDays = true
-      }
-      else {
-        this.errorValidTarifMixedDays = false
-      }
-
-
-
-
-      if (e !== 0 && e !== null) {
-        this.booking.tarif[1].status = 'active'
-      }
-      else {
-        this.booking.tarif[1].status = 'no_active'
-      }
+  //       this.errorValidTarifMixedDays = true
+  //     }
+  //     else {
+  //       this.errorValidTarifMixedDays = false
+  //     }
 
 
 
 
-
-      this.booking.car?.tarif_mejgorod.forEach((period: any) => {
-        let interval = period[0].split('-')
-        if (this.booking.tarif[1].booking_days >= interval[0] && this.booking.tarif[1].booking_days <= interval[1]) {
-          this.booking.arendaMejGorodMixed = this.booking.tarif[1].booking_days * Number(period[1]) + (this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1] * this.booking.tarif[1].dop_hours)
-          this.booking.arenda = this.booking.arendaGorodMixed + this.booking.arendaMejGorodMixed + this.booking.arendaRussiaMixed
-          this.booking.tarif[1].tarif_price = Number(period[1])
-          this.booking.tarif[1].dop_hours_price = Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1])
-
-        }
-
-        if (this.booking.tarif[1].booking_days >= interval[0] && interval[1] === '00') {
-          this.booking.arendaMejGorodMixed += this.booking.tarif[1].booking_days * Number(period[1]) + (this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1] * this.booking.tarif[1].dop_hours)
-          this.booking.arenda = this.booking.arendaGorodMixed + this.booking.arendaMejGorodMixed + this.booking.arendaRussiaMixed
-          this.booking.tarif[1].tarif_price = Number(period[1])
-          this.booking.tarif[1].dop_hours_price = Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1])
-
-        }
-      });
+  //     if (e !== 0 && e !== null) {
+  //       this.booking.tarif[1].status = 'active'
+  //     }
+  //     else {
+  //       this.booking.tarif[1].status = 'no_active'
+  //     }
 
 
 
-    } 
+
+
+  //     this.booking.car?.tarif_mejgorod.forEach((period: any) => {
+  //       let interval = period[0].split('-')
+  //       if (this.booking.tarif[1].booking_days >= interval[0] && this.booking.tarif[1].booking_days <= interval[1]) {
+  //         this.booking.arendaMejGorodMixed = this.booking.tarif[1].booking_days * Number(period[1]) + (this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1] * this.booking.tarif[1].dop_hours)
+  //         this.booking.arenda = this.booking.arendaGorodMixed + this.booking.arendaMejGorodMixed + this.booking.arendaRussiaMixed
+  //         this.booking.tarif[1].tarif_price = Number(period[1])
+  //         this.booking.tarif[1].dop_hours_price = Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1])
+
+  //       }
+
+  //       if (this.booking.tarif[1].booking_days >= interval[0] && interval[1] === '00') {
+  //         this.booking.arendaMejGorodMixed = this.booking.tarif[1].booking_days * Number(period[1]) + (this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1] * this.booking.tarif[1].dop_hours)
+  //         this.booking.arenda = this.booking.arendaGorodMixed + this.booking.arendaMejGorodMixed + this.booking.arendaRussiaMixed
+  //         this.booking.tarif[1].tarif_price = Number(period[1])
+  //         this.booking.tarif[1].dop_hours_price = Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1])
+
+  //       }
+  //     });
+
+
+
+  //   } 
+  // }
+
+  // При выборе кол-ва дней смешанного тарифа - межгород
+tarifMixedMejgorodDays(e: any) {
+  this.booking.tarif[1].booking_days = e | 0;
+
+  if (e < 0) {
+    this.form.patchValue({
+      tarif_mixed_mezjgorod_days: 0
+    });
   }
+
+  if (e === null || e === 0) {
+    this.booking.arendaMejGorodMixed = 0;
+    this.booking.tarif[1].tarif_price = 0;
+    this.booking.tarif[1].dop_hours_price = 0;
+    this.booking.arenda = this.booking.arendaGorodMixed + this.booking.arendaMejGorodMixed + this.booking.arendaRussiaMixed;
+    return;
+  }
+
+  // Проверка на превышение общего количества дней
+  const totalDays =
+    this.booking.tarif[0].booking_days +
+    this.booking.tarif[1].booking_days +
+    this.booking.tarif[2].booking_days;
+
+  if (totalDays > this.isBookingdays()) {
+    this.form.patchValue({
+      tarif_mixed_mezjgorod_days: 0
+    });
+
+    this.errorValidTarifMixedDays = true;
+    return;
+  } else {
+    this.errorValidTarifMixedDays = false;
+  }
+
+  // Активируем тариф при наличии дней
+  this.booking.tarif[1].status = 'active';
+
+  // Расчёт тарифа
+  let matched = false;
+
+  this.booking.car?.tarif_mejgorod.forEach((period: any) => {
+    const interval = period[0].split('-');
+
+    if (
+      this.booking.tarif[1].booking_days >= Number(interval[0]) &&
+      this.booking.tarif[1].booking_days <= Number(interval[1])
+    ) {
+      this.booking.arendaMejGorodMixed =
+        this.booking.tarif[1].booking_days * Number(period[1]) +
+        (Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1]) *
+          this.booking.tarif[1].dop_hours);
+
+      this.booking.tarif[1].tarif_price = Number(period[1]);
+      this.booking.tarif[1].dop_hours_price = Number(
+        this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1]
+      );
+
+      matched = true;
+    }
+    else if (
+      !matched &&
+      this.booking.tarif[1].booking_days >= Number(interval[0]) &&
+      interval[1] === '00'
+    ) {
+      this.booking.arendaMejGorodMixed =
+        this.booking.tarif[1].booking_days * Number(period[1]) +
+        (Number(this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1]) *
+          this.booking.tarif[1].dop_hours);
+
+      this.booking.tarif[1].tarif_price = Number(period[1]);
+      this.booking.tarif[1].dop_hours_price = Number(
+        this.booking.car?.tarif_mejgorod[this.booking.car?.tarif_mejgorod.length - 1][1]
+      );
+    }
+  });
+
+  // Обновляем итоговую сумму аренды
+  this.booking.arenda =
+    this.booking.arendaGorodMixed +
+    this.booking.arendaMejGorodMixed +
+    this.booking.arendaRussiaMixed;
+}
+
 
 
 
