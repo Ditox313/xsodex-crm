@@ -44,7 +44,7 @@
 
 .xs_empty_tr
 {
-    height: 68px;
+    height: 90px;
 }
 
 .tarif_name
@@ -75,6 +75,7 @@
     width: 99.8%;
     margin: 0 auto;
     margin-top: 5px;
+    font-size: 15px;
     
 }
 

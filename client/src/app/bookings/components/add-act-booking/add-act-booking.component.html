@@ -7,7 +7,7 @@
     
     <div class="add-act-booking" #content *ngIf="currentBooking && currentClient && currentCar && currentUser">
 
-        <div class="xs_block_1" style="padding: 20px 40px 0 40px">
+        <div class="xs_block_1" style="padding: 10px 40px 0 40px; font-size: 15px !important;"> 
             <table style="width: 100%;">
                 <tr>
                     <td style=" text-align: center; font-weight: 600; border: 1px solid #000; padding: 5px; font-size: 18px;">
@@ -23,14 +23,14 @@
                 </tr>
             </table>
 
-            <div *ngIf="currentBooking.client.type === 'fiz'" class="xs_table_div">
-                <div *ngIf="this.masterPriem.name == ''" style="font-size: 21px;">
+            <div *ngIf="currentBooking.client.type === 'fiz'" class="xs_table_div" style="font-size: 15px;">
+                <div *ngIf="this.masterPriem.name == ''" style="font-size: 15px;">
                     Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
                     между: <strong>ООО «ЕВС»</strong>
                      в лице Уполномоченного {{this.currentUser.secondName}} {{this.currentUser.name}} {{this.currentUser.lastName}} по Доверенности №{{this.currentUser.doverenostNumber}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, 
                     далее <strong>«Арендодатель»</strong>, и гражданин(ка) РФ, <strong>{{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
                 </div>
-                <div *ngIf="this.masterPriem.name != ''" style="font-size: 21px;">
+                <div *ngIf="this.masterPriem.name != ''" style="font-size: 15px;">
                     Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
                     между: <strong>ООО «ЕВС»</strong>
                      в лице Уполномоченного {{this.masterPriem.surname}} {{this.masterPriem.name}} {{this.masterPriem.lastname}} по Доверенности №{{this.masterPriem.doverenostNumber}} от {{this.masterPriem.doverenostDate | date : 'dd.MM.yyyy'}} г, 
@@ -216,14 +216,14 @@
                                 <td  style="text-align: center; border: 1px solid #000; padding: 5px; font-size: 18px;"><img src="{{this.currentCar.avatar}}" style="width: 240px; max-height: 200px;" alt="Изображение"></td>
                             </tr>
 
-                            <tr class="xs_empty_tr">
+                            <tr class="xs_empty_tr" style="height: 90px !important;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     
                                 </td>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                             </tr>
 
-                            <tr class="xs_empty_tr">
+                            <tr class="xs_empty_tr" style="height: 90px !important;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     
                                 </td>
@@ -458,7 +458,7 @@
             </div>
 
             <table style="width: 100%;">
-                <tr style="height: 80px;">
+                <tr style="height: 60px;">
                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                 </tr>
@@ -561,7 +561,7 @@
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%; ">
                         <table style="width: 100%;">
-                            <tr style="height: 100px;">
+                            <tr style="height: 95px;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 70%;"><strong>Арендодатель а/м передал:</strong><br><br><br>
                                 <small style="font-size: 12px; margin-left: 54%;">Подпись, печать (при наличии)</small></td>
 
@@ -578,7 +578,7 @@
                                 </td>
                             </tr>
 
-                            <tr style="height: 100px;">
+                            <tr style="height: 95px;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" ><strong>Арендатор а/м принял:</strong> <br><br><br>
                                 <small style="font-size: 12px; margin-left: 54%;">Подпись, печать (при наличии)</small></td>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;" class="xs_block_5_align_center"><br> 
@@ -590,9 +590,9 @@
                     </td>
 
 
-                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%; height: 100px;">
+                    <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 50%; height: 95px;">
                         <table style="width: 100%;">
-                            <tr style="height: 100px;">
+                            <tr style="height: 95px;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 70%;"><strong>Арендодатель а/м принял:</strong> <br><br><br>
                                 <small style="font-size: 12px; margin-left: 54%;">Подпись, печать (при наличии)</small></td>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px; width: 30%;" class="xs_block_5_align_center"><br> 
@@ -606,7 +606,7 @@
                                 </td>
                             </tr>
 
-                            <tr style="height: 100px;">
+                            <tr style="height: 95px;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"><strong>Арендатор а/м передал:</strong> <br><br><br>
                                 <small style="font-size: 12px; margin-left: 54%;">Подпись, печать (при наличии)</small></td>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px; " class="xs_block_5_align_center"><br> 

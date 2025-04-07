@@ -329,9 +329,9 @@
                             *ngIf="currentBooking.paidCount > currentBooking.summaFull">Оплачено
                             ({{currentBooking.summaFull - currentBooking.paidCount}} руб)</span>
 
-                        <span class="btn_act_create" [routerLink]="['/add-act-booking', bookingId]">Сформировать акт</span>
-                        <!-- <span class="btn_act_create" [routerLink]="['/add-act-booking', bookingId]" *ngIf="!currentBooking.act">Сформировать акт</span>
-                        <span class="btn_act_create" [routerLink]="['/show-act-booking', bookingId]" *ngIf="currentBooking.act">Просмотр акта</span> -->
+                        <!-- <span class="btn_act_create" [routerLink]="['/add-act-booking', bookingId]">Сформировать акт</span> -->
+                        <span class="btn_act_create" [routerLink]="['/add-act-booking', bookingId]" *ngIf="!currentBooking.act">Сформировать акт</span>
+                        <span class="btn_act_create" [routerLink]="['/show-act-booking', bookingId]" *ngIf="currentBooking.act">Просмотрт акта</span>
                     </div>
 
                     <div class="managmentActions">
