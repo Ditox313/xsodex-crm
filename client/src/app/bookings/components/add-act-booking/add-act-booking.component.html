@@ -146,7 +146,10 @@
                                     <div *ngFor="let item of currentCar.tarif_gorod.slice(0, currentCar.tarif_gorod.length - 2); let i = index;" class="xs_tarif_gorod">
                                         <span *ngIf="item[0] !== ''">
                                             <input type="checkbox" style="width: 16px; height: 16px; margin-left: auto; ">
-                                            {{item[1]}} руб <strong style="margin-left: 15px;">({{item[0]}} суток) </strong>
+                                            {{item[1]}} руб 
+                                            
+                                            <strong style="margin-left: 15px;" *ngIf="!hasDoubleZero(item[0])">({{item[0]}} суток) </strong>
+                                            <strong style="margin-left: 15px;" *ngIf="hasDoubleZero(item[0])">от {{ removeDoubleZeroWithDash(item[0]) }} дней(дня) </strong>
                                         </span>
                                     </div>
                                 </td>
@@ -163,7 +166,7 @@
                                 </td>
                             </tr>
 
-                            <tr>
+                            <tr class="xs_empty_tr" style="height: 90px !important;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     <div style="display: flex;"><strong class="tarif_name">Межгород</strong><small>(Удаленность от города до 400 км)</small></div>
                                     
@@ -171,20 +174,22 @@
                                         
                                         <span *ngIf="item[0] !== ''">
                                             <input type="checkbox" style="width: 16px; height: 16px; margin-left: auto; ">
-                                            {{item[1]}} руб <strong style="margin-left: 15px;">({{item[0]}} суток) </strong>
+                                            {{item[1]}} руб 
+                                            <!-- <strong style="margin-left: 15px;">({{item[0]}} суток) </strong> -->
                                         </span>
                                     </div>
                                 </td>
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;"></td>
                             </tr>
 
-                            <tr>
+                            <tr class="xs_empty_tr" style="height: 90px !important;">
                                 <td style="border: 1px solid #000; padding: 5px; font-size: 18px;">
                                     <div style="display: flex;"><strong class="tarif_name">Россия</strong><small>(Удаленность от города по согласованию)</small></div>
                                     <div *ngFor="let item of currentCar.tarif_russia.slice(0, currentCar.tarif_russia.length - 2); let i = index;">
                                         <span *ngIf="item[0] !== ''">
                                             <input type="checkbox" style="width: 16px; height: 16px; margin-left: auto; ">
-                                            {{item[1]}} руб <strong style="margin-left: 15px;">({{item[0]}} суток) </strong>
+                                            {{item[1]}} руб 
+                                            <!-- <strong style="margin-left: 15px;">({{item[0]}} суток) </strong> -->
                                         </span>
                                     </div>
                                 </td>

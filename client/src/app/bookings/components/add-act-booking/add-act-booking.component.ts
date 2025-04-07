@@ -474,6 +474,16 @@ formatName(lastName: string, firstName?: string, middleName?: string): string {
   }
 
 
+// Проверяем значение на наличие-00 из тарифрв
+  hasDoubleZero(value: any): boolean {
+    return String(value).includes('00');
+  }
+  removeDoubleZeroWithDash(value: any): string {
+    return String(value).replace(/-?00/g, '');
+  }
+  
+
+
   
 
 
