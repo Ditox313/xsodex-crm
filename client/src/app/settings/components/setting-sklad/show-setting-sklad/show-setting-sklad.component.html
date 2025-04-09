@@ -89,7 +89,7 @@
         </div>
 
         <div>
-            <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+            <button type="submit" class="submit" [disabled]="form.invalid || !edit"><i class="pi pi-check"></i> Сохранить</button>
         </div>
     </form>
 

@@ -138,7 +138,7 @@
             </div>
         </div>
 
-        <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+        <button type="submit" class="submit" [disabled]="form.invalid || !edit"><i class="pi pi-check"></i> Сохранить</button>
     </form>
 
     <div class="edit" (click)="initEdit()" [ngClass]="{edit_active: edit}">

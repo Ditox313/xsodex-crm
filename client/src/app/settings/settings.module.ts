@@ -28,6 +28,7 @@ import { AddSettingSkladComponent } from './components/setting-sklad/add-setting
 import { ShowSettingSkladComponent } from './components/setting-sklad/show-setting-sklad/show-setting-sklad.component';
 import { AddSettingGlobalComponent } from './components/setting-global/add-setting-global/add-setting-global.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { ShowSettingGlobalComponent } from './components/setting-global/show-setting-global/show-setting-global.component';
 
 
 
@@ -39,6 +40,7 @@ import { DropdownModule } from 'primeng/dropdown';
     AddSettingSkladComponent,
     ShowSettingSkladComponent,
     AddSettingGlobalComponent,
+    ShowSettingGlobalComponent,
   ],
   imports: [
     CommonModule,

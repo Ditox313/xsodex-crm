@@ -8,6 +8,7 @@ import { ShowSettingsAvtoparkComponent } from "../components/show-settings-avtop
 import { AddSettingSkladComponent } from "../components/setting-sklad/add-setting-sklad/add-setting-sklad.component";
 import { ShowSettingSkladComponent } from "../components/setting-sklad/show-setting-sklad/show-setting-sklad.component";
 import { AddSettingGlobalComponent } from "../components/setting-global/add-setting-global/add-setting-global.component";
+import { ShowSettingGlobalComponent } from "../components/setting-global/show-setting-global/show-setting-global.component";
 
 
 
@@ -47,10 +48,10 @@ export function getRoutes(): Route[] {
                     component: AddSettingGlobalComponent,
                 },
 
-                // {
-                //     path: 'show-settings-global/:id', 
-                //     component: ShowSettingSkladComponent,
-                // },
+                {
+                    path: 'show-settings-global/:id', 
+                    component: ShowSettingGlobalComponent,
+                },
             ],
         },
 

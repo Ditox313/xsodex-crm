@@ -66,6 +66,11 @@ router.get('/get-settings-sklad/:id', passport.authenticate('jwt', { session: fa
 
 
 
+// Роут на получение настройки склада по Id
+router.get('/get-settings-global/:id', passport.authenticate('jwt', { session: false }), controller.getByIdSettingsGlobal);
+
+
+
 
 
 

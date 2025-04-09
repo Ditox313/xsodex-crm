@@ -4,87 +4,22 @@
 
 <div class="settings_list">
 
-    <div class="settings_item" *ngIf="settingsGlobalList">
+    <div class="settings_item" *ngIf="settingsGlobalList" [routerLink]="['/show-settings-global',settingsGlobalList[0]._id]">
         <p-button [disabled]="!settingsGlobalList || settingsGlobalList.length > 0" [ngClass]="{'disabled': !settingsGlobalList || settingsGlobalList.length > 0}"  [routerLink]="['/add-setting-global']"   icon="pi pi-plus"></p-button>
-        <span  [routerLink]="['/show-settings-global']">Настройки общие</span>
+        <span *ngIf="settingsGlobalList && settingsGlobalList[0]">Глобальные настройки</span>
     </div>
     
 
-    <div class="settings_item" *ngIf="settingsAvtoparkList">
+    <div class="settings_item" *ngIf="settingsAvtoparkList" [routerLink]="['/show-settings-avtopark',settingsAvtoparkList[0]._id]">
         <p-button [disabled]="!settingsAvtoparkList || settingsAvtoparkList.length > 0" [ngClass]="{'disabled': !settingsAvtoparkList || settingsAvtoparkList.length > 0}"  [routerLink]="['/add-setting-avtopark']"   icon="pi pi-plus"></p-button>
-        <span *ngIf="settingsAvtoparkList && settingsAvtoparkList[0]" [routerLink]="['/show-settings-avtopark',settingsAvtoparkList[0]._id]">Настройки автопроката</span>
+        <span *ngIf="settingsAvtoparkList && settingsAvtoparkList[0]" >Настройки автопроката</span>
     </div>
 
-    <div class="settings_item" *ngIf=" settingsSkladList">
+    <div class="settings_item" *ngIf=" settingsSkladList" [routerLink]="['/show-settings-sklad',settingsSkladList[0]._id]">
         <p-button [disabled]="!settingsSkladList || settingsSkladList.length > 0"  [ngClass]="{'disabled': !settingsSkladList || settingsSkladList.length > 0}"  [routerLink]="['/add-setting-sklad']" label="" icon="pi pi-plus"></p-button>
-        <span *ngIf=" settingsSkladList && settingsSkladList[0]" [routerLink]="['/show-settings-sklad',settingsSkladList[0]._id]">Настройки склада</span>
+        <span *ngIf=" settingsSkladList && settingsSkladList[0]" >Настройки склада</span>
     </div>
 
-<!-- 
-    <div class="settings" *ngIf="settingsAvtoparkList">
-        <p-table [value]="settingsAvtoparkList" styleClass="p-datatable-gridlines list_table"
-            [tableStyle]="{ 'min-width': '50rem' }">
-    
-            <ng-template pTemplate="caption" style="display: flex;">
-                <div  class="add_new "  >
-                    <p-button [disabled]="!settingsAvtoparkList || settingsAvtoparkList.length > 0" [ngClass]="{'disabled': !settingsAvtoparkList || settingsAvtoparkList.length > 0}"  [routerLink]="['/add-setting-avtopark']"  label="Создать настройки автопарка" icon="pi pi-plus"></p-button>
-                </div>
-            </ng-template>
-    
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Тип</th>
-                </tr>
-            </ng-template>
-    
-    
-            <ng-template pTemplate="body" let-settingAvtopark>
-                <tr [routerLink]="['/show-settings-avtopark',settingAvtopark._id]">
-                    <td>{{settingAvtopark.title}}</td>
-                </tr>
-            </ng-template>
-    
-        </p-table>
-    
-        
-    
-        <div *ngIf="settingsAvtoparkList.length === 0" class="noMoreSettingAvtoparkList">
-            <h2>Нет настроек для автопарка...</h2>
-        </div>
-    </div>
-    
-    
-    <div class="settings" *ngIf=" settingsSkladList">
-        <p-table [value]="settingsSkladList" styleClass="p-datatable-gridlines list_table"
-            [tableStyle]="{ 'min-width': '50rem' }">
-    
-            <ng-template pTemplate="caption" style="display: flex;">
-                <div  class="add_new ">
-                    <p-button [disabled]="!settingsSkladList || settingsSkladList.length > 0"  [ngClass]="{'disabled': !settingsSkladList || settingsSkladList.length > 0}"  [routerLink]="['/add-setting-sklad']" label="Создать настройки склада" icon="pi pi-plus"></p-button>
-                </div>
-            </ng-template>
-    
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Тип</th>
-                </tr>
-            </ng-template>
-    
-    
-            <ng-template pTemplate="body" let-settingAvtopark>
-                <tr [routerLink]="['/show-settings-sklad',this.settingsSkladList[0]._id ? this.settingsSkladList[0]._id : '']">
-                    <td>{{settingsSkladList[0].title}}</td>
-                </tr>
-            </ng-template>
-    
-        </p-table>
-    
-        
-        <div *ngIf="settingsSkladList.length === 0" class="noMoreSettingAvtoparkList">
-            <h2>Нет настроек для склада...</h2>
-        </div>
-    </div> -->
-    
 </div>
 
 
