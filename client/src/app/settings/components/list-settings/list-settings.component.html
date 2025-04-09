@@ -4,20 +4,20 @@
 
 <div class="settings_list">
 
-    <div class="settings_item" *ngIf="settingsGlobalList" [routerLink]="['/show-settings-global',settingsGlobalList[0]._id]">
+    <div class="settings_item" *ngIf="settingsGlobalList && settingsGlobalList[0]" [routerLink]="['/show-settings-global',settingsGlobalList[0]._id]">
         <p-button [disabled]="!settingsGlobalList || settingsGlobalList.length > 0" [ngClass]="{'disabled': !settingsGlobalList || settingsGlobalList.length > 0}"  [routerLink]="['/add-setting-global']"   icon="pi pi-plus"></p-button>
-        <span *ngIf="settingsGlobalList && settingsGlobalList[0]">Глобальные настройки</span>
+        <span>Глобальные настройки</span>
     </div>
     
 
-    <div class="settings_item" *ngIf="settingsAvtoparkList" [routerLink]="['/show-settings-avtopark',settingsAvtoparkList[0]._id]">
+    <div class="settings_item" *ngIf="settingsAvtoparkList && settingsAvtoparkList[0]" [routerLink]="['/show-settings-avtopark',settingsAvtoparkList[0]._id]">
         <p-button [disabled]="!settingsAvtoparkList || settingsAvtoparkList.length > 0" [ngClass]="{'disabled': !settingsAvtoparkList || settingsAvtoparkList.length > 0}"  [routerLink]="['/add-setting-avtopark']"   icon="pi pi-plus"></p-button>
-        <span *ngIf="settingsAvtoparkList && settingsAvtoparkList[0]" >Настройки автопроката</span>
+        <span>Настройки автопроката</span>
     </div>
 
-    <div class="settings_item" *ngIf=" settingsSkladList" [routerLink]="['/show-settings-sklad',settingsSkladList[0]._id]">
+    <div class="settings_item" *ngIf=" settingsSkladList && settingsSkladList[0]" [routerLink]="['/show-settings-sklad',settingsSkladList[0]._id]">
         <p-button [disabled]="!settingsSkladList || settingsSkladList.length > 0"  [ngClass]="{'disabled': !settingsSkladList || settingsSkladList.length > 0}"  [routerLink]="['/add-setting-sklad']" label="" icon="pi pi-plus"></p-button>
-        <span *ngIf=" settingsSkladList && settingsSkladList[0]" >Настройки склада</span>
+        <span>Настройки склада</span>
     </div>
 
 </div>
