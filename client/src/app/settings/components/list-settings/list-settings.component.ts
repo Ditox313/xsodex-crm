@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { SettingAvtopark, SettingSklad, SettingsParamsFetch } from '../../types/settings.interfaces';
+import { SettingAvtopark, SettingGlobal, SettingSklad, SettingsParamsFetch } from '../../types/settings.interfaces';
 import { Store, select } from '@ngrx/store';
-import { isLoadingSelector, noMoreSettingsAvtoparkList, noMoreSettingsSkladList, settingsAvtoparkListSelector, settingsSkladListSelector } from '../../store/selectors';
-import { noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, noMoreSettingsSkladListFalseAction, noMoreSettingsSkladListTrueAction, settingAvtoparkDeleteAction, settingsAvtoparkListAction, settingsAvtoparkListResetAction, settingSkladDeleteAction, settingsSkladListAction, settingsSkladListResetAction } from '../../store/actions/settings.action';
+import { isLoadingSelector, noMoreSettingsAvtoparkList, noMoreSettingsGlobalList, noMoreSettingsSkladList, settingsAvtoparkListSelector, settingsGlobalListSelector, settingsSkladListSelector } from '../../store/selectors';
+import { noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, noMoreSettingsGlobalListFalseAction, noMoreSettingsGlobalListTrueAction, noMoreSettingsSkladListFalseAction, noMoreSettingsSkladListTrueAction, settingAvtoparkDeleteAction, settingGlobalDeleteAction, settingsAvtoparkListAction, settingsAvtoparkListResetAction, settingsGlobalListAction, settingsGlobalListResetAction, settingSkladDeleteAction, settingsSkladListAction, settingsSkladListResetAction } from '../../store/actions/settings.action';
 
 @Component({
   selector: 'app-list-settings',
@@ -27,6 +27,13 @@ export class ListSettingsComponent {
   settingsSkladList: SettingSklad[] | null | undefined = [];
 
 
+
+  noMoreSettingsGlobalList!: Observable<boolean | null>
+  settingsGlobalListSelector!: Observable<SettingGlobal[] | null | undefined>
+  settingsGlobalListSub$!: Subscription
+  settingsGlobalList: SettingGlobal[] | null | undefined = [];
+
+
   constructor(private store: Store) { }
   ngOnInit(): void {
     this.initValues();
@@ -42,11 +49,19 @@ export class ListSettingsComponent {
       this.settingsSkladListSub$.unsubscribe();
     }
 
+    if (this.settingsGlobalListSub$) {
+      this.settingsGlobalListSub$.unsubscribe();
+    }
+
+
     // Отчищаем состояние settingsAvtoparkList если не хотим сохранять список авто  в состояние
     this.store.dispatch(settingsAvtoparkListResetAction());
 
     // Отчищаем состояние settingsSkladList если не хотим сохранять список авто  в состояние
     this.store.dispatch(settingsSkladListResetAction());
+
+    // Отчищаем состояние settingsGlobalList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsGlobalListResetAction());
   }
 
   initValues() {
@@ -55,6 +70,9 @@ export class ListSettingsComponent {
 
      // Отчищаем состояние settingsSkladList если не хотим сохранять список авто  в состояние
      this.store.dispatch(settingsSkladListResetAction());
+
+    // Отчищаем состояние settingsGlobalList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsGlobalListResetAction());
 
 
     // Получаем селектор loader
@@ -67,6 +85,10 @@ export class ListSettingsComponent {
 
     // Получаем селектор noMoresettingsSkladList
     this.noMoreSettingsSkladList = this.store.pipe(select(noMoreSettingsSkladList))
+
+
+    // Получаем селектор noMoresettingsGlobalList
+    this.noMoreSettingsGlobalList = this.store.pipe(select(noMoreSettingsGlobalList))
 
 
 
@@ -114,6 +136,29 @@ export class ListSettingsComponent {
         }
       }
     });
+
+
+
+    // Получаем селектор на получение списка settingsGlobalList и подписываемся на него.
+    this.settingsGlobalListSelector = this.store.pipe(select(settingsGlobalListSelector))
+    this.settingsGlobalListSub$ = this.settingsGlobalListSelector.subscribe({
+      next: (settingsGlobalList) => {
+        if (settingsGlobalList) {
+          this.settingsGlobalList = settingsGlobalList;
+
+
+
+          if (this.settingsGlobalList.length >= this.STEP) {
+            // Изменяем значение settingsAvtoparkList в состоянии на false что бы открыть кнопку загрузить ещё
+            this.store.dispatch(noMoreSettingsGlobalListFalseAction());
+          }
+          else {
+            // Изменяем значение settingsAvtoparkList в состоянии на true что бы скрыть кнопку загрузить ещё
+            this.store.dispatch(noMoreSettingsGlobalListTrueAction());
+          }
+        }
+      }
+    });
   }
 
 
@@ -126,8 +171,11 @@ export class ListSettingsComponent {
     // Отправляем запрос на получения списка настроек автопарка
     this.store.dispatch(settingsAvtoparkListAction({ params: params }));
 
-     // Отправляем запрос на получения списка настроек склада
-     this.store.dispatch(settingsSkladListAction({ params: params }));
+    // Отправляем запрос на получения списка настроек склада
+    this.store.dispatch(settingsSkladListAction({ params: params }));
+
+    // Отправляем запрос на получения списка настроек глобальных
+    this.store.dispatch(settingsGlobalListAction({ params: params }));
   }
 
 
@@ -156,6 +204,17 @@ export class ListSettingsComponent {
 
     if (dicision) {
       this.store.dispatch(settingSkladDeleteAction({ id: setting._id }))
+    }
+  }
+
+
+   // Удаление настроек общих
+   onDeleteSettingsGlobal(event: Event, setting: any) {
+    event.stopPropagation();
+    const dicision = window.confirm(`Удалить Настройки общие?`);
+
+    if (dicision) {
+      this.store.dispatch(settingGlobalDeleteAction({ id: setting._id }))
     }
   }
 }

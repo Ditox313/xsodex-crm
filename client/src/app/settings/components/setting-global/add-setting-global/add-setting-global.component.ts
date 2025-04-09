@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { isLoadingSelector } from 'src/app/account/store/selectors';
+import { addSettingGlobalAction } from 'src/app/settings/store/actions/settings.action';
 
 @Component({
   selector: 'app-add-setting-global',
@@ -47,6 +48,6 @@ export class AddSettingGlobalComponent {
     
 
 
-    // this.store.dispatch(addSettingAvtoparkAction({ setting: settings_avtopark }))
+    this.store.dispatch(addSettingGlobalAction({ setting: settings_global }))
   }
 }

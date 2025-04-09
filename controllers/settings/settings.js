@@ -1,5 +1,6 @@
 const SettingsAvtopark = require('../../models/settings/settings-avtopark/SettingsAvtopark.js')
 const SettingsSklad = require('../../models/settings/settings-sklad/SettingsSklad.js')
+const SettingsGlobal = require('../../models/settings/settings-global/SettingsGlobal.js')
 const errorHandler = require('../../Utils/errorHendler.js');
 const fs = require('fs');
 const path = require('path');
@@ -61,6 +62,32 @@ module.exports.create_setting_sklad = async function (req, res) {
 
 
 
+// Контроллер для create setting global
+module.exports.create_setting_global = async function (req, res) {
+    try {
+        const setting = await new SettingsGlobal({
+            firma: req.body.firma,
+        }).save();
+
+        // Возвращаем пользователю позицию которую создали 
+        res.status(201).json(setting);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -100,17 +127,30 @@ module.exports.getAllSettingsSklad = async function (req, res) {
 
 
 
-// module.exports.getAllPartnersNoParams = async function (req, res) {
-//     try {
 
-//         const partnersList = await Partner.find({}).sort({ date: -1 })
+// Получаем все настройки общие
+module.exports.getAllSettingsGlobal = async function (req, res) {
+    try {
 
-//         // Возвращаем пользователю позиции 
-//         res.status(200).json(partnersList);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
+        const settingsGlobalList = await SettingsGlobal.find({}).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+        // Возвращаем пользователю позиции 
+        res.status(200).json(settingsGlobalList);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
+
+
+
+
+
+
 
 
 
@@ -158,6 +198,31 @@ module.exports.removeSettingSklad = async function (req, res) {
 
 
 
+// Контроллер для remove settingGlobal
+module.exports.removeSettingGlobal = async function (req, res) {
+    try {
+
+        // Удаляем settingGlobal
+        const result = await SettingsGlobal.deleteOne({ _id: req.params.id });
+        if (result.deletedCount === 1) {
+            res.status(200).json(req.params.id);
+        } else {
+            return error
+        }
+
+
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
+
+
+
+
+
 // Контроллер для getByIdSettingsAvtopark
 module.exports.getByIdSettingsAvtopark = async function (req, res) {
     try {
@@ -178,6 +243,29 @@ module.exports.getByIdSettingsSklad = async function (req, res) {
         errorHandler(res, e);
     }
 };
+
+
+
+
+// Контроллер для getByIdSettingsGlobal
+module.exports.getByIdSettingsGlobal = async function (req, res) {
+    try {
+        const settingsGlobal = await SettingsGlobal.findById(req.params.id); //Ищем категорию по id из переданных параметров
+        res.status(200).json(settingsGlobal);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -223,5 +311,27 @@ module.exports.updateSettingsSklad = async function (req, res) {
         errorHandler(res, e);
     }
 };
+
+
+
+
+// Контроллер для update setting global
+module.exports.updateSettingsGlobal = async function (req, res) {
+    try {
+
+        const updated = req.body;
+        // Находим и обновляем позицию. 
+        const settingsGlobalUpdate = await SettingsGlobal.findOneAndUpdate({ _id: updated._id }, //Ищем по id
+            { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
+            { new: true } //обновит позицию и верет нам уже обновленную
+        );
+
+        // Возвращаем пользователю обновленную позицию 
+        res.status(200).json(settingsGlobalUpdate);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
 
 
