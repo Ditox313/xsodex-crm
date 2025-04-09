@@ -31,8 +31,10 @@
                                 <a name="OLE_LINK5"></a>
                                 <a name="OLE_LINK6"></a>
                                 <br />
-                                Общество с ограниченной ответственностью <strong>ООО «ВВС-ВЕБ</strong>» в
-                                лице директора <strong>Синицына Виталия Викторовича </strong>
+                                Общество с ограниченной ответственностью 
+                                <strong *ngIf="this.settingsGlobalList && this.settingsGlobalList[0]">{{this.settingsGlobalList[0].firma}}</strong> 
+                                <strong *ngIf="!this.settingsGlobalList">ООО «ЕВС»</strong> 
+                                в лице директора <strong>Синицына Виталия Викторовича </strong>
                                 действующего на основании Устава, именуемое в дальнейшем «Арендодатель»,  и {{currentClientLaw.short_name}} <strong>
                                     «{{currentClientLaw.name}}»</strong><strong>
                                 </strong> в лице {{currentClientLaw.boss_role}} <strong>
@@ -400,9 +402,8 @@
                                     <td width="50%" style="width: 50%;">
                                         <div>
                                             <strong>Арендодатель:</strong>
-                                            <strong> ООО «</strong>
-                                            <strong>BBC</strong>
-                                            <strong>-ВЕБ»</strong>
+                                            <strong *ngIf="this.settingsGlobalList && this.settingsGlobalList[0]">{{this.settingsGlobalList[0].firma}}</strong> 
+                                            <strong *ngIf="!this.settingsGlobalList">ООО «ЕВС»</strong> 
                                         </div>
                                         <div>
                                             ИНН 7203356189 КПП 720301001 ОГРН 1157232033716 Адрес регистрации/Почтовый адрес: 625033, г. Тюмень, ул. Дмитрия Менделеева, д. 18, офис 323

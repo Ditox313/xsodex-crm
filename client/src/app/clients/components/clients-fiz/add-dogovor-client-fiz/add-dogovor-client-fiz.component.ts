@@ -17,6 +17,9 @@ import * as pdfMake from "pdfmake/build/pdfmake";
 import * as  pdfFonts from "pdfmake/build/vfs_fonts";
 (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
 import htmlToPdfmake from "html-to-pdfmake"
+import { SettingGlobal } from 'src/app/settings/types/settings.interfaces';
+import { noMoreSettingsGlobalListFalseAction, noMoreSettingsGlobalListTrueAction, settingsGlobalListAction, settingsGlobalListResetAction } from 'src/app/settings/store/actions/settings.action';
+import { noMoreSettingsGlobalList, settingsGlobalListSelector } from 'src/app/settings/store/selectors';
 
 
 
@@ -48,6 +51,16 @@ export class AddDogovorClientFizComponent {
   xs_actual_time_hour: any;
   xs_actual_time_min: any;
   xs_actual_time_sec: any;
+
+
+
+  settingsGlobalListSelector!: Observable<SettingGlobal[] | null | undefined>
+  settingsGlobalListSub$!: Subscription
+  settingsGlobalList: SettingGlobal[] | null | undefined = [];
+
+
+
+
   @ViewChild('content') content!: ElementRef | any;
   private renderer!: Renderer2;
 
@@ -76,6 +89,13 @@ export class AddDogovorClientFizComponent {
     if (this.currentUserSub$) {
       this.currentUserSub$.unsubscribe();
     }
+
+    if (this.settingsGlobalListSub$) {
+      this.settingsGlobalListSub$.unsubscribe();
+    }
+
+    // Отчищаем состояние settingsGlobalList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsGlobalListResetAction());
   }
 
   getParams() {
@@ -100,8 +120,15 @@ export class AddDogovorClientFizComponent {
   }
 
   initValues() {
+    // Отчищаем состояние settingsGlobalList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsGlobalListResetAction());
+
     // Получаем лоадер
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
+
+
+    // Отправляем запрос на получения списка настроек глобальных
+    this.store.dispatch(settingsGlobalListAction({ params: {} }));
 
     // Задаем значения даты действия договора.Для физ лиц 365 дней
     this.xs_actual_date = this.datePipe.transform(Date.now(), 'dd.MM.yyyy');
@@ -147,6 +174,19 @@ export class AddDogovorClientFizComponent {
     this.xs_actual_time_hour = new Date().getHours()
     this.xs_actual_time_min = ('0' + new Date().getMinutes()).slice(-2);
     this.xs_actual_time_sec = new Date().getSeconds()
+
+
+
+     // Получаем селектор на получение списка settingsGlobalList и подписываемся на него.
+    this.settingsGlobalListSelector = this.store.pipe(select(settingsGlobalListSelector))
+    this.settingsGlobalListSub$ = this.settingsGlobalListSelector.subscribe({
+      next: (settingsGlobalList) => {
+        if (settingsGlobalList) {
+          this.settingsGlobalList = settingsGlobalList;
+          
+        }
+      }
+    });
   }
 
   // Генерируем PDF

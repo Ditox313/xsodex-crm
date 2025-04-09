@@ -27,8 +27,11 @@
                             <a name="OLE_LINK5"></a>
                             <a name="OLE_LINK6"></a>
                             <br />
-                            Общество с ограниченной ответственностью <strong>ООО «ЕВС</strong>» в
-                            лице уполномоченного <strong>{{currentUser.secondName}} {{currentUser.name}}
+                            Общество с ограниченной ответственностью 
+                            <strong *ngIf="this.settingsGlobalList && this.settingsGlobalList[0]">{{this.settingsGlobalList[0].firma}}</strong> 
+                            <strong *ngIf="!this.settingsGlobalList">ООО «ЕВС»</strong> 
+
+                            в лице уполномоченного <strong>{{currentUser.secondName}} {{currentUser.name}}
                                 {{currentUser.lastName}}</strong>
                             действующего на основании доверенности <strong>№ {{currentUser.doverenostNumber}} </strong>от
                             <strong>{{currentUser.doverenostDate | date : 'dd-MM-yyyy'}}г</strong>, именуемое в
@@ -585,22 +588,6 @@
                                 6.4. Настоящий Договор составлен на русском языке в двух экземплярах для
                                 каждой из сторон и имеющих одинаковую юридическую силу.
                             </div>
-                            <!-- <div>
-                                <a name="_GoBack"></a>
-                                <em><strong>*</strong></em>
-                                <em>
-                                    Основные признаки воздействия на пломбу-наклейку:
-                                </em>
-                                <em>
-                                    <br />
-                                    Фактами воздействия на пломбу-наклейку (ее срабатывания) в зависимости
-                                    от их типа являются: красный цвет пломбы-наклейки станет не однородным
-                                    (изменит цвет) в месте воздействия, либо проявится индикаторная надпись
-                                    «OPENED! ВСКРЫТО! СИЛтэк SILtech», либо проявится черная термохромная
-                                    сетка, либо изменится структура, форма, целостность пломбы-наклейки.
-                                </em>
-                                <br />
-                            </div> -->
                         </div><br>
 
                         
@@ -616,8 +603,9 @@
                                     <td width="50%" style="width: 50%;">
                                         <div>
                                             <strong>Арендодатель:</strong>
-                                            <strong> ООО «</strong>
-                                            <strong>-ЕВС»</strong>
+                                            <strong *ngIf="this.settingsGlobalList && this.settingsGlobalList[0]">{{this.settingsGlobalList[0].firma}}</strong> 
+                                            <strong *ngIf="!this.settingsGlobalList">ООО «ЕВС»</strong> 
+
                                         </div>
                                         <div>
                                             ИНН 7203488354 КПП 720301001 

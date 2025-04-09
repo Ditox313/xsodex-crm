@@ -16,6 +16,9 @@ import htmlToPdfmake from "html-to-pdfmake"
 import { getCurrentClientLawSelector, isLoadingSelector } from 'src/app/clients/store/selectors/clientslaw/selectorsClientsLaw';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { addClientLawDogovorAction, addClientLawDogovorActionFromBooking, clientLawGetCurrent } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
+import { SettingGlobal } from 'src/app/settings/types/settings.interfaces';
+import { settingsGlobalListAction, settingsGlobalListResetAction } from 'src/app/settings/store/actions/settings.action';
+import { settingsGlobalListSelector } from 'src/app/settings/store/selectors';
 
 @Component({
   selector: 'app-add-dogovor-client-law',
@@ -42,6 +45,12 @@ export class AddDogovorClientLawComponent {
   xs_actual_time_hour: any;
   xs_actual_time_min: any;
   xs_actual_time_sec: any;
+
+  settingsGlobalListSelector!: Observable<SettingGlobal[] | null | undefined>
+  settingsGlobalListSub$!: Subscription
+  settingsGlobalList: SettingGlobal[] | null | undefined = [];
+
+
   @ViewChild('content') content!: ElementRef | any;
   private renderer!: Renderer2;
 
@@ -68,6 +77,13 @@ export class AddDogovorClientLawComponent {
     if (this.currentUserSub$) {
       this.currentUserSub$.unsubscribe();
     }
+
+    if (this.settingsGlobalListSub$) {
+      this.settingsGlobalListSub$.unsubscribe();
+    }
+
+    // Отчищаем состояние settingsGlobalList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsGlobalListResetAction());
   }
 
   getParams() {
@@ -84,6 +100,14 @@ export class AddDogovorClientLawComponent {
 
 
   initValues() {
+
+    // Отчищаем состояние settingsGlobalList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsGlobalListResetAction());
+
+    // Отправляем запрос на получения списка настроек глобальных
+    this.store.dispatch(settingsGlobalListAction({ params: {} }));
+
+
     // Получаем лоадер
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
 
@@ -128,6 +152,18 @@ export class AddDogovorClientLawComponent {
     this.xs_actual_time_hour = new Date().getHours()
     this.xs_actual_time_min = ('0' + new Date().getMinutes()).slice(-2);
     this.xs_actual_time_sec = new Date().getSeconds()
+
+
+    // Получаем селектор на получение списка settingsGlobalList и подписываемся на него.
+    this.settingsGlobalListSelector = this.store.pipe(select(settingsGlobalListSelector))
+    this.settingsGlobalListSub$ = this.settingsGlobalListSelector.subscribe({
+      next: (settingsGlobalList) => {
+        if (settingsGlobalList) {
+          this.settingsGlobalList = settingsGlobalList;
+          
+        }
+      }
+    });
   }
 
   // Генерируем PDF
