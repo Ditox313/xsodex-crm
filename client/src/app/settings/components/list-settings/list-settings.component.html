@@ -3,6 +3,24 @@
 <loader *ngIf="isLoadingSelector | async"></loader>
 
 <div class="settings_list">
+
+    <div class="settings_item">
+        <p-button  [routerLink]="['/add-setting-global']" label="" icon="pi pi-plus"></p-button>
+        <span  [routerLink]="['/show-settings-global']">Настройки общие</span>
+    </div>
+    
+
+    <div class="settings_item" *ngIf="settingsAvtoparkList">
+        <p-button [disabled]="!settingsAvtoparkList || settingsAvtoparkList.length > 0" [ngClass]="{'disabled': !settingsAvtoparkList || settingsAvtoparkList.length > 0}"  [routerLink]="['/add-setting-avtopark']"   icon="pi pi-plus"></p-button>
+        <span *ngIf="settingsAvtoparkList" [routerLink]="['/show-settings-avtopark',settingsAvtoparkList[0]._id]">Настройки автопроката</span>
+    </div>
+
+    <div class="settings_item" *ngIf=" settingsSkladList">
+        <p-button [disabled]="!settingsSkladList || settingsSkladList.length > 0"  [ngClass]="{'disabled': !settingsSkladList || settingsSkladList.length > 0}"  [routerLink]="['/add-setting-sklad']" label="" icon="pi pi-plus"></p-button>
+        <span *ngIf=" settingsSkladList" [routerLink]="['/show-settings-avtopark',settingsSkladList[0]._id]">Настройки склада</span>
+    </div>
+
+<!-- 
     <div class="settings" *ngIf="settingsAvtoparkList">
         <p-table [value]="settingsAvtoparkList" styleClass="p-datatable-gridlines list_table"
             [tableStyle]="{ 'min-width': '50rem' }">
@@ -65,7 +83,8 @@
         <div *ngIf="settingsSkladList.length === 0" class="noMoreSettingAvtoparkList">
             <h2>Нет настроек для склада...</h2>
         </div>
-    </div>
+    </div> -->
+    
 </div>
 
 

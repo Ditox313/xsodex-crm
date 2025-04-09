@@ -1,4 +1,4 @@
-.settings {
+.settings_list {
     padding: 0 20px;
     margin-bottom: 100px;
 }
@@ -6,7 +6,8 @@
 
 .disabled
 {
-    opacity: 0.3 !important;
+    /* opacity: 0.3 !important; */
+    display: none;
 }
 
 
@@ -35,3 +36,26 @@ td {
     display: inline-block;
 }
 
+
+
+.settings_item
+{
+    display: flex;
+    align-items: center;
+    font-size: 21px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.settings_item span
+{
+    border-bottom: 1px solid #194A9E;
+    padding-bottom: 5px;
+}
+
+
+
+.settings_item p-button 
+{
+    margin-right: 10px;
+}

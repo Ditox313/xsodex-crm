@@ -1,0 +1,23 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
+
+
+<div class="add-setting-global">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="global_setting_list">
+            <div class="global_setting_list__box">
+                <fieldset>
+                    <label htmlFor="firma">Организация <span style="color:red;">*</span></label>
+                    <select id="firma" formControlName="firma">
+                        <option value="" disabled>Выбрать ↷</option>
+                        <option value="{{this.firma_list[0]}}">{{this.firma_list[0]}}</option>
+                        <option value="{{this.firma_list[1]}}">{{this.firma_list[1]}}</option>
+                    </select>
+                </fieldset>
+            </div>
+        </div>
+
+        <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
+    </form>
+</div>

@@ -26,6 +26,8 @@ import { AddSettingAvtoparkComponent } from './components/add-setting-avtopark/a
 import { ShowSettingsAvtoparkComponent } from './components/show-settings-avtopark/show-settings-avtopark.component';
 import { AddSettingSkladComponent } from './components/setting-sklad/add-setting-sklad/add-setting-sklad.component';
 import { ShowSettingSkladComponent } from './components/setting-sklad/show-setting-sklad/show-setting-sklad.component';
+import { AddSettingGlobalComponent } from './components/setting-global/add-setting-global/add-setting-global.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -36,6 +38,7 @@ import { ShowSettingSkladComponent } from './components/setting-sklad/show-setti
     ShowSettingsAvtoparkComponent,
     AddSettingSkladComponent,
     ShowSettingSkladComponent,
+    AddSettingGlobalComponent,
   ],
   imports: [
     CommonModule,
@@ -55,6 +58,7 @@ import { ShowSettingSkladComponent } from './components/setting-sklad/show-setti
     TabViewModule,
     TreeSelectModule,
     InputMaskModule,
+    DropdownModule,
     StoreModule.forFeature('settings', reducers),
     EffectsModule.forFeature([SettingsEffect]),
   ],

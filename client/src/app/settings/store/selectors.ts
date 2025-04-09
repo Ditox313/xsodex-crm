@@ -59,4 +59,25 @@ export const getCurrentSettingSkladSelector = createSelector(
 
 
 
+export const settingsGlobalListSelector = createSelector(
+    settingsFeatureSelector,
+    (state: SettingsStateInterface) => state.settingsGlobalList
+)
+
+
+export const noMoreSettingsGlobalList = createSelector(
+    settingsFeatureSelector,
+    (state: SettingsStateInterface) => state.noMoreSettingsGlobalList
+)
+
+
+export const getCurrentSettingGlobalSelector = createSelector(
+    settingsFeatureSelector,
+    (state: SettingsStateInterface) => state.currentSettingGlobal
+)
+
+
+
+
+
 

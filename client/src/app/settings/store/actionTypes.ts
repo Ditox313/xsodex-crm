@@ -37,9 +37,6 @@ export enum ActionTypes {
   SETTING_SKLAD_DELETE = '[Settings] Settings sklad delete',
   SETTING_SKLAD_DELETE_SUCCES = '[Settings] Settings sklad delete succes',
   SETTING_SKLAD_DELETE_FAILURE = '[Settings] Settings sklad delete failure',
-  // UPDATE_STATE_SETTINGS = '[Settings] Update state setting sklad',
-  // UPDATE_STATE_SETTINGS_SUCCES = '[Settings] Update state setting sklad success',
-  // UPDATE_STATE_SETTINGS_FAILURE = '[Settings] Update state setting sklad failure',
   SETTINGS_SKLAD_GET_CURRENT = '[Settings] Get setting sklad current',
   SETTINGS_SKLAD_GET_CURRENT_SUCCES = '[Settings] Get setting sklad succes',
   SETTINGS_SKLAD_GET_CURRENT_FAILURE = '[Settings] Get setting sklad failure',
@@ -47,4 +44,28 @@ export enum ActionTypes {
   UPDATE_SETTINS_SKLAD = '[Settings] Update  setting sklad',
   UPDATE_SETTINS_SKLAD_SUCCESS = '[Settings] Update setting sklad success',
   UPDATE_SSETTINS_SKLAD_FAILURE = '[Settings] Update setting sklad failure',
+
+
+
+
+  ADD_SETTING_GLOBAL = '[Settings] Add setting global',
+  ADD_SETTING_GLOBAL_SUCCESS = '[Settings] Add setting global success',
+  ADD_SETTING_GLOBAL_FAILURE = '[Settings] Add setting global failure',
+  SETTINGS_GLOBAL_LIST = '[Settings] Settings global List',
+  SETTINGS_GLOBAL_LIST_SUCCES = '[Settings] Settings global List succes',
+  SETTINGS_GLOBAL_LIST_FAILURE = '[Settings] Settings global List failure',
+  SETTINGS_GLOBAL_LIST_RESET = '[Settings] Settings global List reset',
+  NO_MORE_SETTINGS_GLOBAL_LIST = '[Settings] No more Settings global list',
+  NO_MORE_SETTINGS_GLOBAL_LIST_FALSE = '[Settings] No more Settings global list false',
+  NO_MORE_SETTINGS_GLOBAL_LIST_TRUE = '[Settings] No more Settings global list true',
+  SETTING_GLOBAL_DELETE = '[Settings] Settings global delete',
+  SETTING_GLOBAL_DELETE_SUCCES = '[Settings] Settings global delete succes',
+  SETTING_GLOBAL_DELETE_FAILURE = '[Settings] Settings global delete failure',
+  SETTINGS_GLOBAL_GET_CURRENT = '[Settings] Get setting global current',
+  SETTINGS_GLOBAL_GET_CURRENT_SUCCES = '[Settings] Get setting global succes',
+  SETTINGS_GLOBAL_GET_CURRENT_FAILURE = '[Settings] Get setting global failure',
+  SETTINGS_GLOBAL_GET_CURRENT_RESET = '[Settings] Get setting global reset',
+  UPDATE_SETTINS_GLOBAL = '[Settings] Update  setting global',
+  UPDATE_SETTINS_GLOBAL_SUCCESS = '[Settings] Update setting global success',
+  UPDATE_SETTINS_GLOBAL_FAILURE = '[Settings] Update setting global failure',
 }

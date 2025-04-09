@@ -45,6 +45,11 @@ export interface SettingsStateInterface {
     settingsSkladList?: SettingSklad[] | null | undefined | any,
     noMoreSettingsSkladList: boolean
     currentSettingSklad: SettingAvtopark | null | undefined | any,
+
+
+    settingsGlobalList?: SettingGlobal[] | null | undefined | any,
+    noMoreSettingsGlobalList: boolean
+    currentSettingGlobal: SettingGlobal | null | undefined | any,
 }
 
 
@@ -54,4 +59,13 @@ export interface SettingsStateInterface {
 export interface SettingsParamsFetch {
     offset: number | null,
     limit: number | null
+}
+
+
+
+//Интерфейс для настроек глобальных
+export interface SettingGlobal {
+    _id? : string,
+    firma: string,
+    title?: string
 }

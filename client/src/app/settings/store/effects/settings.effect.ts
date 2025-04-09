@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { SettingsService } from '../../services/settings.service'
-import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, addSettingSkladFailureAction, addSettingSkladkAction, addSettingSkladSuccessAction, noMoreSettingsAvtoparkListAction, noMoreSettingsSkladListAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListSuccessAction, settingSkladDeleteAction, settingSkladDeleteFailureAction, settingSkladDeleteSuccessAction, settingsSkladGetCurrent, settingsSkladGetCurrentFailureAction, settingsSkladGetCurrentSuccessAction, settingsSkladListAction, settingsSkladListFailureAction, settingsSkladListSuccessAction, updateSettingsAvtoparkAction, updateSettingsAvtoparkFailureAction, updateSettingsAvtoparkSuccessAction, updateSettingsSkladAction, updateSettingsSkladFailureAction, updateSettingsSkladSuccessAction, updateStateSettingsAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from '../actions/settings.action'
+import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, addSettingGlobalAction, addSettingSkladFailureAction, addSettingSkladkAction, addSettingSkladSuccessAction, noMoreSettingsAvtoparkListAction, noMoreSettingsGlobalListAction, noMoreSettingsSkladListAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingGlobalDeleteAction, settingGlobalDeleteFailureAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListSuccessAction, settingsGlobalGetCurrent, settingsGlobalGetCurrentFailureAction, settingsGlobalGetCurrentSuccessAction, settingsGlobalListAction, settingsGlobalListFailureAction, settingsGlobalListSuccessAction, settingSkladDeleteAction, settingSkladDeleteFailureAction, settingSkladDeleteSuccessAction, settingsSkladGetCurrent, settingsSkladGetCurrentFailureAction, settingsSkladGetCurrentSuccessAction, settingsSkladListAction, settingsSkladListFailureAction, settingsSkladListSuccessAction, updateSettingsAvtoparkAction, updateSettingsAvtoparkFailureAction, updateSettingsAvtoparkSuccessAction, updateSettingsGlobalAction, updateSettingsGlobalFailureAction, updateSettingsGlobalSuccessAction, updateSettingsSkladAction, updateSettingsSkladFailureAction, updateSettingsSkladSuccessAction, updateStateSettingsAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from '../actions/settings.action'
 
 
 
@@ -71,6 +71,31 @@ export class SettingsEffect {
 
 
 
+  // Создание настройки глобальной
+  addSettingGlobal$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addSettingGlobalAction), 
+      switchMap(({ setting }) => {
+        return this.settings.create_setting_global(setting).pipe(
+          map((setting) => {
+            this.messageService.add({ severity: 'success', summary: `Глобальные настройки созданы`, detail: 'Успешно!' });
+            this.router.navigate(['/list-settings']);
+            return addSettingSkladSuccessAction(); 
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              addSettingSkladFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
 
   // Получение списка настрокт автопарка
   settingsAvtoparkList$ = createEffect(() =>
@@ -127,6 +152,33 @@ export class SettingsEffect {
 
 
 
+
+    // Получение списка настроек общих
+    settingsGlobalList$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(settingsGlobalListAction),
+        concatMap((params) => {
+          return this.settings.getAllSettingsGlobal({ params }).pipe(
+            concatMap((settingsGlobalList) => {
+              if (settingsGlobalList.length === 0) {
+                return of(noMoreSettingsGlobalListAction({ data: true }));
+              }
+              return of(settingsGlobalListSuccessAction({ data: settingsGlobalList }));
+            }),
+            catchError((errorResponse: HttpErrorResponse) => {
+              return of(
+                settingsGlobalListFailureAction({ errors: errorResponse.error.errors })
+              );
+            })
+          );
+        })
+      )
+    );
+
+
+
+
+
   // Удаление настроек автопарка
   settingsAvtoparkDelete$ = createEffect(() =>
     this.actions$.pipe(
@@ -178,8 +230,34 @@ export class SettingsEffect {
 
 
 
+    // Удаление настроек общих
+    settingsGlobalDelete$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(settingGlobalDeleteAction),
+        switchMap((id) => {
+          return this.settings.deleteSettingGlobal(id.id).pipe(
+            map((id) => {
+              this.messageService.add({ severity: 'success', summary: `Общие настройки удалены`, detail: 'Успешно!' });
+              return settingSkladDeleteSuccessAction({ data: id });
+            }),
+            catchError((errorResponse: HttpErrorResponse) => {
+              this.messageService.add({ severity: 'error', summary: `Ошибка удаления настроек склада`, detail: 'Попробуйте позже!' });
+              return of(
+                settingGlobalDeleteFailureAction({ errors: errorResponse.error.errors })
+              );
+            })
+          );
+        })
+      )
+    );
+  
 
-  // Обновление настроек автопарка
+
+
+
+
+
+  // Обновление настроек автопарка состояния
   updateStateSettingsAvtopark$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -247,6 +325,29 @@ export class SettingsEffect {
 
 
 
+  
+  // Получение настроек общих
+  getSettingsGlobal$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(settingsGlobalGetCurrent),
+      switchMap((id) => {
+        return this.settings.getByIdSettingsGlobal(id.id).pipe(
+          map((setting) => {
+            return settingsGlobalGetCurrentSuccessAction({ data: setting });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              settingsGlobalGetCurrentFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
 
 
 
@@ -298,6 +399,30 @@ export class SettingsEffect {
     )
   );
 
+
+
+
+    
+  // Обновление настроек общих
+  UpdateSettingsGlobal$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateSettingsGlobalAction),
+      switchMap(({ settingGlobal }) => {
+        return this.settings.updateSettingsGlobal(settingGlobal).pipe(
+          map((data) => {
+            this.messageService.add({ severity: 'success', summary: `Настройки обновлены`, detail: 'Успешно!' });
+            return updateSettingsGlobalSuccessAction({ data: data });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка обновления`, detail: 'Попробуйте еще раз' });
+            return of(
+              updateSettingsGlobalFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 }

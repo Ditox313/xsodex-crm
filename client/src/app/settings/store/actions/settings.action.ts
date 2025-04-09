@@ -1,7 +1,7 @@
 import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
 import { ActionTypes } from '../actionTypes';
-import { SettingAvtopark, SettingSklad, SettingsParamsFetch } from '../../types/settings.interfaces';
+import { SettingAvtopark, SettingSklad, SettingsParamsFetch, SettingGlobal } from '../../types/settings.interfaces';
 
 
 // Add setting avtopark
@@ -19,28 +19,6 @@ export const addSettingAvtoparkFailureAction = createAction(
   ActionTypes.ADD_SETTING_AVTOPARK_FAILURE,
   props<{ errors: any }>()
 );
-
-
-
-// Add setting sklad
-export const addSettingSkladkAction = createAction(
-  ActionTypes.ADD_SETTING_SKLAD,
-  props<{ setting: SettingSklad}>()
-);
-
-export const addSettingSkladSuccessAction = createAction(
-  ActionTypes.ADD_SETTING_SKLAD_SUCCESS,
-);
-
-
-export const addSettingSkladFailureAction = createAction(
-  ActionTypes.ADD_SETTING_SKLAD_FAILURE,
-  props<{ errors: any }>()
-);
-
-
-
-
 
 
 
@@ -72,6 +50,70 @@ export const settingsAvtoparkListResetAction = createAction(
 
 
 
+
+
+
+
+// Get SettingsAvtopark Current
+export const settingsAvtoparkGetCurrent = createAction(
+  ActionTypes.SETTINGS_AVTOPARK_GET_CURRENT,
+  props<{ id: string }>()
+);
+
+
+export const settingsAvtoparkGetCurrentSuccessAction = createAction(
+  ActionTypes.SETTINGS_AVTOPARK_GET_CURRENT_SUCCES,
+  props<{ data: SettingAvtopark }>()
+);
+
+
+export const settingsAvtoparkGetCurrentFailureAction = createAction(
+  ActionTypes.SETTINGS_AVTOPARK_GET_CURRENT_FAILURE,
+  props<{ errors: any }>()
+);
+
+export const settingsAvtoparkGetCurrentReset = createAction(
+  ActionTypes.SETTINGS_AVTOPARK_GET_CURRENT_RESET,
+);
+
+
+
+
+
+
+
+
+// Setting avtopark delete
+export const settingAvtoparkDeleteAction = createAction(
+  ActionTypes.SETTING_AVTOPARK_DELETE,
+  props<{ id: string | undefined }>()
+);
+
+
+export const settingAvtoparkDeleteSuccessAction = createAction(
+  ActionTypes.SETTING_AVTOPARK_DELETE_SUCCES,
+  props<{ data: string }>()
+);
+
+
+export const settingAvtoparkDeleteFailureAction = createAction(
+  ActionTypes.SETTING_AVTOPARK_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // No more Settings avtopark List
 
 export const noMoreSettingsAvtoparkListAction = createAction(
@@ -91,6 +133,75 @@ export const noMoreSettingsAvtoparkListTrueAction = createAction(
 
 
 
+
+
+
+
+
+
+// Update Setting avtopark
+export const updateSettingsAvtoparkAction = createAction(
+  ActionTypes.UPDATE_SETTINS_AVTOPARK,
+  props<{ settingAvtopark: SettingAvtopark}>()
+)
+
+
+export const updateSettingsAvtoparkSuccessAction = createAction(
+  ActionTypes.UPDATE_SETTINS_AVTOPARK_SUCCESS,
+  props<{ data: SettingAvtopark }>()
+);
+
+
+
+
+export const updateSettingsAvtoparkFailureAction = createAction(
+  ActionTypes.UPDATE_SSETTINS_AVTOPARK_FAILURE,
+  props<{ errors: any }>()
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Add setting sklad
+export const addSettingSkladkAction = createAction(
+  ActionTypes.ADD_SETTING_SKLAD,
+  props<{ setting: SettingSklad}>()
+);
+
+export const addSettingSkladSuccessAction = createAction(
+  ActionTypes.ADD_SETTING_SKLAD_SUCCESS,
+);
+
+
+export const addSettingSkladFailureAction = createAction(
+  ActionTypes.ADD_SETTING_SKLAD_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 
@@ -145,26 +256,6 @@ export const noMoreSettingsSkladListTrueAction = createAction(
 
 
 
-// Setting avtopark delete
-export const settingAvtoparkDeleteAction = createAction(
-  ActionTypes.SETTING_AVTOPARK_DELETE,
-  props<{ id: string | undefined }>()
-);
-
-
-export const settingAvtoparkDeleteSuccessAction = createAction(
-  ActionTypes.SETTING_AVTOPARK_DELETE_SUCCES,
-  props<{ data: string }>()
-);
-
-
-export const settingAvtoparkDeleteFailureAction = createAction(
-  ActionTypes.SETTING_AVTOPARK_DELETE_FAILURE,
-  props<{ errors: any }>()
-);
-
-
-
 
 
 
@@ -216,32 +307,6 @@ export const updateStateSettingsFailureAction = createAction(
 
 
 
-// Get SettingsAvtopark Current
-export const settingsAvtoparkGetCurrent = createAction(
-  ActionTypes.SETTINGS_AVTOPARK_GET_CURRENT,
-  props<{ id: string }>()
-);
-
-
-export const settingsAvtoparkGetCurrentSuccessAction = createAction(
-  ActionTypes.SETTINGS_AVTOPARK_GET_CURRENT_SUCCES,
-  props<{ data: SettingAvtopark }>()
-);
-
-
-export const settingsAvtoparkGetCurrentFailureAction = createAction(
-  ActionTypes.SETTINGS_AVTOPARK_GET_CURRENT_FAILURE,
-  props<{ errors: any }>()
-);
-
-export const settingsAvtoparkGetCurrentReset = createAction(
-  ActionTypes.SETTINGS_AVTOPARK_GET_CURRENT_RESET,
-);
-
-
-
-
-
 
 
 
@@ -276,32 +341,6 @@ export const settingsSkladGetCurrentReset = createAction(
 
 
 
-
-// Update Setting avtopark
-export const updateSettingsAvtoparkAction = createAction(
-  ActionTypes.UPDATE_SETTINS_AVTOPARK,
-  props<{ settingAvtopark: SettingAvtopark}>()
-)
-
-
-export const updateSettingsAvtoparkSuccessAction = createAction(
-  ActionTypes.UPDATE_SETTINS_AVTOPARK_SUCCESS,
-  props<{ data: SettingAvtopark }>()
-);
-
-
-
-
-export const updateSettingsAvtoparkFailureAction = createAction(
-  ActionTypes.UPDATE_SSETTINS_AVTOPARK_FAILURE,
-  props<{ errors: any }>()
-)
-
-
-
-
-
-
 // Update Setting sklad
 export const updateSettingsSkladAction = createAction(
   ActionTypes.UPDATE_SETTINS_SKLAD,
@@ -325,4 +364,168 @@ export const updateSettingsSkladFailureAction = createAction(
 
 
 
+
+
+
+
+// ================
+
+
+
+
+
+
+
+
+
+// Add setting global
+export const addSettingGlobalAction = createAction(
+  ActionTypes.ADD_SETTING_GLOBAL,
+  props<{ setting: SettingGlobal}>()
+);
+
+export const addSettingGlobalSuccessAction = createAction(
+  ActionTypes.ADD_SETTING_GLOBAL_SUCCESS,
+);
+
+
+export const addSettingGlobalFailureAction = createAction(
+  ActionTypes.ADD_SETTING_GLOBAL_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+
+
+// Settings global List
+export const settingsGlobalListAction = createAction(
+  ActionTypes.SETTINGS_GLOBAL_LIST,
+  props<{ params?: SettingsParamsFetch  | {}}>()
+);
+
+
+export const settingsGlobalListSuccessAction = createAction(
+  ActionTypes.SETTINGS_GLOBAL_LIST_SUCCES,
+  props<{ data: SettingGlobal[] }>()
+);
+
+
+export const settingsGlobalListFailureAction = createAction(
+  ActionTypes.SETTINGS_GLOBAL_LIST_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const settingsGlobalListResetAction = createAction(
+  ActionTypes.SETTINGS_GLOBAL_LIST_RESET,
+);
+
+
+
+
+
+
+
+
+
+// Get SettingsGlobalCurrent
+export const settingsGlobalGetCurrent = createAction(
+  ActionTypes.SETTINGS_GLOBAL_GET_CURRENT,
+  props<{ id: string }>()
+);
+
+
+export const settingsGlobalGetCurrentSuccessAction = createAction(
+  ActionTypes.SETTINGS_GLOBAL_GET_CURRENT_SUCCES,
+  props<{ data: SettingGlobal }>()
+);
+
+
+export const settingsGlobalGetCurrentFailureAction = createAction(
+  ActionTypes.SETTINGS_GLOBAL_GET_CURRENT_FAILURE,
+  props<{ errors: any }>()
+);
+
+export const settingsGlobalGetCurrentReset = createAction(
+  ActionTypes.SETTINGS_GLOBAL_GET_CURRENT_RESET,
+);
+
+
+
+
+
+
+
+
+// Setting global delete
+export const settingGlobalDeleteAction = createAction(
+  ActionTypes.SETTING_GLOBAL_DELETE,
+  props<{ id: string | undefined }>()
+);
+
+
+export const settingGlobalDeleteSuccessAction = createAction(
+  ActionTypes.SETTING_GLOBAL_DELETE_SUCCES,
+  props<{ data: string }>()
+);
+
+
+export const settingGlobalDeleteFailureAction = createAction(
+  ActionTypes.SETTING_GLOBAL_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+
+
+
+
+
+
+
+
+// No more Settings global List
+
+export const noMoreSettingsGlobalListAction = createAction(
+  ActionTypes.NO_MORE_SETTINGS_GLOBAL_LIST,
+  props<{ data: boolean }>()
+);
+
+export const noMoreSettingsGlobalListFalseAction = createAction(
+  ActionTypes.NO_MORE_SETTINGS_GLOBAL_LIST_FALSE,
+);
+
+export const noMoreSettingsGlobalListTrueAction = createAction(
+  ActionTypes.NO_MORE_SETTINGS_GLOBAL_LIST_TRUE,
+);
+
+
+
+
+
+
+
+
+
+
+
+// Update Setting global
+export const updateSettingsGlobalAction = createAction(
+  ActionTypes.UPDATE_SETTINS_GLOBAL,
+  props<{ settingGlobal: SettingGlobal}>()
+)
+
+
+export const updateSettingsGlobalSuccessAction = createAction(
+  ActionTypes.UPDATE_SETTINS_GLOBAL_SUCCESS,
+  props<{ data: SettingGlobal }>()
+);
+
+
+
+
+export const updateSettingsGlobalFailureAction = createAction(
+  ActionTypes.UPDATE_SETTINS_GLOBAL_FAILURE,
+  props<{ errors: any }>()
+)
 

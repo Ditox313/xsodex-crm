@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { SettingsStateInterface } from '../types/settings.interfaces';
-import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, addSettingSkladFailureAction, addSettingSkladkAction, addSettingSkladSuccessAction, noMoreSettingsAvtoparkListAction, noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, noMoreSettingsSkladListAction, noMoreSettingsSkladListFalseAction, noMoreSettingsSkladListTrueAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentReset, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListResetAction, settingsAvtoparkListSuccessAction, settingSkladDeleteAction, settingSkladDeleteFailureAction, settingSkladDeleteSuccessAction, settingsSkladGetCurrent, settingsSkladGetCurrentFailureAction, settingsSkladGetCurrentReset, settingsSkladGetCurrentSuccessAction, settingsSkladListAction, settingsSkladListFailureAction, settingsSkladListResetAction, settingsSkladListSuccessAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from './actions/settings.action';
+import {addSettingAvtoparkAction, addSettingAvtoparkFailureAction, addSettingAvtoparkSuccessAction, addSettingGlobalAction, addSettingGlobalFailureAction, addSettingGlobalSuccessAction, addSettingSkladFailureAction, addSettingSkladkAction, addSettingSkladSuccessAction, noMoreSettingsAvtoparkListAction, noMoreSettingsAvtoparkListFalseAction, noMoreSettingsAvtoparkListTrueAction, noMoreSettingsGlobalListAction, noMoreSettingsGlobalListFalseAction, noMoreSettingsGlobalListTrueAction, noMoreSettingsSkladListAction, noMoreSettingsSkladListFalseAction, noMoreSettingsSkladListTrueAction, settingAvtoparkDeleteAction, settingAvtoparkDeleteFailureAction, settingAvtoparkDeleteSuccessAction, settingGlobalDeleteAction, settingGlobalDeleteFailureAction, settingGlobalDeleteSuccessAction, settingsAvtoparkGetCurrent, settingsAvtoparkGetCurrentFailureAction, settingsAvtoparkGetCurrentReset, settingsAvtoparkGetCurrentSuccessAction, settingsAvtoparkListAction, settingsAvtoparkListFailureAction, settingsAvtoparkListResetAction, settingsAvtoparkListSuccessAction, settingsGlobalGetCurrent, settingsGlobalGetCurrentFailureAction, settingsGlobalGetCurrentReset, settingsGlobalGetCurrentSuccessAction, settingsGlobalListAction, settingsGlobalListFailureAction, settingsGlobalListResetAction, settingsGlobalListSuccessAction, settingSkladDeleteAction, settingSkladDeleteFailureAction, settingSkladDeleteSuccessAction, settingsSkladGetCurrent, settingsSkladGetCurrentFailureAction, settingsSkladGetCurrentReset, settingsSkladGetCurrentSuccessAction, settingsSkladListAction, settingsSkladListFailureAction, settingsSkladListResetAction, settingsSkladListSuccessAction, updateStateSettingsFailureAction, updateStateSettingsSuccessAction } from './actions/settings.action';
 
 
 
@@ -17,6 +17,9 @@ const initialState: SettingsStateInterface = {
   settingsSkladList: null,
   noMoreSettingsSkladList: true,
   currentSettingSklad: null,
+  settingsGlobalList: null,
+  noMoreSettingsGlobalList: true,
+  currentSettingGlobal: null,
 };
 
 
@@ -92,6 +95,42 @@ const settingsReducer = createReducer(
 
 
 
+
+
+
+
+
+
+
+  
+  on(
+    addSettingGlobalAction,
+    (state): SettingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true,
+    })
+  ),
+
+  on(
+    addSettingGlobalSuccessAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: false,
+    })
+  ),
+  on(
+    addSettingGlobalFailureAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+
+
+// ==============
 
 
 
@@ -236,6 +275,74 @@ const settingsReducer = createReducer(
 
 
 
+  on(
+    settingsGlobalListAction,
+    (state): SettingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    settingsGlobalListSuccessAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      settingsGlobalList: state.settingsGlobalList ? [...state.settingsGlobalList, ...action.data] : action.data,
+      isLoading: false,
+      validationErrors: null,
+    })
+  ),
+  on(
+    settingsGlobalListFailureAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    settingsGlobalListResetAction,
+    (state): SettingsStateInterface => ({
+      ...state,
+      settingsGlobalList: null,
+    })
+  ),
+  on(
+    noMoreSettingsGlobalListAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      noMoreSettingsGlobalList: action.data,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreSettingsGlobalListFalseAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      noMoreSettingsGlobalList: false,
+      isLoading: false,
+    })
+  ),
+  on(
+    noMoreSettingsGlobalListTrueAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      noMoreSettingsGlobalList: true,
+      isLoading: false,
+    })
+  ),
+
+
+
+
+
+
+
+  // =================
+
+
+
 
 
 
@@ -316,6 +423,46 @@ const settingsReducer = createReducer(
 
 
 
+  on(
+    settingGlobalDeleteAction,
+    (state): SettingsStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    settingGlobalDeleteSuccessAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentSettingSklad: null,
+      settingsGlobalList: state.settingsGlobalList ? state.settingsGlobalList.filter((item: { _id: string; }) => item._id !== action.data) : state.settingsGlobalList,
+    })
+  ),
+  on(
+    settingGlobalDeleteFailureAction,
+    (state, action): SettingsStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+      currentSettingGlobal: null,
+    })
+  ),
+
+
+
+
+
+
+
+  // ================
+
+
+
+
 
 
 
@@ -330,7 +477,10 @@ const settingsReducer = createReducer(
       currentSettingAvtopark: action.data.settings.currentSettingAvtopark,
       settingsSkladList: action.data.settings.settingsSkladList ,
       noMoreSettingsSkladList: action.data.settings.noMoreSettingsSkladList,
-      currentSettingSklad: action.data.settings.currentSettingSklad
+      currentSettingSklad: action.data.settings.currentSettingSklad,
+      settingsGlobalList: action.data.settings.settingsGlobalList ,
+      noMoreSettingsGlobalList: action.data.settings.noMoreSettingsGlobalList,
+      currentSettingGlobal: action.data.settings.currentSettingGlobal
     }),
   ),
   on(
@@ -343,6 +493,9 @@ const settingsReducer = createReducer(
 
 
 
+
+
+  // ===========
 
 
 
@@ -423,7 +576,58 @@ const settingsReducer = createReducer(
     })
   ),
 
+
+
+
+
+on(
+  settingsGlobalGetCurrent,
+  (state): SettingsStateInterface => ({
+    ...state,
+    validationErrors: null,
+    isLoading: true
+  })
+),
+
+on(
+  settingsGlobalGetCurrentSuccessAction,
+  (state, action): SettingsStateInterface => ({
+    ...state,
+    isLoading: false,
+    validationErrors: null,
+    currentSettingGlobal: action.data
+  })
+),
+on(
+  settingsGlobalGetCurrentFailureAction,
+  (state, action): SettingsStateInterface => ({
+    ...state,
+    validationErrors: action.errors,
+    isLoading: false,
+  })
+),
+on(
+  settingsGlobalGetCurrentReset,
+  (state): SettingsStateInterface => ({
+    ...state,
+    currentSettingGlobal: null
+  })
+),
+
+
+
+
+
 );
+
+
+
+
+
+
+
+
+
 
 
 
