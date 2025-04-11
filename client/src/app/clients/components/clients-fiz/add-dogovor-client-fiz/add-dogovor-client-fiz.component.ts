@@ -233,6 +233,27 @@ export class AddDogovorClientFizComponent {
 
 
 
+
+
+  // Извлекаем из названия фирмы значение в ковычках
+  getFirstQuotedString(input: string): string | null {
+    const match = input.match(/[«"]([^«»"]+)[»"]/);
+    return match ? match[1] : null;
+  }
+
+
+  // Извлекаем значение доверенности
+  getTextAfterColon(input: string): string {
+    const index = input.indexOf(':');
+    return index !== -1 ? input.substring(index + 1) : '';
+  }
+  
+  
+  
+  
+
+
+
   // Создаем договор
   createDogovor() {
     const cleanedContent = this.cleanHtmlContent();

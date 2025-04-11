@@ -33,8 +33,23 @@
 
                             в лице уполномоченного <strong>{{currentUser.secondName}} {{currentUser.name}}
                                 {{currentUser.lastName}}</strong>
-                            действующего на основании доверенности <strong>№ {{currentUser.doverenostNumber}} </strong>от
-                            <strong>{{currentUser.doverenostDate | date : 'dd-MM-yyyy'}}г</strong>, именуемое в
+                            действующего на основании доверенности 
+
+                            <span *ngIf="settingsGlobalList && settingsGlobalList[0] && currentUser.doverenostNumber && getFirstQuotedString(settingsGlobalList[0].firma) === 'ВВС-ВЕБ'">
+                                <strong>№ {{getTextAfterColon(currentUser.doverenostNumber)}} </strong> от 
+                                <strong>{{currentUser.doverenostDate | date : 'dd-MM-yyyy'}}г</strong>,
+                            </span>
+
+
+                            <span *ngIf="settingsGlobalList && settingsGlobalList[0] && currentUser.doverenostNumber2 && getFirstQuotedString(settingsGlobalList[0].firma) === 'ЕВС'">
+                                <strong>№ {{getTextAfterColon(currentUser.doverenostNumber2)}} </strong> от 
+                                <strong>{{currentUser.doverenostDate2 | date : 'dd-MM-yyyy'}}г</strong>,
+                            </span>
+                              
+
+                      
+
+                            именуемое в
                             дальнейшем «Арендодатель», и
                             Гражданин(ка) РФ, <strong>{{currentClientFiz.surname}} {{currentClientFiz.name}}
                                 {{currentClientFiz.lastname}}</strong>, дата рождения:

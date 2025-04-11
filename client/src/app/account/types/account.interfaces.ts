@@ -11,8 +11,10 @@ export interface UserRequestLogin {
     name?: string
     secondName?: string
     lastName?: string,
-    doverenostNumber?: string
+    doverenostNumber?: string,
+    doverenostNumber2?: string,
     doverenostDate?: string
+    doverenostDate2?: string
 }
 
 // Интерфейс для User при ответе авторизации
@@ -27,7 +29,9 @@ export interface UserResponceLogin {
         secondName: string
         lastName: string
         doverenostNumber?: string
+        doverenostNumber2?: string
         doverenostDate?: string
+        doverenostDate2?: string
         _id?: string
     }
 }
@@ -53,8 +57,10 @@ export interface UserResponceRegister {
     name: string
     secondName: string
     lastName: string
-    doverenostNumber?: string | undefined
+    doverenostNumber?: string | undefined,
+    doverenostNumber2?: string | undefined,
     doverenostDate?: string | undefined
+    doverenostDate2?: string | undefined
     _id?: string
 }
 

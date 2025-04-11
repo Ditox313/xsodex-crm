@@ -49,7 +49,21 @@ const User = new Schema({
         default: null
     },
 
+
+    doverenostNumber2: {
+        type: String,
+        required: false,
+        default: null
+    },
+
     doverenostDate: {
+        type: String,
+        required: false,
+        default: ''
+    },
+
+
+    doverenostDate2: {
         type: String,
         required: false,
         default: ''

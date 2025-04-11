@@ -81,8 +81,17 @@ export class AuthService {
       fd.append('doverenostNumber', user.doverenostNumber);
     }
 
+    if (user.doverenostNumber2) {
+      fd.append('doverenostNumber2', user.doverenostNumber2);
+    }
+
     if (user.doverenostDate) {
       fd.append('doverenostDate', user.doverenostDate);
+    }
+
+
+    if (user.doverenostDate2) {
+      fd.append('doverenostDate2', user.doverenostDate2);
     }
 
     

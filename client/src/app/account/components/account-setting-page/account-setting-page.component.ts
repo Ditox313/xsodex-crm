@@ -52,7 +52,9 @@ export class AccountSettingPageComponent {
       secondName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       doverenostNumber: new FormControl(null),
+      doverenostNumber2: new FormControl(null),
       doverenostDate: new FormControl(null),
+      doverenostDate2: new FormControl(null),
     });
   }
 
@@ -104,7 +106,9 @@ export class AccountSettingPageComponent {
       secondName: user.secondName,
       lastName: user.lastName,
       doverenostNumber: user.doverenostNumber,
+      doverenostNumber2: user.doverenostNumber2,
       doverenostDate: user.doverenostDate,
+      doverenostDate2: user.doverenostDate2,
     });
 
     this.avatar = user.avatar
@@ -123,7 +127,9 @@ export class AccountSettingPageComponent {
       secondName: this.form.value.secondName,
       lastName: this.form.value.lastName,
       doverenostNumber: this.form.value.doverenostNumber,
+      doverenostNumber2: this.form.value.doverenostNumber2,
       doverenostDate: this.form.value.doverenostDate,
+      doverenostDate2: this.form.value.doverenostDate2,
     };
 
     this.store.dispatch(updateUserAction({ user, avatar: this.uploadFile }))
