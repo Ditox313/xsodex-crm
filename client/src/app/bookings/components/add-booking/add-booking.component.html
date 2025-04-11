@@ -234,7 +234,7 @@
 
                     <fieldset>
                         <label htmlFor="firma">Организация</label>
-                        <select id="firma" formControlName="firma">
+                        <select id="firma" formControlName="firma" (ngModelChange)="firmaChange($event)">
                             <option value="" disabled>Выбрать ↷</option>
                             <option value="{{this.firma_list[0]}}">{{this.firma_list[0]}}</option>
                             <option value="{{this.firma_list[1]}}">{{this.firma_list[1]}}</option>

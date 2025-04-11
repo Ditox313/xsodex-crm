@@ -123,8 +123,13 @@ export class EditBookingComponent {
       surname: '',
       lastname: '',
       id: ''
-    }
+    },
+     firma: ''
   }
+
+
+
+  firma_list = ['ООО «ВВС-ВЕБ»', 'ООО «ЕВС»']
 
 
 
@@ -156,7 +161,6 @@ export class EditBookingComponent {
   ngAfterViewInit() {
     if (this.bookingStartInput) {
       this.triggerChangeEventBookingStart();
-      console.log('ngAfterViewInit',this.booking);
     }
     
   }
@@ -285,6 +289,7 @@ export class EditBookingComponent {
       comment: new FormControl('',),
       sale_check: new FormControl(''),
       sale_value: new FormControl(''),
+      firma: new FormControl(''),
     });
   }
 
@@ -419,36 +424,6 @@ export class EditBookingComponent {
         if (currentBooking) {
           this.title = `Редактировать бронь №${currentBooking.order}`
 
-          // this.booking.tarif[0] = this.currentBooking.tarif[0]
-          // this.booking.tarif[1] = this.currentBooking.tarif[1]
-          // this.booking.tarif[1] = this.currentBooking.tarif[1]
-
-
-          // this.booking.tarif[0] = { ...this.currentBooking.tarif[0] };
-          // this.booking.tarif[1] = { ...this.currentBooking.tarif[1] };
-          // this.booking.tarif[2] = { ...this.currentBooking.tarif[2] };
-
-          
-
-
-         
-
-          // this.booking.booking_start = this.currentBooking.booking_start
-          // this.booking.booking_end = this.currentBooking.booking_end
-          // this.booking.car = this.currentBooking.car
-          // this.booking.tarif = this.currentBooking.tarif
-          // this.booking.arenda = this.currentBooking.arenda
-          // this.booking.custome_zalog = this.currentBooking.custome_zalog
-          // this.booking.place_start = this.currentBooking.place_start
-          // this.booking.place_end = this.currentBooking.place_end
-          // this.booking.place_start_price = this.currentBooking.place_start_price
-          // this.booking.place_end_price = this.currentBooking.place_end_price
-          // this.booking.masterPriem = this.currentBooking.masterPriem
-         
-          // this.booking.custome_place_start = this.currentBooking.custome_place_start
-          // this.booking.custome_place_end = this.currentBooking.custome_place_end
-          // this.booking.additional_services = this.currentBooking.additional_services
-
           
           this.booking.additional_services_price = this.currentBooking.additional_services_price
           this.currentClient = this.currentBooking.client
@@ -498,7 +473,13 @@ export class EditBookingComponent {
             master_priem: `${this.currentBooking.masterPriem.surname} ${this.currentBooking.masterPriem.name} ${this.currentBooking.masterPriem.lastname}`,
             sale_check: this.currentBooking.openInfo.saleOnOpen > 0 ? true : false,
             sale_value: this.currentBooking.openInfo.saleOnOpen,
+            firma: this.currentBooking.firma,
           })
+
+
+
+          // Заполняем фирму для вывода в информации
+          this.booking.firma = this.form.value.firma
 
 
 
@@ -1558,25 +1539,36 @@ private pad(number: number): string {
 
 
 
-    // При выборе мастера приемщика
-    masterPriemChange(data: any) {
-      let fio = data.split(' ');
+  // При выборе мастера приемщика
+  masterPriemChange(data: any) {
+    let fio = data.split(' ');
 
-      
+    
 
-      this.mastersPriemList?.forEach(item => {
-        if(fio[0] === item.surname && fio[1] === item.name && fio[2] === item.lastname) 
-          {
-            this.booking.masterPriem = {
-              name: item.name,
-              surname: item.surname,
-              lastname: item.lastname,
-              id: item._id
-            }
+    this.mastersPriemList?.forEach(item => {
+      if(fio[0] === item.surname && fio[1] === item.name && fio[2] === item.lastname) 
+        {
+          this.booking.masterPriem = {
+            name: item.name,
+            surname: item.surname,
+            lastname: item.lastname,
+            id: item._id
           }
-      })
-      
+        }
+    })
+    
+  }
+
+
+
+  
+  // При выборе организации
+  firmaChange(data: any) {
+    if(data !== '')
+    {
+      this.booking.firma = data
     }
+  }
 
 
 
@@ -1659,10 +1651,10 @@ private pad(number: number): string {
       act: '',
       masterPriem: this.booking.masterPriem,
       userId: this.currentUser?._id,
+      firma: this.form.value.firma,
     }
 
 
-    console.log('222', booking);
 
     this.store.dispatch(editBookingAction({ booking: booking }))
 

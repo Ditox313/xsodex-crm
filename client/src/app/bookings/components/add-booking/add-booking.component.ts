@@ -373,41 +373,41 @@ export class AddBookingComponent {
   }
 
 
-  // При выборе даты старта брони
-  checkedStartBookingDate(e: any) {
+// При выборе даты старта брони
+checkedStartBookingDate(e: any) {
 
-    // Вставляем дату старта в дату конца брони
-    const startDate = new Date(e.target.value);
-    const endDateString = this.formatDateToLocalDateTime(startDate);
-    this.form.patchValue({
-      booking_end: endDateString
-    });
+  // Вставляем дату старта в дату конца брони
+  const startDate = new Date(e.target.value);
+  const endDateString = this.formatDateToLocalDateTime(startDate);
+  this.form.patchValue({
+    booking_end: endDateString
+  });
 
-    // Код для установки + 1 день
-    // const startDate = new Date(e.target.value);
-    // const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000); // Добавляем 24 часа
-    // const endDateString = this.formatDateToLocalDateTime(endDate);
-    // this.form.patchValue({
-    //   booking_end: endDateString
-    // });
-
-
-    // // Получаем и устанавливаем  начало  аренды
-    this.booking.booking_start = e.target.value
+  // Код для установки + 1 день
+  // const startDate = new Date(e.target.value);
+  // const endDate = new Date(startDate.getTime() + 24 * 60 * 60 * 1000); // Добавляем 24 часа
+  // const endDateString = this.formatDateToLocalDateTime(endDate);
+  // this.form.patchValue({
+  //   booking_end: endDateString
+  // });
 
 
-    if (this.booking.tarif[0].status === 'active') {
-      this.tarifGorod()
-    }
-    else if (this.booking.tarif[1].status === 'active') {
-      this.tarifMejGorod()
-    }
-    else if (this.booking.tarif[2].status === 'active') {
-      this.tarifRussia()
-    }
+  // // Получаем и устанавливаем  начало  аренды
+  this.booking.booking_start = e.target.value
 
-    this.form.controls['booking_end'].enable();
+
+  if (this.booking.tarif[0].status === 'active') {
+    this.tarifGorod()
   }
+  else if (this.booking.tarif[1].status === 'active') {
+    this.tarifMejGorod()
+  }
+  else if (this.booking.tarif[2].status === 'active') {
+    this.tarifRussia()
+  }
+
+  this.form.controls['booking_end'].enable();
+}
 
 
   
@@ -1445,6 +1445,16 @@ tarifMixedMejgorodDays(e: any) {
           }
       })
       
+    }
+
+
+
+    // При выборе организации
+    firmaChange(data: any) {
+      if(data !== '')
+      {
+        this.booking.firma = data
+      }
     }
 
 
