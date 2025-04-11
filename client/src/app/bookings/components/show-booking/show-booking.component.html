@@ -15,6 +15,11 @@
                         <span> №{{currentBooking.order}}</span>
                     </div>
 
+                    <div *ngIf="currentBooking.firma !== ''">
+                        <span>Организация:</span>
+                        <span>{{currentBooking.firma}}</span>
+                    </div>
+
                     <div>
                         <span>Ответственный:</span>
                         <span> {{currentUser.secondName}} {{currentUser.name}} {{currentUser.lastName}}</span>

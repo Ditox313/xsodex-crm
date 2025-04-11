@@ -8,9 +8,9 @@ import { Booking, BookingData } from '../../types/bookings.interfaces';
 import { Car } from 'src/app/cars/types/cars.interfaces';
 import { carsListSelector } from 'src/app/cars/store/selectors';
 import { carsListAction, carsListResetAction } from 'src/app/cars/store/actions/cars.action';
-import { SettingAvtopark } from 'src/app/settings/types/settings.interfaces';
-import { settingsAvtoparkListSelector } from 'src/app/settings/store/selectors';
-import { settingsAvtoparkListAction, settingsAvtoparkListResetAction } from 'src/app/settings/store/actions/settings.action';
+import { SettingAvtopark, SettingGlobal } from 'src/app/settings/types/settings.interfaces';
+import { settingsAvtoparkListSelector, settingsGlobalListSelector } from 'src/app/settings/store/selectors';
+import { settingsAvtoparkListAction, settingsAvtoparkListResetAction, settingsGlobalGetCurrentReset, settingsGlobalListAction, settingsGlobalListResetAction } from 'src/app/settings/store/actions/settings.action';
 import { MessageService } from 'primeng/api';
 import { Smena } from 'src/app/smena/types/smena.interfaces';
 import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
@@ -108,8 +108,18 @@ export class AddBookingComponent {
       surname: '',
       lastname: '',
       id: ''
-    }
+    },
+    firma: ''
   }
+
+
+
+  firma_list = ['ООО «ВВС-ВЕБ»', 'ООО «ЕВС»']
+
+
+  settingsGlobalListSelector!: Observable<SettingGlobal[] | null | undefined>
+  settingsGlobalListSub$!: Subscription
+  settingsGlobalList: SettingGlobal[] | null | undefined = [];
 
 
 
@@ -162,8 +172,14 @@ export class AddBookingComponent {
     }
 
 
+    if (this.settingsGlobalListSub$) {
+      this.settingsGlobalListSub$.unsubscribe();
+    }
 
     
+    
+    // Отчищаем состояние settingsGlobalList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsGlobalListResetAction());
 
     // Отчищаем состояние carsList
     this.store.dispatch(carsListResetAction());
@@ -215,6 +231,7 @@ export class AddBookingComponent {
       comment: new FormControl('',),
       sale_check: new FormControl(''),
       sale_value: new FormControl(''),
+      firma: new FormControl(''),
     });
   }
 
@@ -222,12 +239,19 @@ export class AddBookingComponent {
   initValues() {
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
 
+    // Отчищаем состояние settingsGlobalList если не хотим сохранять список авто  в состояние
+    this.store.dispatch(settingsGlobalListResetAction());
+
     // Отчищаем состояние settingsAvtoparkList если не хотим сохранять список авто  в состояние
     this.store.dispatch(settingsAvtoparkListResetAction());
 
     // Отправляем запрос на получения списка автомобилей
     this.store.dispatch(carsListResetAction());
     this.store.dispatch(carsListAction({ params: {} }));
+
+
+    // Отправляем запрос на получения списка настроек глобальных
+    this.store.dispatch(settingsGlobalListAction({ params: {} }));
 
     // Получаем селектор на получение списка смен и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
     // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
@@ -325,6 +349,24 @@ export class AddBookingComponent {
         
         if (mastersPriemList) {
           this.mastersPriemList = mastersPriemList;
+        }
+      }
+    });
+
+
+
+    // Получаем селектор на получение списка settingsGlobalList и подписываемся на него.
+    this.settingsGlobalListSelector = this.store.pipe(select(settingsGlobalListSelector))
+    this.settingsGlobalListSub$ = this.settingsGlobalListSelector.subscribe({
+      next: (settingsGlobalList) => {
+        if (settingsGlobalList) {
+          this.settingsGlobalList = settingsGlobalList;
+
+          this.form.patchValue({
+            firma: this.settingsGlobalList[0].firma,
+          });
+
+          this.booking.firma = this.settingsGlobalList[0].firma
         }
       }
     });
@@ -551,6 +593,7 @@ private pad(number: number): string {
       return 0
     }
   }
+
 
 
 
@@ -1423,7 +1466,6 @@ tarifMixedMejgorodDays(e: any) {
   // Значение для скидки
    bookingSaleValue(e: any) {
     this.booking.sale_value = e.target.value
-    console.log(this.booking);
   }
  
 
@@ -1485,6 +1527,7 @@ tarifMixedMejgorodDays(e: any) {
       act: '',
       masterPriem: this.booking.masterPriem,
       userId: this.currentUser?._id,
+      firma: this.form.value.firma
     }
 
     this.store.dispatch(addBookingAction({ booking: booking }))

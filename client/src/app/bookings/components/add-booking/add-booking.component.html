@@ -231,6 +231,16 @@
                         <textarea type="text" rows="1" cols="10" placeholder="Комментарий" formControlName="comment"></textarea>
                     </fieldset>
 
+
+                    <fieldset>
+                        <label htmlFor="firma">Организация</label>
+                        <select id="firma" formControlName="firma">
+                            <option value="" disabled>Выбрать ↷</option>
+                            <option value="{{this.firma_list[0]}}">{{this.firma_list[0]}}</option>
+                            <option value="{{this.firma_list[1]}}">{{this.firma_list[1]}}</option>
+                        </select>
+                    </fieldset>
+
                     
                 </div>
 
@@ -350,6 +360,14 @@
                 <div class="calc">
                     <h4>Рассчеты</h4>
                     <div style="margin-bottom: 30px;">
+                        <div>
+                            <span>Организация</span> 
+                            <span class="booking_info_element">
+                                {{this.booking.firma}}
+                            </span>
+                        </div>
+
+
                         <div>
                             <span>Дней аренды:</span> 
                             <span class="booking_info_element">

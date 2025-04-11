@@ -193,6 +193,13 @@ const bookingSchema = new Schema({
     },
 
 
+    firma: {
+        type: String,
+        default: '',
+        required: false,
+    },
+
+
     act: {
         type: String,
         default: '',

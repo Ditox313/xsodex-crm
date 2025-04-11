@@ -32,9 +32,9 @@ import htmlToPdfmake from "html-to-pdfmake"
 import { Car } from 'src/app/cars/types/cars.interfaces';
 import { carGetCurrent, carGetCurrentReset } from 'src/app/cars/store/actions/cars.action';
 import { getCurrentCarSelector } from 'src/app/cars/store/selectors';
-import { SettingAvtopark } from 'src/app/settings/types/settings.interfaces';
-import { settingsAvtoparkListAction, settingsAvtoparkListResetAction } from 'src/app/settings/store/actions/settings.action';
-import { settingsAvtoparkListSelector } from 'src/app/settings/store/selectors';
+import { SettingAvtopark, SettingGlobal } from 'src/app/settings/types/settings.interfaces';
+import { settingsAvtoparkListAction, settingsAvtoparkListResetAction, settingsGlobalListAction, settingsGlobalListResetAction } from 'src/app/settings/store/actions/settings.action';
+import { settingsAvtoparkListSelector, settingsGlobalListSelector } from 'src/app/settings/store/selectors';
 import { clientFizDogovorsListAction, clientFizDogovorsListResetAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
 import { clientsFizDogovorsListSelector } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
 import { masterPriemGetCurrent, masterPriemGetCurrentReset } from 'src/app/personal/store/actions/masters-priem.action';
@@ -116,6 +116,13 @@ export class AddActBookingComponent {
   }
 
 
+
+  settingsGlobalListSelector!: Observable<SettingGlobal[] | null | undefined>
+  settingsGlobalListSub$!: Subscription
+  settingsGlobalList: SettingGlobal[] | null | undefined = [];
+
+
+
   constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute, private rendererFactory: RendererFactory2) { 
     this.renderer = rendererFactory.createRenderer(null, null);
   }
@@ -171,6 +178,12 @@ export class AddActBookingComponent {
       this.clientFizListDogovorsSub$.unsubscribe();
     }
 
+    if (this.settingsGlobalListSub$) {
+      this.settingsGlobalListSub$.unsubscribe();
+    }
+  
+ 
+
 
     
 
@@ -181,6 +194,8 @@ export class AddActBookingComponent {
     this.store.dispatch(masterPriemGetCurrentReset());
     this.store.dispatch(settingsAvtoparkListResetAction());
     this.store.dispatch(clientFizDogovorsListResetAction());
+    this.store.dispatch(settingsGlobalListResetAction());
+    
   }
 
 
@@ -216,6 +231,11 @@ export class AddActBookingComponent {
     this.store.dispatch(settingsAvtoparkListResetAction());
     this.store.dispatch(clientFizDogovorsListResetAction());
     this.store.dispatch(masterPriemGetCurrentReset());
+    this.store.dispatch(settingsGlobalListResetAction());
+
+
+    // Отправляем запрос на получения списка настроек глобальных
+    this.store.dispatch(settingsGlobalListAction({ params: {} }));
 
 
     //Отправляем запрос на получение текущей брони
@@ -349,6 +369,19 @@ export class AddActBookingComponent {
     })
 
 
+
+      // Получаем селектор на получение списка settingsGlobalList и подписываемся на него.
+    this.settingsGlobalListSelector = this.store.pipe(select(settingsGlobalListSelector))
+    this.settingsGlobalListSub$ = this.settingsGlobalListSelector.subscribe({
+      next: (settingsGlobalList) => {
+        if (settingsGlobalList) {
+          this.settingsGlobalList = settingsGlobalList;
+          
+        }
+      }
+    });
+
+
     
   }
 
@@ -475,12 +508,21 @@ formatName(lastName: string, firstName?: string, middleName?: string): string {
 
 
 // Проверяем значение на наличие-00 из тарифрв
-  hasDoubleZero(value: any): boolean {
-    return String(value).includes('00');
-  }
-  removeDoubleZeroWithDash(value: any): string {
-    return String(value).replace(/-?00/g, '');
-  }
+hasDoubleZero(value: any): boolean {
+  return String(value).includes('00');
+}
+removeDoubleZeroWithDash(value: any): string {
+  return String(value).replace(/-?00/g, '');
+}
+
+
+
+// Извлекаем значение доверенности
+getTextAfterColon(input: string): string {
+  const index = input.indexOf(':');
+  return index !== -1 ? input.substring(index + 1) : '';
+}
+
   
 
 

@@ -82,6 +82,10 @@ export class BookingsService {
   
     // ID пользователя
     fd.append('userId', booking.userId || '');
+
+
+    // ID пользователя
+    fd.append('firma', booking.firma || '');
   
     // Отправка запроса на сервер
     return this.http.patch<Booking>(`/api/bookings/edit/${booking._id}`, fd);

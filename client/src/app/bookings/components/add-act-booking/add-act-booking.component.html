@@ -26,14 +26,25 @@
             <div *ngIf="currentBooking.client.type === 'fiz'" class="xs_table_div" style="font-size: 15px;">
                 <div *ngIf="this.masterPriem.name == ''" style="font-size: 15px;">
                     Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
-                    между: <strong>ООО «ЕВС»</strong>
-                     в лице Уполномоченного {{this.currentUser.secondName}} {{this.currentUser.name}} {{this.currentUser.lastName}} по Доверенности №{{this.currentUser.doverenostNumber}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, 
+                    между: 
+                    <strong>{{currentBooking.firma}}</strong>
+                     в лице Уполномоченного {{this.currentUser.secondName}} {{this.currentUser.name}} {{this.currentUser.lastName}} 
+
+                    <span *ngIf="this.currentUser.doverenostNumber && currentBooking.firma === 'ООО «ВВС-ВЕБ»'">по Доверенности №{{getTextAfterColon(this.currentUser.doverenostNumber)}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, </span>
+                    <span *ngIf="this.currentUser.doverenostNumber2 && currentBooking.firma === 'ООО «ЕВС»'">по Доверенности №{{getTextAfterColon(this.currentUser.doverenostNumber2)}} от {{this.currentUser.doverenostDate2 | date : 'dd.MM.yyyy'}} г, </span>
+ 
+                     
+
                     далее <strong>«Арендодатель»</strong>, и гражданин(ка) РФ, <strong>{{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
                 </div>
                 <div *ngIf="this.masterPriem.name != ''" style="font-size: 15px;">
                     Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
-                    между: <strong>ООО «ЕВС»</strong>
-                     в лице Уполномоченного {{this.masterPriem.surname}} {{this.masterPriem.name}} {{this.masterPriem.lastname}} по Доверенности №{{this.masterPriem.doverenostNumber}} от {{this.masterPriem.doverenostDate | date : 'dd.MM.yyyy'}} г, 
+                    между: <strong>{{currentBooking.firma}}</strong>
+                     в лице Уполномоченного {{this.masterPriem.surname}} {{this.masterPriem.name}} {{this.masterPriem.lastname}} 
+
+                    <span *ngIf="this.currentUser.doverenostNumber && currentBooking.firma === 'ООО «ВВС-ВЕБ»'">по Доверенности №{{getTextAfterColon(this.currentUser.doverenostNumber)}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, </span>
+                    <span *ngIf="this.currentUser.doverenostNumber2 && currentBooking.firma === 'ООО «ЕВС»'">по Доверенности №{{getTextAfterColon(this.currentUser.doverenostNumber2)}} от {{this.currentUser.doverenostDate2 | date : 'dd.MM.yyyy'}} г, </span> 
+
                     далее <strong>«Арендодатель»</strong>, и гражданин(ка) РФ, <strong>{{this.currentClient.surname}} {{this.currentClient.name}} {{this.currentClient.lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
                 </div>
             </div>
@@ -42,15 +53,23 @@
             <div *ngIf="currentBooking.client.type === 'law'">
                 <div *ngIf="this.masterPriem.name == ''">
                     Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
-                    между: <strong>ООО «ЕВС»</strong>
-                     в лице Уполномоченного {{this.currentUser.secondName}} {{this.currentUser.name}} {{this.currentUser.lastName}} по Доверенности №{{this.currentUser.doverenostNumber}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, 
+                    между: <strong>{{currentBooking.firma}}</strong>
+                     в лице Уполномоченного {{this.currentUser.secondName}} {{this.currentUser.name}} {{this.currentUser.lastName}} 
+
+                    <span *ngIf="this.currentUser.doverenostNumber && currentBooking.firma === 'ООО «ВВС-ВЕБ»'">по Доверенности №{{getTextAfterColon(this.currentUser.doverenostNumber)}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, </span>
+                    <span *ngIf="this.currentUser.doverenostNumber2 && currentBooking.firma === 'ООО «ЕВС»'">по Доверенности №{{getTextAfterColon(this.currentUser.doverenostNumber2)}} от {{this.currentUser.doverenostDate2 | date : 'dd.MM.yyyy'}} г, </span>  
+
                     далее <strong>«Арендодатель»</strong>, <strong>{{this.currentClient.short_name}} {{this.currentClient.name}} в лице {{this.currentClient.boss_role}}а {{this.currentClient.boss_surname}} {{this.currentClient.boss_name}}
                     {{this.currentClient.boss_lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
                 </div>
                 <div *ngIf="this.masterPriem.name != ''">
                     Настоящий акт составлен в двух экземплярах, по одному для каждой стороны, при передаче автомобиля по договору проката 
-                    между: <strong>ООО «ЕВС»</strong>
-                     в лице Уполномоченного {{this.masterPriem.surname}} {{this.masterPriem.name}} {{this.masterPriem.lastname}} по Доверенности №{{this.masterPriem.doverenostNumber}} от {{this.masterPriem.doverenostDate | date : 'dd.MM.yyyy'}} г, 
+                    между: <strong>{{currentBooking.firma}}</strong>
+                     в лице Уполномоченного {{this.masterPriem.surname}} {{this.masterPriem.name}} {{this.masterPriem.lastname}} 
+
+                    <span *ngIf="this.currentUser.doverenostNumber && currentBooking.firma === 'ООО «ВВС-ВЕБ»'">по Доверенности №{{getTextAfterColon(this.currentUser.doverenostNumber)}} от {{this.currentUser.doverenostDate | date : 'dd.MM.yyyy'}} г, </span>
+                    <span *ngIf="this.currentUser.doverenostNumber2 && currentBooking.firma === 'ООО «ЕВС»'">по Доверенности №{{getTextAfterColon(this.currentUser.doverenostNumber2)}} от {{this.currentUser.doverenostDate2 | date : 'dd.MM.yyyy'}} г, </span>  
+                     
                     далее <strong>«Арендодатель»</strong>, <strong>{{this.currentClient.short_name}} {{this.currentClient.name}} в лице {{this.currentClient.boss_role}}а {{this.currentClient.boss_surname}} {{this.currentClient.boss_name}}
                     {{this.currentClient.boss_lastname}} ,тел:{{this.currentClient.phone_1}}</strong> , далее «Арендатор».
                 </div>

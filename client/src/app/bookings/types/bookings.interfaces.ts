@@ -38,6 +38,7 @@ export interface Booking {
     userId: string | undefined,
     order?: Number,
     date?: string,
+    firma?: string
 }
 
 //Интерфейс для брони на продление
@@ -78,6 +79,7 @@ export interface BookingData {
     masterPriem?: Object,
     sale_check?: boolean,
     sale_value?: string,
+    firma?: string
 }
 
 
