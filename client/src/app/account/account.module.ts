@@ -19,6 +19,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AccountEffect } from './store/effects/account.effect';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { ButtonModule } from 'primeng/button';
     InputTextModule,
     StoreModule.forFeature('account', reducers),
     EffectsModule.forFeature([AccountEffect]),
+    DialogModule
   ],
   providers: [MessageService, AuthService],
 })

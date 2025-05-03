@@ -127,4 +127,62 @@
 
         </div>
     </form>
+
+    <div class="token_btn" title="Открыть информацию по API">
+        <span class="xs_info" (click)="showApiModal = true"><i class="pi pi-info"></i></span>
+        <p-button 
+            label="Получить токен" 
+            icon="pi pi-copy" 
+            class="p-button-success p-button-sm"
+            (click)="copyToken()">
+        </p-button>
+    </div>
+    
+<!-- Модальное окно с API -->
+<p-dialog 
+  header="Информация по Api маршрутам" 
+  [(visible)]="showApiModal" 
+  [modal]="true" 
+  [style]="{width: '70vw'}"
+  [closable]="true" 
+  [resizable]="false">
+
+  <div class="api_helper">
+
+    <!-- Блок с базовым URL -->
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem;">
+      <div style="flex-grow: 1;">
+        <h4 style="margin: 0;" class="api_server_title">URL Сервера</h4>
+        <code>{{ apiBaseUrl }}</code>
+      </div>
+      <button 
+        (click)="copyPath(apiBaseUrl)" 
+        style="padding: 4px 8px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
+        Скопировать
+      </button>
+    </div>
+
+    <!-- Список путей -->
+    <div class="api_helper__content" style="display: flex; flex-direction: column; gap: 1rem;">
+      <div *ngFor="let item of apiList" style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+        <div style="flex-grow: 1;">
+          <span class="api_item_title">{{ item.description }}</span><br>
+          <code>{{ item.path }}</code>
+        </div>
+        <button 
+          (click)="copyPath(item.path)" 
+          style="padding: 4px 8px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
+          Скопировать
+        </button>
+      </div>
+    </div>
+
+  </div>
+</p-dialog>
+
+
 </div>
+
+
+  
+  

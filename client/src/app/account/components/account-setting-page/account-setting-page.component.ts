@@ -5,6 +5,7 @@ import { UserResponceRegister } from '../../types/account.interfaces';
 import { Store, select } from '@ngrx/store';
 import { currentUserSelector, isLoadingSelector } from '../../store/selectors';
 import { updateUserAction } from '../../store/actions/account.action';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -22,13 +23,33 @@ export class AccountSettingPageComponent {
   uploadFile!: File
   avatar: string | ArrayBuffer | undefined | null = '' ;
   @ViewChild('upload') upload!: ElementRef;
+  authToken: string | null = null;
+  showApiModal: boolean = false;
+
+
+
+  // Список api маршрутов
+  apiBaseUrl: string = 'http://localhost:4200';
+  apiList = [
+    { description: 'Получение всех смен', path: '/api/smena/smena-list' },
+    { description: 'Получение всех платежей', path: '/api/smena/pays-list-for-general-report' },
+    { description: 'Получение всех автомобилей', path: '/api/cars/cars-list' },
+    { description: 'Получение всех броней', path: '/api/bookings/bookings-list' },
+    { description: 'Получение всех клиентов (физ.лиц)', path: '/api/clientsFiz/clientsFiz-list' },
+    { description: 'Получение всех клиентов (юр.лиц)', path: '/api/clientsLaw/clientsLaw-list' },
+    { description: 'Получение всех партнеров', path: '/api/partners/partners-list' },
+    { description: 'Получение всех мастеров приемщиков', path: '/api/personal/masters-priem-list' },
+    { description: 'Настройки автопарка', path: '/api/settings/settings-avtopark-list' },
+    { description: 'Настройки склада', path: '/api/settings/settings-sklad-list' },
+    { description: 'Глобальные настройки', path: '/api/settings/settings-global-list' },
+  ];
 
 
 
 
 
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private messageService: MessageService, ) { }
 
   ngOnInit(): void {
     this.initionalForm();
@@ -71,6 +92,29 @@ export class AccountSettingPageComponent {
       }
     })
     this.isLoadingSelector$ = this.store.pipe(select(isLoadingSelector))
+
+    this.authToken = localStorage.getItem('auth-token');
+  }
+
+  // Получение токена
+  copyToken(): void {
+    const fullToken = localStorage.getItem('auth-token');
+    if (fullToken) {
+      const token = fullToken.replace(/^Bearer\s+/i, ''); // убираем Bearer
+      navigator.clipboard.writeText(token).then(() => {
+        this.messageService.add({ severity: 'success', summary: `Токен скопирован в буфер`, detail: 'Успешно!' });
+      }).catch(err => {
+        this.messageService.add({ severity: 'error', summary: `Ошибка `, detail: 'копирования буфера!' });
+      });
+    }
+  }
+
+
+  // Копируем маршрут api
+  copyPath(path: string) {
+    navigator.clipboard.writeText(path).then(() => {
+      this.messageService.add({ severity: 'success', summary: `Путь скопирован`, detail: 'Успешно!' });
+    });
   }
 
 
