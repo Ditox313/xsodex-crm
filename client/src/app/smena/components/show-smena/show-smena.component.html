@@ -7,7 +7,7 @@
 
 <div class="smena_show" *ngIf="this.currentSmema" #content >
     <div class="smena_show_admin_info">
-        <table>
+        <table>Номер брони
             <thead>
                 <th>Дата открытия</th>
                 <th>Ответственный</th>
@@ -88,7 +88,7 @@
                         <th>Сумма</th>
                         <th>Тип</th>
                         <th>Вид</th>
-                        <th>Номер брони</th>
+                        <!-- <th>Номер брони</th> -->
                         <th>Клиент</th>
                         <th>Ссылка на бронь</th>
                     </tr>
@@ -100,7 +100,7 @@
                         <td><strong>{{pay.pricePay}} руб</strong></td>
                         <td><strong>{{pay.typeMoney}}</strong></td>
                         <td><strong>{{pay.type}}</strong></td>
-                        <td><strong >№{{this.getBookingOrderById(pay.bookingId)}}</strong></td>
+                        <!-- <td><strong >№{{this.getBookingOrderById(pay.bookingId)}}</strong></td> -->
                         <td><strong >{{this.getBookingClientById(pay.clientId)}}</strong></td>
                         <td><strong [routerLink]="['/show-booking',pay.bookingId]" class="openSmenaLink">Открыть</strong></td>
                     </tr>
