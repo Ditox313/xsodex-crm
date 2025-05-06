@@ -88,7 +88,7 @@
                         <th>Сумма</th>
                         <th>Тип</th>
                         <th>Вид</th>
-                        <!-- <th>Номер брони</th> -->
+                        <th>Номер брони</th>
                         <th>Клиент</th>
                         <th>Ссылка на бронь</th>
                     </tr>
@@ -100,8 +100,8 @@
                         <td><strong>{{pay.pricePay}} руб</strong></td>
                         <td><strong>{{pay.typeMoney}}</strong></td>
                         <td><strong>{{pay.type}}</strong></td>
-                        <!-- <td><strong >№{{this.getBookingOrderById(pay.bookingId)}}</strong></td> -->
-                        <td><strong >{{this.getBookingClientById(pay.clientId)}}</strong></td>
+                        <td><strong *ngIf="getBookingOrderById(pay.bookingId)">№{{this.getBookingOrderById(pay.bookingId)}}</strong></td>
+                        <td><strong *ngIf="getBookingClientById(pay.clientId)">{{this.getBookingClientById(pay.clientId)}}</strong></td>
                         <td><strong [routerLink]="['/show-booking',pay.bookingId]" class="openSmenaLink">Открыть</strong></td>
                     </tr>
                 </ng-template>

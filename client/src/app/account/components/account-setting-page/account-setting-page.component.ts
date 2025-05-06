@@ -99,15 +99,41 @@ export class AccountSettingPageComponent {
   // Получение токена
   copyToken(): void {
     const fullToken = localStorage.getItem('auth-token');
-    if (fullToken) {
-      const token = fullToken.replace(/^Bearer\s+/i, ''); // убираем Bearer
-      navigator.clipboard.writeText(token).then(() => {
-        this.messageService.add({ severity: 'success', summary: `Токен скопирован в буфер`, detail: 'Успешно!' });
-      }).catch(err => {
-        this.messageService.add({ severity: 'error', summary: `Ошибка `, detail: 'копирования буфера!' });
+    if (!fullToken) return;
+  
+    const token = fullToken.replace(/^Bearer\s+/i, '');
+  
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = token;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+  
+      const successful = document.execCommand('copy');
+      document.body.removeChild(textarea);
+  
+      this.messageService.add({
+        severity: successful ? 'success' : 'warn',
+        summary: successful ? 'Токен скопирован' : 'Не удалось скопировать',
+        detail: token
+      });
+    } catch (err: unknown) {
+      let message = 'Неизвестная ошибка';
+      if (err instanceof Error) {
+        message = err.message;
+      }
+  
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Ошибка копирования',
+        detail: message
       });
     }
   }
+  
 
 
   // Копируем маршрут api

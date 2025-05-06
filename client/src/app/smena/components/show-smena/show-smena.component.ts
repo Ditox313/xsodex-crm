@@ -129,7 +129,6 @@ export class ShowSmenaComponent implements OnInit, OnDestroy {
        next: (payssList) => {
          if (payssList) {
            this.paysListForSmena = payssList;
-           console.log('111', this.paysListForSmena);
            
          }
        }
