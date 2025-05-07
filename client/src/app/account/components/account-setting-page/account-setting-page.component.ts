@@ -29,7 +29,7 @@ export class AccountSettingPageComponent {
 
 
   // Список api маршрутов
-  apiBaseUrl: string = 'http://localhost:4200';
+  apiBaseUrl: string = 'http://90.156.225.44:5000';
   apiList = [
     { description: 'Получение всех смен', path: '/api/smena/smena-list' },
     { description: 'Получение всех платежей', path: '/api/smena/pays-list-for-general-report' },
