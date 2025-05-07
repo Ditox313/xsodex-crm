@@ -118,7 +118,7 @@ export class AccountSettingPageComponent {
       this.messageService.add({
         severity: successful ? 'success' : 'warn',
         summary: successful ? 'Токен скопирован' : 'Не удалось скопировать',
-        detail: token
+        detail: 'Успешно!'
       });
     } catch (err: unknown) {
       let message = 'Неизвестная ошибка';
@@ -137,11 +137,57 @@ export class AccountSettingPageComponent {
 
 
   // Копируем маршрут api
-  copyPath(path: string) {
+  // Копируем маршрут API с fallback для HTTP
+copyPath(path: string): void {
+  if (navigator.clipboard && window.isSecureContext) {
+    // Современный метод (работает только через HTTPS или localhost)
     navigator.clipboard.writeText(path).then(() => {
-      this.messageService.add({ severity: 'success', summary: `Путь скопирован`, detail: 'Успешно!' });
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Путь скопирован',
+        detail: 'Успешно!'
+      });
+    }).catch(err => {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Ошибка копирования',
+        detail: err.message || 'Не удалось скопировать путь'
+      });
     });
+  } else {
+    // Fallback для HTTP
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = path;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'absolute';
+      textarea.style.left = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      const successful = document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      this.messageService.add({
+        severity: successful ? 'success' : 'warn',
+        summary: successful ? 'Путь скопирован' : 'Не удалось скопировать',
+        detail: 'Успешно!'
+      });
+    } catch (err: unknown) {
+      let message = 'Неизвестная ошибка';
+      if (err instanceof Error) {
+        message = err.message;
+      }
+
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Ошибка копирования',
+        detail: message
+      });
+    }
   }
+}
+
 
 
 
