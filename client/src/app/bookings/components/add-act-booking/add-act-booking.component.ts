@@ -451,8 +451,6 @@ export class AddActBookingComponent {
 
 
 
-
-
   // Генерируем PDF(V2)
   generatePdf(elementRef: ElementRef, filename: string): void {
     const element = elementRef.nativeElement;
@@ -485,25 +483,25 @@ export class AddActBookingComponent {
       pdf.save(filename); // Сохраняем PDF с указанным именем файла
     });
   }
-  
+    
 
 
 
-formatName(lastName: string, firstName?: string, middleName?: string): string {
-    if (!lastName) {
-      return '';
-    }
-  
-    const firstInitial = firstName ? firstName.charAt(0).toUpperCase() : '';
-    const middleInitial = middleName ? middleName.charAt(0).toUpperCase() : '';
-  
-    if (firstInitial && middleInitial) {
-      return `${lastName} ${firstInitial}.${middleInitial}.`;
-    } else if (firstInitial) {
-      return `${lastName} ${firstInitial}.`;
-    } else {
-      return lastName;
-    }
+  formatName(lastName: string, firstName?: string, middleName?: string): string {
+      if (!lastName) {
+        return '';
+      }
+    
+      const firstInitial = firstName ? firstName.charAt(0).toUpperCase() : '';
+      const middleInitial = middleName ? middleName.charAt(0).toUpperCase() : '';
+    
+      if (firstInitial && middleInitial) {
+        return `${lastName} ${firstInitial}.${middleInitial}.`;
+      } else if (firstInitial) {
+        return `${lastName} ${firstInitial}.`;
+      } else {
+        return lastName;
+      }
   }
 
 
@@ -522,9 +520,6 @@ getTextAfterColon(input: string): string {
   const index = input.indexOf(':');
   return index !== -1 ? input.substring(index + 1) : '';
 }
-
-  
-
 
   
 

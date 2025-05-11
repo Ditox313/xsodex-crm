@@ -1,6 +1,6 @@
 .add-dogovor-clientFiz {
     padding: 0 20px;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 
@@ -8,10 +8,15 @@
     margin-bottom: 40px;
 }
 
-.add-act-booking
+/* .add-act-booking
 {
     width: 1557px !important;
     height: 2186px !important;
+} */
+
+@page {
+  size: A4;
+  margin: 10mm;
 }
 
 .xs_tarif_gorod span

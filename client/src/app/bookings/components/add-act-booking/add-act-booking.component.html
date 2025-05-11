@@ -2,7 +2,7 @@
 <p-toast></p-toast>
 <loader *ngIf="isLoadingSelector$ | async"></loader>
 
-
+<div class="print-wrapper">
 <form [formGroup]="form" (ngSubmit)="createAct()">
     
     <div class="add-act-booking" #content *ngIf="currentBooking && currentClient && currentCar && currentUser">
@@ -654,5 +654,6 @@
     </div>
 
 </form>
+</div>
 
 
