@@ -28,7 +28,9 @@ export class AddSettingGlobalComponent {
 
   initForm() {
     this.form = new FormGroup({
-      firma: new FormControl('', []), // пустая строка — по умолчанию ничего не выбрано
+      firma: new FormControl('', []), 
+      rekviziti_firma_1: new FormControl('', []), 
+      rekviziti_firma_2: new FormControl('', []), 
     });
   }
 
@@ -42,10 +44,13 @@ export class AddSettingGlobalComponent {
   onSubmit() {
 
     const settings_global = {
-      firma: this.form.value.firma
+      firma: this.form.value.firma,
+      rekviziti_firma_1: this.form.value.rekviziti_firma_1,
+      rekviziti_firma_2: this.form.value.rekviziti_firma_2,
+
     };
-    
-    
+
+
 
 
     this.store.dispatch(addSettingGlobalAction({ setting: settings_global }))

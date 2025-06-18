@@ -59,6 +59,8 @@ export class ShowSettingGlobalComponent {
   initForm() {
     this.form = new FormGroup({
       firma: new FormControl('', []),
+      rekviziti_firma_1: new FormControl('', []), 
+      rekviziti_firma_2: new FormControl('', []), 
     });
 
     this.form.disable();
@@ -94,6 +96,8 @@ export class ShowSettingGlobalComponent {
     
     this.form.patchValue({
       firma: settings.firma,
+      rekviziti_firma_1: settings.rekviziti_firma_1,
+      rekviziti_firma_2: settings.rekviziti_firma_2,
     });
 
   }
@@ -117,7 +121,9 @@ export class ShowSettingGlobalComponent {
 
     const settings_global = {
       _id: this.settingsGlobalId,
-      firma: this.form.value.firma
+      firma: this.form.value.firma,
+      rekviziti_firma_1: this.form.value.rekviziti_firma_1,
+      rekviziti_firma_2: this.form.value.rekviziti_firma_2,
     };
 
 

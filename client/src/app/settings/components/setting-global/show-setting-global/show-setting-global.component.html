@@ -21,6 +21,30 @@
             </div>
         </div>
 
+        <div class="global_setting_rekviziti">
+            <fieldset>
+                <label htmlFor="firma">Реквизиты организаций ООО "ВВС-ВЕБ" <span style="color:red;">*</span></label>
+                    <textarea
+                    id="rekviziti_firma_1"
+                    placeholder="Введите реквизиты организации ООО 'ВВС-ВЕБ'"
+                    formControlName="rekviziti_firma_1"
+                    rows="12"
+                    class="form-control"
+                ></textarea>
+            </fieldset>
+
+            <fieldset>
+                <label htmlFor="firma">Реквизиты организаций ООО "ЕВС" <span style="color:red;">*</span></label>
+                    <textarea
+                    id="rekviziti_firma_1"
+                    placeholder="Введите реквизиты организации ООО 'ЕВС'"
+                    formControlName="rekviziti_firma_2"
+                    rows="12"
+                    class="form-control"
+                ></textarea>
+            </fieldset>
+        </div>
+
         <button type="submit" class="submit" [disabled]="form.invalid || !edit"><i class="pi pi-check"></i> Сохранить</button>
     </form>
 

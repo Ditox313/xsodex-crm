@@ -67,5 +67,7 @@ export interface SettingsParamsFetch {
 export interface SettingGlobal {
     _id? : string,
     firma: string,
+    rekviziti_firma_1: string,
+    rekviziti_firma_2: string,
     title?: string
 }

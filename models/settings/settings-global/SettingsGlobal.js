@@ -6,6 +6,8 @@ const Schema = mongoose.Schema;
 
 const settingsGlobalSchema = new Schema({
     firma: String,
+    rekviziti_firma_1: String,
+    rekviziti_firma_2: String,
     title:
     {
         type: String,

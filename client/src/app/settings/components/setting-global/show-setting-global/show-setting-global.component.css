@@ -100,6 +100,7 @@ input::-webkit-datetime-edit-year-field:focus {
 
 fieldset {
     margin-bottom: 30px;
+    width: 100%;
 }
 
 
@@ -107,6 +108,13 @@ fieldset > label
 {
     display: block;
 }
+
+textarea
+{
+    width: 500px;
+}
+
+
 
 
 

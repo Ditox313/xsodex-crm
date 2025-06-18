@@ -31,8 +31,10 @@
                             <strong *ngIf="this.settingsGlobalList && this.settingsGlobalList[0]">{{this.settingsGlobalList[0].firma}}</strong> 
                             <strong *ngIf="!this.settingsGlobalList">ООО «ЕВС»</strong> 
 
-                            в лице уполномоченного <strong>{{currentUser.secondName}} {{currentUser.name}}
+                            в лице уполномоченного 
+                            <strong>{{currentUser.secondName}} {{currentUser.name}}
                                 {{currentUser.lastName}}</strong>
+
                             действующего на основании доверенности 
 
                             <span *ngIf="settingsGlobalList && settingsGlobalList[0] && currentUser.doverenostNumber && getFirstQuotedString(settingsGlobalList[0].firma) === 'ВВС-ВЕБ'">
@@ -622,24 +624,26 @@
                                             <strong *ngIf="!this.settingsGlobalList">ООО «ЕВС»</strong> 
 
                                         </div>
-                                        <div>
-                                            ИНН 7203488354 КПП 720301001 
-                                            Адрес регистрации/Почтовый адрес:
-                                            улица Дмитрия Менделеева, д. 18, кв./оф. ОФИС 307/1, Тюменская область, г. Тюмень
-                                            <a name="OLE_LINK1"></a>
-                                            Тел. +7 (3452) 388-311
-                                            
-                                            email:
-                                            <u>
-                                                <a href="mailto:info@autoprokat72.ru">
-                                                    info&#64;autoprokat72.ru
-                                                </a>
-                                            </u>
+
+                                        <div *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ВВС-ВЕБ»'">
+                                            <p *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].rekviziti_firma_1">
+                                                {{this.settingsGlobalList[0].rekviziti_firma_1}}
+                                            </p>
+                                        </div>
+
+                                        <div *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ЕВС»'">
+                                            <p *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].rekviziti_firma_2">
+                                                {{this.settingsGlobalList[0].rekviziti_firma_2}}
+                                            </p>
                                         </div>
                                         <br><br>
 
-                                        <div>
-                                            ___________________________/ {{currentUser.secondName}} {{currentUser.name}} {{currentUser.lastName}}
+                                        <div *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ВВС-ВЕБ»'">
+                                            ___________________________/ В.В. Синицын
+                                        </div>
+
+                                        <div *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ЕВС»'">
+                                            ___________________________/ Е.В. Синицына
                                         </div>
                                     </td>
 

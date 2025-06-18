@@ -67,6 +67,8 @@ module.exports.create_setting_global = async function (req, res) {
     try {
         const setting = await new SettingsGlobal({
             firma: req.body.firma,
+            rekviziti_firma_1: req.body.rekviziti_firma_1,
+            rekviziti_firma_2: req.body.rekviziti_firma_2,
         }).save();
 
         // Возвращаем пользователю позицию которую создали 

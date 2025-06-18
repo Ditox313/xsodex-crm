@@ -34,7 +34,11 @@
                                 Общество с ограниченной ответственностью 
                                 <strong *ngIf="this.settingsGlobalList && this.settingsGlobalList[0]">{{this.settingsGlobalList[0].firma}}</strong> 
                                 <strong *ngIf="!this.settingsGlobalList">ООО «ЕВС»</strong> 
-                                в лице директора <strong>Синицына Виталия Викторовича </strong>
+                                в лице директора 
+
+                                <strong *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ВВС-ВЕБ»'" >Синицына Виталия Викторовича </strong>
+                                <strong *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ЕВС»'">Синицына Елена Валерьевна  </strong>
+
                                 действующего на основании Устава, именуемое в дальнейшем «Арендодатель»,  и {{currentClientLaw.short_name}} <strong>
                                     «{{currentClientLaw.name}}»</strong><strong>
                                 </strong> в лице {{currentClientLaw.boss_role}} <strong>
@@ -405,17 +409,27 @@
                                             <strong *ngIf="this.settingsGlobalList && this.settingsGlobalList[0]">{{this.settingsGlobalList[0].firma}}</strong> 
                                             <strong *ngIf="!this.settingsGlobalList">ООО «ЕВС»</strong> 
                                         </div>
-                                        <div>
-                                            ИНН 7203356189 КПП 720301001 ОГРН 1157232033716 Адрес регистрации/Почтовый адрес: 625033, г. Тюмень, ул. Дмитрия Менделеева, д. 18, офис 323
-                                             Р/С: 40701810467100000021 
-                                             К/С: 30101810800000000651 
-                                             Банк: ЗАПАДНО-СИБИРСКОЕ ОТДЕЛЕНИЕ №8647 ПАО СБЕРБАНК БИК: 046577964 
-                                             Тел. +7 (3452) 388-311 email: info&#64;autoprokat72.ru
+
+                                        <div *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ВВС-ВЕБ»'">
+                                            <p *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].rekviziti_firma_1">
+                                                {{this.settingsGlobalList[0].rekviziti_firma_1}}
+                                            </p>
                                         </div>
+
+                                        <div *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ЕВС»'">
+                                            <p *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].rekviziti_firma_2">
+                                                {{this.settingsGlobalList[0].rekviziti_firma_2}}
+                                            </p>
+                                        </div>
+
                                         <br><br>
 
-                                        <div>
+                                        <div *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ВВС-ВЕБ»'">
                                             ___________________________/ В.В. Синицын
+                                        </div>
+
+                                        <div *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ЕВС»'">
+                                            ___________________________/ Е.В. Синицына
                                         </div>
                                     </td>
 
