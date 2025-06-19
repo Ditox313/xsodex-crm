@@ -248,6 +248,31 @@ export class AddDogovorClientFizComponent {
     return index !== -1 ? input.substring(index + 1) : '';
   }
   
+
+
+
+
+  // Приводим ФИО к Фамилии и иницыалам
+formatUserFio(user: any): string {
+  if (!user) return '';
+
+  const surname = user.surname || user.secondName || '';
+  const name = user.name || '';
+  const patronymic = user.lastname || user.lastName || '';
+
+  const nameInitial = name ? this.capitalize(name[0]) + '.' : '';
+  const patronymicInitial = patronymic ? ' ' + this.capitalize(patronymic[0]) + '.' : '';
+
+  return `${this.capitalize(surname)} ${nameInitial}${patronymicInitial}`.trim();
+}
+
+
+capitalize(str: string): string {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
+
   
   
   

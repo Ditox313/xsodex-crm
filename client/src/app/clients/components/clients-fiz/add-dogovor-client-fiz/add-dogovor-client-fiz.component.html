@@ -625,7 +625,7 @@
 
                                         </div>
 
-                                        <div *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ВВС-ВЕБ»'">
+                                        <div *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ВВС-ВЕБ»'" >
                                             <p *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].rekviziti_firma_1">
                                                 {{this.settingsGlobalList[0].rekviziti_firma_1}}
                                             </p>
@@ -635,15 +635,6 @@
                                             <p *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].rekviziti_firma_2">
                                                 {{this.settingsGlobalList[0].rekviziti_firma_2}}
                                             </p>
-                                        </div>
-                                        <br><br>
-
-                                        <div *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ВВС-ВЕБ»'">
-                                            ___________________________/ В.В. Синицын
-                                        </div>
-
-                                        <div *ngIf="this.settingsGlobalList && this.settingsGlobalList[0] && this.settingsGlobalList[0].firma === 'ООО «ЕВС»'">
-                                            ___________________________/ Е.В. Синицына
                                         </div>
                                     </td>
 
@@ -680,14 +671,29 @@
                                             <strong>{{currentClientFiz.passport_address_fact}}</strong>
                                             контактный номер
                                             телефона:<strong>{{currentClientFiz.phone_1}}</strong><strong>,</strong>
-                                        </div><br><br>
-
-                                        <div>
-                                            ___________________________/ {{currentClientFiz.surname}} {{currentClientFiz.name}} {{currentClientFiz.lastname}}
                                         </div>
                                     </td>
                                 </tr>
                             </table>
+
+                            <table style="width: 100%; table-layout: fixed; margin-top: 40px; border-collapse: collapse; border: none;">
+                                <tr style="border: none;">
+                                    <td style="width: 50%; text-align: center; padding-top: 40px; border: none;">
+                                    _________________________/ {{ formatUserFio(currentUser) }}
+                                    </td>
+                                    <td style="width: 50%; text-align: center; padding-top: 40px; border: none;">
+                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    _________________________/ {{ formatUserFio(currentClientFiz) }}
+                                    </td>
+                                </tr>
+                            </table>
+
+
+
                         </div>
                     </div>
                 </div>
