@@ -232,14 +232,14 @@ export class CloseBookingComponent {
     }
 
 
-    if(this.currentCar &&  (this.currentCar.probeg < this.form.value.probeg))
-    {
-      this.store.dispatch(closeBookingAction({ data: data}))
-    }
-    else{
-      this.messageService.add({ severity: 'error', summary: `Некорректный пробег`, detail: 'Исправьте значение!' });
-    }
+    // if (this.currentCar && (Number(this.currentCar.probeg) < Number(this.form.value.probeg))) {
+    //   this.store.dispatch(closeBookingAction({ data: data }))
+    // } else {
+    //   this.messageService.add({ severity: 'error', summary: `Некорректный пробег`, detail: 'Исправьте значение!' });
+    // }
 
+
+    this.store.dispatch(closeBookingAction({ data: data }))
 
   }
 }
