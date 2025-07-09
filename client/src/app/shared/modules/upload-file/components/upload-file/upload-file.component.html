@@ -1,43 +1,80 @@
-
 <p-toast></p-toast>
 <div class="add_partner_images">
-    <div class="xs_droparea">
-        <div class="file-list">
+  <div class="xs_droparea">
+    <div class="file-list">
 
-            <ng-container  *ngFor="let src of initialFilesSrc; let i = index">
-                <div style="display: flex; align-items: center;">
-                    <img *ngIf="!src.endsWith('.pdf')" [src]="src" style="margin-right: 10px; margin-bottom: 10px;" alt="Изображение" > 
-                    <img *ngIf="src.endsWith('.pdf')" src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg" style="margin-right: 10px; margin-bottom: 10px;" alt="Изображение" > 
-                    <div class="file_info">
-                        <span style="display: block;">{{this.getFileName(this.initialFilesSrc[i])}}</span>
-                        <a style="display: block;" *ngIf="src" [href]="src" download><i class="pi pi-download" style="font-size: 14px; color: #3B82F6; cursor: pointer;"></i></a>
-                        <span style="display: block;" *ngIf="src" (click)="onDeleteInitialFilesSrc(src)"><i class="pi pi-times" style="font-size: 14px; color:red; cursor: pointer;"></i></span> 
-                    </div>
-                    
-                </div>
-            </ng-container>
-
-            <ng-container  *ngFor="let src of filesSrcRes; let i = index">
-                <div style="display: flex; align-items: center;">
-                    <img *ngIf="src" [src]="[src]" style="margin-right: 10px; margin-bottom: 10px;" alt="Изображение" > 
-                    <div class="file_info" *ngIf="src">
-                        <span style="display: block;">{{this.uploadFiles[i].name}}</span>
-                        <span style="display: block;">{{this.formatFileSize(this.uploadFiles[i].size)}}</span>
-                        <span style="display: block;" *ngIf="src" (click)="onDeleteUploadInList(i)"><i class="pi pi-times" style="font-size: 14px; color:red; cursor: pointer;"></i></span>
-                    </div>
-                </div>
-            </ng-container>
+      <!-- Уже сохранённые файлы -->
+      <ng-container *ngFor="let src of initialFilesSrc">
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+          <img
+            *ngIf="!src.endsWith('.pdf')"
+            [src]="src"
+            style="margin-right: 10px; max-width: 60px; max-height: 60px;"
+            alt="Изображение"
+          />
+          <img
+            *ngIf="src.endsWith('.pdf')"
+            src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg"
+            style="margin-right: 10px; max-width: 60px; max-height: 60px;"
+            alt="PDF"
+          />
+          <div class="file_info">
+            <span>{{ getFileName(src) }}</span>
+            <a [href]="src" download>
+              <i class="pi pi-download" style="font-size: 14px; color: #3B82F6; cursor: pointer;"></i>
+            </a>
+            <i
+              class="pi pi-times"
+              style="font-size: 14px; color: red; cursor: pointer; margin-left: 8px;"
+              (click)="onDeleteInitialFilesSrc(src)"
+            ></i>
+          </div>
         </div>
+      </ng-container>
 
-        <div
-            class="droparea_place"
-            (dragover)="onDragOver($event)"
-            (drop)="onDrop($event)"
-            (dragleave)="onDragLeave($event)"
-            [class.active]="isActive"
-        >
-            <input type="file" name="userfiles" class="browse-file" (change)="onSelectedFile($event)" multiple/>
-            <h4>Выберите файлы <br /> Или перетащите в браузер</h4>
+      <!-- Новые файлы -->
+      <ng-container *ngFor="let src of filesSrc; let i = index">
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+          <img
+            *ngIf="!src.endsWith('.pdf')"
+            [src]="src"
+            style="margin-right: 10px; max-width: 60px; max-height: 60px;"
+            alt="Превью"
+          />
+          <img
+            *ngIf="src.endsWith('.pdf')"
+            src="https://i.etsystatic.com/7267864/r/il/5235cc/1979275153/il_1588xN.1979275153_71s3.jpg"
+            style="margin-right: 10px; max-width: 60px; max-height: 60px;"
+            alt="PDF"
+          />
+          <div class="file_info">
+            <span>{{ uploadFiles[i].name }}</span>
+            <span>{{ formatFileSize(uploadFiles[i].size) }}</span>
+            <i
+              class="pi pi-times"
+              style="font-size: 14px; color: red; cursor: pointer; margin-left: 8px;"
+              (click)="onDeleteUploadInList(i)"
+            ></i>
+          </div>
         </div>
+      </ng-container>
+
     </div>
+
+    <div
+      class="droparea_place"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+      [class.active]="isActive"
+    >
+      <input
+        type="file"
+        class="browse-file"
+        (change)="onSelectedFile($event)"
+        multiple
+      />
+      <h4>Выберите файлы<br />Или перетащите их сюда</h4>
+    </div>
+  </div>
 </div>
