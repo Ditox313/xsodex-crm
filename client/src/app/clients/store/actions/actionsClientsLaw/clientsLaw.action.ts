@@ -438,13 +438,13 @@ export const addTrustedPersoneAction = createAction(
     props<{ trustedPersone: trustedPersone, files?:Array<File> }>()
 );
 
-// export const addClientLawSuccessAction = createAction(
-//   ActionTypes.ADD_CLIENT_LAW_SUCCESS,
-//   props<{ clientLaw: ClientLaw , from?: string}>()
-// );
+export const addTrustedPersoneSuccessAction = createAction(
+  ActionTypes.ADD_TRUSTED_PERSONE_SUCCESS,
+  props<{ trustedPersone: trustedPersone, files?:Array<File> }>()
+);
 
 
-// export const addClientLawFailureAction = createAction(
-//   ActionTypes.ADD_CLIENT_LAW_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const addTrustedPersoneFailureAction = createAction(
+  ActionTypes.ADD_TRUSTED_PERSONE_FAILURE,
+  props<{ errors: any }>()
+);

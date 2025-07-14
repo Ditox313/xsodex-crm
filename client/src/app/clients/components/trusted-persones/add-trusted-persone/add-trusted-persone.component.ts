@@ -99,10 +99,6 @@ export class AddTrustedPersoneComponent {
       next: (currentClientLaw) => {
         this.currentClientLaw = currentClientLaw
 
-        if (currentClientLaw) {
-          this.title = `Добавить доверенное лицо для  ${currentClientLaw.short_name} ${currentClientLaw.name}`
-        }
-
         console.log(this.currentClientLaw);
       }
     })

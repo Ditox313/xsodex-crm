@@ -49,7 +49,8 @@ export interface ClientLawStateInterface {
     actsLawList: Act[] | null | undefined | any,
     noMoreActsLawList: boolean,
     bookingsLawList: Booking[] | null | undefined | any,
-    from: string | undefined
+    from: string | undefined,
+    trustedPersoneList: trustedPersone[] | null | undefined | any
 }
 
 
