@@ -1,0 +1,100 @@
+<app-header-app-layout [title]="title"></app-header-app-layout>
+<p-toast></p-toast>
+<loader *ngIf="isLoadingSelector$ | async"></loader>
+
+
+
+<div class="add-trusted-persone">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+            <div class="add-trusted-persone-inputs">
+                    <fieldset>
+                        <label htmlFor="fio">ФИО</label>
+                        <input pInputText id="fio" formControlName="fio" placeholder="Введите ФИО"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['fio'].invalid && form.controls['fio'].touched}"
+                            style="width: 300px;" />
+
+
+                        <div class="errorValidate" *ngIf="form.controls['fio'].invalid && form.controls['fio'].touched">
+                            <p *ngIf="form.controls['fio'].errors && form.controls['fio'].errors['required']">
+                                Поле не должно быть пустым
+                            </p>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                        <label htmlFor="phone">Телефон</label>
+
+                        <p-inputMask mask="+7(999)-999-99-99" id="phone_1" formControlName="phone"
+                            placeholder="+7(999)999-99-99"
+                            [ngClass]="{'ng-invalid ng-dirty': form.controls['phone'].invalid && form.controls['phone'].touched}"></p-inputMask>
+
+                        <div class="errorValidate"
+                            *ngIf="form.controls['phone'].invalid && form.controls['phone'].touched">
+                            <p *ngIf="form.controls['phone'].errors && form.controls['phone'].errors['required']">
+                                Поле не должно быть пустым
+                            </p>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                         <label htmlFor="fio">Номер доверенности</label>
+                        <input pInputText formControlName="doverenostNumber" placeholder="Номер доверенности" [ngClass]="{'ng-invalid ng-dirty': form.controls['doverenostNumber'].invalid && form.controls['doverenostNumber'].touched}" />
+
+                        <div class="errorValidate" *ngIf="form.controls['doverenostNumber'].invalid && form.controls['doverenostNumber'].touched">
+                            <p *ngIf="form.controls['doverenostNumber'].errors && form.controls['doverenostNumber'].errors['required']">
+                                Номер не должен быть пустым
+                            </p>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset>
+                         <label htmlFor="fio">Дата доверенности</label>
+                        <input type="date" pInputText formControlName="doverenostDate" placeholder="Дата доверенности" [ngClass]="{'ng-invalid ng-dirty': form.controls['doverenostDate'].invalid && form.controls['doverenostDate'].touched}" />
+
+                        <div class="errorValidate"
+                            *ngIf="form.controls['doverenostDate'].invalid && form.controls['doverenostDate'].touched">
+                            <p *ngIf="form.controls['doverenostDate'].errors && form.controls['doverenostDate'].errors['required']">
+                                Введите дату
+                            </p>
+                        </div>
+                    </fieldset>
+
+<!-- 
+                    <fieldset>
+                        <label htmlFor="organization">Организация</label>
+                        <select id="organization" formControlName="organization" *ngIf="currentClientLaw"
+                            [ngClass]="{'invalid': form.controls['organization'].invalid && form.controls['organization'].touched}">
+                            <option value="" disabled selected>Выбрать ↷</option>
+                            <option value="{{currentClientLaw.name}} {{currentClientLaw.short_name}}">
+                                {{currentClientLaw.name}} {{currentClientLaw.short_name}}</option>
+                        </select>
+                    
+                    
+                        <div class="errorValidate" *ngIf="form.controls['organization'].invalid && form.controls['organization'].touched">
+                            <p *ngIf="form.controls['organization'].errors && form.controls['organization'].errors['organization']">
+                                Заполните поле
+                            </p>
+                        </div>
+                    </fieldset> -->
+
+
+              
+            </div>
+
+            <div >
+                <app-upload-file 
+                (dataUpload)="uploadFilesData($event)"
+                [filesSrcRes]="this.filesSrc"  
+                [typePost]="'clientLaw'"
+                ></app-upload-file>
+            </div>
+        </div>
+
+        <!-- <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button> -->
+        <button type="submit" class="submit" ><i class="pi pi-check"></i> Сохранить</button>
+    </form>
+</div>

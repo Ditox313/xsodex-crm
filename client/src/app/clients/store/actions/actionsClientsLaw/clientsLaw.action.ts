@@ -1,6 +1,6 @@
 import {createAction, props} from '@ngrx/store'
 import { AppStateInterface } from 'src/app/shared/types/interfaces';
-import { ClientLaw, ClientLawDogovorsParamsFetch, ClientsLawParamsFetch, Dogovor } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
+import { ClientLaw, ClientLawDogovorsParamsFetch, ClientsLawParamsFetch, Dogovor, trustedPersone } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 import { ActionTypes } from '../../actionTypes/clientsLaw/actionTypesClientsLaw';
 import { Act, Booking } from 'src/app/bookings/types/bookings.interfaces';
 
@@ -422,3 +422,29 @@ export const bookingsListForClientLawFailureAction = createAction(
 export const bookingsListForClientLawResetAction = createAction(
   ActionTypes.BOOKINGS_LIST_FOR_CLIENT_LAW_RESET,
 );
+
+
+
+
+
+
+
+
+
+
+// Add trusred persone
+export const addTrustedPersoneAction = createAction(
+  ActionTypes.ADD_TRUSTED_PERSONE,
+    props<{ trustedPersone: trustedPersone, files?:Array<File> }>()
+);
+
+// export const addClientLawSuccessAction = createAction(
+//   ActionTypes.ADD_CLIENT_LAW_SUCCESS,
+//   props<{ clientLaw: ClientLaw , from?: string}>()
+// );
+
+
+// export const addClientLawFailureAction = createAction(
+//   ActionTypes.ADD_CLIENT_LAW_FAILURE,
+//   props<{ errors: any }>()
+// );

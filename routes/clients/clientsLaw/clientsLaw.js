@@ -54,4 +54,8 @@ router.get('/acts-list/:id', passport.authenticate('jwt', { session: false }), c
 router.get('/bookings-list/:id', passport.authenticate('jwt', { session: false }), controller.bookingsForClient);
 
 
+// Роут на create trusted persone
+router.post('/create-trusted-persone', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'files', maxCount: 10 }]), controller.create_trusted_persone);
+
+
 module.exports = router;

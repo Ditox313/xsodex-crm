@@ -57,4 +57,9 @@ export enum ActionTypes {
   BOOKINGS_LIST_FOR_CLIENT_LAW_SUCCES = '[clientLaw] Bookings List for client succes',
   BOOKINGS_LIST_FOR_CLIENT_LAW_FAILURE = '[clientLaw] Bookings List for client failure',
   BOOKINGS_LIST_FOR_CLIENT_LAW_RESET = '[clientLaw] Bookings List for client reset',
+
+
+  ADD_TRUSTED_PERSONE = '[ClientsLaw] Add trusted persone',
+  ADD_TRUSTED_PERSONE_SUCCESS = '[ClientsLaw] Add trusted persone success',
+  ADD_TRUSTED_PERSONE_FAILURE = '[ClientsLaw] Add trusted persone failure',
 }

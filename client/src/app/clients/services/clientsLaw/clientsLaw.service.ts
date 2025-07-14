@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { ClientLaw, Dogovor } from '../../types/clientsLaw/clientsLaw.interfaces';
 import { Act, Booking } from 'src/app/bookings/types/bookings.interfaces';
+import { trustedPersone } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -170,5 +171,32 @@ export class ClientsLawService {
         fromObject: params.params.params
       })
     });
+  }
+
+
+
+
+  // Создаем доверенного лица для оранизации
+  createTrustedPersone(
+    trustedPersone: trustedPersone,
+    files: any
+  ): Observable<ClientLaw> {
+    const fd = new FormData();
+
+    fd.append('name', trustedPersone.name ?? '');
+    fd.append('surname', trustedPersone.surname ?? '');
+    fd.append('lastname', trustedPersone.lastname ?? '');
+    fd.append('phone', trustedPersone.phone ?? '');
+    fd.append('doverenostNumber', trustedPersone.doverenostNumber ?? '');
+    fd.append('doverenostDate', trustedPersone.doverenostDate ?? '');
+    fd.append('organization', trustedPersone.organization ?? '');
+    fd.append('organizationId', trustedPersone.organizationId ?? '');
+   
+
+    for (let i = 0; i < files.length; i++) {
+      fd.append('files', files[i], files[i].name);
+    }
+
+    return this.http.post<ClientLaw>(`/api/clientsLaw/create-trusted-persone`, fd);
   }
 }

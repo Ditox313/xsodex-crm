@@ -43,6 +43,10 @@ import { ListActsClientLawComponent } from './components/clients-law/list-acts-c
 import { ListBookingsClientFizComponent } from './components/clients-fiz/list-bookings-client-fiz/list-bookings-client-fiz.component';
 import { ListBookingsClientLawComponent } from './components/clients-law/list-bookings-client-law/list-bookings-client-law.component';
 import { UploadFileModule } from '../shared/modules/upload-file/upload-file.module';
+import { AddTrustedPersoneComponent } from './components/trusted-persones/add-trusted-persone/add-trusted-persone.component';
+import { getRoutesTrustedPersones } from './routes/trustedPersones/trustedPersones.route';
+import { ListTrustedPersoneComponent } from './components/trusted-persones/list-trusted-persone/list-trusted-persone.component';
+
 
 
 
@@ -67,7 +71,8 @@ import { UploadFileModule } from '../shared/modules/upload-file/upload-file.modu
     ListActsClientLawComponent,
     ListBookingsClientFizComponent,
     ListBookingsClientLawComponent,
-
+    AddTrustedPersoneComponent,
+    ListTrustedPersoneComponent,
   ],
   imports: [
     CommonModule,
@@ -76,6 +81,7 @@ import { UploadFileModule } from '../shared/modules/upload-file/upload-file.modu
     ReactiveFormsModule,
     RouterModule.forChild(getRoutesClientsFiz()),
     RouterModule.forChild(getRoutesClientsLaw()),
+    RouterModule.forChild(getRoutesTrustedPersones()),
     LayoutsModule,
     RouterModule,
     BrowserAnimationsModule,

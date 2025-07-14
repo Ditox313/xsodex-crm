@@ -89,5 +89,14 @@ export interface ClientLawDogovorsParamsFetch {
 
 
 
-
-
+// Интерфейс для доверенных лиц
+export interface trustedPersone {
+    name: string | null,
+    surname: string | null,
+    lastname: string | null,
+    phone: string | null,
+    doverenostNumber: string | null,
+    doverenostDate: string | null,
+    organization?: string | null,
+    organizationId?: string | null,
+}

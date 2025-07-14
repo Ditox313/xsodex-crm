@@ -1,4 +1,5 @@
 const ClientLaw = require('../../../models/clients/clientsLaw/ClientLaw.js');
+const TrustedPersone = require('../../../models/clients/clientsLaw/TrustedPersone.js');
 const Dogovor = require('../../../models/clients/clientsFiz/Dogovor.js');
 const errorHandler = require('../../../Utils/errorHendler.js');
 const Act = require('../../../models/bookings/Act.js');
@@ -332,6 +333,36 @@ module.exports.bookingsForClient = async function (req, res) {
 
         // Возвращаем пользователю позиции 
         res.status(200).json(bookingsList);
+    } catch (e) {
+        errorHandler(res, e);
+        return;
+    }
+};
+
+
+
+
+
+
+// Контроллер для create trusted personal
+module.exports.create_trusted_persone = async function (req, res) {
+    try {
+        const files = req.files.files.map(file => file.path);
+
+        const trustedPersone = await new TrustedPersone({
+            name: req.body.name,
+            surname: req.body.surname,
+            lastname: req.body.lastname,
+            phone: req.body.phone,
+            doverenostNumber: req.body.doverenostNumber,
+            doverenostDate: req.body.doverenostDate,
+            organization: req.body.organization,
+            organizationId: req.body.organizationId,
+            files
+        }).save();
+
+        // Возвращаем пользователю позицию которую создали 
+        res.status(201).json(trustedPersone);
     } catch (e) {
         errorHandler(res, e);
         return;
