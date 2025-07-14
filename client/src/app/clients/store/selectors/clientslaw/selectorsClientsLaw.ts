@@ -79,3 +79,18 @@ export const bookingsListLawSelector = createSelector(
 
 
 
+
+
+export const trustedPersonesListSelector = createSelector(
+    clientsLawFeatureSelector,
+    (state: ClientLawStateInterface) => state.trustedPersoneList
+)
+
+
+export const noMoreTrustedPersoneLawList = createSelector(
+    clientsLawFeatureSelector,
+    (state: ClientLawStateInterface) => state.noMoreTrustedPersoneList
+)
+
+
+

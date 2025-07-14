@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { clientFizDeleteAction, clientsFizListAction, clientsFizListResetAction, clientsFizSearchAction, clientsFizSearchResetAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
+import { TrustedPersoneListResetAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
 import { clientsFizListSelector, clientsFizSearchSelector, isLoadingSelector, noMoreClientsFizList } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
 import { ClientFiz, ClientsFizParamsFetch } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
 import { trustedPersone } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
@@ -52,10 +53,10 @@ export class ListTrustedPersoneComponent {
 
   initValues() {
     // Отчищаем состояние перед запросом на получение списка физических лиц
-    this.store.dispatch(clientsFizListResetAction());
+    this.store.dispatch(TrustedPersoneListResetAction());
 
     // Отчищаем состояние поиска
-    this.store.dispatch(clientsFizSearchResetAction());
+    // this.store.dispatch(clientsFizSearchResetAction());
 
 
     // Получаем селектор loader

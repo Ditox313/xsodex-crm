@@ -16,6 +16,7 @@ const initialState: ClientLawStateInterface = {
   clientsLawList: null,
   trustedPersoneList: null,
   noMoreClientsLawList: true,
+  noMoreTrustedPersoneList: true,
   currentClientLaw: null,
   dogovorsList: null,
   noMoreClientsLawDogovorsList: true,

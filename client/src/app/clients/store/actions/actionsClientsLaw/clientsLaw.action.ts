@@ -448,3 +448,157 @@ export const addTrustedPersoneFailureAction = createAction(
   ActionTypes.ADD_TRUSTED_PERSONE_FAILURE,
   props<{ errors: any }>()
 );
+
+
+
+
+
+
+
+
+// trusred persone List
+export const trustedPersoneListAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_LIST,
+  props<{ params: ClientsLawParamsFetch }>()
+);
+
+
+export const trustedPersoneListSuccessAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_LIST_SUCCES,
+  props<{ data: trustedPersone[] }>()
+);
+
+
+export const trustedPersoneListFailureAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_LIST_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const TrustedPersoneListResetAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_LIST_RESET,
+);
+
+
+
+
+
+// No more trusred persone List
+
+export const noMoreTrustedPersoneListAction = createAction(
+  ActionTypes.NO_MORE_TRUSTED_PERSONE_LIST,
+  props<{ data: boolean }>()
+);
+
+export const noMoreTrustedPersoneListFalseAction = createAction(
+  ActionTypes.NO_MORE_TRUSTED_PERSONE_LIST_FALSE,
+);
+
+export const noMoreTrustedPersoneListTrueAction = createAction(
+  ActionTypes.NO_MORE_TRUSTED_PERSONE_LIST_TRUE,
+);
+
+
+
+
+
+
+// trusred persone delete
+// export const trustedPersoneDeleteAction = createAction(
+//   ActionTypes.CLIENT_LAW_DELETE,
+//   props<{ id: string | undefined }>()
+// );
+
+
+// export const trustedPersoneDeleteSuccessAction = createAction(
+//   ActionTypes.CLIENT_LAW_DELETE_SUCCES,
+//   props<{ data: string }>()
+// );
+
+
+// export const trustedPersoneDeleteFailureAction = createAction(
+//   ActionTypes.CLIENT_LAW_DELETE_FAILURE,
+//   props<{ errors: any }>()
+// );
+
+
+
+
+
+
+
+
+// Update State trusred persone
+// export const updateStateTrustedPersoneAction = createAction(
+//   ActionTypes.UPDATE_STATE_CLIENTS_LAW,
+// );
+
+
+// export const updateStateTrustedPersoneSuccessAction = createAction(
+//   ActionTypes.UPDATE_STATE_CLIENTS_LAW_SUCCES,
+//   props<{ data: AppStateInterface }>()
+// );
+
+
+// export const updateStateTrustedPersoneFailureAction = createAction(
+//   ActionTypes.UPDATE_STATE_CLIENTS_LAW_FAILURE,
+//   props<{ errors: any }>()
+// );
+
+
+
+
+
+
+
+// Get trusred persone Current
+// export const trustedPersoneGetCurrent = createAction(
+//   ActionTypes.CLIENT_LAW_GET_CURRENT,
+//   props<{ id: string }>()
+// );
+
+
+// export const trustedPersoneGetCurrentSuccessAction = createAction(
+//   ActionTypes.CLIENT_LAW_GET_CURRENT_SUCCES,
+//   props<{ data: ClientLaw }>()
+// );
+
+
+// export const trustedPersoneGetCurrentFailureAction = createAction(
+//   ActionTypes.CLIENT_LAW_GET_CURRENT_FAILURE,
+//   props<{ errors: any }>()
+// );
+
+// export const trustedPersoneGetCurrentReset = createAction(
+//   ActionTypes.CLIENT_LAW_GET_CURRENT_RESET,
+// );
+
+
+
+
+
+
+
+
+
+
+// Update trusred persone
+// export const updateTrustedPersoneAction = createAction(
+//   ActionTypes.UPDATE_CLIENT_LAW,
+//   props<{ clientLaw: ClientLaw, files?:Array<File> }>()
+// )
+
+
+// export const updateTrustedPersoneSuccessAction = createAction(
+//   ActionTypes.UPDATE_CLIENT_LAW_SUCCESS,
+//   props<{ data: ClientLaw }>()
+// );
+
+
+
+
+// export const updateTrustedPersoneFailureAction = createAction(
+//   ActionTypes.UPDATE_CLIENT_LAW_FAILURE,
+//   props<{ errors: any }>()
+// )
+

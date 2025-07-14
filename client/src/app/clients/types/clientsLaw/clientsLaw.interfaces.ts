@@ -41,6 +41,7 @@ export interface ClientLawStateInterface {
     validationErrors?: any,
     clientsLawList?: ClientLaw[] | null | undefined | any,
     noMoreClientsLawList: boolean,
+    noMoreTrustedPersoneList: boolean,
     noMoreClientsLawDogovorsList: boolean,
     currentClientLaw: ClientLaw | null | undefined | any,
     dogovorsList: Dogovor[] | null | undefined | any
