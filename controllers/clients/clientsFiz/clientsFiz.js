@@ -274,18 +274,53 @@ module.exports.getDogovorById = async function (req, res) {
 
 
 // Контроллер на поиск
+// module.exports.search = async function (req, res) {
+//     try {
+
+//         search = await ClientFiz.find({ surname: { $regex: new RegExp('^' + req.body.searchData.data + '.*', 'i') } }).exec();
+//         search = search.slice(0, 10);
+
+//         res.status(200).json(search);
+//     } catch (e) {
+//         errorHandler(res, e);
+//     }
+
+// };
+
+
 module.exports.search = async function (req, res) {
     try {
+        const { data } = req.body.searchData;
 
-        search = await ClientFiz.find({ surname: { $regex: new RegExp('^' + req.body.searchData.data + '.*', 'i') } }).exec();
-        search = search.slice(0, 10);
+        if (!data) {
+            return res.status(400).json({ message: 'Поле data обязательно' });
+        }
+
+        const regex = new RegExp(data, 'i'); // Поиск по вхождению, без ^
+
+        const search = await ClientFiz.find({
+            $or: [
+                { surname: regex },
+                { name: regex },
+                { lastname: regex },
+                { passport_seria: regex },
+                { passport_number: regex },
+                { phone_1: regex },
+                { phone_2_dop_number: regex },
+                { phone_3_dop_number: regex },
+                { phone_4_dop_number: regex },
+                { phone_5_dop_number: regex }
+            ]
+        })
+        .limit(10)
+        .exec();
 
         res.status(200).json(search);
     } catch (e) {
         errorHandler(res, e);
     }
-
 };
+
 
 
 
