@@ -1,4 +1,4 @@
-<app-header-app-layout [title]="title"></app-header-app-layout>
+<app-header-app-layout *ngIf="title" [title]="title"></app-header-app-layout>
 <p-toast></p-toast>
 <loader *ngIf="isLoadingSelector | async"></loader>
 

@@ -19,7 +19,7 @@ export class ListTrustedPersoneComponent {
   STEP = 25;
   offset: number = 0;
   limit: number = this.STEP;
-  title: string = 'Доверенные лица для ....'
+  title: string | null | undefined = 'Доверенные лица для ....' 
   isLoadingSelector!: Observable<boolean | null>
   noMoreTrustedPersoneList!: Observable<boolean | null>
   TrustedPersoneListSelector!: Observable<trustedPersone[] | null | undefined>
@@ -83,6 +83,7 @@ export class ListTrustedPersoneComponent {
       next: (TrustedPersoneList) => {
         if (TrustedPersoneList) {
           this.TrustedPersoneList = TrustedPersoneList;
+          this.title = 'Доверенные лица для ' + TrustedPersoneList[0].organization
 
       
 
