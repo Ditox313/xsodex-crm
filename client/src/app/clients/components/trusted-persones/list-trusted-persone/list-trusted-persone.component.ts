@@ -8,7 +8,7 @@ import { noMoreTrustedPersoneListFalseAction, noMoreTrustedPersoneListTrueAction
 import { clientsFizListSelector, clientsFizSearchSelector, isLoadingSelector, noMoreClientsFizList } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
 import { noMoreTrustedPersoneLawList, trustedPersoneSearchSelector, trustedPersonesListSelector } from 'src/app/clients/store/selectors/clientslaw/selectorsClientsLaw';
 import { ClientFiz, ClientsFizParamsFetch } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
-import { ClientsLawParamsFetch, trustedPersone } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
+import { ClientsLawParamsFetch, trustedPersone, TrustedPersoneParamsFetch } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 
 @Component({
   selector: 'app-list-trusted-persone',
@@ -100,9 +100,10 @@ export class ListTrustedPersoneComponent {
 
 
   getTrustedPersoneList() {
-    const params: ClientsLawParamsFetch = {
+    const params: TrustedPersoneParamsFetch = {
       offset: this.offset,
       limit: this.limit,
+      clientLawId: this.clientLawId
     };
 
     // Отправляем запрос на получения списка физических лиц

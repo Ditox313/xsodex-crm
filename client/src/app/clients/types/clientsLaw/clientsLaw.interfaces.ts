@@ -64,6 +64,14 @@ export interface ClientsLawParamsFetch {
     limit: number | null
 }
 
+// Интерфейс для получения доверенных лиц
+export interface TrustedPersoneParamsFetch {
+    offset: number | null,
+    limit: number | null,
+    clientLawId: string | null,
+}
+
+
 
 
 

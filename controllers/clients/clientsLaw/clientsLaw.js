@@ -376,20 +376,41 @@ module.exports.create_trusted_persone = async function (req, res) {
 
 
 // Получаем всех доверенных лиц
+// module.exports.getAllTrustedPersone = async function (req, res) {
+//     try {
+
+//         const trustedPersoneList = await TrustedPersone.find({}).sort({ date: -1 })
+//             .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+//             .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+//         // Возвращаем пользователю позиции 
+//         res.status(200).json(trustedPersoneList);
+//     } catch (e) {
+//         errorHandler(res, e);
+//         return;
+//     }
+// };
+
+// Получаем всех доверенных лиц по организации
 module.exports.getAllTrustedPersone = async function (req, res) {
     try {
+        const { offset, limit, clientLawId } = req.query;
 
-        const trustedPersoneList = await TrustedPersone.find({}).sort({ date: -1 })
-            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
-            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+        if (!clientLawId) {
+            return res.status(400).json({ message: 'clientLawId обязателен' });
+        }
 
-        // Возвращаем пользователю позиции 
+        const trustedPersoneList = await TrustedPersone.find({ organizationId: clientLawId })
+            .sort({ date: -1 })
+            .skip(+offset)
+            .limit(+limit);
+
         res.status(200).json(trustedPersoneList);
     } catch (e) {
         errorHandler(res, e);
-        return;
     }
 };
+
 
 
 // Контроллер для remove доверенного лица
@@ -431,50 +452,6 @@ module.exports.removeTrustedPersone = async function (req, res) {
 
 
 
-// Контроллер на поиск по доверенным лицам
-// module.exports.searchTrustedPersone = async function (req, res) {
-//     try {
-
-//         search = await TrustedPersone.find({ name: { $regex: new RegExp('^' + req.body.searchData.data + '.*', 'i') } }).exec();
-//         search = search.slice(0, 10);
-
-//         res.status(200).json(search);
-//     } catch (e) {
-//         errorHandler(res, e);
-//         return;
-//     }
-
-// };
-
-
-// module.exports.searchTrustedPersone = async function (req, res) {
-//     try {
-//         const { data, clientLawId } = req.body.searchData;
-
-//         if (!data || !clientLawId) {
-//             return res.status(400).json({ message: 'Требуются data и clientLawId' });
-//         }
-
-//         const search = await TrustedPersone.find({
-//             $and: [
-//                 {
-//                     name: {
-//                         $regex: new RegExp('^' + data + '.*', 'i')
-//                     }
-//                 },
-//                 {
-//                     organizationId: clientLawId
-//                 }
-//             ]
-//         })
-//         .limit(10)
-//         .exec();
-
-//         res.status(200).json(search);
-//     } catch (e) {
-//         errorHandler(res, e);
-//     }
-// };
 
 
 

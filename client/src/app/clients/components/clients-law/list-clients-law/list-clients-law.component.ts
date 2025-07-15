@@ -74,7 +74,6 @@ export class ListClientsLawComponent {
     this.clientsLawListSelector = this.store.pipe(select(clientsLawListSelector))
     this.clientsLawListSub$ = this.clientsLawListSelector.subscribe({
       next: (clientsLawList) => {
-        console.log('lq', clientsLawList);
         if (clientsLawList) {
           this.clientsLawList = clientsLawList;
 

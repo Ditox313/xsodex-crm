@@ -98,8 +98,6 @@ export class AddTrustedPersoneComponent {
     this.currentClientLawSub$ = this.currentClientLawSelector.subscribe({
       next: (currentClientLaw) => {
         this.currentClientLaw = currentClientLaw
-
-        console.log(this.currentClientLaw);
       }
     })
 
@@ -110,7 +108,6 @@ export class AddTrustedPersoneComponent {
       next: (clientsLawList) => {
         if (clientsLawList) {
           this.clientsLawList = clientsLawList;
-          console.log(this.clientsLawList);
         }
       }
     });
@@ -157,10 +154,6 @@ export class AddTrustedPersoneComponent {
       organizationId: this.clientLawId,
     };
     
-
-    console.log(trustedPersone);
-    
-
     
     this.store.dispatch(addTrustedPersoneAction({ trustedPersone: trustedPersone, files: this.uploadFiles }))
   }
