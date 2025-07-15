@@ -396,7 +396,7 @@ const clientsFizReducer = createReducer(
     (state): ClientFizStateInterface => ({
       ...state,
       validationErrors: null,
-      isLoading: true
+      isLoading: false
     })
   ),
 

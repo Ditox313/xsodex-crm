@@ -396,7 +396,7 @@ const clientsLawReducer = createReducer(
     (state): ClientLawStateInterface => ({
       ...state,
       validationErrors: null,
-      isLoading: true
+      isLoading: false
     })
   ),
 
@@ -684,7 +684,7 @@ const clientsLawReducer = createReducer(
     (state): ClientLawStateInterface => ({
       ...state,
       validationErrors: null,
-      isLoading: true
+      isLoading: false
     })
   ),
 
