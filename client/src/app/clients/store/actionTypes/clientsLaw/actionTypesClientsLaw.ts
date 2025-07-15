@@ -82,4 +82,8 @@ export enum ActionTypes {
   UPDATE_TRUSTED_PERSONE = '[ClientsLaw] Update  trusted persone',
   UPDATE_TRUSTED_PERSONE_SUCCESS = '[ClientsLaw] Update trusted persone success',
   UPDATE_TRUSTED_PERSONE_FAILURE = '[ClientsLaw] Update trusted persone failure',
+  TRUSTED_PERSONE_SEARCH = '[ClientsLaw] search clientLaw ',
+  TRUSTED_PERSONE_SEARCH_SUCCES = '[ClientsLaw] search trusted persone succes',
+  TRUSTED_PERSONE_SEARCH_FAILURE = '[ClientsLaw] search trusted persone failure',
+  TRUSTED_PERSONE_SEARCH_RESET = '[ClientsLaw] search trusted persone list reset',
 }

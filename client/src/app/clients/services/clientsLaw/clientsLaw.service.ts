@@ -180,7 +180,7 @@ export class ClientsLawService {
   createTrustedPersone(
     trustedPersone: trustedPersone,
     files: any
-  ): Observable<ClientLaw> {
+  ): Observable<trustedPersone> {
     const fd = new FormData();
 
     fd.append('name', trustedPersone.name ?? '');
@@ -197,6 +197,39 @@ export class ClientsLawService {
       fd.append('files', files[i], files[i].name);
     }
 
-    return this.http.post<ClientLaw>(`/api/clientsLaw/create-trusted-persone`, fd);
+    return this.http.post<trustedPersone>(`/api/clientsLaw/create-trusted-persone`, fd);
   }
+
+
+
+  
+  // Получаем список доверенных лиц
+  getAllTrustedPersone(params: any = {}): Observable<trustedPersone[]> {
+    return this.http.get<trustedPersone[]>('/api/clientsLaw/trusted-persone-list', {
+      params: new HttpParams({
+        fromObject: params.params.params
+      })
+    });
+  }
+
+
+
+  
+  // Удаление доверенного лица
+  deleteTrustedPersone(id: any): Observable<any> {
+    return this.http.delete<any>(`/api/clientsLaw/trusted-persone-remove/${id}`);
+  }
+
+
+
+  // Поиск доверенных лиц
+  searchTrustedPersone(searchData: any): Observable<trustedPersone[]> {
+    return this.http.post<trustedPersone[]>('/api/clientsLaw/search-trusted-persone', searchData)
+  }
+
+
+
+
+
+
 }

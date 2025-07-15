@@ -3,12 +3,8 @@
 <loader *ngIf="isLoadingSelector | async"></loader>
 
 
-<!-- <div class="clientsFizList" *ngIf="clientsFizList">
+<div class="clientsFizList" *ngIf="TrustedPersoneList">
     <div class="top_line">
-        <div>
-            <span class="active">Физические лица</span>
-            <span [routerLink]="['/list-clients-law']">Юридические лица</span>
-        </div>
 
         <div>
             <input type="text" (keyup)="search($event)" placeholder="Введите для поиска...">
@@ -16,11 +12,11 @@
     </div>
     
 
-    <p-table *ngIf="!hasQuery" [value]="clientsFizList" styleClass="p-datatable-gridlines list_table"
+    <p-table *ngIf="!hasQuery" [value]="TrustedPersoneList" styleClass="p-datatable-gridlines list_table"
         [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption" >
             <div class="table_top">
-                <div class="add_new" [routerLink]="['/add-client-fiz']">
+                <div class="add_new" [routerLink]="['/add-trusted-persone', clientLawId]">
                     <p-button icon="pi pi-plus"></p-button>
                 </div>
             </div>
@@ -33,21 +29,21 @@
             </tr>
         </ng-template>
 
-        <ng-template pTemplate="body" let-clientFiz>
-            <tr [routerLink]="['/show-client-fiz',clientFiz._id]">
-                <td><strong>{{clientFiz.surname}} {{clientFiz.name}} {{clientFiz.lastname}}</strong></td>
-                <td>{{clientFiz.phone_1}}</td>
-                <td style="cursor: pointer; text-align: center;" (click)="onDeleteClientFiz($event, clientFiz)"><i
+        <ng-template pTemplate="body" let-TrustedPersone>
+            <tr [routerLink]="['/show-client-fiz',TrustedPersone._id]">
+                <td><strong>{{TrustedPersone.surname}} {{TrustedPersone.name}} {{TrustedPersone.lastname}}</strong></td>
+                <td>{{TrustedPersone.phone}}</td>
+                <td style="cursor: pointer; text-align: center;" (click)="onDeleteTrustedPerson($event, TrustedPersone)"><i
                         class="pi pi-trash"></i></td>
             </tr>
         </ng-template>
     </p-table>
 
-    <p-table *ngIf="hasQuery && clientsFizSearch" [value]="clientsFizSearch" styleClass="p-datatable-gridlines list_table"
+    <p-table *ngIf="hasQuery && TrustedPersoneSearch" [value]="TrustedPersoneSearch" styleClass="p-datatable-gridlines list_table"
         [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="table_top">
-                <div class="add_new" [routerLink]="['/add-client-fiz']">
+                <div class="add_new" [routerLink]="['/add-trusted-persone', clientLawId]">
                     <p-button icon="pi pi-plus"></p-button>
                 </div>
             </div>
@@ -60,25 +56,25 @@
             </tr>
         </ng-template>
     
-        <ng-template pTemplate="body" let-clientFiz>
-            <tr [routerLink]="['/show-client-fiz',clientFiz._id]">
-                <td><strong>{{clientFiz.surname}} {{clientFiz.name}} {{clientFiz.lastname}}</strong></td>
-                <td>{{clientFiz.phone_1}}</td>
-                <td style="cursor: pointer; text-align: center;" (click)="onDeleteClientFiz($event, clientFiz)"><i
+        <ng-template pTemplate="body" let-TrustedPersone>
+            <tr [routerLink]="['/show-client-fiz',TrustedPersone._id]">
+                <td><strong>{{TrustedPersone.surname}} {{TrustedPersone.name}} {{TrustedPersone.lastname}}</strong></td>
+                <td>{{TrustedPersone.phone}}</td>
+                <td style="cursor: pointer; text-align: center;" (click)="onDeleteTrustedPerson($event, TrustedPersone)"><i
                         class="pi pi-trash"></i></td>
             </tr>
         </ng-template>
     </p-table>
 
-    <div *ngIf="clientsFizList.length === 0" class="noMoreClientsFizList">
+    <div *ngIf="TrustedPersoneList.length === 0" class="noMoreClientsFizList">
         <h2>Нет клиентов...</h2>
     </div>
 
-    <div *ngIf="hasQuery && clientsFizSearch && clientsFizSearch.length === 0" class="noMoreClientsFizList">
+    <div *ngIf="hasQuery && TrustedPersoneSearch && TrustedPersoneSearch.length === 0" class="noMoreClientsFizList">
         <h2>Клиентов не найдено...</h2>
     </div>
 
     <div class="btn">
-        <p-button label="Загрузить еще..." *ngIf="!(noMoreClientsFizList | async) && !hasQuery" (click)="loadmore()"></p-button>
+        <p-button label="Загрузить еще..." *ngIf="!(noMoreTrustedPersoneList | async) && !hasQuery" (click)="loadmore()"></p-button>
     </div>
-</div> -->
+</div>

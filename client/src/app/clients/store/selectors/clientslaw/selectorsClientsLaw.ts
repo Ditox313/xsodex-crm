@@ -94,3 +94,10 @@ export const noMoreTrustedPersoneLawList = createSelector(
 
 
 
+export const trustedPersoneSearchSelector = createSelector(
+    clientsLawFeatureSelector,
+    (state: ClientLawStateInterface) => state.searchListTrustedPersone
+)
+
+
+

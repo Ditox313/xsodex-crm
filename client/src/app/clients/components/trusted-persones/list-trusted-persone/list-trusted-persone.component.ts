@@ -1,11 +1,14 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { clientFizDeleteAction, clientsFizListAction, clientsFizListResetAction, clientsFizSearchAction, clientsFizSearchResetAction, noMoreClientsFizListFalseAction, noMoreClientsFizListTrueAction } from 'src/app/clients/store/actions/actionsClientsFiz/clientsFiz.action';
-import { TrustedPersoneListResetAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
+import { noMoreTrustedPersoneListFalseAction, noMoreTrustedPersoneListTrueAction, trustedPersoneDeleteAction, trustedPersoneListAction, TrustedPersoneListResetAction, trustedPersoneSearchAction, trustedPersoneSearchResetAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
 import { clientsFizListSelector, clientsFizSearchSelector, isLoadingSelector, noMoreClientsFizList } from 'src/app/clients/store/selectors/clientsFiz/selectorsClientsFiz';
+import { noMoreTrustedPersoneLawList, trustedPersoneSearchSelector, trustedPersonesListSelector } from 'src/app/clients/store/selectors/clientslaw/selectorsClientsLaw';
 import { ClientFiz, ClientsFizParamsFetch } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
-import { trustedPersone } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
+import { ClientsLawParamsFetch, trustedPersone } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 
 @Component({
   selector: 'app-list-trusted-persone',
@@ -18,7 +21,7 @@ export class ListTrustedPersoneComponent {
   limit: number = this.STEP;
   title: string = 'Доверенные лица для ....'
   isLoadingSelector!: Observable<boolean | null>
-  noMoreTrustedPersoneSubList!: Observable<boolean | null>
+  noMoreTrustedPersoneList!: Observable<boolean | null>
   TrustedPersoneListSelector!: Observable<trustedPersone[] | null | undefined>
   TrustedPersoneListSub$!: Subscription
   TrustedPersoneList: trustedPersone[] | null | undefined = [];
@@ -27,13 +30,22 @@ export class ListTrustedPersoneComponent {
   TrustedPersoneSearch: trustedPersone[] | null | undefined = [];
   searchResult: ClientFiz[] = [];
   hasQuery: Boolean = false;
+  clientLawId!: string
+  getParamsSub$!: Subscription
 
 
 
-  constructor(private store: Store) { }
+  constructor( public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute,) { }
   ngOnInit(): void {
+    this.getParams()
     this.initValues();
-    this.getClientsFizList();
+    this.getTrustedPersoneList();
+  }
+
+  getParams() {
+    this.getParamsSub$ = this.rote.params.subscribe((params: any) => {
+      this.clientLawId = params['id'];
+    });
   }
 
   ngOnDestroy(): void {
@@ -44,11 +56,8 @@ export class ListTrustedPersoneComponent {
       this.TrustedPersoneSearchSub$.unsubscribe();
     }
 
-    // Отчищаем состояние clientsFizList если не хотим сохранять список авто  в состояние
-    this.store.dispatch(clientsFizListResetAction());
-
-    // Отчищаем состояние поиска
-    this.store.dispatch(clientsFizSearchResetAction());
+    this.store.dispatch(TrustedPersoneListResetAction());
+    this.store.dispatch(trustedPersoneSearchResetAction());
   }
 
   initValues() {
@@ -56,67 +65,65 @@ export class ListTrustedPersoneComponent {
     this.store.dispatch(TrustedPersoneListResetAction());
 
     // Отчищаем состояние поиска
-    // this.store.dispatch(clientsFizSearchResetAction());
+    this.store.dispatch(trustedPersoneSearchResetAction());
 
 
     // Получаем селектор loader
     this.isLoadingSelector = this.store.pipe(select(isLoadingSelector))
 
 
-    // Получаем селектор noMoreClientsFizList
-    // this.noMoreClientsFizList = this.store.pipe(select(noMoreClientsFizList))
+    this.noMoreTrustedPersoneList = this.store.pipe(select(noMoreTrustedPersoneLawList))
 
 
 
 
-    // Получаем селектор на получение списка физических лиц и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
-    // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
-    // this.clientsFizListSelector = this.store.pipe(select(clientsFizListSelector))
-    // this.clientsFizListSub$ = this.clientsFizListSelector.subscribe({
-    //   next: (clientsFizList) => {
-    //     if (clientsFizList) {
-    //       this.clientsFizList = clientsFizList;
 
+    this.TrustedPersoneListSelector = this.store.pipe(select(trustedPersonesListSelector))
+    this.TrustedPersoneListSub$ = this.TrustedPersoneListSelector.subscribe({
+      next: (TrustedPersoneList) => {
+        if (TrustedPersoneList) {
+          this.TrustedPersoneList = TrustedPersoneList;
 
-    //       if (this.clientsFizList.length >= this.STEP) {
-    //         // Изменяем значение noMoreClientsFizList в состоянии на false что бы открыть кнопку загрузить ещё
-    //         this.store.dispatch(noMoreClientsFizListFalseAction());
-    //       }
-    //       else {
-    //         // Изменяем значение noMoreClientsFizList в состоянии на true что бы скрыть кнопку загрузить ещё
-    //         this.store.dispatch(noMoreClientsFizListTrueAction());
-    //       }
-    //     }
-    //   }
-    // });
+      
+
+          if (this.TrustedPersoneList.length >= this.STEP) {
+            this.store.dispatch(noMoreTrustedPersoneListFalseAction());
+          }
+          else {
+            // Изменяем значение noMoreClientsFizList в состоянии на true что бы скрыть кнопку загрузить ещё
+            this.store.dispatch(noMoreTrustedPersoneListTrueAction());
+          }
+        }
+      }
+    });
   }
 
 
-  getClientsFizList() {
-    const params: ClientsFizParamsFetch = {
+  getTrustedPersoneList() {
+    const params: ClientsLawParamsFetch = {
       offset: this.offset,
       limit: this.limit,
     };
 
     // Отправляем запрос на получения списка физических лиц
-    this.store.dispatch(clientsFizListAction({ params: params }));
+    this.store.dispatch(trustedPersoneListAction({ params: params }));
   }
 
 
   // Подгружаем физических лиц
   loadmore() {
     this.offset += this.STEP;
-    this.getClientsFizList();
+    this.getTrustedPersoneList();
   }
 
 
   // Удаление физического лица
-  onDeleteClientFiz(event: Event, clientFiz: ClientFiz) {
+  onDeleteTrustedPerson(event: Event, trustedPersone: trustedPersone) {
     event.stopPropagation();
-    const dicision = window.confirm(`Удалить клиента?`);
+    const dicision = window.confirm(`Удалить доверенное лицо?`);
 
     if (dicision) {
-      this.store.dispatch(clientFizDeleteAction({ id: clientFiz._id }))
+      this.store.dispatch(trustedPersoneDeleteAction({ id: trustedPersone._id }))
     }
   }
 
@@ -137,19 +144,18 @@ export class ListTrustedPersoneComponent {
     
 
     // Отправляем запрос на сервер
-    this.store.dispatch(clientsFizSearchAction({ data: query }));
+    this.store.dispatch(trustedPersoneSearchAction({ data: query,  clientLawId: this.clientLawId}));
 
 
-    // Получаем селектор на получение списка поиска физических лиц и подписываемся на него. То есть мы наблюдаем за состоянием и отрисовываем список смен.
-    // как только мы подгрузим еще, состояние изменится и соответственно изменится наш список смен
-    // this.clientsFizSearchSelector = this.store.pipe(select(clientsFizSearchSelector))
-    // this.clientsFizSearchSub$ = this.clientsFizSearchSelector.subscribe({
-    //   next: (clientsFizSearch) => {
-    //     if (clientsFizSearch) {
-    //       this.clientsFizSearch = clientsFizSearch;
-    //       this.hasQuery = true;
-    //     }
-    //   }
-    // });
+
+    this.TrustedPersoneSearchSelector = this.store.pipe(select(trustedPersoneSearchSelector))
+    this.TrustedPersoneSearchSub$ = this.TrustedPersoneSearchSelector.subscribe({
+      next: (trustedPersoneSearch) => {
+        if (trustedPersoneSearch) {
+          this.TrustedPersoneSearch = trustedPersoneSearch;
+          this.hasQuery = true;
+        }
+      }
+    });
   }
 }

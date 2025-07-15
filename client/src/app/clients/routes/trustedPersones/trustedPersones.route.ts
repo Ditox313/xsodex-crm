@@ -26,9 +26,13 @@ export function getRoutesTrustedPersones(): Route[] {
                     component: AddTrustedPersoneComponent,
                 },
                 {
-                    path: 'list-trusted-persones',
+                    path: 'list-trusted-persones/:id',
                     component: ListTrustedPersoneComponent,
                 },
+                // {
+                //     path: 'trusted-persones-all',
+                //     component: ListTrustedPersoneComponent,
+                // },
                 // {
                 //     path: 'show-client-fiz/:id', 
                 //     component: ShowClientFizComponent,

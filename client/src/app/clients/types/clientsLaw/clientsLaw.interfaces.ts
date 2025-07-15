@@ -47,6 +47,7 @@ export interface ClientLawStateInterface {
     dogovorsList: Dogovor[] | null | undefined | any
     currentDogovorClientLaw: Dogovor | null | undefined | any,
     searchList?: ClientLaw[] | null | undefined | any,
+    searchListTrustedPersone?: trustedPersone[] | null | undefined | any,
     actsLawList: Act[] | null | undefined | any,
     noMoreActsLawList: boolean,
     bookingsLawList: Booking[] | null | undefined | any,
@@ -93,6 +94,7 @@ export interface ClientLawDogovorsParamsFetch {
 
 // Интерфейс для доверенных лиц
 export interface trustedPersone {
+    _id?: string;
     name: string | null,
     surname: string | null,
     lastname: string | null,

@@ -18,10 +18,6 @@ router.get('/clientsLaw-list', passport.authenticate('jwt', { session: false }),
 router.delete('/clientLaw-remove/:id', passport.authenticate('jwt', { session: false }), controller.remove);
 
 
-// Роут на получение юридического лица по Id
-router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
-
-
 // Роут на update
 router.patch('/update/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'files', maxCount: 10 }]), controller.update);
 
@@ -56,6 +52,37 @@ router.get('/bookings-list/:id', passport.authenticate('jwt', { session: false }
 
 // Роут на create trusted persone
 router.post('/create-trusted-persone', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'files', maxCount: 10 }]), controller.create_trusted_persone);
+
+// Роут на Получение всех доверенных лиц
+router.get('/trusted-persone-list', passport.authenticate('jwt', { session: false }), controller.getAllTrustedPersone);
+
+//Роут на удаление доверенного лица
+router.delete('/trusted-persone-remove/:id', passport.authenticate('jwt', { session: false }), controller.removeTrustedPersone);
+
+
+// Роут на поиск по доверенным лицам
+router.post('/search-trusted-persone', passport.authenticate('jwt', { session: false }), controller.searchTrustedPersone);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Роут на получение юридического лица по Id.ОБЯЗАТЕЛЬНО ПОСЛЕДНИМ :id
+router.get('/:id', passport.authenticate('jwt', { session: false }), controller.getById);
+
 
 
 module.exports = router;

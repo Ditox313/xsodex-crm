@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsLawService } from 'src/app/clients/services/clientsLaw/clientsLaw.service'
-import { actsListForClientLawAction, actsListForClientLawFailureAction, actsListForClientLawSuccessAction, addClientLawAction, addClientLawDogovorAction, addClientLawDogovorActionFromBooking, addClientLawDogovorFailureAction, addClientLawDogovorSuccessAction, addClientLawFailureAction, addClientLawSuccessAction, addTrustedPersoneAction, addTrustedPersoneSuccessAction, bookingsListForClientLawAction, bookingsListForClientLawFailureAction, bookingsListForClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawDogovorDeleteAction, clientLawDogovorDeleteFailureAction, clientLawDogovorDeleteSuccessAction, clientLawDogovorGetCurrent, clientLawDogovorGetCurrentFailureAction, clientLawDogovorGetCurrentSuccessAction, clientLawDogovorsListAction, clientLawDogovorsListFailureAction, clientLawDogovorsListSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreActsListClientLawAction, noMoreClientLawDogovorsListAction, noMoreClientsLawListAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
+import { actsListForClientLawAction, actsListForClientLawFailureAction, actsListForClientLawSuccessAction, addClientLawAction, addClientLawDogovorAction, addClientLawDogovorActionFromBooking, addClientLawDogovorFailureAction, addClientLawDogovorSuccessAction, addClientLawFailureAction, addClientLawSuccessAction, addTrustedPersoneAction, addTrustedPersoneFailureAction, addTrustedPersoneSuccessAction, bookingsListForClientLawAction, bookingsListForClientLawFailureAction, bookingsListForClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawDogovorDeleteAction, clientLawDogovorDeleteFailureAction, clientLawDogovorDeleteSuccessAction, clientLawDogovorGetCurrent, clientLawDogovorGetCurrentFailureAction, clientLawDogovorGetCurrentSuccessAction, clientLawDogovorsListAction, clientLawDogovorsListFailureAction, clientLawDogovorsListSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreActsListClientLawAction, noMoreClientLawDogovorsListAction, noMoreClientsLawListAction, noMoreTrustedPersoneListAction, trustedPersoneDeleteAction, trustedPersoneDeleteFailureAction, trustedPersoneDeleteSuccessAction, trustedPersoneListAction, trustedPersoneListFailureAction, trustedPersoneListSuccessAction, trustedPersoneSearchAction, trustedPersoneSearchFailureAction, trustedPersoneSearchSuccessAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
 
 
 
@@ -395,17 +395,17 @@ export class ClientsLawEffect {
       ofType(addTrustedPersoneAction), 
       switchMap(({ trustedPersone, files}) => {
         return this.clientsLaw.createTrustedPersone(trustedPersone, files).pipe(
-          map((clientLaw) => {
+          map((trustedPersone) => {
             this.messageService.add({ severity: 'success', summary: `Доверенное лицо создано`, detail: 'Успешно!' });
             
 
-            this.router.navigate(['/list-trusted-persones']);
+            this.router.navigate(['/list-trusted-persones', trustedPersone.organizationId]);
 
             return addTrustedPersoneSuccessAction({ trustedPersone: trustedPersone }); 
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
-              addClientLawFailureAction({ errors: errorResponse.error.errors })
+              addTrustedPersoneFailureAction({ errors: errorResponse.error.errors })
             );
           })
         );
@@ -413,6 +413,78 @@ export class ClientsLawEffect {
     )
   );
 
+
+
+
+
+  // Получение всех доверенных лиц лиц
+  trustedPersoneList$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(trustedPersoneListAction),
+      concatMap((params) => {
+        return this.clientsLaw.getAllTrustedPersone({ params }).pipe(
+          concatMap((trustedPersoneList) => {
+            if (trustedPersoneList.length === 0) {
+              return of(noMoreTrustedPersoneListAction({ data: true }));
+            }
+            return of(trustedPersoneListSuccessAction({ data: trustedPersoneList }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              trustedPersoneListFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+    // Удаление доверенного лица
+  trustedPersoneDelete$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(trustedPersoneDeleteAction),
+      switchMap((id) => {
+        return this.clientsLaw.deleteTrustedPersone(id.id).pipe(
+          map((id) => {
+            this.messageService.add({ severity: 'success', summary: `Доверенное лицо удалено`, detail: 'Успешно!' });
+            return trustedPersoneDeleteSuccessAction({ data: id });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            this.messageService.add({ severity: 'error', summary: `Ошибка удаления доверенного лица`, detail: 'Попробуйте позже!' });
+            return of(
+              trustedPersoneDeleteFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
+
+
+
+
+
+  // Поиск по доверенным лицам
+  trustedPersoneSearch$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(trustedPersoneSearchAction),
+      concatMap((searchData) => {
+        return this.clientsLaw.searchTrustedPersone({ searchData }).pipe(
+          concatMap((trustedPersones) => {
+            return of(trustedPersoneSearchSuccessAction({ data: trustedPersones }));
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              trustedPersoneSearchFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
 
 
 

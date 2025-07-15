@@ -501,25 +501,52 @@ export const noMoreTrustedPersoneListTrueAction = createAction(
 
 
 
+// Поиск по доверенным лицам
+export const trustedPersoneSearchAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_SEARCH,
+  props<{ data: any, clientLawId: string }>()
+);
+
+
+export const trustedPersoneSearchSuccessAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_SEARCH_SUCCES,
+  props<{ data: trustedPersone[] }>()
+);
+
+
+export const trustedPersoneSearchFailureAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_SEARCH_FAILURE,
+  props<{ errors: any }>()
+);
+
+
+export const trustedPersoneSearchResetAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_SEARCH_RESET,
+);
+
+
+
+
+
 
 
 // trusred persone delete
-// export const trustedPersoneDeleteAction = createAction(
-//   ActionTypes.CLIENT_LAW_DELETE,
-//   props<{ id: string | undefined }>()
-// );
+export const trustedPersoneDeleteAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_DELETE,
+  props<{ id: string | undefined }>()
+);
 
 
-// export const trustedPersoneDeleteSuccessAction = createAction(
-//   ActionTypes.CLIENT_LAW_DELETE_SUCCES,
-//   props<{ data: string }>()
-// );
+export const trustedPersoneDeleteSuccessAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_DELETE_SUCCES,
+  props<{ data: string }>()
+);
 
 
-// export const trustedPersoneDeleteFailureAction = createAction(
-//   ActionTypes.CLIENT_LAW_DELETE_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const trustedPersoneDeleteFailureAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_DELETE_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 

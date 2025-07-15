@@ -368,3 +368,147 @@ module.exports.create_trusted_persone = async function (req, res) {
         return;
     }
 };
+
+
+
+
+
+
+
+// Получаем всех доверенных лиц
+module.exports.getAllTrustedPersone = async function (req, res) {
+    try {
+
+        const trustedPersoneList = await TrustedPersone.find({}).sort({ date: -1 })
+            .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
+            .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
+
+        // Возвращаем пользователю позиции 
+        res.status(200).json(trustedPersoneList);
+    } catch (e) {
+        errorHandler(res, e);
+        return;
+    }
+};
+
+
+// Контроллер для remove доверенного лица
+module.exports.removeTrustedPersone = async function (req, res) {
+    try {
+
+        const TrustedPersoneFordelete = await TrustedPersone.findOne({ _id: req.params.id });
+
+
+        TrustedPersoneFordelete.files.forEach(file => {
+            fs.unlink(file, (err) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).json({ error: 'Ошибка при удалении картинки' });
+                }
+            });
+        });
+
+
+        // Удаляем клиента
+        const result = await TrustedPersone.deleteOne({ _id: req.params.id });
+
+        if (result.deletedCount === 1) {
+            res.status(200).json(req.params.id);
+        } 
+        else
+        {
+            res.status(200).json(req.params.id);
+        }
+
+
+    } catch (e) {
+        errorHandler(res, e);
+        return;
+    }
+};
+
+
+
+
+
+// Контроллер на поиск по доверенным лицам
+// module.exports.searchTrustedPersone = async function (req, res) {
+//     try {
+
+//         search = await TrustedPersone.find({ name: { $regex: new RegExp('^' + req.body.searchData.data + '.*', 'i') } }).exec();
+//         search = search.slice(0, 10);
+
+//         res.status(200).json(search);
+//     } catch (e) {
+//         errorHandler(res, e);
+//         return;
+//     }
+
+// };
+
+
+// module.exports.searchTrustedPersone = async function (req, res) {
+//     try {
+//         const { data, clientLawId } = req.body.searchData;
+
+//         if (!data || !clientLawId) {
+//             return res.status(400).json({ message: 'Требуются data и clientLawId' });
+//         }
+
+//         const search = await TrustedPersone.find({
+//             $and: [
+//                 {
+//                     name: {
+//                         $regex: new RegExp('^' + data + '.*', 'i')
+//                     }
+//                 },
+//                 {
+//                     organizationId: clientLawId
+//                 }
+//             ]
+//         })
+//         .limit(10)
+//         .exec();
+
+//         res.status(200).json(search);
+//     } catch (e) {
+//         errorHandler(res, e);
+//     }
+// };
+
+
+
+module.exports.searchTrustedPersone = async function (req, res) {
+    try {
+        const { data, clientLawId } = req.body.searchData;
+
+        if (!data || !clientLawId) {
+            return res.status(400).json({ message: 'Требуются data и clientLawId' });
+        }
+
+        const search = await TrustedPersone.find({
+            $and: [
+                {
+                    $or: [
+                        { name: { $regex: new RegExp(data, 'i') } },
+                        { surname: { $regex: new RegExp(data, 'i') } },
+                        { lastname: { $regex: new RegExp(data, 'i') } },
+                        { phone: { $regex: new RegExp(data, 'i') } },
+                        { email: { $regex: new RegExp(data, 'i') } } // если есть email
+                    ]
+                },
+                {
+                    organizationId: clientLawId
+                }
+            ]
+        })
+        .limit(10)
+        .exec();
+
+        res.status(200).json(search);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+};
+
+
