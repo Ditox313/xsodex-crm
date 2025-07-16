@@ -280,21 +280,6 @@ module.exports.getDogovorById = async function (req, res) {
 
 
 
-// Контроллер на поиск
-// module.exports.search = async function (req, res) {
-//     try {
-
-//         search = await ClientLaw.find({ name: { $regex: new RegExp('^' + req.body.searchData.data + '.*', 'i') } }).exec();
-//         search = search.slice(0, 10);
-
-//         res.status(200).json(search);
-//     } catch (e) {
-//         errorHandler(res, e);
-//         return;
-//     }
-
-// };
-
 
 module.exports.search = async function (req, res) {
     try {
@@ -406,25 +391,6 @@ module.exports.create_trusted_persone = async function (req, res) {
 
 
 
-
-
-
-
-// Получаем всех доверенных лиц
-// module.exports.getAllTrustedPersone = async function (req, res) {
-//     try {
-
-//         const trustedPersoneList = await TrustedPersone.find({}).sort({ date: -1 })
-//             .skip(+req.query.offset) //Отступ для бесконечного скрола на фронтенде. Приводим к числу
-//             .limit(+req.query.limit); //Сколько выводить на фронтенде. Приводим к числу
-
-//         // Возвращаем пользователю позиции 
-//         res.status(200).json(trustedPersoneList);
-//     } catch (e) {
-//         errorHandler(res, e);
-//         return;
-//     }
-// };
 
 // Получаем всех доверенных лиц по организации
 module.exports.getAllTrustedPersone = async function (req, res) {
@@ -539,3 +505,43 @@ module.exports.getCurrentTrustedPersone = async function (req, res) {
         return;
     }
 };
+
+
+
+
+
+// Контроллер для обновленеия доверенного лица
+module.exports.updateTrustedPersone = async function (req, res) {
+    try {
+
+        const updated = req.body;
+        const trustedPersone = await TrustedPersone.findOne({ _id: req.body._id });
+
+       
+         // Если есть загруженные файлы
+         if(req.files.files && req.files.files.length > 0)
+         {
+             const files = req.files.files.map(file => file.path);
+             updated.files = [...trustedPersone.files, ...files]
+         }
+      
+
+
+
+        // Находим и обновляем позицию. 
+        const trustedPersoneUpdate = await TrustedPersone.findOneAndUpdate({ _id: updated._id }, //Ищем по id
+            { $set: updated }, //Обновлять мы будем body запроса. В req.body находятся данные на которые будем менять старые
+            { new: true } //обновит позицию и верет нам уже обновленную
+        );
+
+        // Возвращаем пользователю обновленную позицию 
+        res.status(200).json(trustedPersoneUpdate);
+    } catch (e) {
+        errorHandler(res, e);
+        return;
+    }
+};
+
+
+
+

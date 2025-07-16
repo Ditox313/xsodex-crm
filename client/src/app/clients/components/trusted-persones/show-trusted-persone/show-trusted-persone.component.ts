@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { clientLawGetCurrent, clientLawGetCurrentReset, trustedPersoneGetCurrent, updateClientLawAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
+import { clientLawGetCurrent, clientLawGetCurrentReset, trustedPersoneGetCurrent, trustedPersoneGetCurrentReset, updateClientLawAction, updateTrustedPersoneAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
 import { getCurrentClientLawSelector, getCurrentTrustedPersoneSelector, isLoadingSelector } from 'src/app/clients/store/selectors/clientslaw/selectorsClientsLaw';
 import { ClientLaw, trustedPersone } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 
@@ -48,7 +48,7 @@ export class ShowTrustedPersoneComponent {
     }
 
     //Отчищаем состояние currentClientLaw
-    // this.store.dispatch(clientLawGetCurrentReset());
+    this.store.dispatch(trustedPersoneGetCurrentReset());
   }
 
 
@@ -153,7 +153,7 @@ export class ShowTrustedPersoneComponent {
     
 
 
-    // this.store.dispatch(updateClientLawAction({ clientLaw: clientLaw, files: this.uploadFiles }))
+    this.store.dispatch(updateTrustedPersoneAction({ trustedPersone: trustedPersone, files: this.uploadFiles }))
 
     //  Отчищаем загруженные файлы
    this.uploadFiles = []

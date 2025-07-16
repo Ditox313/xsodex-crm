@@ -236,4 +236,35 @@ export class ClientsLawService {
 
 
 
+
+
+  // Обновляем доверенное лицо
+  updateTrustedPersone(trustedPersone: trustedPersone,
+    files: any): Observable<trustedPersone> {
+    const fd = new FormData();
+      
+
+    fd.append('name', trustedPersone.name ? trustedPersone.name : '');
+    fd.append('lastname', trustedPersone.lastname ? trustedPersone.lastname : '');
+    fd.append('phone', trustedPersone.phone ? trustedPersone.phone : '');
+    fd.append('doverenostNumber', trustedPersone.doverenostNumber ? trustedPersone.doverenostNumber : '');
+    fd.append('organization', trustedPersone.organization ? trustedPersone.organization : '');
+    fd.append('doverenostDate', trustedPersone.doverenostDate ? trustedPersone.doverenostDate : '');
+    fd.append('organizationId', trustedPersone.organizationId ? trustedPersone.organizationId : '');
+
+
+
+    for (let i = 0; i < files.length; i++) {
+      fd.append('files', files[i], files[i].name);
+    }
+
+    if (trustedPersone._id) {
+      fd.append('_id', trustedPersone._id);
+    }
+
+
+    return this.http.patch<trustedPersone>(`/api/clientsLaw/update-trusted-persone/${trustedPersone._id}`, fd);
+   }
+
+
 }

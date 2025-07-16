@@ -556,21 +556,21 @@ export const trustedPersoneDeleteFailureAction = createAction(
 
 
 // Update State trusred persone
-// export const updateStateTrustedPersoneAction = createAction(
-//   ActionTypes.UPDATE_STATE_CLIENTS_LAW,
-// );
+export const updateStateTrustedPersoneAction = createAction(
+  ActionTypes.UPDATE_STATE_TRUSTED_PERSONE,
+);
 
 
-// export const updateStateTrustedPersoneSuccessAction = createAction(
-//   ActionTypes.UPDATE_STATE_CLIENTS_LAW_SUCCES,
-//   props<{ data: AppStateInterface }>()
-// );
+export const updateStateTrustedPersoneSuccessAction = createAction(
+  ActionTypes.UPDATE_STATE_TRUSTED_PERSONE_SUCCES,
+  props<{ data: AppStateInterface }>()
+);
 
 
-// export const updateStateTrustedPersoneFailureAction = createAction(
-//   ActionTypes.UPDATE_STATE_CLIENTS_LAW_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const updateStateTrustedPersoneFailureAction = createAction(
+  ActionTypes.UPDATE_STATE_TRUSTED_PERSONE_FAILURE,
+  props<{ errors: any }>()
+);
 
 
 
@@ -609,23 +609,23 @@ export const trustedPersoneGetCurrentReset = createAction(
 
 
 
-// Update trusred persone
-// export const updateTrustedPersoneAction = createAction(
-//   ActionTypes.UPDATE_CLIENT_LAW,
-//   props<{ clientLaw: ClientLaw, files?:Array<File> }>()
-// )
+// Обновляем доверенное лицо
+export const updateTrustedPersoneAction = createAction(
+  ActionTypes.UPDATE_TRUSTED_PERSONE,
+  props<{ trustedPersone: trustedPersone, files?:Array<File> }>()
+)
 
 
-// export const updateTrustedPersoneSuccessAction = createAction(
-//   ActionTypes.UPDATE_CLIENT_LAW_SUCCESS,
-//   props<{ data: ClientLaw }>()
-// );
+export const updateTrustedPersoneSuccessAction = createAction(
+  ActionTypes.UPDATE_TRUSTED_PERSONE_SUCCESS,
+  props<{ data: trustedPersone }>()
+);
 
 
 
 
-// export const updateTrustedPersoneFailureAction = createAction(
-//   ActionTypes.UPDATE_CLIENT_LAW_FAILURE,
-//   props<{ errors: any }>()
-// )
+export const updateTrustedPersoneFailureAction = createAction(
+  ActionTypes.UPDATE_TRUSTED_PERSONE_FAILURE,
+  props<{ errors: any }>()
+)
 

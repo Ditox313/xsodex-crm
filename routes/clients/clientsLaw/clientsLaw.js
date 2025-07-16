@@ -69,6 +69,11 @@ router.get('/get-current-trusted-persone/:id', passport.authenticate('jwt', { se
 
 
 
+// Роут на обновление доверенного лица
+router.patch('/update-trusted-persone/:id', passport.authenticate('jwt', { session: false }), upload.fields([{ name: 'files', maxCount: 10 }]), controller.updateTrustedPersone);
+
+
+
 
 
 
