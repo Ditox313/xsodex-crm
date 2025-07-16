@@ -1,18 +1,48 @@
 .add-dogovor-clientFiz {
     padding: 0 20px;
-    /* overflow: hidden; */
 }
 
+.checkedTrustedPersoneFront
+{
+    margin-left: 15px;
+    font-weight: 700;
+}
+
+
+.trustedPersones_table:hover
+{
+    background-color: #3B82F6 !important;
+    color: #fff !important;
+}
 
 .add-dogovor-clientFiz form>div {
     margin-bottom: 40px;
 }
 
-/* .add-act-booking
+.trustedPersone
 {
-    width: 1557px !important;
-    height: 2186px !important;
-} */
+    padding: 10px 40px 0 40px;
+    margin-bottom: 50px;
+}
+
+
+.trustedPersone fieldset
+{
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.trustedPersone fieldset label
+{
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+h2
+{
+    margin-bottom: 10px;
+}
 
 @page {
   size: A4;

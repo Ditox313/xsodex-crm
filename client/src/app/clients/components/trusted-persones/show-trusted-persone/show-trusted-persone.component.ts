@@ -134,7 +134,7 @@ export class ShowTrustedPersoneComponent {
      // Отчищаем загруженные файлы
     this.filesSrc = []
 
-      let fio = this.form.value.fio.split(' ');
+    let fio = this.form.value.fio.split(' ');
 
 
     const trustedPersone: trustedPersone = {

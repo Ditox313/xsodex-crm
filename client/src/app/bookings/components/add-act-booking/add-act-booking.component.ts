@@ -12,7 +12,7 @@ import { Smena } from 'src/app/smena/types/smena.interfaces';
 import { currentUserSelector } from 'src/app/account/store/selectors';
 import { isOpenedSmenaSelector } from 'src/app/smena/store/selectors';
 import { ClientFiz, ClientFizDogovorsParamsFetch, Dogovor } from 'src/app/clients/types/clientsFiz/clientsFiz.interfaces';
-import { ClientLaw } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
+import { ClientLaw, trustedPersone, TrustedPersoneParamsFetch } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
 import { convert as convertNumberToWordsRu } from 'number-to-words-ru'
 
 
@@ -40,6 +40,8 @@ import { clientsFizDogovorsListSelector } from 'src/app/clients/store/selectors/
 import { masterPriemGetCurrent, masterPriemGetCurrentReset } from 'src/app/personal/store/actions/masters-priem.action';
 import { MasterPriem } from 'src/app/personal/types/masters-priem.interfaces';
 import { getCurrentMasterPriemSelector } from 'src/app/personal/store/selectors';
+import { trustedPersonesListSelector } from 'src/app/clients/store/selectors/clientslaw/selectorsClientsLaw';
+import { trustedPersoneListAction, TrustedPersoneListResetAction } from 'src/app/clients/store/actions/actionsClientsLaw/clientsLaw.action';
 
 
 @Component({
@@ -123,6 +125,23 @@ export class AddActBookingComponent {
 
 
 
+
+  TrustedPersoneListSelector!: Observable<trustedPersone[] | null | undefined>
+  TrustedPersoneListSub$!: Subscription
+  TrustedPersoneList: trustedPersone[] | null | undefined = [];
+  
+
+
+  isVisibleTrustedPersonesModal: boolean = false
+  isTrustedPersoneCheck: boolean = false
+  isActDirectCheck: boolean = false
+  checkedTrustedPersone: trustedPersone | null | undefined
+  
+
+  
+
+
+
   constructor(public datePipe: DatePipe, private store: Store, private rote: ActivatedRoute, private rendererFactory: RendererFactory2) { 
     this.renderer = rendererFactory.createRenderer(null, null);
   }
@@ -134,7 +153,7 @@ export class AddActBookingComponent {
     this.initForm()
     this.getParams()
     this.initValues()
-   
+    
   }
 
 
@@ -181,6 +200,13 @@ export class AddActBookingComponent {
     if (this.settingsGlobalListSub$) {
       this.settingsGlobalListSub$.unsubscribe();
     }
+
+
+
+    if (this.TrustedPersoneListSub$) {
+      this.TrustedPersoneListSub$.unsubscribe();
+    }
+
   
  
 
@@ -195,6 +221,7 @@ export class AddActBookingComponent {
     this.store.dispatch(settingsAvtoparkListResetAction());
     this.store.dispatch(clientFizDogovorsListResetAction());
     this.store.dispatch(settingsGlobalListResetAction());
+    this.store.dispatch(TrustedPersoneListResetAction());
     
   }
 
@@ -214,9 +241,32 @@ export class AddActBookingComponent {
       place_start_price: new FormControl('',),
       place_end_price: new FormControl('',),
       additional_services_price: new FormControl('',),
+      act_direct: new FormControl('',),
+      trusted_persone: new FormControl('',),
     });
   }
 
+
+  act_direct(){
+    this.isActDirectCheck = ! this.isActDirectCheck
+  }
+
+
+  trusted_persone(){
+    this.isTrustedPersoneCheck = !this.isTrustedPersoneCheck
+
+    if(this.isTrustedPersoneCheck )
+    {
+      this.trustedPersonesModal()
+    }
+
+    if(!this.isTrustedPersoneCheck )
+    {
+      this.checkedTrustedPersone = null
+    }
+
+
+  }
 
 
 
@@ -232,6 +282,7 @@ export class AddActBookingComponent {
     this.store.dispatch(clientFizDogovorsListResetAction());
     this.store.dispatch(masterPriemGetCurrentReset());
     this.store.dispatch(settingsGlobalListResetAction());
+    this.store.dispatch(TrustedPersoneListResetAction());
 
 
     // Отправляем запрос на получения списка настроек глобальных
@@ -300,6 +351,13 @@ export class AddActBookingComponent {
     this.currentClientSub$ = this.currentClientSelector.subscribe({
       next: (currentClient) => {
         this.currentClient = currentClient
+
+        if(this.currentClient && this.currentClient._id)
+        {
+           this.getTrustedPersoneList()
+        }
+       
+        
       }
     })
 
@@ -382,8 +440,63 @@ export class AddActBookingComponent {
     });
 
 
+
+    // Получаем доверенных лиц
+    this.TrustedPersoneListSelector = this.store.pipe(select(trustedPersonesListSelector))
+    this.TrustedPersoneListSub$ = this.TrustedPersoneListSelector.subscribe({
+      next: (TrustedPersoneList) => {
+        if (TrustedPersoneList) {
+          this.TrustedPersoneList = TrustedPersoneList;
+
+          console.log('довq', this.TrustedPersoneList);
+          
+        }
+      }
+    });
+
+
     
   }
+
+
+
+  // Получаем доверенных лиц
+  getTrustedPersoneList() {
+    const params: TrustedPersoneParamsFetch = {
+      offset: this.offset,
+      limit: this.limit,
+      clientLawId: this.currentClient? this.currentClient._id : ''
+    };
+
+    // Отправляем запрос на получения списка физических лиц
+    this.store.dispatch(trustedPersoneListAction({ params: params }));
+  }
+
+
+
+
+  
+  // Регулируем видимость формы оплаты
+  trustedPersonesModal()
+  {
+    this.isVisibleTrustedPersonesModal = !this.isVisibleTrustedPersonesModal
+  }
+
+
+
+  // При выборе доверенного лица
+  trusted_persone_onchange(trustedPersone:trustedPersone)
+  {
+    this.checkedTrustedPersone = trustedPersone
+    this.trustedPersonesModal()
+  }
+
+
+
+
+  
+
+
 
 
 
