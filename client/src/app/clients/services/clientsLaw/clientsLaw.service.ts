@@ -228,6 +228,10 @@ export class ClientsLawService {
   }
 
 
+  // Получаем текущего доверенного лица
+  getCurrentTrustedPersone(id: string): Observable<trustedPersone> {
+    return this.http.get<trustedPersone>(`/api/clientsLaw/get-current-trusted-persone/${id}`);
+  }
 
 
 

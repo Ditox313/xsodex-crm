@@ -578,27 +578,27 @@ export const trustedPersoneDeleteFailureAction = createAction(
 
 
 
-// Get trusred persone Current
-// export const trustedPersoneGetCurrent = createAction(
-//   ActionTypes.CLIENT_LAW_GET_CURRENT,
-//   props<{ id: string }>()
-// );
+// Получаем доверенного лица
+export const trustedPersoneGetCurrent = createAction(
+  ActionTypes.TRUSTED_PERSONE_GET_CURRENT,
+  props<{ id: string }>()
+);
 
 
-// export const trustedPersoneGetCurrentSuccessAction = createAction(
-//   ActionTypes.CLIENT_LAW_GET_CURRENT_SUCCES,
-//   props<{ data: ClientLaw }>()
-// );
+export const trustedPersoneGetCurrentSuccessAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_GET_CURRENT_SUCCES,
+  props<{ data: trustedPersone }>()
+);
 
 
-// export const trustedPersoneGetCurrentFailureAction = createAction(
-//   ActionTypes.CLIENT_LAW_GET_CURRENT_FAILURE,
-//   props<{ errors: any }>()
-// );
+export const trustedPersoneGetCurrentFailureAction = createAction(
+  ActionTypes.TRUSTED_PERSONE_GET_CURRENT_FAILURE,
+  props<{ errors: any }>()
+);
 
-// export const trustedPersoneGetCurrentReset = createAction(
-//   ActionTypes.CLIENT_LAW_GET_CURRENT_RESET,
-// );
+export const trustedPersoneGetCurrentReset = createAction(
+  ActionTypes.TRUSTED_PERSONE_GET_CURRENT_RESET,
+);
 
 
 

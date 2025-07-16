@@ -46,6 +46,7 @@ import { UploadFileModule } from '../shared/modules/upload-file/upload-file.modu
 import { AddTrustedPersoneComponent } from './components/trusted-persones/add-trusted-persone/add-trusted-persone.component';
 import { getRoutesTrustedPersones } from './routes/trustedPersones/trustedPersones.route';
 import { ListTrustedPersoneComponent } from './components/trusted-persones/list-trusted-persone/list-trusted-persone.component';
+import { ShowTrustedPersoneComponent } from './components/trusted-persones/show-trusted-persone/show-trusted-persone.component';
 
 
 
@@ -73,6 +74,7 @@ import { ListTrustedPersoneComponent } from './components/trusted-persones/list-
     ListBookingsClientLawComponent,
     AddTrustedPersoneComponent,
     ListTrustedPersoneComponent,
+    ShowTrustedPersoneComponent,
   ],
   imports: [
     CommonModule,

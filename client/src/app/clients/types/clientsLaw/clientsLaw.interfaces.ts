@@ -44,6 +44,7 @@ export interface ClientLawStateInterface {
     noMoreTrustedPersoneList: boolean,
     noMoreClientsLawDogovorsList: boolean,
     currentClientLaw: ClientLaw | null | undefined | any,
+    currentTrustedPersone: trustedPersone | null | undefined | any,
     dogovorsList: Dogovor[] | null | undefined | any
     currentDogovorClientLaw: Dogovor | null | undefined | any,
     searchList?: ClientLaw[] | null | undefined | any,
@@ -106,6 +107,7 @@ export interface trustedPersone {
     name: string | null,
     surname: string | null,
     lastname: string | null,
+    files?: any | null
     phone: string | null,
     doverenostNumber: string | null,
     doverenostDate: string | null,

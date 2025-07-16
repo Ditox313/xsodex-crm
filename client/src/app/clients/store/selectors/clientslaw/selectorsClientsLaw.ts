@@ -100,4 +100,11 @@ export const trustedPersoneSearchSelector = createSelector(
 )
 
 
+export const getCurrentTrustedPersoneSelector = createSelector(
+    clientsLawFeatureSelector,
+    (state: ClientLawStateInterface) => state.currentTrustedPersone
+)
+
+
+
 

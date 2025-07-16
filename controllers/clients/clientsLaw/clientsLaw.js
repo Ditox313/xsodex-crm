@@ -489,14 +489,14 @@ module.exports.removeTrustedPersone = async function (req, res) {
 
 
 
-
+// Поиск по доверенному лицу
 module.exports.searchTrustedPersone = async function (req, res) {
     try {
         const { data, clientLawId } = req.body.searchData;
 
-        if (!data || !clientLawId) {
-            return res.status(400).json({ message: 'Требуются data и clientLawId' });
-        }
+        // if (!data || !clientLawId) {
+        //     return res.status(400).json({ message: 'Требуются data и clientLawId' });
+        // }
 
         const search = await TrustedPersone.find({
             $and: [
@@ -524,3 +524,18 @@ module.exports.searchTrustedPersone = async function (req, res) {
 };
 
 
+
+
+
+
+
+// Получаем текущее доверенное лицо 
+module.exports.getCurrentTrustedPersone = async function (req, res) {
+    try {
+        const trustedPersone = await TrustedPersone.findById(req.params.id); //Ищем категорию по id из переданных параметров
+        res.status(200).json(trustedPersone);
+    } catch (e) {
+        errorHandler(res, e);
+        return;
+    }
+};

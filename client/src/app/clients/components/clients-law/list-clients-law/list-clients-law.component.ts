@@ -125,7 +125,7 @@ export class ListClientsLawComponent {
 
 
   // Поиск физ.лица
-  search(e: any) {
+  searchClientLaw(e: any) {
     // Отчищаем запрос
     let query: string = e.target.value.trim()
 

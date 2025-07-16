@@ -3,7 +3,7 @@
 <loader *ngIf="isLoadingSelector | async"></loader>
 
 
-<div class="clientsFizList" *ngIf="TrustedPersoneList">
+<div class="trustedPersoneList" *ngIf="TrustedPersoneList">
     <div class="top_line">
 
         <div>
@@ -30,7 +30,7 @@
         </ng-template>
 
         <ng-template pTemplate="body" let-TrustedPersone>
-            <tr [routerLink]="['/show-client-fiz',TrustedPersone._id]">
+            <tr [routerLink]="['/show-trusted-persone',TrustedPersone._id]">
                 <td><strong>{{TrustedPersone.surname}} {{TrustedPersone.name}} {{TrustedPersone.lastname}}</strong></td>
                 <td>{{TrustedPersone.phone}}</td>
                 <td style="cursor: pointer; text-align: center;" (click)="onDeleteTrustedPerson($event, TrustedPersone)"><i

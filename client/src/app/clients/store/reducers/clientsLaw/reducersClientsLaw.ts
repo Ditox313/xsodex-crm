@@ -1,6 +1,6 @@
 import {createReducer, on, Action} from '@ngrx/store'
 import { ClientLawStateInterface } from 'src/app/clients/types/clientsLaw/clientsLaw.interfaces';
-import { actsListForClientLawAction, actsListForClientLawFailureAction, actsListForClientLawResetAction, actsListForClientLawSuccessAction, addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, addTrustedPersoneAction, addTrustedPersoneFailureAction, addTrustedPersoneSuccessAction, bookingsListForClientLawAction, bookingsListForClientLawFailureAction, bookingsListForClientLawResetAction, bookingsListForClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawDogovorDeleteAction, clientLawDogovorDeleteFailureAction, clientLawDogovorDeleteSuccessAction, clientLawDogovorGetCurrent, clientLawDogovorGetCurrentFailureAction, clientLawDogovorGetCurrentReset, clientLawDogovorGetCurrentSuccessAction, clientLawDogovorsListAction, clientLawDogovorsListFailureAction, clientLawDogovorsListResetAction, clientLawDogovorsListSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentReset, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListResetAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchResetAction, clientsLawSearchSuccessAction, noMoreActsListClientLawAction, noMoreActsListClientLawFalseAction, noMoreActsListClientLawTrueAction, noMoreClientLawDogovorsListAction, noMoreClientLawDogovorsListFalseAction, noMoreClientLawDogovorsListTrueAction, noMoreClientsLawListAction, noMoreClientsLawListFalseAction, noMoreClientsLawListTrueAction, noMoreTrustedPersoneListAction, noMoreTrustedPersoneListFalseAction, noMoreTrustedPersoneListTrueAction, trustedPersoneDeleteAction, trustedPersoneDeleteFailureAction, trustedPersoneDeleteSuccessAction, trustedPersoneListAction, trustedPersoneListFailureAction, TrustedPersoneListResetAction, trustedPersoneListSuccessAction, trustedPersoneSearchAction, trustedPersoneSearchFailureAction, trustedPersoneSearchResetAction, trustedPersoneSearchSuccessAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action';
+import { actsListForClientLawAction, actsListForClientLawFailureAction, actsListForClientLawResetAction, actsListForClientLawSuccessAction, addClientLawAction, addClientLawFailureAction, addClientLawSuccessAction, addTrustedPersoneAction, addTrustedPersoneFailureAction, addTrustedPersoneSuccessAction, bookingsListForClientLawAction, bookingsListForClientLawFailureAction, bookingsListForClientLawResetAction, bookingsListForClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawDogovorDeleteAction, clientLawDogovorDeleteFailureAction, clientLawDogovorDeleteSuccessAction, clientLawDogovorGetCurrent, clientLawDogovorGetCurrentFailureAction, clientLawDogovorGetCurrentReset, clientLawDogovorGetCurrentSuccessAction, clientLawDogovorsListAction, clientLawDogovorsListFailureAction, clientLawDogovorsListResetAction, clientLawDogovorsListSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentReset, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListResetAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchResetAction, clientsLawSearchSuccessAction, noMoreActsListClientLawAction, noMoreActsListClientLawFalseAction, noMoreActsListClientLawTrueAction, noMoreClientLawDogovorsListAction, noMoreClientLawDogovorsListFalseAction, noMoreClientLawDogovorsListTrueAction, noMoreClientsLawListAction, noMoreClientsLawListFalseAction, noMoreClientsLawListTrueAction, noMoreTrustedPersoneListAction, noMoreTrustedPersoneListFalseAction, noMoreTrustedPersoneListTrueAction, trustedPersoneDeleteAction, trustedPersoneDeleteFailureAction, trustedPersoneDeleteSuccessAction, trustedPersoneGetCurrent, trustedPersoneGetCurrentFailureAction, trustedPersoneGetCurrentReset, trustedPersoneGetCurrentSuccessAction, trustedPersoneListAction, trustedPersoneListFailureAction, TrustedPersoneListResetAction, trustedPersoneListSuccessAction, trustedPersoneSearchAction, trustedPersoneSearchFailureAction, trustedPersoneSearchResetAction, trustedPersoneSearchSuccessAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action';
 
 
 
@@ -18,6 +18,7 @@ const initialState: ClientLawStateInterface = {
   noMoreClientsLawList: true,
   noMoreTrustedPersoneList: true,
   currentClientLaw: null,
+  currentTrustedPersone: null,
   dogovorsList: null,
   noMoreClientsLawDogovorsList: true,
   currentDogovorClientLaw: null,
@@ -746,6 +747,51 @@ const clientsLawReducer = createReducer(
       // currentClientLaw: null,
     })
   ),
+
+
+
+
+
+
+
+
+
+
+  // Получаем доверенное лицо
+  on(
+    trustedPersoneGetCurrent,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: null,
+      isLoading: true
+    })
+  ),
+
+  on(
+    trustedPersoneGetCurrentSuccessAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      isLoading: false,
+      validationErrors: null,
+      currentTrustedPersone: action.data
+    })
+  ),
+  on(
+    trustedPersoneGetCurrentFailureAction,
+    (state, action): ClientLawStateInterface => ({
+      ...state,
+      validationErrors: action.errors,
+      isLoading: false,
+    })
+  ),
+  on(
+    trustedPersoneGetCurrentReset,
+    (state): ClientLawStateInterface => ({
+      ...state,
+      currentTrustedPersone: null
+    })
+  ),
+
 
 
 

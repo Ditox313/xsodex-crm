@@ -6,7 +6,7 @@ import { MessageService } from 'primeng/api'
 import {of} from 'rxjs'
 import {Router} from '@angular/router'
 import { ClientsLawService } from 'src/app/clients/services/clientsLaw/clientsLaw.service'
-import { actsListForClientLawAction, actsListForClientLawFailureAction, actsListForClientLawSuccessAction, addClientLawAction, addClientLawDogovorAction, addClientLawDogovorActionFromBooking, addClientLawDogovorFailureAction, addClientLawDogovorSuccessAction, addClientLawFailureAction, addClientLawSuccessAction, addTrustedPersoneAction, addTrustedPersoneFailureAction, addTrustedPersoneSuccessAction, bookingsListForClientLawAction, bookingsListForClientLawFailureAction, bookingsListForClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawDogovorDeleteAction, clientLawDogovorDeleteFailureAction, clientLawDogovorDeleteSuccessAction, clientLawDogovorGetCurrent, clientLawDogovorGetCurrentFailureAction, clientLawDogovorGetCurrentSuccessAction, clientLawDogovorsListAction, clientLawDogovorsListFailureAction, clientLawDogovorsListSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreActsListClientLawAction, noMoreClientLawDogovorsListAction, noMoreClientsLawListAction, noMoreTrustedPersoneListAction, trustedPersoneDeleteAction, trustedPersoneDeleteFailureAction, trustedPersoneDeleteSuccessAction, trustedPersoneListAction, trustedPersoneListFailureAction, trustedPersoneListSuccessAction, trustedPersoneSearchAction, trustedPersoneSearchFailureAction, trustedPersoneSearchSuccessAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
+import { actsListForClientLawAction, actsListForClientLawFailureAction, actsListForClientLawSuccessAction, addClientLawAction, addClientLawDogovorAction, addClientLawDogovorActionFromBooking, addClientLawDogovorFailureAction, addClientLawDogovorSuccessAction, addClientLawFailureAction, addClientLawSuccessAction, addTrustedPersoneAction, addTrustedPersoneFailureAction, addTrustedPersoneSuccessAction, bookingsListForClientLawAction, bookingsListForClientLawFailureAction, bookingsListForClientLawSuccessAction, clientLawDeleteAction, clientLawDeleteFailureAction, clientLawDeleteSuccessAction, clientLawDogovorDeleteAction, clientLawDogovorDeleteFailureAction, clientLawDogovorDeleteSuccessAction, clientLawDogovorGetCurrent, clientLawDogovorGetCurrentFailureAction, clientLawDogovorGetCurrentSuccessAction, clientLawDogovorsListAction, clientLawDogovorsListFailureAction, clientLawDogovorsListSuccessAction, clientLawGetCurrent, clientLawGetCurrentFailureAction, clientLawGetCurrentSuccessAction, clientsLawListAction, clientsLawListFailureAction, clientsLawListSuccessAction, clientsLawSearchAction, clientsLawSearchFailureAction, clientsLawSearchSuccessAction, noMoreActsListClientLawAction, noMoreClientLawDogovorsListAction, noMoreClientsLawListAction, noMoreTrustedPersoneListAction, trustedPersoneDeleteAction, trustedPersoneDeleteFailureAction, trustedPersoneDeleteSuccessAction, trustedPersoneGetCurrent, trustedPersoneGetCurrentFailureAction, trustedPersoneGetCurrentSuccessAction, trustedPersoneListAction, trustedPersoneListFailureAction, trustedPersoneListSuccessAction, trustedPersoneSearchAction, trustedPersoneSearchFailureAction, trustedPersoneSearchSuccessAction, updateClientLawAction, updateClientLawFailureAction, updateClientLawSuccessAction, updateStateClientsLawAction, updateStateClientsLawFailureAction, updateStateClientsLawSuccessAction } from '../../actions/actionsClientsLaw/clientsLaw.action'
 
 
 
@@ -314,8 +314,8 @@ export class ClientsLawEffect {
       ofType(clientsLawSearchAction),
       concatMap((searchData) => {
         return this.clientsLaw.search({ searchData }).pipe(
-          concatMap((clientsFizList) => {
-            return of(clientsLawSearchSuccessAction({ data: clientsFizList }));
+          concatMap((clientsLawList) => {
+            return of(clientsLawSearchSuccessAction({ data: clientsLawList }));
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
@@ -485,6 +485,31 @@ export class ClientsLawEffect {
       })
     )
   );
+
+
+
+
+
+
+  // Получение текущего доверенного лица
+  getTrustedPersoneCurrent$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(trustedPersoneGetCurrent),
+      switchMap((id) => {
+        return this.clientsLaw.getCurrentTrustedPersone(id.id).pipe(
+          map((trustedPersone) => {
+            return trustedPersoneGetCurrentSuccessAction({ data: trustedPersone });
+          }),
+          catchError((errorResponse: HttpErrorResponse) => {
+            return of(
+              trustedPersoneGetCurrentFailureAction({ errors: errorResponse.error.errors })
+            );
+          })
+        );
+      })
+    )
+  );
+
 
 
 

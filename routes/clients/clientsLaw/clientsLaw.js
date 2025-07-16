@@ -64,6 +64,8 @@ router.delete('/trusted-persone-remove/:id', passport.authenticate('jwt', { sess
 router.post('/search-trusted-persone', passport.authenticate('jwt', { session: false }), controller.searchTrustedPersone);
 
 
+// Роут на получение доверенного лица по Id
+router.get('/get-current-trusted-persone/:id', passport.authenticate('jwt', { session: false }), controller.getCurrentTrustedPersone);
 
 
 

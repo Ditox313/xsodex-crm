@@ -4,11 +4,11 @@
 
 
 
-<div class="add-trusted-persone">
+<div class="show-trusted-persone">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div>
-            <div class="add-trusted-persone-inputs">
-                    <fieldset>
+            <div class="show_trusted-persone_inputs">
+                  <fieldset>
                         <label htmlFor="fio">ФИО</label>
                         <input pInputText id="fio" formControlName="fio" placeholder="Введите ФИО"
                             [ngClass]="{'ng-invalid ng-dirty': form.controls['fio'].invalid && form.controls['fio'].touched}"
@@ -64,19 +64,25 @@
                     </fieldset>
 
 
-              
+               
             </div>
 
-            <div >
-                <app-upload-file 
-                (dataUpload)="uploadFilesData($event)"
-                [filesSrcRes]="this.filesSrc"  
-                [typePost]="'clientLaw'"
-                ></app-upload-file>
+            <div *ngIf="currentTrustedPersone">
+                <div [ngClass]="{'no_active': !this.edit}">
+                    <app-upload-file 
+                    [initialFilesSrc]="this.currentTrustedPersone.files"  
+                    [filesSrcRes]="this.filesSrc"  
+                    [postId]="this.currentTrustedPersone._id"  
+                    [typePost]="'clientLaw'"  
+                    (dataUpload)="uploadFilesData($event)"></app-upload-file>
+                </div>
             </div>
         </div>
 
-        <!-- <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button> -->
-        <button type="submit" class="submit" ><i class="pi pi-check"></i> Сохранить</button>
+        <button type="submit" class="submit" [disabled]="form.invalid"><i class="pi pi-check"></i> Сохранить</button>
     </form>
+
+    <div class="edit" (click)="initEdit()" [ngClass]="{edit_active: edit}">
+        <p-button icon="pi pi-pencil" styleClass="p-button-sm"></p-button>
+    </div>
 </div>

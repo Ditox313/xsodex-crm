@@ -4,6 +4,7 @@ import { AppLayoutComponent } from "src/app/shared/modules/layouts/components/ap
 import { AuthGuard } from "../../../shared/guards/auth.guard";
 import { ListTrustedPersoneComponent } from "../../components/trusted-persones/list-trusted-persone/list-trusted-persone.component";
 import { AddTrustedPersoneComponent } from "../../components/trusted-persones/add-trusted-persone/add-trusted-persone.component";
+import { ShowTrustedPersoneComponent } from "../../components/trusted-persones/show-trusted-persone/show-trusted-persone.component";
 
 
 
@@ -28,6 +29,10 @@ export function getRoutesTrustedPersones(): Route[] {
                 {
                     path: 'list-trusted-persones/:id',
                     component: ListTrustedPersoneComponent,
+                },
+                {
+                    path: 'show-trusted-persone/:id', 
+                    component: ShowTrustedPersoneComponent,
                 },
                 // {
                 //     path: 'trusted-persones-all',
