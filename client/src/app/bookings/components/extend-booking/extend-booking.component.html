@@ -132,6 +132,14 @@
                     </div>
 
                     <div>
+                        <span>Наценка:</span>
+                        <span class="booking_info_element">
+                            {{ this.form.value.extra }} руб
+                        </span>
+                    </div>
+                    
+
+                    <div>
                         <span>Залог в кассе:</span>
                         <span class="booking_info_element">
                             {{this.currentBooking?.zalog}} руб
@@ -226,6 +234,12 @@
             <fieldset>
                 <label htmlFor="sale">Скидка</label>
                 <input pInputText id="sale" formControlName="sale" placeholder="Введите скидку"  (ngModelChange)="checkedSale($event)"/>
+            </fieldset>
+
+            <fieldset>
+                <label htmlFor="extra">Наценка</label>
+                <input pInputText id="extra" formControlName="extra" placeholder="Введите наценку"
+                        (ngModelChange)="checkedExtra($event)" />
             </fieldset>
 
             <fieldset>
