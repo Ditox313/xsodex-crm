@@ -1,6 +1,7 @@
 /* Основные стили для контейнера */
 .pays_list {
     padding: 0 20px;
+    margin-top: 80px;
 }
 
 /* Стили для заголовков таблицы */
@@ -55,7 +56,6 @@
 
 /* Дополнительные стили для таблицы */
 .xs_striped {
-    margin-top: 50px;
     margin-bottom: 30px;
     width: 100%;
     table-layout: fixed;
@@ -74,4 +74,37 @@ ngx-charts-bar-vertical {
     width: 100%;
     height: 400px;
     margin: 20px auto;
-  }
+}
+
+
+.date-filters
+{
+    padding: 0 20px;
+}
+
+.date-filters input
+{
+    padding: 5px;
+}
+
+.date-filters label:first-child
+{
+    margin-right: 20px;
+}
+
+.pays_list_info h2 span
+{
+    font-weight: 900;
+}
+
+.reset
+{
+    display: inline-block;
+    margin-left: 40px;
+    padding: 8px 8px;
+    color: #fff;
+    background-color: #194A9E;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
