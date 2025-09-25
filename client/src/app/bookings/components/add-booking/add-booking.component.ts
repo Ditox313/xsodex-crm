@@ -87,6 +87,10 @@ export class AddBookingComponent {
     zalog: 0,
     sale_check: false,
     sale_value: '0',
+
+    overprice_check: false,
+    overprice_value: '0',
+
     custome_zalog: false,
     place_start: '',
     place_start_price: 0,
@@ -231,6 +235,8 @@ export class AddBookingComponent {
       comment: new FormControl('',),
       sale_check: new FormControl(''),
       sale_value: new FormControl(''),
+      overprice_check: new FormControl(''),
+      overprice_value: new FormControl(''),
       firma: new FormControl(''),
     });
   }
@@ -1482,7 +1488,25 @@ tarifMixedMejgorodDays(e: any) {
 
 
 
+  // NEW: Чекбокс для наценки
+  bookingOverpriceCheck() {
+    this.booking.overprice_check = !this.booking.overprice_check;
+    this.booking.overprice_value = '0';
+    this.form.controls['overprice_value'].reset();
+  }
+
+  // NEW: Значение для наценки
+  bookingOverpriceValue(e: any) {
+    this.booking.overprice_value = e.target.value;
+  }
+
+
+
+
+
   onSubmit() {
+    // Расчет наценки
+    const overpriceValue = +(this.form.value.overprice_value || 0);
 
     const booking: Booking = {
       extends: [],
@@ -1499,11 +1523,14 @@ tarifMixedMejgorodDays(e: any) {
         smenaIdClose: '',
         userIdClose: ''
       },
+
       openInfo: {
         userIdOpen: this.currentUser?._id,
         smenaIdOpen: this.currentSmema?._id,
-        saleOnOpen: +this.form.value.sale_value
+        saleOnOpen: +this.form.value.sale_value,
+        overpriceOnOpen: +this.form.value.overprice_value
       },
+
       booking_start: this.booking.booking_start,
       booking_end: this.booking.booking_end,
       booking_days: this.booking.tarif[0].booking_days + this.booking.tarif[1].booking_days + this.booking.tarif[2].booking_days,
@@ -1514,6 +1541,7 @@ tarifMixedMejgorodDays(e: any) {
         number: this.booking.car?.number,
         category: this.booking.car?.category,
       },
+
       tarif: this.booking.tarif,
       tarifCheked: this.booking.tarifCheked,
       zalog: this.booking.zalog,
@@ -1522,18 +1550,19 @@ tarifMixedMejgorodDays(e: any) {
       place_start_price: this.booking.place_start_price,
       place_end: this.booking.place_end,
       place_end_price: this.booking.place_end_price,
-      arenda: this.booking.arenda  - +this.form.value.sale_value,
+      arenda: this.booking.arenda  - +this.form.value.sale_value + overpriceValue,
       custome_place_start: this.booking.custome_place_start,
       custome_place_end: this.booking.custome_place_end,
       custome_zalog: this.booking.custome_zalog,
       additional_services: this.booking.additional_services,
       additional_services_price: this.booking.additional_services_price,
       smenaId: this.currentSmema?._id,
-      summaFull: this.booking.arenda + this.booking.zalog + this.booking.place_start_price + this.booking.place_end_price + this.booking.additional_services_price - +this.form.value.sale_value,
+      summaFull: this.booking.arenda + this.booking.zalog + this.booking.place_start_price + this.booking.place_end_price + this.booking.additional_services_price - +this.form.value.sale_value + overpriceValue,
       paidCount: 0 ,
       comment: this.form.value.comment,
       status: 'В ожидании',
       sale: 0 +  +this.form.value.sale_value,
+      overprice: 0 + overpriceValue,
       act: '',
       masterPriem: this.booking.masterPriem,
       userId: this.currentUser?._id,

@@ -309,3 +309,26 @@ h4
     font-size: 14px;
     padding: 7px;
 }
+
+
+
+
+.booking_overprice input
+{
+    margin: 0;
+    width: 150px;
+    font-size: 14px;
+    padding: 7px;
+}
+
+
+
+
+.booking_overprice label
+{
+    font-size: 16px;
+    color: #fff;
+    transition: all 0.3s;
+    display: inline-block;
+    margin-right: 10px;
+}

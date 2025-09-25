@@ -76,6 +76,7 @@ export class BookingsService {
     // Статус и скидка
     fd.append('status', booking.status || '');
     fd.append('sale', (booking.sale || 0).toString());
+    fd.append('overprice', (booking.overprice || 0).toString());
   
     // Мастер приемщик
     fd.append('masterPriem', JSON.stringify(booking.masterPriem || {}));

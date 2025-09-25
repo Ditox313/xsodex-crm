@@ -50,6 +50,7 @@ module.exports.create = async function (req, res) {
             comment: req.body.comment,
             status: req.body.status,
             sale: req.body.sale,
+            overprice: req.body.overprice,
             act: req.body.act,
             masterPriem: req.body.masterPriem,
             userId: req.body.userId,

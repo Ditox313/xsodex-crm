@@ -212,6 +212,12 @@ const bookingSchema = new Schema({
         required: true,
     },
 
+    overprice: {
+        type: Number,
+        default: '0',
+        required: false,
+    },
+
 
     userId: {
         type: String,
